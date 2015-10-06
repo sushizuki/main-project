@@ -37,15 +37,8 @@
 		<div class="container">
 			<div class="menuextras">
 				<div class="extras">
-					<ul>
-						<li class="shopping-cart-items"><i
-							class="glyphicon glyphicon-shopping-cart icon-white"></i> <a
-							href="page-shopping-cart.html"><b>3 items</b></a></li>
-						<li></li>
-						<li><a href="adm/login.html">Login</a></li>
-					</ul>
 				</div>
-			</div>
+			</div> 
 			<nav id="mainmenu" class="mainmenu">
 				<ul>
 					<li class="logo-wrapper"><a href="index.jsp"><img
