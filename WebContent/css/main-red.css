@@ -2,7 +2,6 @@
 	General Style
 --------------------------------------------------------------------------*/
 body {
-  background: url(../img/page-background.png);
 }
 .section {
   padding: 30px 0;
@@ -11,6 +10,13 @@ body {
   -o-transform: translateZ(0);
   -ms-transform: translateZ(0);
   transform: translateZ(0);
+}
+.bg-orange {	
+  background: #E93B26;
+  color:#f0f0f0;
+  -webkit-box-shadow: 0 -1px 12px rgba(0,0,0,0.4);
+  -moz-box-shadow: 0 -1px 12px rgba(0,0,0,0.4);
+  box-shadow: 0 -1px 12px rgba(0,0,0,0.4);
 }
 .section-white {
   background: #FFF;
@@ -387,6 +393,7 @@ a:hover {
   text-align: center;
 }
 .calltoaction-wrapper h3 {
+  color:white;
   display: inline-block;
   line-height: 36px;
   margin-right: 10px;
@@ -1689,12 +1696,9 @@ span.color-red {
 +	Breadcrumbs Section Style
 --------------------------------------------------------------------------*/
 .section-breadcrumbs {
-  background: #222;
-  background: rgba(34, 34, 34, 0.8);
   margin-bottom: 10px;
 }
 .section-breadcrumbs h1 {
-  color: #FAFAFA;
   font-size: 1.6em;
   margin-bottom: 0;
   text-transform: none;
@@ -1704,7 +1708,7 @@ span.color-red {
 --------------------------------------------------------------------------*/
 .footer {
   background: #222;
-  color: #A0A0A0;
+  color: #DfDfDf;
   padding: 0 20px 10px 20px;
   border-top: 4px solid #e74c3c;
   margin-top: 20px;
@@ -1714,9 +1718,9 @@ span.color-red {
   color: 0 -1px 12px rgba(0,0,0,0.4);
 }
 .footer h3 {
-  color: #E4E4E4;
+  color: #E2E2E2;
   font-size: 1.3em;
-  border-bottom: 1px dotted #7C7C7C;
+  border-bottom: 1px dotted #7C7C7C;  
 }
 .footer ul {
   padding: 0;
@@ -1761,6 +1765,7 @@ span.color-red {
   text-align: center;
   color: #7C7C7C;
   border-top: 1px dotted #7C7C7C;
+  margin-top:10px;
   padding-top: 10px;
   font-size: 0.9em;
 }
@@ -2368,11 +2373,11 @@ span.color-red {
   border-right: 1px solid #E8E8E8;
   padding-left: 0;
   padding-top: 0;
-  padding-bottom: 0;
+  padding-bottom: 7px;
 }
 .mainmenu-wrapper {
   background-color: #FFF;
-  border-bottom: 4px solid #e74c3c;
+  border-bottom: 3px solid #e74c3c;
   z-index: 4;
 }
 .mainmenu {
