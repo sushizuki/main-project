@@ -38,11 +38,13 @@
 			<div class="menuextras">
 				<div class="extras">
 					<ul>
+						<!-- Para quando estiver logado 
 						<li class="shopping-cart-items"><i
 							class="glyphicon glyphicon-shopping-cart icon-white"></i> <a
 							href="page-shopping-cart.html"><b>3 items</b></a></li>
-						<li></li>
-						<li><a href="login.jsp">Login</a></li>
+						-->
+						<li><a href="login.jsp">Entrar</a></li>
+						<li><a href=#>Cadastrar</a></li>
 					</ul>
 				</div>
 			</div>
@@ -66,16 +68,16 @@
 				<!-- Slide 2 -->
 				<li class="bg2">
 					<!-- Slide Title -->
-					<h2 class="title">Sushis</h2> <!-- Slide Text -->
-					<h3 class="subtitle">blabla</h3> <!-- Slide Image -->
+					<h2 class="title">Sushi</h2> <!-- Slide Text -->
+					<h3 class="subtitle">De Salmão, Kani e muito mais</h3> <!-- Slide Image -->
 
 				</li>
 				<!-- End Slide 2 -->
 				<!-- Slide 3 -->
 				<li class="bg1">
 					<!-- Slide Title -->
-					<h2 class="title">Sashimis</h2> <!-- Slide Text -->
-					<h3 class="subtitle">blublu</h3> <!-- Slide Image -->
+					<h2 class="title">Sashimi</h2> <!-- Slide Text -->
+					<h3 class="subtitle">De Salmão</h3> <!-- Slide Image -->
 				</li>
 				<!-- End Slide 3 -->
 			</ul>
