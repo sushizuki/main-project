@@ -17,6 +17,7 @@ public class UserController extends HttpServlet {
 		HttpServletResponse response) throws ServletException, IOException {
 		
 <<<<<<< HEAD
+<<<<<<< HEAD
 		//Process login
 		//Get form data then try to log in as client, redirect to main page
 		//if not able to log as client, try log in as adm
@@ -24,6 +25,8 @@ public class UserController extends HttpServlet {
 		//if adm		
 		response.sendRedirect("adm/dashboard.jsp");
 =======
+=======
+>>>>>>> 84cd74848193cd24741f8e16c4002fca0fed7269
 		PrintWriter out = response.getWriter();
 		out.println("<html>");
 		out.println("<head>");
@@ -33,6 +36,9 @@ public class UserController extends HttpServlet {
 		out.println("<h1>Oi mundo Servlet!</h1>");
 		out.println("</body>");
 		out.println("</html>");
+<<<<<<< HEAD
+>>>>>>> 84cd74848193cd24741f8e16c4002fca0fed7269
+=======
 >>>>>>> 84cd74848193cd24741f8e16c4002fca0fed7269
 	}
 }
