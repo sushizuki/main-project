@@ -3,11 +3,26 @@ package domain;
 public class Product {
 
 	private int id;
-	private double price;
-	private String description;
 	private String name;
+	private String description;
+	private double price;
 	private String imgUrl;
 	
+	public Product(int id, String name, String description, double price, String imgUrl) {
+		this.setId(id);
+		this.setName(name);
+		this.setDescription(description);
+		this.setPrice(price);
+		this.setImgUrl(imgUrl);
+	}
+	
+	public Product(String name, String description, double price, String imgUrl) {
+		this.setName(name);
+		this.setDescription(description);
+		this.setPrice(price);
+		this.setImgUrl(imgUrl);
+	}
+
 	public int getId() {
 		return id;
 	}
