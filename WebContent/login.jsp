@@ -8,7 +8,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>Sushizuki</title>
+<title>Sushizuki - Login</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width">
 
@@ -68,7 +68,7 @@
 			<div class="row">
 				<div class="col-sm-5">
 					<div class="basic-login">
-						<form role="form" role="form">
+						<form role="form" role="form" action="login">
 							<div class="form-group">
 								<label for="login-username"><i class="icon-user"></i> <b>Email</b></label>
 								<input class="form-control" id="login-username" type="text" placeholder="">

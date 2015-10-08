@@ -4,7 +4,7 @@
 <meta http-equiv="refresh" content="0;url=pages/login.html">
 <title>Sushizuki</title>
 <script language="javascript">
-    window.location.href = "pages/login.html"
+    window.location.href = "login.html"
 </script>
 </head>
 <body>
