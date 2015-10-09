@@ -8,6 +8,10 @@ public class User {
 	private String password;
 	private String phone;
 	
+	public User(String name2, String email2, String address2, String password2, String phone2) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getId() {
 		return id;
 	}
