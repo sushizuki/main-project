@@ -22,6 +22,10 @@ public class Product {
 		this.setPrice(price);
 		this.setImgUrl(imgUrl);
 	}
+	
+	public Product(){
+		
+	}
 
 	public int getId() {
 		return id;

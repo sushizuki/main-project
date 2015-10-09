@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<%@page import="controller.ProductController"%>
+<%@page import="domain.Product"%>
+<%@page import="java.util.ArrayList"%>
 <html lang="en">
 
 <head>
@@ -17,15 +20,15 @@
     <!-- MetisMenu CSS -->
     <link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
 
-    <!-- Timeline CSS -->
-    <link href="../dist/css/timeline.css" rel="stylesheet">
+    <!-- DataTables CSS -->
+    <link href="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="../bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
-
-    <!-- Morris Charts CSS -->
-    <link href="../bower_components/morrisjs/morris.css" rel="stylesheet">
-
+    
     <!-- Custom Fonts -->
     <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
@@ -83,7 +86,7 @@
                             <a href="#"><i class="fa fa-envelope fa-fw"></i> Mensagens</a>
                         </li>
                         <li>
-                            <a href="tables.html"><i class="fa fa-cutlery fa-fw"></i> Produtos</a>
+                            <a href="products.jsp"><i class="fa fa-cutlery fa-fw"></i> Produtos</a>
                         </li>
                         <li>
                             <a href="forms.html"><i class="fa fa-gear fa-fw"></i> Administrador</a>
@@ -98,60 +101,74 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Bem-vindo.</h1>
+                    <h1 class="page-header">Produtos</h1>   
+                    <div class="form-group">                 
+                    	<a class="btn btn-primary" href="create-product.jsp">Cadastrar novo produto</a>  
+                    </div>                  
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
             <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-primary">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-shopping-cart fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">26</div>
-                                    <div>Novos Pedidos!</div>
-                                </div>
-                            </div>
+                            Lista de produtos cadastrados
                         </div>
-                        <a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">Ver Detalhes</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>Descrição</th>
+                                            <th>Preço</th>
+                                            <th class="center">Imagem</th>
+                                            <th class="center">Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    	<%
+											ArrayList<Product> products = ProductController.getList();
+                                    		int i = 0;
+											for (Product product : products ) {
+										%>
+                                        <tr class="<%= i%2==0?"odd":"even"%>">
+                                            <td><%=product.getName()%></td>
+                                            <td><%=product.getDescription()%></td>
+                                            <td><div style="width:100px;"><%=product.getPrice()%></div></td>
+                                            <td class="center">
+                                            	<div style="width:100px;">
+                                            		<button type="button" class="btn btn-outline btn-primary btn-xs">Ver</button>
+                                            	</div>
+                                            </td>
+                                            <td class="center">
+                                            	<div style="width:100px;">
+                                					<button type="button" class="btn btn-outline btn-primary btn-xs">Editar</button>
+                                                	<button type="button" class="btn btn-outline btn-primary btn-xs">Excluir</button>
+                                                </div>
+											</td>
+                                        </tr>
+                                        <%
+                                        	i++;
+											}
+                                        %>                                        
+                                    </tbody>
+                                </table>
                             </div>
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-red">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-comments fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">124</div>
-                                    <div>Novas Mensagens!</div>
-                                </div>
-                            </div>
+                            <!-- /.table-responsive -->
                         </div>
-                        <a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">Ver Detalhes</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
+                        <!-- /.panel-body -->
                     </div>
-                </div>
-                
-            </div>
-            <!-- /.row -->
+                    <!-- /.panel -->
+	            </div>
+	            <!-- /.row -->
+	        </div>
+	        <!-- /#page-wrapper -->
+	
+	    </div>
+	    <!-- /#wrapper -->
     </div>
 
     <!-- jQuery -->
@@ -163,13 +180,28 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
-    <!-- Morris Charts JavaScript -->
-    <script src="../bower_components/raphael/raphael-min.js"></script>
-    <script src="../bower_components/morrisjs/morris.min.js"></script>
-    <script src="../js/morris-data.js"></script>
+    <!-- DataTables JavaScript -->
+    <script src="../bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
+
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script>
+    $(document).ready(function() {
+        
+        $('#dataTables-example').dataTable( {
+        	  "columns": [
+        	    null,
+        	    null,
+        	    null,
+        	    { "orderable": false },
+        	    { "orderable": false }
+        	  ]
+        	} );
+    });
+    </script>
 
 </body>
 

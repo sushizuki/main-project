@@ -45,7 +45,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><img src="../../img/sushi/sushizuki-logo.png" style="width:100px;" alt="Sushizuki" /></a>
+                <a class="navbar-brand" href="dashboard.jsp"><img src="../img/sushi/sushizuki-logo.png" style="width:100px;" alt="Sushizuki" /></a>
             </div>
             <!-- /.navbar-header -->
 
@@ -77,7 +77,7 @@
                             <a href="#"><i class="fa fa-envelope fa-fw"></i> Mensagens</a>
                         </li>
                         <li>
-                            <a href="tables.html"><i class="fa fa-cutlery fa-fw"></i> Produtos</a>
+                            <a href="products.jsp"><i class="fa fa-cutlery fa-fw"></i> Produtos</a>
                         </li>
                         <li>
                             <a href="forms.html"><i class="fa fa-gear fa-fw"></i> Administrador</a>
@@ -126,8 +126,8 @@
                                             <label>Imagem:</label>
                                             <input type="file" name="img">
                                         </div>                                        
-                                        <button type="submit" class="btn btn-default">Cadastrar</button>
-                                        <button type="reset" class="btn btn-default">Limpar</button>
+                                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                                        <button type="reset" class="btn btn-primary">Limpar</button>
                                     </form>
                                 </div>
                                 

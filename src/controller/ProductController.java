@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +22,7 @@ public class ProductController extends HttpServlet {
 		HttpServletResponse response) throws ServletException, IOException {
 				
 		//Choose action then forward to right method
+		//if(request.getParameter("action").equalsIgnoreCase("list"))
 		createProduct(request, response);
 	}
 	
@@ -42,13 +45,13 @@ public class ProductController extends HttpServlet {
         dao.insert(product);
         
         // imprime o nome do contato que foi adicionado
-        out.println("<html>");
-        out.println("<body>");
-        out.println("Product " + product.getDescription() +
-                " adicionado com sucesso");
-        out.println(request.getParameter("description"));
-        out.println("</body>");
-        out.println("</html>");
+
+		response.sendRedirect("products.jsp");
+	}
+	
+	public static ArrayList<Product> getList() throws SQLException{
+		ProductDAO dao = new ProductDAO();
+        return dao.getList();
 	}
 
 }

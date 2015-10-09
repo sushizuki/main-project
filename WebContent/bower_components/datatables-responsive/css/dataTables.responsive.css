@@ -104,3 +104,13 @@ table.dataTable > tbody > tr.child span.dtr-title {
   min-width: 75px;
   font-weight: bold;
 }
+
+table.dataTable th.center,
+table.dataTable td.center,
+table.dataTable td.dataTables_empty {
+  text-align: center;
+}
+
+table.fixed-width {
+	width:300px;
+}
