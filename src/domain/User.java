@@ -8,8 +8,12 @@ public class User {
 	private String password;
 	private String phone;
 	
-	public User(String name2, String email2, String address2, String password2, String phone2) {
-		// TODO Auto-generated constructor stub
+	public User(String name, String email, String address, String password, String phone) {
+		this.setName(name);
+		this.setEmail(email);
+		this.setAddress(address);
+		this.setPassword(password);
+		this.setPhone(phone);
 	}
 
 	public int getId() {

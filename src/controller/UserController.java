@@ -49,9 +49,8 @@ public UserController() {
 	        // imprime o nome do contato que foi adicionado
 	        out.println("<html>");
 	        out.println("<body>");
-	        out.println("Product " + product.getDescription() +
+	        out.println("Usuario " + user.getName() +
 	                " adicionado com sucesso");
-	        out.println(request.getParameter("description"));
 	        out.println("</body>");
 	        out.println("</html>");
 		}
