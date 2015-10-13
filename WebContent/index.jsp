@@ -65,22 +65,29 @@
 	<div class="homepage-slider">
 		<div id="sequence">
 			<ul class="sequence-canvas">
-				<!-- Slide 2 -->
-				<li class="bg2">
+				<!-- Slide 1 -->
+				<li class="bg1">
 					<!-- Slide Title -->
 					<h2 class="title">Sushi</h2> <!-- Slide Text -->
 					<h3 class="subtitle">De Salmão, Kani e muito mais</h3> <!-- Slide Image -->
-
 				</li>
-				<!-- End Slide 2 -->
-				<!-- Slide 3 -->
-				<li class="bg1">
+				<!-- End Slide 1 -->
+				<!-- Slide 2 -->
+				<li class="bg2">
 					<!-- Slide Title -->
 					<h2 class="title">Sashimi</h2> <!-- Slide Text -->
 					<h3 class="subtitle">De Salmão</h3> <!-- Slide Image -->
 				</li>
+				<!-- End Slide 2 -->
+				<!-- Slide 3 -->
+				<li class="bg3">
+					<!-- Slide Title -->
+					<h2 class="title">Temaki</h2> <!-- Slide Text -->
+					<h3 class="subtitle">De Salmão e Kani</h3> <!-- Slide Image -->
+				</li>
 				<!-- End Slide 3 -->
-			</ul>
+				</ul>
+				
 			<div class="sequence-pagination-wrapper">
 				<ul class="sequence-pagination">
 					<li>1</li>
