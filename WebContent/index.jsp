@@ -86,12 +86,21 @@
 					<h3 class="subtitle">De Salmão e Kani</h3> <!-- Slide Image -->
 				</li>
 				<!-- End Slide 3 -->
-				</ul>
+				<!-- Slide 4 -->
+				<li class="bg4">
+					<!-- Slide Title -->
+					<h2 class="title">Niguiri</h2> <!-- Slide Text -->
+					<h3 class="subtitle">De Salmão e skin</h3> <!-- Slide Image -->
+				</li>
+				<!-- End Slide 4 -->
+			</ul>
 				
 			<div class="sequence-pagination-wrapper">
 				<ul class="sequence-pagination">
 					<li>1</li>
 					<li>2</li>
+					<li>3</li>
+					<li>4</li>
 				</ul>
 			</div>
 		</div>
