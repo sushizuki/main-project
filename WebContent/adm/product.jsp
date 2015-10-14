@@ -1,3 +1,5 @@
+﻿<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Sushizuki</title>
+    <title>Sushizuki - Cadastrar Produto</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -17,14 +19,8 @@
     <!-- MetisMenu CSS -->
     <link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
 
-    <!-- Timeline CSS -->
-    <link href="../dist/css/timeline.css" rel="stylesheet">
-
     <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
-
-    <!-- Morris Charts CSS -->
-    <link href="../bower_components/morrisjs/morris.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -42,7 +38,7 @@
 
     <div id="wrapper">
 
-        <!-- Navigation -->
+       <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -83,7 +79,7 @@
                             <a href="#"><i class="fa fa-envelope fa-fw"></i> Mensagens</a>
                         </li>
                         <li>
-                            <a href="ProductController?action=listProducts"><i class="fa fa-cutlery fa-fw"></i> Produtos</a>
+                            <a href="products.jsp"><i class="fa fa-cutlery fa-fw"></i> Produtos</a>
                         </li>
                         <li>
                             <a href="forms.html"><i class="fa fa-gear fa-fw"></i> Administrador</a>
@@ -98,61 +94,64 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Bem-vindo.</h1>
+                    <h1 class="page-header">Produto</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
             <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-primary">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-shopping-cart fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">26</div>
-                                    <div>Novos Pedidos!</div>
-                                </div>
-                            </div>
+                            Formulário - Produto
                         </div>
-                        <a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">Ver Detalhes</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-red">
-                        <div class="panel-heading">
+                        <div class="panel-body">
                             <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-comments fa-5x"></i>
+                                <div class="col-lg-6">
+                                    <form role="form" name="formProduct" action="Product" method="post">
+                                        <div class="form-group">
+                                        	<input type="hidden" name="id" readonly value="<c:out value="${product.id}" />" />
+                                            <label>Nome:</label>
+                                            <input class="form-control" name="name" placeholder="Nome do produto" 
+                                            	value="<c:out value="${product.name}" />" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Descrição:</label>
+                                            <textarea class="form-control" name="description" rows="3" 
+                                            placeholder="Breve descrição para o produto"><c:out value="${product.description}" /></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Preço:</label>
+	                                        <div class="input-group">
+	                                            <span class="input-group-addon">R$</span>
+	                                            <input type="text" name="price" class="form-control" style="width:80px;" maxlength="6"
+	                                            value="<c:out value="${product.price}" />" />
+	                                        </div>
+	                                    </div>
+                                        <div class="form-group">
+                                            <label>Imagem:</label>
+                                            <input type="file" name="img">
+                                        </div>                                        
+                                        <button type="submit" class="btn btn-primary">Enviar</button>
+                                        <button type="reset" class="btn btn-primary">Limpar</button>
+                                    </form>
                                 </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">124</div>
-                                    <div>Novas Mensagens!</div>
-                                </div>
+                                
                             </div>
+                            <!-- /.row (nested) -->
                         </div>
-                        <a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">Ver Detalhes</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
+                        <!-- /.panel-body -->
                     </div>
+                    <!-- /.panel -->
                 </div>
-                
+                <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+
     </div>
+    <!-- /#wrapper -->
 
     <!-- jQuery -->
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
@@ -162,11 +161,6 @@
 
     <!-- Metis Menu Plugin JavaScript -->
     <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
-
-    <!-- Morris Charts JavaScript -->
-    <script src="../bower_components/raphael/raphael-min.js"></script>
-    <script src="../bower_components/morrisjs/morris.min.js"></script>
-    <script src="../js/morris-data.js"></script>
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
