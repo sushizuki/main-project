@@ -83,7 +83,7 @@
                             <a href="#"><i class="fa fa-envelope fa-fw"></i> Mensagens</a>
                         </li>
                         <li>
-                            <a href="products.jsp"><i class="fa fa-cutlery fa-fw"></i> Produtos</a>
+                            <a href="ProductController?action=listProducts"><i class="fa fa-cutlery fa-fw"></i> Produtos</a>
                         </li>
                         <li>
                             <a href="forms.html"><i class="fa fa-gear fa-fw"></i> Administrador</a>

@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -92,7 +94,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Cadastrar Produto</h1>
+                    <h1 class="page-header">Produto</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -101,32 +103,36 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Formulário - Cadastro de produto
+                            Formulário - Produto
                         </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form" action="newProduct">
+                                    <form role="form" name="formProduct" action="Product" method="post">
                                         <div class="form-group">
+                                        	<input type="hidden" name="id" readonly value="<c:out value="${product.id}" />" />
                                             <label>Nome:</label>
-                                            <input class="form-control" name="name" placeholder="Nome do produto">
+                                            <input class="form-control" name="name" placeholder="Nome do produto" 
+                                            	value="<c:out value="${product.name}" />" />
                                         </div>
                                         <div class="form-group">
                                             <label>Descrição:</label>
-                                            <textarea class="form-control" name="description" rows="3" placeholder="Breve descrição para o produto"></textarea>
+                                            <textarea class="form-control" name="description" rows="3" 
+                                            placeholder="Breve descrição para o produto"><c:out value="${product.description}" /></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Preço:</label>
 	                                        <div class="input-group">
 	                                            <span class="input-group-addon">R$</span>
-	                                            <input type="text" name="price" class="form-control" style="width:80px;" maxlength="6">
+	                                            <input type="text" name="price" class="form-control" style="width:80px;" maxlength="6"
+	                                            value="<c:out value="${product.price}" />" />
 	                                        </div>
 	                                    </div>
                                         <div class="form-group">
                                             <label>Imagem:</label>
                                             <input type="file" name="img">
                                         </div>                                        
-                                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                                        <button type="submit" class="btn btn-primary">Enviar</button>
                                         <button type="reset" class="btn btn-primary">Limpar</button>
                                     </form>
                                 </div>

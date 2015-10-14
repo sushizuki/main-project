@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import domain.Product;
 
@@ -37,12 +38,12 @@ public class ProductDAO {
 		}
 	}	
 	
-	public ArrayList<Product> getList() throws SQLException {
+	public List<Product> getList() throws SQLException {
 		
 		String sql = "select * from product";
 
 		PreparedStatement stmt = con.prepareStatement(sql);
-		ArrayList<Product> productList = new ArrayList<Product>(); 
+		List<Product> productList = new ArrayList<Product>(); 
 
 		ResultSet rs = null;
 		
@@ -61,13 +62,67 @@ public class ProductDAO {
 			
 				productList.add(product);
 			}
+			
+			rs.close();
+			stmt.close();
+			return productList; 
 
-		} finally { 
-			if (rs != null) try { rs.close(); } catch (SQLException logOrIgnore) {} 
-			if (stmt != null) try { stmt.close(); } catch (SQLException logOrIgnore) {} 
-			if (this.con != null) try { this.con.close(); } catch (SQLException logOrIgnore) {} 
-		} 
-		return productList; 
+		}catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
    }
+	
+	public Product getProductById(int productId) {
+        Product product = new Product();
+        String sql = "select * from product where idProduct=?";
+        
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setInt(1, productId);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            if (rs.next()) {
+				product.setId(Integer.parseInt(rs.getString("idproduct")));
+				product.setName(rs.getString("name"));
+				product.setDescription(rs.getString("description"));
+				product.setPrice(Double.parseDouble(rs.getString("price")));
+				product.setImgUrl(rs.getString("image"));
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return product;
+    }
+	
+	public void update(Product product) {
+		String sql = "update product set name=?, description=?, price=?," +
+		"image=? where idProduct=?";
+		try {
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1, product.getName());
+			stmt.setString(2, product.getDescription());
+			stmt.setDouble(3, product.getPrice());
+			stmt.setString(4, product.getImgUrl());
+			stmt.setInt(5, product.getId());
+			stmt.execute();
+			stmt.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public void delete(int productID) {
+		String sql = "delete from product where idProduct=?";
+		try {
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setInt(1, productID);
+			stmt.execute();
+			stmt.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 	
 }

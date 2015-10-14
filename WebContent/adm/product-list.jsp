@@ -1,7 +1,7 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ page isELIgnored="true" %>
 <!DOCTYPE html>
-<%@page import="controller.ProductController"%>
-<%@page import="domain.Product"%>
-<%@page import="java.util.ArrayList"%>
 <html lang="en">
 
 <head>
@@ -42,7 +42,6 @@
 </head>
 
 <body>
-
     <div id="wrapper">
 
         <!-- Navigation -->
@@ -103,7 +102,7 @@
                 <div class="col-lg-12">
                     <h1 class="page-header">Produtos</h1>   
                     <div class="form-group">                 
-                    	<a class="btn btn-primary" href="create-product.jsp">Cadastrar novo produto</a>  
+                    	<a class="btn btn-primary" href="Product?action=new">Cadastrar novo produto</a>  
                     </div>                  
                 </div>
                 <!-- /.col-lg-12 -->
@@ -121,6 +120,7 @@
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
+                                        	<th style="display: none">ID</th>
                                             <th>Nome</th>
                                             <th>Descrição</th>
                                             <th>Preço</th>
@@ -129,15 +129,12 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    	<%
-											ArrayList<Product> products = ProductController.getList();
-                                    		int i = 0;
-											for (Product product : products ) {
-										%>
-                                        <tr class="<%= i%2==0?"odd":"even"%>">
-                                            <td><%=product.getName()%></td>
-                                            <td><%=product.getDescription()%></td>
-                                            <td><div style="width:100px;"><%=product.getPrice()%></div></td>
+                                    	<c:forEach items="${products}" var="product">
+                                        <tr class="">
+                                        	<td style="display: none"><c:out value="${product.id}" /></td>
+                                            <td><c:out value="${product.name}" /></td>
+                                            <td><c:out value="${product.description}" /></td>
+                                            <td><div style="width:100px;"><c:out value="${product.price}" /></div></td>
                                             <td class="center">
                                             	<div style="width:100px;">
                                             		<button type="button" class="btn btn-outline btn-primary btn-xs">Ver</button>
@@ -145,15 +142,13 @@
                                             </td>
                                             <td class="center">
                                             	<div style="width:100px;">
-                                					<button type="button" class="btn btn-outline btn-primary btn-xs">Editar</button>
-                                                	<button type="button" class="btn btn-outline btn-primary btn-xs">Excluir</button>
+                                					<a class="btn btn-outline btn-primary btn-xs" href="Product?action=update&id=<c:out value="${product.id}"/>">Editar</a>
+                                                	<a class="btn btn-outline btn-primary btn-xs" href="Product?action=delete&id=<c:out value="${product.id}"/>">Excluir</a>
+                                                	
                                                 </div>
 											</td>
                                         </tr>
-                                        <%
-                                        	i++;
-											}
-                                        %>                                        
+                                        </c:forEach>                                       
                                     </tbody>
                                 </table>
                             </div>

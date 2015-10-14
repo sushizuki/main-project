@@ -1,10 +1,9 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,42 +15,83 @@ import domain.Product;
 public class ProductController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-
-	@Override
-	protected void service(HttpServletRequest request,
-		HttpServletResponse response) throws ServletException, IOException {
-				
-		//Choose action then forward to right method
-		//if(request.getParameter("action").equalsIgnoreCase("list"))
-		createProduct(request, response);
-	}
+	private ProductDAO dao;
+    private static String INSERT_OR_EDIT = "/adm/product.jsp";
+    private static String LIST_PRODUCT = "/adm/product-list.jsp";
 	
-	private void createProduct(HttpServletRequest request,
-			HttpServletResponse response) throws IOException{
-		// busca o writer
-        PrintWriter out = response.getWriter();  
-                        
-        // get parameters from request
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
-        double price = Double.valueOf(request.getParameter("price"));
-        String imgUrl = request.getParameter("img");        
-           
-        // create object
-        Product product = new Product(name, description, price, imgUrl);
-        
-        // save object
-        ProductDAO dao = new ProductDAO();
-        dao.insert(product);
-        
-        // imprime o nome do contato que foi adicionado
-
-		response.sendRedirect("products.jsp");
-	}
+	public ProductController() {
+        super();
+        dao = new ProductDAO();
+    }
 	
-	public static ArrayList<Product> getList() throws SQLException{
-		ProductDAO dao = new ProductDAO();
-        return dao.getList();
-	}
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String forward="";
+        String action = request.getParameter("action");
+        if(action == null){
+        	action="listProducts";
+        }
+
+        if (action.equalsIgnoreCase("delete")){
+            int productId = Integer.parseInt(request.getParameter("id"));
+            dao.delete(productId);
+            forward = LIST_PRODUCT;
+            try {
+				request.setAttribute("products", dao.getList());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}    
+        } else if (action.equalsIgnoreCase("update")){
+            forward = INSERT_OR_EDIT;
+            int productId = Integer.parseInt(request.getParameter("id"));
+            Product product = dao.getProductById(productId);
+            request.setAttribute("product", product);
+        }else if (action.equalsIgnoreCase("listProducts") || action.isEmpty()){
+            forward = LIST_PRODUCT;
+            try {
+				request.setAttribute("products", dao.getList());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        } else {
+            forward = INSERT_OR_EDIT;
+        }
+        RequestDispatcher view = request.getRequestDispatcher(forward);
+        view.forward(request, response);
+    }	
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+   	 // get parameters from request
+       String name = request.getParameter("name");
+       String description = request.getParameter("description");
+       double price = Double.valueOf(request.getParameter("price"));
+       String imgUrl = request.getParameter("img");        
+          
+       // create object
+       Product product = new Product(name, description, price, imgUrl);
+   	
+       
+       String productId = request.getParameter("id");
+       if(productId == null || productId.isEmpty()){
+           dao.insert(product);
+       }
+       else{
+           product.setId(Integer.parseInt(request.getParameter("id")));
+           dao.update(product);
+       }
+       
+       RequestDispatcher view = request.getRequestDispatcher(LIST_PRODUCT);
+       
+       try {
+			request.setAttribute("products", dao.getList());
+       } catch (SQLException e) {
+    	   // TODO Auto-generated catch block
+    	   e.printStackTrace();
+       }
+       
+       view.forward(request, response);
+   }
 
 }
