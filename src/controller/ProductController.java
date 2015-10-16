@@ -72,10 +72,11 @@ public class ProductController extends HttpServlet {
        String name = request.getParameter("name");
        String description = request.getParameter("description");
        double price = Double.valueOf(request.getParameter("price"));
-       String imgUrl = request.getParameter("img");        
+       String imgUrl = request.getParameter("img");
+       String category = request.getParameter("category");
           
        // create object
-       Product product = new Product(name, description, price, imgUrl);
+       Product product = new Product(name, description, price, imgUrl, category);
    	
        
        String productId = request.getParameter("id");
