@@ -1,4 +1,4 @@
-Ôªø<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -102,9 +102,6 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Formul√°rio - Produto
-                        </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
@@ -116,12 +113,12 @@
                                             	value="<c:out value="${product.name}" />" />
                                         </div>
                                         <div class="form-group">
-                                            <label>Descri√ß√£o:</label>
+                                            <label>DescriÁ„o:</label>
                                             <textarea class="form-control" name="description" rows="3" 
-                                            placeholder="Breve descri√ß√£o para o produto"><c:out value="${product.description}" /></textarea>
+                                            placeholder="Breve descriÁ„o para o produto"><c:out value="${product.description}" /></textarea>
                                         </div>
                                         <div class="form-group">
-                                            <label>Pre√ßo:</label>
+                                            <label>PreÁo:</label>
 	                                        <div class="input-group">
 	                                            <span class="input-group-addon">R$</span>
 	                                            <input type="text" name="price" class="form-control" style="width:80px;" maxlength="6"
@@ -131,7 +128,17 @@
                                         <div class="form-group">
                                             <label>Imagem:</label>
                                             <input type="file" name="img">
-                                        </div>                                        
+                                        </div>
+                                         <div class="form-group">
+                                        	<label>Categoria:</label>
+                                        	<select name="category">
+												<option value="sushi">Sushi</option>
+												<option value="uramaki">Uramaki</option>
+												<option value="sashimi">Sashimi</option>
+												<option value="temaki">Temaki</option>
+												<option value="niguiri">Niguiri</option>
+											</select>
+                                        </div>                              
                                         <button type="submit" class="btn btn-primary">Enviar</button>
                                         <button type="reset" class="btn btn-primary">Limpar</button>
                                     </form>

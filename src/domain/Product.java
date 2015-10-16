@@ -7,20 +7,23 @@ public class Product {
 	private String description;
 	private double price;
 	private String imgUrl;
-	
-	public Product(int id, String name, String description, double price, String imgUrl) {
+	private String category;
+
+	public Product(int id, String name, String description, double price, String imgUrl, String categoria) {
 		this.setId(id);
 		this.setName(name);
 		this.setDescription(description);
 		this.setPrice(price);
 		this.setImgUrl(imgUrl);
+		this.setCategory(category);
 	}
 	
-	public Product(String name, String description, double price, String imgUrl) {
+	public Product(String name, String description, double price, String imgUrl, String categoria) {
 		this.setName(name);
 		this.setDescription(description);
 		this.setPrice(price);
 		this.setImgUrl(imgUrl);
+		this.setCategory(category);
 	}
 	
 	public Product(){
@@ -65,6 +68,14 @@ public class Product {
 
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
+	}
+	
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 	
 }

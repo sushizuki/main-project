@@ -18,8 +18,8 @@ public class ProductDAO {
 	
 	public void insert(Product product) {
 		String sql = "insert into product " +
-		"(name,description,price,image)" +
-		" values (?,?,?,?)";
+		"(name,description,price,image,category)" +
+		" values (?,?,?,?,?)";
 		try {
 		// prepared statement for insertion
 		PreparedStatement stmt = con.prepareStatement(sql);
@@ -29,6 +29,7 @@ public class ProductDAO {
 		stmt.setString(2, product.getDescription());
 		stmt.setString(3, String.valueOf(product.getPrice()));
 		stmt.setString(4, product.getImgUrl());
+		stmt.setString(5, product.getCategory());
 		
 		// execute
 		stmt.execute();
@@ -59,6 +60,7 @@ public class ProductDAO {
 				product.setDescription(rs.getString("description"));
 				product.setPrice(Double.parseDouble(rs.getString("price")));
 				product.setImgUrl(rs.getString("image"));
+				product.setCategory(rs.getString("category"));
 			
 				productList.add(product);
 			}
@@ -87,6 +89,7 @@ public class ProductDAO {
 				product.setDescription(rs.getString("description"));
 				product.setPrice(Double.parseDouble(rs.getString("price")));
 				product.setImgUrl(rs.getString("image"));
+				product.setCategory(rs.getString("category"));
 
             }
         } catch (SQLException e) {
@@ -98,14 +101,15 @@ public class ProductDAO {
 	
 	public void update(Product product) {
 		String sql = "update product set name=?, description=?, price=?," +
-		"image=? where idProduct=?";
+		"image=? category=? where idProduct=?";
 		try {
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1, product.getName());
 			stmt.setString(2, product.getDescription());
 			stmt.setDouble(3, product.getPrice());
 			stmt.setString(4, product.getImgUrl());
-			stmt.setInt(5, product.getId());
+			stmt.setString(5, product.getCategory());
+			stmt.setInt(6, product.getId());
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
