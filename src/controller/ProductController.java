@@ -25,7 +25,10 @@ public class ProductController extends HttpServlet {
     }
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String forward="";
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");  
+        
+		String forward="";
         String action = request.getParameter("action");
         if(action == null){
         	action="listProducts";
@@ -48,8 +51,10 @@ public class ProductController extends HttpServlet {
             request.setAttribute("product", product);
         }else if (action.equalsIgnoreCase("listProducts") || action.isEmpty()){
             forward = LIST_PRODUCT;
+			System.out.println("veio");
             try {
 				request.setAttribute("products", dao.getList());
+				System.out.println("passou"+dao.getList().size());
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -62,7 +67,9 @@ public class ProductController extends HttpServlet {
     }	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");  
+		
    	 // get parameters from request
        String name = request.getParameter("name");
        String description = request.getParameter("description");

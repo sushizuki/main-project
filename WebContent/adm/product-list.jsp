@@ -1,6 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ page isELIgnored="true" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -85,7 +84,7 @@
                             <a href="#"><i class="fa fa-envelope fa-fw"></i> Mensagens</a>
                         </li>
                         <li>
-                            <a href="products.jsp"><i class="fa fa-cutlery fa-fw"></i> Produtos</a>
+                            <a href="Product"><i class="fa fa-cutlery fa-fw"></i> Produtos</a>
                         </li>
                         <li>
                             <a href="forms.html"><i class="fa fa-gear fa-fw"></i> Administrador</a>
