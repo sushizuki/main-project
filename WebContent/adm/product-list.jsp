@@ -127,30 +127,26 @@
                                             <th class="center">Ações</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                    	<c:forEach items="${products}" var="product">
-                                        <tr class="">
+                                    <tbody>                                    	
+                                    <c:forEach items="${products}" var="product">                                    	
+                                        <tr class="gradeA">
                                         	<td style="display: none"><c:out value="${product.id}" /></td>
                                             <td><c:out value="${product.name}" /></td>
                                             <td><c:out value="${product.description}" /></td>
-                                            <td><div style="width:100px;"><c:out value="${product.price}" /></div></td>
+                                            <td><c:out value="${product.price}" /></td>
                                             <td class="center">
-                                            	<div style="width:100px;">
-                                            		<button type="button" class="btn btn-outline btn-primary btn-xs">Ver</button>
-                                            	</div>
+                                            	<button type="button" class="btn btn-outline btn-primary btn-xs">Ver</button>
                                             </td>
                                             <td class="center">
-                                            	<div style="width:100px;">
-                                					<a class="btn btn-outline btn-primary btn-xs" href="Product?action=update&id=<c:out value="${product.id}"/>">Editar</a>
-                                                	<a class="btn btn-outline btn-primary btn-xs" href="Product?action=delete&id=<c:out value="${product.id}"/>">Excluir</a>
-                                                	
-                                                </div>
-											</td>
+                               					<a class="btn btn-outline btn-primary btn-xs" href="Product?action=update&id=<c:out value="${product.id}"/>">Editar</a>
+                                               	<a class="btn btn-outline btn-primary btn-xs" href="Product?action=delete&id=<c:out value="${product.id}"/>">Excluir</a>                                                	
+                                            </td>
                                         </tr>
-                                        </c:forEach>                                       
+                                    </c:forEach>                                       
                                     </tbody>
-                                </table>
-                            </div>
+                                </table>                                
+                            </div>                           
+                            
                             <!-- /.table-responsive -->
                         </div>
                         <!-- /.panel-body -->
@@ -187,6 +183,7 @@
         
         $('#dataTables-example').dataTable( {
         	  "columns": [
+        	    null,
         	    null,
         	    null,
         	    null,

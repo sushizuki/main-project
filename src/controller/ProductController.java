@@ -51,10 +51,8 @@ public class ProductController extends HttpServlet {
             request.setAttribute("product", product);
         }else if (action.equalsIgnoreCase("listProducts") || action.isEmpty()){
             forward = LIST_PRODUCT;
-			System.out.println("veio");
             try {
 				request.setAttribute("products", dao.getList());
-				System.out.println("passou"+dao.getList().size());
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
