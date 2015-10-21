@@ -105,7 +105,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form" name="formProduct" action="Product" method="post">
+                                    <form role="form" name="formProduct" action="Product" method="post" enctype="multipart/form-data">
                                         <div class="form-group">
                                         	<input type="hidden" name="id" readonly value="<c:out value="${product.id}" />" />
                                             <label>Nome:</label>
@@ -113,12 +113,12 @@
                                             	value="<c:out value="${product.name}" />" />
                                         </div>
                                         <div class="form-group">
-                                            <label>Descrição:</label>
+                                            <label>DescriÃ§Ã£o:</label>
                                             <textarea class="form-control" name="description" rows="3" 
-                                            placeholder="Breve descrição para o produto"><c:out value="${product.description}" /></textarea>
+                                            placeholder="Breve descriÃ§Ã£o para o produto"><c:out value="${product.description}" /></textarea>
                                         </div>
                                         <div class="form-group">
-                                            <label>Preço:</label>
+                                            <label>PreÃ§o:</label>
 	                                        <div class="input-group">
 	                                            <span class="input-group-addon">R$</span>
 	                                            <input type="text" name="price" class="form-control" style="width:80px;" maxlength="6"
@@ -127,16 +127,16 @@
 	                                    </div>
                                         <div class="form-group">
                                             <label>Imagem:</label>
-                                            <input type="file" name="img">
+                                            <input type="file" name="img" accept="image/jpeg; image/png">
                                         </div>
                                          <div class="form-group">
                                         	<label>Categoria:</label>
                                         	<select name="category">
-												<option value="sushi">Sushi</option>
-												<option value="uramaki">Uramaki</option>
-												<option value="sashimi">Sashimi</option>
-												<option value="temaki">Temaki</option>
-												<option value="niguiri">Niguiri</option>
+												<option value="1">Sushi</option>
+												<option value="2">Uramaki</option>
+												<option value="3">Sashimi</option>
+												<option value="4">Temaki</option>
+												<option value="5">Niguiri</option>
 											</select>
                                         </div>                              
                                         <button type="submit" class="btn btn-primary">Enviar</button>

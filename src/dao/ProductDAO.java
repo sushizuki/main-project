@@ -18,7 +18,7 @@ public class ProductDAO {
 	
 	public void insert(Product product) {
 		String sql = "insert into product " +
-		"(name,description,price,image,category)" +
+		"(name,description,price,image,Category_idCategory)" +
 		" values (?,?,?,?,?)";
 		try {
 		// prepared statement for insertion
@@ -60,7 +60,7 @@ public class ProductDAO {
 				product.setDescription(rs.getString("description"));
 				product.setPrice(Double.parseDouble(rs.getString("price")));
 				product.setImgUrl(rs.getString("image"));
-				product.setCategory(rs.getString("category"));
+				product.setCategory(rs.getString("Category_idCategory"));
 			
 				productList.add(product);
 			}
@@ -89,7 +89,7 @@ public class ProductDAO {
 				product.setDescription(rs.getString("description"));
 				product.setPrice(Double.parseDouble(rs.getString("price")));
 				product.setImgUrl(rs.getString("image"));
-				product.setCategory(rs.getString("category"));
+				product.setCategory(rs.getString("Category_idCategory"));
 
             }
         } catch (SQLException e) {
@@ -101,14 +101,14 @@ public class ProductDAO {
 	
 	public void update(Product product) {
 		String sql = "update product set name=?, description=?, price=?," +
-		"image=? category=? where idProduct=?";
+		"image=? Category_idCategory=? where idProduct=?";
 		try {
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1, product.getName());
 			stmt.setString(2, product.getDescription());
 			stmt.setDouble(3, product.getPrice());
 			stmt.setString(4, product.getImgUrl());
-			stmt.setString(5, product.getCategory());
+			stmt.setLong(5, product.getCategoryId(product.getCategory()));
 			stmt.setInt(6, product.getId());
 			stmt.execute();
 			stmt.close();
@@ -129,4 +129,29 @@ public class ProductDAO {
 		}
 	}
 	
+	public List<String> getProductCategoryList() throws SQLException{
+
+		String sql = "select name from category";
+
+		PreparedStatement stmt = con.prepareStatement(sql);
+		List<String> categoryList = new ArrayList<String>(); 
+
+		ResultSet rs = null;
+		
+		try { 
+	    	   
+			rs = stmt.executeQuery(sql);       
+
+			while (rs.next()) { 			
+				categoryList.add(rs.getString("name"));
+			}
+			
+			rs.close();
+			stmt.close();
+			return categoryList; 
+
+		}catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}	
 }

@@ -1,5 +1,10 @@
 package domain;
 
+import java.sql.SQLException;
+import java.util.List;
+
+import dao.ProductDAO;
+
 public class Product {
 
 	private int id;
@@ -9,7 +14,7 @@ public class Product {
 	private String imgUrl;
 	private String category;
 
-	public Product(int id, String name, String description, double price, String imgUrl, String categoria) {
+	public Product(int id, String name, String description, double price, String imgUrl, String category) throws SQLException {
 		this.setId(id);
 		this.setName(name);
 		this.setDescription(description);
@@ -18,7 +23,7 @@ public class Product {
 		this.setCategory(category);
 	}
 	
-	public Product(String name, String description, double price, String imgUrl, String categoria) {
+	public Product(String name, String description, double price, String imgUrl, String category) throws SQLException {
 		this.setName(name);
 		this.setDescription(description);
 		this.setPrice(price);
@@ -74,8 +79,32 @@ public class Product {
 		return category;
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
+	//Get a number, look into category list from database to assign Name proper to the number
+	public void setCategory(String category) throws SQLException {
+		ProductDAO dao = new ProductDAO();
+		List<String> list = dao.getProductCategoryList();
+		try {
+			this.category = list.get(Integer.parseInt(category)-1);
+		}catch(RuntimeException e){
+			System.out.println("Error assigning category");
+		}
+	}
+	
+	public void setCategory(int category) {
+		this.category = String.valueOf(category);
+	}
+	
+	//Get a number, look into category list from database to assign Name proper to the number
+	public int getCategoryId(String category) throws SQLException {
+		ProductDAO dao = new ProductDAO();
+		List<String> list = dao.getProductCategoryList();
+		
+		for (int i = 1; i <= list.size(); i++) {
+		    if(category.equalsIgnoreCase(this.getCategory())){
+		    	return i;
+		    }
+		}
+		return 0; //if not found 0 = none
 	}
 	
 }

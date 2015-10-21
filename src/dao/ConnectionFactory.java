@@ -12,7 +12,7 @@ public class ConnectionFactory {
 			return DriverManager.getConnection(
 					"jdbc:mysql://127.0.0.1/sushizuki", "root", "");
 		} catch (SQLException | ClassNotFoundException e) {
-			throw new RuntimeException(e);
+			throw new RuntimeException(e+": Erro na comunicação com banco de dados");
 		}
 	}
 }
