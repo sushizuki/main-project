@@ -1,6 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ page isELIgnored="true" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,6 +24,10 @@
 
     <!-- DataTables Responsive CSS -->
     <link href="../bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
+    
+    <!-- Bootstrap Lightbox -->
+    <link href="../css/bootstrap/bootstrap-lightbox.css" rel="stylesheet">
+    <link href="../css/bootstrap/bootstrap-lightbox.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
@@ -85,7 +88,7 @@
                             <a href="#"><i class="fa fa-envelope fa-fw"></i> Mensagens</a>
                         </li>
                         <li>
-                            <a href="products.jsp"><i class="fa fa-cutlery fa-fw"></i> Produtos</a>
+                            <a href="Product"><i class="fa fa-cutlery fa-fw"></i> Produtos</a>
                         </li>
                         <li>
                             <a href="forms.html"><i class="fa fa-gear fa-fw"></i> Administrador</a>
@@ -124,34 +127,36 @@
                                             <th>Nome</th>
                                             <th>Descrição</th>
                                             <th>Preço</th>
+                                            <th>Categoria</th>
                                             <th class="center">Imagem</th>
                                             <th class="center">Ações</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                    	<c:forEach items="${products}" var="product">
-                                        <tr class="">
+                                    <tbody>                                    	
+                                    <c:forEach items="${products}" var="product">                                    	
+                                        <tr class="gradeA">
                                         	<td style="display: none"><c:out value="${product.id}" /></td>
                                             <td><c:out value="${product.name}" /></td>
                                             <td><c:out value="${product.description}" /></td>
-                                            <td><div style="width:100px;"><c:out value="${product.price}" /></div></td>
+                                            <td><c:out value="${product.price}" /></td>
+                                            <td><c:out value="${product.category}" /></td>
                                             <td class="center">
-                                            	<div style="width:100px;">
-                                            		<button type="button" class="btn btn-outline btn-primary btn-xs">Ver</button>
-                                            	</div>
+                                            	<div id="demoLightbox" class="lightbox hide fade"  tabindex="-1" role="dialog" aria-hidden="true">
+													<div class='lightbox-content'>
+														<img src="${imgDir}${product.imgUrl}">
+													</div>
+												</div>
                                             </td>
                                             <td class="center">
-                                            	<div style="width:100px;">
-                                					<a class="btn btn-outline btn-primary btn-xs" href="Product?action=update&id=<c:out value="${product.id}"/>">Editar</a>
-                                                	<a class="btn btn-outline btn-primary btn-xs" href="Product?action=delete&id=<c:out value="${product.id}"/>">Excluir</a>
-                                                	
-                                                </div>
-											</td>
+                               					<a class="btn btn-outline btn-primary btn-xs" href="Product?action=update&id=<c:out value="${product.id}"/>">Editar</a>
+                                               	<a class="btn btn-outline btn-primary btn-xs" href="Product?action=delete&id=<c:out value="${product.id}"/>">Excluir</a>                                                	
+                                            </td>
                                         </tr>
-                                        </c:forEach>                                       
+                                    </c:forEach>                                       
                                     </tbody>
-                                </table>
-                            </div>
+                                </table>                                
+                            </div>                           
+                            
                             <!-- /.table-responsive -->
                         </div>
                         <!-- /.panel-body -->
@@ -179,6 +184,11 @@
     <script src="../bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 
+	<!-- Bootstrap Lightbox -->
+    <script src="../js/bootstrap-lightbox.js"></script>
+    <script src="../js/bootstrap-lightbox.min.js"></script>
+
+
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
 
@@ -189,10 +199,12 @@
         $('#dataTables-example').dataTable( {
         	  "columns": [
         	    null,
+        	    { "orderable": false }, //description
         	    null,
         	    null,
-        	    { "orderable": false },
-        	    { "orderable": false }
+        	    null,
+        	    { "orderable": false }, //img
+        	    { "orderable": false } //actions
         	  ]
         	} );
     });

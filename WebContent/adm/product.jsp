@@ -1,4 +1,4 @@
-ï»¿<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,6 +32,33 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+<script type="text/javascript"> 
+ function validation(){ 
+	 if(document.formProduct.name.value==""){
+		 alert( "Preencha o campo NOME!" );
+ 		 return false;
+ 	 }
+	 if(document.formProduct.description.value==""){
+		 alert( "Preencha o campo DESCRIÇÃO!" );
+ 		 return false;
+	 }
+	 if(document.formProduct.price.value==""){
+		 alert( "Preencha o PREÇO!" );
+ 		 return false;
+	 }
+	 if(isNaN(document.formProduct.price.value)){
+		 alert( "Digite apenas números!" );
+		 return false;
+	 }
+ document.formProduct.submit();
+}
+ 
+function confirmation (){
+	decision = confirm("Todos os campos serão apagados");
+	if(decision)
+		document.formProduct.reset();	
+}
+</script>
 </head>
 
 <body>
@@ -79,7 +106,7 @@
                             <a href="#"><i class="fa fa-envelope fa-fw"></i> Mensagens</a>
                         </li>
                         <li>
-                            <a href="products.jsp"><i class="fa fa-cutlery fa-fw"></i> Produtos</a>
+                            <a href="Product"><i class="fa fa-cutlery fa-fw"></i> Produtos</a>
                         </li>
                         <li>
                             <a href="forms.html"><i class="fa fa-gear fa-fw"></i> Administrador</a>
@@ -102,13 +129,10 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                            FormulÃ¡rio - Produto
-                        </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form" name="formProduct" action="Product" method="post">
+                                    <form role="form" name="formProduct" action="Product" method="post" enctype="multipart/form-data">
                                         <div class="form-group">
                                         	<input type="hidden" name="id" readonly value="<c:out value="${product.id}" />" />
                                             <label>Nome:</label>
@@ -130,10 +154,22 @@
 	                                    </div>
                                         <div class="form-group">
                                             <label>Imagem:</label>
-                                            <input type="file" name="img">
-                                        </div>                                        
-                                        <button type="submit" class="btn btn-primary">Enviar</button>
-                                        <button type="reset" class="btn btn-primary">Limpar</button>
+                                            <input type="file" name="img" accept="image/jpeg; image/png">
+                                        </div>
+                                         <div class="form-group">
+                                        	<label>Categoria:</label>
+                                        	<select name="category">
+												<option value="1">Sushi</option>
+												<option value="2">Uramaki</option>
+												<option value="3">Sashimi</option>
+												<option value="4">Temaki</option>
+												<option value="5">Niguiri</option>
+											</select>
+                                        </div>    
+                                                                  
+                                        <button type="button" class="btn btn-primary" onclick="validation()">Enviar</button>
+                                        <button type="button" class="btn btn-primary" onclick="confirmation()">Limpar</button>
+                                       
                                     </form>
                                 </div>
                                 
