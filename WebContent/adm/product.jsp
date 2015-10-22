@@ -32,6 +32,33 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+<script type="text/javascript"> 
+ function validation(){ 
+	 if(document.formProduct.name.value==""){
+		 alert( "Preencha o campo NOME!" );
+ 		 return false;
+ 	 }
+	 if(document.formProduct.description.value==""){
+		 alert( "Preencha o campo DESCRIÇÃO!" );
+ 		 return false;
+	 }
+	 if(document.formProduct.price.value==""){
+		 alert( "Preencha o PREÇO!" );
+ 		 return false;
+	 }
+	 if(isNaN(document.formProduct.price.value)){
+		 alert( "Digite apenas números!" );
+		 return false;
+	 }
+ document.formProduct.submit();
+}
+ 
+function confirmation (){
+	decision = confirm("Todos os campos serão apagados");
+	if(decision)
+		document.formProduct.reset();	
+}
+</script>
 </head>
 
 <body>
@@ -138,9 +165,11 @@
 												<option value="4">Temaki</option>
 												<option value="5">Niguiri</option>
 											</select>
-                                        </div>                              
-                                        <button type="submit" class="btn btn-primary">Enviar</button>
-                                        <button type="reset" class="btn btn-primary">Limpar</button>
+                                        </div>    
+                                                                  
+                                        <button type="button" class="btn btn-primary" onclick="validation()">Enviar</button>
+                                        <button type="button" class="btn btn-primary" onclick="confirmation()">Limpar</button>
+                                       
                                     </form>
                                 </div>
                                 
