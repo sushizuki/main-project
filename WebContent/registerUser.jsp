@@ -25,6 +25,42 @@
 <link rel="stylesheet" href="css/main-red.css">
 
 <script src="js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+
+<script type="text/javascript"> 
+ function validation(){ 
+	 if(document.formUser.userName.value==""){
+		 alert( "Preencha o campo NOME!" );
+ 		 return false;
+ 	 }
+	 if(document.formUser.userEmail.value==""){
+		 alert( "Preencha o campo EMAIL!" );
+ 		 return false;
+	 }
+	 if(document.formUser.userAddress.value==""){
+		 alert( "Preencha o Endereço!" );
+ 		 return false;
+	 }
+	 if(document.formUser.userPhone.value==""){
+		 alert( "Preencha o TELEFONE!" );
+ 		 return false;
+	 }
+	 if(document.formUser.userPassword.value==""){
+		 alert( "Preencha a SENHA!" );
+ 		 return false;
+	 }
+	 if(document.formUser.userConfirmPassword.value==""){
+		 alert( "Preencha a confirmação de senha!" );
+ 		 return false;
+	 }
+ document.formProduct.submit();
+}
+ 
+function confirmation (){
+	decision = confirm("Todos os campos serão apagados");
+	if(decision)
+		document.formUser.reset();	
+}
+</script>
 </head>
 <body>
 	<!--[if lt IE 7]>
@@ -68,48 +104,34 @@
 			<div class="row">
 				<div class="col-sm-5">
 					<div class="basic-login">
-						<form role="form" role="form">
+						<form role="form" name="formUser" action="registerUser" method="post" enctype="multipart/form-data">
 							<div class="form-group">
-								<label for="login-username"><i class="icon-user"></i> <b>Nome</b></label>
-								<input class="form-control" id="login-username" type="text" placeholder="">
+								<input type="hidden" name="id" readonly value="<c:out value="${user.id}" />" />
+								<label>Nome:</label>
+								<input class="form-control" name="userName" value="<c:out value="${user.name}" />" />
 							</div>
 							<div class="form-group">
-								<label for="login-username"><i class="icon-user"></i> <b>Email</b></label>
-								<input class="form-control" id="login-username" type="text" placeholder="">
+								<label>Email:</label>
+								<input class="form-control" name="userEmail" value="<c:out value="${user.email}" />" />
 							</div>
 							<div class="form-group">
-								<label for="login-username"><i class="icon-user"></i> <b>CEP</b></label>
-								<input class="form-control" id="login-username" type="text" placeholder="">
+								<label>Endereço:</label>
+								<input class="form-control" name="userAddress" value="<c:out value="${user.address}" />" />
+							</div>																						
+							<div class="form-group">
+								<label>Telefone:</label>
+								<input class="form-control" name="userPhone" value="<c:out value="${user.phone}" />" />
 							</div>
 							<div class="form-group">
-								<label for="login-username"><i class="icon-user"></i> <b>Endereço</b></label>
-								<input class="form-control" id="login-username" type="text" placeholder="">
-							</div>
+								<label>Senha:</label>
+								<input class="form-control" name="userPassword" value="<c:out value="${user.password}" />" />
+							</div>		
 							<div class="form-group">
-								<label for="login-username"><i class="icon-user"></i> <b>Complemento</b></label>
-								<input class="form-control" id="login-username" type="text" placeholder="">
-							</div>							
-							<div class="form-group">
-								<label for="login-username"><i class="icon-user"></i> <b>Email</b></label>
-								<input class="form-control" id="login-username" type="text" placeholder="">
-							</div>																					
-							<div class="form-group">
-								<label for="login-password"><i class="icon-lock"></i> <b>Senha</b></label>
-								<input class="form-control" id="login-password" type="password" placeholder="">
-							</div>
-							<div class="form-group">
-								<label for="login-password"><i class="icon-lock"></i> <b>Repetir Senha</b></label>
-								<input class="form-control" id="login-password" type="password" placeholder="">
-							</div>							
-							<div class="form-group">
-							<!--
-								<label class="checkbox">
-									<input type="checkbox"> Continuar conectado
-								</label>
-							-->
-								<button type="submit" class="btn pull-right">Cadastrar</button>
-								<div class="clearfix"></div>
-							</div>
+								<label>Confirmação de Senha:</label>
+								<input class="form-control" name="userConfirmPassword"/>
+							</div>					
+							<button type="button" class="btn btn-primary" onclick="validation()">Cadastrar</button>
+							<button type="button" class="btn btn-primary" onclick="confirmation()">Limpar</button>
 						</form>
 					</div>
 				</div>

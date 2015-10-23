@@ -44,7 +44,7 @@
 							href="page-shopping-cart.html"><b>3 items</b></a></li>
 						-->
 						<li><a href="login.jsp">Entrar</a></li>
-						<li><a href=#>Cadastrar</a></li>
+						<li><a href="registerUser.jsp">Cadastrar</a></li>
 					</ul>
 				</div>
 			</div>

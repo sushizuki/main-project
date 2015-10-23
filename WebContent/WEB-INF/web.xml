@@ -17,7 +17,7 @@
  </servlet-mapping>
  <servlet-mapping>
   <servlet-name>userController</servlet-name>
-  <url-pattern>/cadastro</url-pattern>
+  <url-pattern>/registerUser</url-pattern>
  </servlet-mapping>
  <welcome-file-list>
   <welcome-file>index.html</welcome-file>
