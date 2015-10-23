@@ -12,14 +12,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.UserDAO;
-import domain.Product;
+import dao.UserDAO;
 import domain.User;
  
 public class UserController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-
+	private UserDAO dao;
+    private static String INSERT_OR_EDIT = "/adm/product.jsp";
+    
 	@Override
 	protected void service(HttpServletRequest request,
 		HttpServletResponse response) throws ServletException, IOException {

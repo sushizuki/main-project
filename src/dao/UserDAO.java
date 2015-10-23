@@ -1,31 +1,34 @@
-package model;
-
+package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import domain.User;
+import model.ConnectionFactory;
 
-import domain.Product;
+public class UserDAO {
 
-public class ProductDAO {
+
+
 	private Connection con;
 
-	public ProductDAO() {
+	public UserDAO() {
 		this.con = new ConnectionFactory().getConnection();
 	}
 	
-	public void insert(Product product) {
+	public void insert(User user) {
 		String sql = "insert into product " +
-		"(name,description,price,image)" +
-		" values (?,?,?,?)";
+		"(name,email,address,password,phone)" +
+		" values (?,?,?,?,?)";
 		try {
 		// prepared statement for insertion
 		PreparedStatement stmt = con.prepareStatement(sql);
 		
 		// set values for each '?'
-		stmt.setString(1, product.getName());
-		stmt.setString(2, product.getDescription());
-		stmt.setString(3, String.valueOf(product.getPrice()));
-		stmt.setString(4, product.getImgUrl());
+		stmt.setString(1, user.getName());
+		stmt.setString(2, user.getEmail());
+		stmt.setString(3, user.getAddress());
+		stmt.setString(4, user.getPassword());
+		stmt.setString(5, user.getPhone());
 		
 		// execute
 		stmt.execute();
