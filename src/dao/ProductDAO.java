@@ -1,5 +1,11 @@
 package dao;
 
+import java.io.IOException;
+import java.nio.file.DirectoryNotEmptyException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -101,15 +107,14 @@ public class ProductDAO {
 	
 	public void update(Product product) {
 		String sql = "update product set name=?, description=?, price=?," +
-		"image=? Category_idCategory=? where idProduct=?";
+		" Category_idCategory=? where idProduct=?";
 		try {
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1, product.getName());
 			stmt.setString(2, product.getDescription());
 			stmt.setDouble(3, product.getPrice());
-			stmt.setString(4, product.getImgUrl());
-			stmt.setLong(5, product.getCategoryId(product.getCategory()));
-			stmt.setInt(6, product.getId());
+			stmt.setString(4, product.getCategory());
+			stmt.setInt(5, product.getId());
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
@@ -117,15 +122,62 @@ public class ProductDAO {
 		}
 	}
 	
-	public void delete(int productID) {
-		String sql = "delete from product where idProduct=?";
+	public void updateImage(Product product) {
+		String sql = "update product set image=? where idProduct=?";
 		try {
 			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setInt(1, productID);
+			stmt.setString(1, product.getImgUrl());
+			stmt.setInt(2, product.getId());
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		} 
+	}
+	
+	public void delete(Product product) {
+		String sql = "delete from product where idProduct=?";
+		try {
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setInt(1, product.getId());
+			stmt.execute();
+			stmt.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			//Convert file path to delete
+			Path path = convertImagePath(product);
+			
+			//delete product image
+			deleteImageProduct(path);
+		}
+	}
+	
+	private Path convertImagePath(Product product){
+		String path = getClass().getResource("/").getPath();
+		path = path.replace("WEB-INF/classes/", "");
+		path = path.substring(1, path.length()); //remove first slash
+		path = path.replaceAll("%20", " "); //Caracter space
+		path = path+product.getImgUrl();
+		
+		return Paths.get(path);
+	}
+	
+	public void deleteImageProduct(Product product){
+		Path path = convertImagePath(product);
+		deleteImageProduct(path);
+	}
+	
+	private void deleteImageProduct(Path path){
+		try {
+		    Files.delete(path);
+		} catch (NoSuchFileException x) {
+		    System.err.format("%s: no such" + " file or directory%n", path);
+		} catch (DirectoryNotEmptyException x) {
+		    System.err.format("%s not empty%n", path);
+		} catch (IOException x) {
+		    // File permission problems are caught here.
+		    System.err.println(x);
 		}
 	}
 	

@@ -1,4 +1,4 @@
-package controller;
+﻿package controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +25,7 @@ public class ProductController extends HttpServlet {
 	private ProductDAO dao;
     private static String INSERT_OR_EDIT = "/adm/product.jsp";
     private static String LIST_PRODUCT = "/adm/product-list.jsp";
-    private static String UPLOAD_IMG_DIR = "img\\products";
+    private static String UPLOAD_IMG_DIR = "img"+File.separator+"products";
 	
 	public ProductController() {
         super();
@@ -33,24 +33,31 @@ public class ProductController extends HttpServlet {
     }
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setCharacterEncoding("UTF-8");
-        request.setCharacterEncoding("UTF-8");  
-        
+                
 		String forward="";
         String action = request.getParameter("action");
+        
+        //Default action: List products
         if(action == null){
-        	action="listProducts";
-        }
-
-        if (action.equalsIgnoreCase("delete")){
-            int productId = Integer.parseInt(request.getParameter("id"));
-            dao.delete(productId);
+        	action = "listProducts";
+        } if (action.equalsIgnoreCase("listProducts") || action.isEmpty()){
             forward = LIST_PRODUCT;
             try {
 				request.setAttribute("products", dao.getList());
-				request.setAttribute("imgDir", System.getProperty("user.dir"));
+			} catch (SQLException e) {
+		    	System.err.println("ERROR while retrieving products information: ");
+				e.printStackTrace();
+			}
+        } else if (action.equalsIgnoreCase("delete")){
+            int productId = Integer.parseInt(request.getParameter("id"));
+            Product product = dao.getProductById(productId);
+            dao.delete(product);
+            forward = LIST_PRODUCT;
+            try {
+				request.setAttribute("products", dao.getList());
+		        request.setAttribute("message", "sucess");
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+		    	System.err.println("ERROR while retrieving products information: ");
 				e.printStackTrace();
 			}    
         } else if (action.equalsIgnoreCase("update")){
@@ -58,15 +65,6 @@ public class ProductController extends HttpServlet {
             int productId = Integer.parseInt(request.getParameter("id"));
             Product product = dao.getProductById(productId);
             request.setAttribute("product", product);
-        }else if (action.equalsIgnoreCase("listProducts") || action.isEmpty()){
-            forward = LIST_PRODUCT;
-            try {
-				request.setAttribute("products", dao.getList());
-				request.setAttribute("imgDir", System.getProperty("user.dir"));
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
         } else {
             forward = INSERT_OR_EDIT;
         }
@@ -75,6 +73,46 @@ public class ProductController extends HttpServlet {
     }	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		//Handle form fields and img upload
+		Product product = processProductForm(request, response);
+		if(product == null){
+            request.setAttribute("message", "failure");
+			return;
+		}
+		
+		//Decide whether it's a update or a insert action
+       if(product.getId() == 0){ //0 is a null for int variables
+           dao.insert(product);
+           request.setAttribute("message", "sucess");
+       }
+       else{ //Update Product
+    	   
+    	   //Check for an image update
+           if(product.getImgUrl() != null){
+        	   Product oldProduct = dao.getProductById(product.getId());
+        	   //Change img
+        	   dao.deleteImageProduct(oldProduct);
+        	   dao.updateImage(product);
+           }
+           dao.update(product);
+           request.setAttribute("message", "sucess");
+       }
+       
+       //Redirect and set return attributes              
+       RequestDispatcher view = request.getRequestDispatcher(LIST_PRODUCT);
+       
+       try {
+			request.setAttribute("products", dao.getList());
+       } catch (SQLException e) {
+    	   System.err.println("ERROR while retrieving products information: ");
+    	   e.printStackTrace();
+       }
+       
+       view.forward(request, response);
+   }
+	
+	private Product processProductForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");  
 		
@@ -83,8 +121,8 @@ public class ProductController extends HttpServlet {
 
 		// Set factory constraints
 		factory.setSizeThreshold(10240000); //10MB
-		String contextRoot = request.getServletContext().getRealPath("/");
-		factory.setRepository(new File(contextRoot + "WEB-INF/tmp"));
+		String contextRoot = request.getSession().getServletContext().getRealPath("/");
+		factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
 
 		// Create a new file upload handler
 		ServletFileUpload upload = new ServletFileUpload(factory);
@@ -109,63 +147,63 @@ public class ProductController extends HttpServlet {
 			    if (item.isFormField()) {		    	
 			    	// get parameters from request
 			    	String name, description, imgUrl;
-			    	int category;
+			    	int id, category;
 			    	double price;
 			    	
 			    	if(item.getFieldName().equals("name")){
-			    		name = item.getString();
+			    		name = item.getString("UTF-8");
 				 		product.setName(name);
 			    	}else if(item.getFieldName().equals("description")){
-			    		description = item.getString();
+			    		description = item.getString("UTF-8");
 				 		product.setDescription(description);
 			    	}else if(item.getFieldName().equals("price")){
-			    		price = Double.valueOf(item.getString());
+			    		price = Double.valueOf(item.getString("UTF-8"));
 				 		product.setPrice(price);
 			    	}else if(item.getFieldName().equals("category")){
-			    		category = Integer.parseInt(item.getString());
+			    		category = Integer.parseInt(item.getString("UTF-8"));
 				 		product.setCategory(category);
 			    	}else if(item.getFieldName().equals("img")){
-			    		imgUrl = factory.getRepository()+item.getString();
+			    		imgUrl = factory.getRepository()+item.getString("UTF-8");
 				 		product.setImgUrl(imgUrl);
+			    	}else if(item.getFieldName().equals("id")){
+			    		try{
+			    			id = Integer.parseInt(item.getString("UTF-8"));
+			    			product.setId(id);
+			    		}catch(Exception e){System.err.println("empty ID");};
 			    	}		    	
 			           
 			 		
-			    } else { //if not form field
+			    } else { //if not regular form field
 			    	
-			    	String fileName = item.getName();
-			 		product.setImgUrl(fileName);   
-			        
-			        File saveFile = new File(contextRoot+UPLOAD_IMG_DIR+File.separator+fileName);
-			        
-			        saveFile.createNewFile();
-			        item.write(saveFile);
+			    	if ("img".equals(item.getFieldName())) {
+			            if (item.getName() == null || item.getName().isEmpty()) {
+			                // No file was been selected.
+			            	product.setImgUrl(null);
+			            } else if (item.getSize() == 0) {
+			                // No file was been selected, or it was an empty file.
+			            	product.setImgUrl(null);
+			            }
+			            else {
+			            	//Save img
+			            	String fileName = item.getName();
+					 		String uploadDir = contextRoot+UPLOAD_IMG_DIR+File.separator;
+					 		String imgUrl = uploadDir+fileName;					 		
+			            	
+					 		product.setImgUrl("img/products/"+fileName);
+			            						        
+					        File saveFile = new File(imgUrl);
+					        
+					        saveFile.createNewFile();
+					        item.write(saveFile);
+			            }
+			        }			    	
 			    }
-			}	
+			}
+	 	    return product;
 		} catch (Exception e2) {
+			System.err.println("ERROR while processing form: ");
 			e2.printStackTrace();
-			return;
+			return null;
 		}        	   	
-       
-       String productId = request.getParameter("id");
-       if(productId == null || productId.isEmpty()){
-           dao.insert(product);
-       }
-       else{
-           product.setId(Integer.parseInt(request.getParameter("id")));
-           dao.update(product);
-       }
-              
-       RequestDispatcher view = request.getRequestDispatcher(LIST_PRODUCT);
-       
-       try {
-			request.setAttribute("products", dao.getList());
-			request.setAttribute("imgDir", contextRoot+UPLOAD_IMG_DIR+File.separator);
-       } catch (SQLException e) {
-    	   // TODO Auto-generated catch block
-    	   e.printStackTrace();
-       }
-       
-       view.forward(request, response);
-   }
-
+	}
 }
