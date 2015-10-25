@@ -82,7 +82,10 @@
 												<input type="checkbox" name="additional" value="gengibre"> Gengibre
 	                                        </div>
                                         <button type="button" align="left" class="btn btn-primary">Voltar</button>	                                        
-                                        <button type="submit" align="right" class="btn btn-primary">Continuar</button>    
+                                        <button type="submit" align="right" class="btn btn-primary">Buscar no local</button> 
+                                        <button type="submit" align="right" class="btn btn-primary">Entregar em casa</button>    
+                                        
+                                          
  									</form>
                                 </div>                  
                             </div>
