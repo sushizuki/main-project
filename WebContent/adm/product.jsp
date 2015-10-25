@@ -1,4 +1,4 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+﻿<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -118,9 +118,24 @@ function confirmation (){
             <!-- /.navbar-static-side -->
         </nav>
 
-        <div id="page-wrapper">
+        <div id="page-wrapper">        
+        
             <div class="row">
                 <div class="col-lg-12">
+	                <div class="message">
+		            		 <c:if test="${message == 'sucess'}">
+					        	<div class="alert alert-success alert-dismissable">
+					                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					                Realizado com sucesso!
+					            </div>
+				            </c:if>
+				        	<c:if test="${message == 'failure'}">            
+					            <div class="alert alert-danger alert-dismissable">
+					                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					                Algum erro ocorreu.
+					            </div>
+				            </c:if>
+		            	</div>
                     <h1 class="page-header">Produto</h1>
                 </div>
                 <!-- /.col-lg-12 -->
@@ -148,7 +163,7 @@ function confirmation (){
                                             <label>Preço:</label>
 	                                        <div class="input-group">
 	                                            <span class="input-group-addon">R$</span>
-	                                            <input type="text" name="price" class="form-control" style="width:80px;" maxlength="6"
+	                                            <input type="text" name="price" id="price" class="form-control" style="width:80px;" maxlength="6"
 	                                            value="<c:out value="${product.price}" />" />
 	                                        </div>
 	                                    </div>
@@ -158,7 +173,7 @@ function confirmation (){
                                         </div>
                                          <div class="form-group">
                                         	<label>Categoria:</label>
-                                        	<select name="category">
+                                        	<select name="category" class="form-control">
 												<option value="1">Sushi</option>
 												<option value="2">Uramaki</option>
 												<option value="3">Sashimi</option>
@@ -179,6 +194,9 @@ function confirmation (){
                         <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
+                    <p>
+                    	<a class="btn btn-outline btn-primary" href="Product">Voltar</a>
+                    </p>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -200,7 +218,47 @@ function confirmation (){
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
+    
+    <!-- Mask Money -->
+    <script src="../js/jquery.maskMoney.min.js"></script>
+	
+	<script>
+    $(document).ready(function() {
+        
+      	$(".alert").addClass("in")
+      	
+      	$("#price").maskMoney();
 
+      	$('form').validate({
+      	    rules: {
+      	        name: {
+      	            minlength: 3,
+      	            maxlength: 45,
+      	            required: true
+      	        },
+      	        description: {
+      	            minlength: 3,
+      	            maxlength: 150,
+      	            required: false
+      	        },
+      	        price: {
+    	            required: true
+    	        },
+      	    },
+      	  errorPlacement: function(error, element) {
+              error.insertAfter('.form-group'); 
+          }, 
+          highlight: function(element) {
+              $(element).closest('.form-group').addClass('has-error');
+          },
+          unhighlight: function(element) {
+              $(element).closest('.form-group').removeClass('has-error');
+          }
+      	});
+
+    });
+    </script>
+	
 </body>
 
 </html>
