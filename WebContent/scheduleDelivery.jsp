@@ -58,7 +58,7 @@
 	<div id="page-wrapper">
 	            <div class="row">
 	                <div class="col-lg-12">
-	                    <h1 class="page-header">Informações de busca e pagamento</h1>
+	                    <h1 class="page-header">Informações de entrega e pagamento</h1>
 	                </div>
 	                <!-- /.col-lg-12 -->
 	            </div>
