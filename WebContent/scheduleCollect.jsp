@@ -58,7 +58,7 @@
 	<div id="page-wrapper">
 	            <div class="row">
 	                <div class="col-lg-12">
-	                    <h1 class="page-header">Buscar no local</h1>
+	                    <h1 class="page-header">Informações de busca e pagamento</h1>
 	                </div>
 	                <!-- /.col-lg-12 -->
 	            </div>
@@ -69,18 +69,30 @@
 	                        <div class="panel-body">
 	                            <div class="row">
 	                                <div class="col-lg-6">
-	                                    <form role="form" name="formCollect" action="collect.jsp" method="post" enctype="multipart/form-data">
+	                                    <form role="form" name="formScheduleCollect" action="scheduleCollect.jsp" method="post" enctype="multipart/form-data">
 	                                        <div class="form-group">
-	                                            <label>O endereço para busca no local é:</label><br>
-	                                            <label><b><i>SMPW Quadra 26 Conjunto 6 Lote 5 casa D - Condomínio Recanto da Primavera</i></b></label>
+	                                            <label><i>Os dias para coleta são: sexta-feira, sábado e domingo. Em qualquer horário</i></label><br>
 	                                        </div>
 	                                        <div class="form-group">
-	                                        	<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3836.769922896627!2d-47.96928648485721!3d-15.921114130326632!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935a292f4880cdc1%3A0x856e76e030fa3e75!2sSmpw+Trecho+1+Q+26+Conjunto+6+7%2C+7+-+N%C3%BAcleo+Bandeirante%2C+Bras%C3%ADlia+-+DF!5e0!3m2!1sen!2sbr!4v1445826478412" 
-	                                        	width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+	                                        	<label>Data da busca:</label>
+	                                        	<input type="date">
+	                                        </div>
+	                                        <div>
+	                                        	<label>Horário da busca:</label>
+	                                        	<input type="time">
+	                                        </div>
+	                                        <div>
+	                                        	<br><label>Forma de pagamento:</label><br>
+	                                        	<label>O pagamento só é efetuado na hora da coleta do pedido</label><br>
+	                                        	<form action="">
+	                                        	<input type="radio" name="payment" value="card"> Cartão de crédito/débito<br>
+	                                        	<input type="radio" name="payment" value="money"> Dinheiro<br>
+	                                        	</form>	 
 	                                        </div>
                                         <a href="confirmation.jsp"><button type="button" class="btn btn-primary">Voltar</button></a>	                                        
-                                        <a href="scheduleCollect.jsp"><button type="button" class="btn btn-primary">Continuar</button></a>    
+                                        <button type="submit" class="btn btn-primary">Confirmar</button> 
  									</form>
+ 									
                                 </div>                  
                             </div>
                             <!-- /.row (nested) -->

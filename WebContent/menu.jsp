@@ -60,7 +60,7 @@
 	</div>
 
 
-
+	<a href="confirmation.jsp"><button type="button" class="btn btn-primary">Continuar</button></a> 
 
 	<!-- Javascripts -->
 	<script
