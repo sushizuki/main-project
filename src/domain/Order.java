@@ -4,6 +4,8 @@ import java.util.Calendar;
 
 public class Order {
 
+	//implements interface Delivery (Design pattern strategy)
+	
 	private int id;
 	private Client client;
 	private ArrayList<Product> items;

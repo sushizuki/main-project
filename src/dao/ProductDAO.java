@@ -15,6 +15,7 @@ import java.util.List;
 
 import domain.Product;
 
+//Design pattern DAO
 public class ProductDAO {
 	private Connection con;
 
