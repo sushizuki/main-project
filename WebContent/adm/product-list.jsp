@@ -197,6 +197,9 @@
     <script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 
 	<!-- Lightbox -->
+    <script src="../js/lightbox.js"></script>
+    
+    <!-- Mask Money -->
     <script src="../js/jquery.maskMoney.min.js"></script>
     
     <!-- Custom Theme JavaScript -->
