@@ -58,7 +58,7 @@
 	<div id="page-wrapper">
 	            <div class="row">
 	                <div class="col-lg-12">
-	                    <h1 class="page-header">Confirmação do Pedido</h1>
+	                    <h1 class="page-header">Buscar no local</h1>
 	                </div>
 	                <!-- /.col-lg-12 -->
 	            </div>
@@ -69,23 +69,17 @@
 	                        <div class="panel-body">
 	                            <div class="row">
 	                                <div class="col-lg-6">
-	                                    <form role="form" name="formConfirmation" action="confirmation.jsp" method="post" enctype="multipart/form-data">
+	                                    <form role="form" name="formCollect" action="collect.jsp" method="post" enctype="multipart/form-data">
 	                                        <div class="form-group">
-	                                            <label>Seu pedido é:</label>
-	                                            <textarea class="form-control" name="confirmation" rows="5" ></textarea>
+	                                            <label>O endereço para busca no local é:</label><br>
+	                                            <label><b><i>SMPW Quadra 26 Conjunto 6 Lote 5 casa D - Condomínio Recanto da Primavera</i></b></label>
 	                                        </div>
 	                                        <div class="form-group">
-	                                        	<label>Gostaria de acrescentar:</label><br>
-	                                        	<input type="checkbox" name="additional" value="shoyu"> Sachê de molho shoyu<br>
-												<input type="checkbox" name="additional" value="wasabi"> Wasabi<br>
-												<input type="checkbox" name="additional" value="hashi"> Hashi<br>
-												<input type="checkbox" name="additional" value="gengibre"> Gengibre
+	                                        	<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3836.769922896627!2d-47.96928648485721!3d-15.921114130326632!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935a292f4880cdc1%3A0x856e76e030fa3e75!2sSmpw+Trecho+1+Q+26+Conjunto+6+7%2C+7+-+N%C3%BAcleo+Bandeirante%2C+Bras%C3%ADlia+-+DF!5e0!3m2!1sen!2sbr!4v1445826478412" 
+	                                        	width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
 	                                        </div>
-                                        <a href="menu.jsp"><button type="button" class="btn btn-primary">Voltar</button></a>                                      
-                                        <a href="collect.jsp"><button type="button" class="btn btn-primary">Buscar no local</button></a>
-                                        <a href="delivery.jsp"><button type="button" class="btn btn-primary">Entregar em domicílio</button></a>    
-                                        
-                                          
+                                        <a href="confirmation.jsp"><button type="button" class="btn btn-primary">Voltar</button></a>	                                        
+                                        <a href="#"><button type="submit" class="btn btn-primary">Continuar</button></a>    
  									</form>
                                 </div>                  
                             </div>
