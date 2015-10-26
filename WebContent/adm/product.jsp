@@ -32,6 +32,33 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+<script type="text/javascript"> 
+ function validation(){ 
+	 if(document.formProduct.name.value==""){
+		 alert( "Preencha o campo NOME!" );
+ 		 return false;
+ 	 }
+	 if(document.formProduct.description.value==""){
+		 alert( "Preencha o campo DESCRIÇÃO!" );
+ 		 return false;
+	 }
+	 if(document.formProduct.price.value==""){
+		 alert( "Preencha o PREÇO!" );
+ 		 return false;
+	 }
+	 if(isNaN(document.formProduct.price.value)){
+		 alert( "Digite apenas números!" );
+		 return false;
+	 }
+ document.formProduct.submit();
+}
+ 
+function confirmation (){
+	decision = confirm("Todos os campos serão apagados");
+	if(decision)
+		document.formProduct.reset();	
+}
+</script>
 </head>
 
 <body>
@@ -79,7 +106,7 @@
                             <a href="#"><i class="fa fa-envelope fa-fw"></i> Mensagens</a>
                         </li>
                         <li>
-                            <a href="products.jsp"><i class="fa fa-cutlery fa-fw"></i> Produtos</a>
+                            <a href="Product"><i class="fa fa-cutlery fa-fw"></i> Produtos</a>
                         </li>
                         <li>
                             <a href="forms.html"><i class="fa fa-gear fa-fw"></i> Administrador</a>
@@ -91,9 +118,24 @@
             <!-- /.navbar-static-side -->
         </nav>
 
-        <div id="page-wrapper">
+        <div id="page-wrapper">        
+        
             <div class="row">
                 <div class="col-lg-12">
+	                <div class="message">
+		            		 <c:if test="${message == 'sucess'}">
+					        	<div class="alert alert-success alert-dismissable">
+					                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					                Realizado com sucesso!
+					            </div>
+				            </c:if>
+				        	<c:if test="${message == 'failure'}">            
+					            <div class="alert alert-danger alert-dismissable">
+					                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					                Algum erro ocorreu.
+					            </div>
+				            </c:if>
+		            	</div>
                     <h1 class="page-header">Produto</h1>
                 </div>
                 <!-- /.col-lg-12 -->
@@ -102,13 +144,10 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                            FormulÃ¡rio - Produto
-                        </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form" name="formProduct" action="Product" method="post">
+                                    <form role="form" name="formProduct" action="Product" method="post" enctype="multipart/form-data">
                                         <div class="form-group">
                                         	<input type="hidden" name="id" readonly value="<c:out value="${product.id}" />" />
                                             <label>Nome:</label>
@@ -124,16 +163,28 @@
                                             <label>PreÃ§o:</label>
 	                                        <div class="input-group">
 	                                            <span class="input-group-addon">R$</span>
-	                                            <input type="text" name="price" class="form-control" style="width:80px;" maxlength="6"
+	                                            <input type="text" name="price" id="price" class="form-control" style="width:80px;" maxlength="6"
 	                                            value="<c:out value="${product.price}" />" />
 	                                        </div>
 	                                    </div>
                                         <div class="form-group">
                                             <label>Imagem:</label>
-                                            <input type="file" name="img">
-                                        </div>                                        
-                                        <button type="submit" class="btn btn-primary">Enviar</button>
-                                        <button type="reset" class="btn btn-primary">Limpar</button>
+                                            <input type="file" name="img" accept="image/jpeg; image/png">
+                                        </div>
+                                         <div class="form-group">
+                                        	<label>Categoria:</label>
+                                        	<select name="category" class="form-control">
+												<option value="1">Sushi</option>
+												<option value="2">Uramaki</option>
+												<option value="3">Sashimi</option>
+												<option value="4">Temaki</option>
+												<option value="5">Niguiri</option>
+											</select>
+                                        </div>    
+                                                                  
+                                        <button type="button" class="btn btn-primary" onclick="validation()">Enviar</button>
+                                        <button type="button" class="btn btn-primary" onclick="confirmation()">Limpar</button>
+                                       
                                     </form>
                                 </div>
                                 
@@ -143,6 +194,9 @@
                         <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
+                    <p>
+                    	<a class="btn btn-outline btn-primary" href="Product">Voltar</a>
+                    </p>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -164,7 +218,47 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
+    
+    <!-- Mask Money -->
+    <script src="../js/jquery.maskMoney.min.js"></script>
+	
+	<script>
+    $(document).ready(function() {
+        
+      	$(".alert").addClass("in")
+      	
+      	$("#price").maskMoney();
 
+      	$('form').validate({
+      	    rules: {
+      	        name: {
+      	            minlength: 3,
+      	            maxlength: 45,
+      	            required: true
+      	        },
+      	        description: {
+      	            minlength: 3,
+      	            maxlength: 150,
+      	            required: false
+      	        },
+      	        price: {
+    	            required: true
+    	        },
+      	    },
+      	  errorPlacement: function(error, element) {
+              error.insertAfter('.form-group'); 
+          }, 
+          highlight: function(element) {
+              $(element).closest('.form-group').addClass('has-error');
+          },
+          unhighlight: function(element) {
+              $(element).closest('.form-group').removeClass('has-error');
+          }
+      	});
+
+    });
+    </script>
+	
 </body>
 
 </html>

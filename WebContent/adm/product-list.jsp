@@ -1,6 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ page isELIgnored="true" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,6 +24,9 @@
 
     <!-- DataTables Responsive CSS -->
     <link href="../bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
+    
+    <!-- Lightbox -->
+    <link href="../css/lightbox.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
@@ -85,7 +87,7 @@
                             <a href="#"><i class="fa fa-envelope fa-fw"></i> Mensagens</a>
                         </li>
                         <li>
-                            <a href="products.jsp"><i class="fa fa-cutlery fa-fw"></i> Produtos</a>
+                            <a href="Product"><i class="fa fa-cutlery fa-fw"></i> Produtos</a>
                         </li>
                         <li>
                             <a href="forms.html"><i class="fa fa-gear fa-fw"></i> Administrador</a>
@@ -97,9 +99,23 @@
             <!-- /.navbar-static-side -->
         </nav>
 
-        <div id="page-wrapper">
+        <div id="page-wrapper">       
             <div class="row">
-                <div class="col-lg-12">
+	            <div class="col-lg-12">
+	            	<div class="message" id="message">
+	            		 <c:if test="${message == 'sucess'}">
+				        	<div class="alert alert-success alert-dismissable fade">
+				                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				                Realizado com sucesso!
+				            </div>
+			            </c:if>
+			        	<c:if test="${message == 'failure'}">            
+				            <div class="alert alert-danger alert-dismissable fade">
+				                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				                Algum erro ocorreu.
+				            </div>
+			            </c:if>
+	            	</div>		           
                     <h1 class="page-header">Produtos</h1>   
                     <div class="form-group">                 
                     	<a class="btn btn-primary" href="Product?action=new">Cadastrar novo produto</a>  
@@ -123,36 +139,37 @@
                                         	<th style="display: none">ID</th>
                                             <th>Nome</th>
                                             <th>Descrição</th>
-                                            <th>Preço</th>
+                                            <th class="center">Preço</th>
+                                            <th class="center">Categoria</th>
                                             <th class="center">Imagem</th>
                                             <th class="center">Ações</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                    	<c:forEach items="${products}" var="product">
-                                        <tr class="">
+                                    <tbody>                                    	
+                                    <c:forEach items="${products}" var="product">                                    	
+                                        <tr class="gradeA">
                                         	<td style="display: none"><c:out value="${product.id}" /></td>
                                             <td><c:out value="${product.name}" /></td>
                                             <td><c:out value="${product.description}" /></td>
-                                            <td><div style="width:100px;"><c:out value="${product.price}" /></div></td>
+                                            <td class="center"><c:out value="${product.price}" /></td>
+                                            <td class="center"><c:out value="${product.category}" /></td>
                                             <td class="center">
-                                            	<div style="width:100px;">
-                                            		<button type="button" class="btn btn-outline btn-primary btn-xs">Ver</button>
-                                            	</div>
+                                            	<c:if test="${product.imgUrl != null}">
+	                                            	<a href="../${product.imgUrl}" data-lightbox="image-1" data-title="${product.name}" class="btn btn-outline btn-primary btn-xs">
+														Ver
+													</a>
+												</c:if>
                                             </td>
                                             <td class="center">
-                                            	<div style="width:100px;">
-                                					<a class="btn btn-outline btn-primary btn-xs" href="Product?action=update&id=<c:out value="${product.id}"/>">Editar</a>
-                                                	<a class="btn btn-outline btn-primary btn-xs" href="Product?action=delete&id=<c:out value="${product.id}"/>">Excluir</a>
-                                                	
-                                                </div>
-											</td>
+                               					<a class="btn btn-outline btn-primary btn-xs" href="Product?action=update&id=<c:out value="${product.id}"/>">Editar</a>
+												<a class="btn btn-outline btn-primary btn-xs" href="Product?action=delete&id=<c:out value="${product.id}"/>" data-confirm="Tem certeza que deseja excluir?">Excluir</a>                                                	
+                                            </td>
                                         </tr>
-                                        </c:forEach>                                       
+                                    </c:forEach>                                       
                                     </tbody>
-                                </table>
-                            </div>
-                            <!-- /.table-responsive -->
+                                </table>                                
+                            </div>    
+                            <!-- /.table-responsive -->                            
                         </div>
                         <!-- /.panel-body -->
                     </div>
@@ -179,6 +196,9 @@
     <script src="../bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 
+	<!-- Lightbox -->
+    <script src="../js/jquery.maskMoney.min.js"></script>
+    
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
 
@@ -190,11 +210,27 @@
         	  "columns": [
         	    null,
         	    null,
+        	    { "orderable": false }, //description
         	    null,
-        	    { "orderable": false },
-        	    { "orderable": false }
+        	    null,
+        	    { "orderable": false }, //img
+        	    { "orderable": false } //actions
         	  ]
         	} );
+
+        $('a[data-confirm]').click(function(ev) {
+    		var href = $(this).attr('href');
+    		if (!$('#dataConfirmModal').length) {    			
+    			$('body').append('<div class="modal fade" id="dataConfirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel">Confirmar</h4></div><div class="modal-body"></div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button><a class="btn btn-primary" id="dataConfirmOK">OK</a></div></div></div></div>');
+    		} 
+    		$('#dataConfirmModal').find('.modal-body').text($(this).attr('data-confirm'));
+    		$('#dataConfirmOK').attr('href', href);
+    		$('#dataConfirmModal').modal({show:true});
+    		return false;
+    	});
+
+      	$(".alert").addClass("in")
+
     });
     </script>
 

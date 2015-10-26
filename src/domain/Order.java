@@ -1,4 +1,4 @@
-package domain;
+﻿package domain;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -12,16 +12,6 @@ public class Order {
 	private String deliveryAddress;
 	private Calendar deliveryTime;
 
-	@SuppressWarnings("unused")
-	private void emitirConfirmacao() {
-
-	}
-
-	@SuppressWarnings("unused")
-	private void agendarRecebimento() {
-
-	}
-	
 	public int getId() {
 		return id;
 	}
