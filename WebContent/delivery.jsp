@@ -88,7 +88,7 @@
 	                                        	</table>
 	                                        </div>
                                         <br><a href="confirmation.jsp"><button type="button" class="btn btn-primary">Voltar</button></a>	                                        
-                                        <a href="#"><button type="submit" class="btn btn-primary">Continuar</button></a>    
+                                        <a href="scheduleDelivery.jsp"><button type="submit" class="btn btn-primary">Continuar</button></a>    
  									</form>
                                 </div>                  
                             </div>
