@@ -2,6 +2,10 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import domain.User;
 import dao.ConnectionFactory;
@@ -68,4 +72,41 @@ public class UserDAO {
 			throw new RuntimeException(e);
 		}
 	}
-}
+
+	    public List<User> getAllUsers() {
+	        List<User> users = new ArrayList<User>();
+	        try {
+	            Statement statement = con.createStatement();
+	            ResultSet rs = statement.executeQuery("select * from users");
+	            while (rs.next()) {
+	                User user = new User();
+	                user.setId(rs.getInt("userid"));
+	                user.setEmail(rs.getString("email"));
+	                users.add(user);
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+
+	        return users;
+	    }
+
+	    public User getUserById(int userId) {
+	        User user = new User();
+	        try {
+	            PreparedStatement preparedStatement = con.
+	                    prepareStatement("select * from users where userid=?");
+	            preparedStatement.setInt(1, userId);
+	            ResultSet rs = preparedStatement.executeQuery();
+
+	            if (rs.next()) {
+	                user.setId(rs.getInt("userid"));
+	                user.setEmail(rs.getString("email"));
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+
+	        return user;
+	    }
+	}

@@ -16,6 +16,10 @@ public class User {
 		this.setPhone(phone);
 	}
 
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getId() {
 		return id;
 	}
