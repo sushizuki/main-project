@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -59,6 +61,44 @@
 		</div>
 	</div>
 
+	<div class="eshop-section section">
+	    	<div class="container">
+	    		<h2>Cardápio</h2>
+				<div class="row">
+					<div class="col-md-3 col-sm-6">
+					<c:forEach items="${products}" var="product">
+						<div class="shop-item">
+							<div class="shop-item-image">
+								<a href="#"><img src="${product.imgUrl}" alt="${product.name}"></a>
+							</div>
+							<div class="title">
+								<h3><c:out value="${product.name}"/></h3>
+							</div>
+							<div class="price">
+								<c:out value="${product.price}" />
+							</div>
+							<div class="description">
+								<p><c:out value="${product.description}" /></p>
+							</div>
+							<div class="actions">
+								<a href="page-product-details.html" class="btn btn-small"><i class="icon-shopping-cart icon-white"></i> Add</a>
+							</div>
+						</div>
+					</c:forEach>
+					</div>
+				</div>
+				<div class="pagination-wrapper ">
+					<ul class="pagination pagination-lg">
+						<li class="disabled"><a href="#">Previous</a></li>
+						<li class="active"><a href="#">1</a></li>
+						<li><a href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li><a href="#">4</a></li>
+						<li><a href="#">Next</a></li>
+					</ul>
+				</div>
+			</div>
+	    </div>
 
 	<a href="confirmation.jsp"><button type="button" class="btn btn-primary">Continuar</button></a> 
 

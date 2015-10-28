@@ -21,4 +21,8 @@
     <servlet-name>userController</servlet-name>
     <url-pattern>/login</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ProductController</servlet-name>
+    <url-pattern>/menu.jsp</url-pattern>
+  </servlet-mapping>
 </web-app>
