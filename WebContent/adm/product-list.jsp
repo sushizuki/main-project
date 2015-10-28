@@ -1,5 +1,6 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+ï»¿<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -138,11 +139,11 @@
                                         <tr>
                                         	<th style="display: none">ID</th>
                                             <th>Nome</th>
-                                            <th>Descrição</th>
-                                            <th class="center">Preço</th>
+                                            <th>DescriÃ§Ã£o</th>
+                                            <th class="center">PreÃ§o</th>
                                             <th class="center">Categoria</th>
                                             <th class="center">Imagem</th>
-                                            <th class="center">Ações</th>
+                                            <th class="center">AÃ§Ãµes</th>
                                         </tr>
                                     </thead>
                                     <tbody>                                    	
