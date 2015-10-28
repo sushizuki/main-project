@@ -65,10 +65,22 @@ public class ProductController extends HttpServlet {
         } else if (action.equalsIgnoreCase("update")){
             forward = INSERT_OR_EDIT;
             int productId = Integer.parseInt(request.getParameter("id"));
-            Product product = dao.getProductById(productId);
-            request.setAttribute("product", product);
+            try {
+	            Product product = dao.getProductById(productId);
+	            request.setAttribute("product", product);
+				request.setAttribute("categories", dao.getProductCategoryList());
+            }catch(Exception e){
+		    	System.err.println("ERROR while retrieving product information: ");
+				e.printStackTrace();
+            }
         } else {
             forward = INSERT_OR_EDIT;
+			try {
+				request.setAttribute("categories", dao.getProductCategoryList());
+			} catch (SQLException e) {
+		    	System.err.println("ERROR while retrieving categories information: ");
+				e.printStackTrace();
+			}
         }
         RequestDispatcher view = request.getRequestDispatcher(forward);
         view.forward(request, response);

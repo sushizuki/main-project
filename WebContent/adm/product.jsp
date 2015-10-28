@@ -174,11 +174,9 @@ function confirmation (){
                                          <div class="form-group">
                                         	<label>Categoria:</label>
                                         	<select name="category" class="form-control">
-												<option value="1">Sushi</option>
-												<option value="2">Uramaki</option>
-												<option value="3">Sashimi</option>
-												<option value="4">Temaki</option>
-												<option value="5">Niguiri</option>
+                                        	<c:forEach items="${categories}" var="category" varStatus="theCount"> 
+												<option <c:if test="${product.category == category}">selected</c:if> value="${theCount.count}"><c:out value="${category}" /></option>
+											</c:forEach>
 											</select>
                                         </div>    
                                                                   
