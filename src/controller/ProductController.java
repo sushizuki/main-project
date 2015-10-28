@@ -2,6 +2,8 @@
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
@@ -169,7 +171,7 @@ public class ProductController extends HttpServlet {
 			    		try{
 			    			id = Integer.parseInt(item.getString("UTF-8"));
 			    			product.setId(id);
-			    		}catch(Exception e){System.err.println("empty ID");};
+			    		}catch(Exception e){System.err.println("empty ID: inserting new product...");};
 			    	}		    	
 			           
 			 		
@@ -187,11 +189,18 @@ public class ProductController extends HttpServlet {
 			            	//Save img
 			            	String fileName = item.getName();
 					 		String uploadDir = contextRoot+UPLOAD_IMG_DIR+File.separator;
-					 		String imgUrl = uploadDir+fileName;					 		
+					 		String imgUrl = uploadDir+fileName;		
 			            	
 					 		product.setImgUrl("img/products/"+fileName);
-			            						        
-					        File saveFile = new File(imgUrl);
+			            	
+					 		
+					 		//Create product images directory if not exists					        
+					 		if(Files.notExists(Paths.get(uploadDir.substring(0, uploadDir.length()-1)))){
+					 			
+					 			new File(uploadDir.substring(0, uploadDir.length()-1)).mkdirs();
+					 		}
+					        
+					 		File saveFile = new File(imgUrl);
 					        
 					        saveFile.createNewFile();
 					        item.write(saveFile);
