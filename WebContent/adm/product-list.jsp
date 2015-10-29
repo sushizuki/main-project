@@ -138,12 +138,12 @@
                                     <thead>
                                         <tr>
                                         	<th style="display: none">ID</th>
-                                            <th>Nome</th>
-                                            <th>Descrição</th>
-                                            <th class="center">Preço</th>
-                                            <th class="center">Categoria</th>
-                                            <th class="center">Imagem</th>
-                                            <th class="center">Ações</th>
+                                            <th style="width:150px;">Nome</th>
+                                            <th style="width:350px;">Descrição</th>
+                                            <th class="center" style="width:100px;">Preço </th>
+                                            <th class="center" style="width:150px;">Categoria </th>
+                                            <th class="center">Imagem </th>
+                                            <th class="center" style="width:150px;">Ações </th>
                                         </tr>
                                     </thead>
                                     <tbody>                                    	
