@@ -23,6 +23,6 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>ProductController</servlet-name>
-    <url-pattern>/menu.jsp</url-pattern>
+    <url-pattern>/menu</url-pattern>
   </servlet-mapping>
 </web-app>

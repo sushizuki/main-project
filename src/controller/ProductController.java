@@ -49,8 +49,9 @@ public class ProductController extends HttpServlet {
         	//Default action: List Products
         	if(action == null || action.isEmpty()){
         		action = "listProducts";
-        	}
+        	} 
 			
+        	System.out.println("REQUEST URL = "+request.getRequestURI());
         	Command command = cf.getCommand(action);
         	
         	//Default command: List Products
@@ -58,6 +59,12 @@ public class ProductController extends HttpServlet {
         		action = "listProducts";
         		command = cf.getCommand(action);;
         	}
+        	
+        	if(request.getRequestURI().contains("/menu")){
+				action = "listProducts";
+				command = cf.getCommand(action);
+				((ListProducts) command).setPageToRedirect("menu.jsp");
+			}
 			command.execute();
 			
 			//ACHO QUE CABE OUTRO PADRÃO AQUI
@@ -82,7 +89,7 @@ public class ProductController extends HttpServlet {
 			}
 
 			//Set redirection
-			view = request.getRequestDispatcher(command.getPageToRedirect());
+			view = request.getRequestDispatcher(command.getPageToRedirect());			
 			
         }catch(Exception e){
 			System.err.println("ERROR while processing request: ");
