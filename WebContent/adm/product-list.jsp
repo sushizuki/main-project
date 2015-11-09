@@ -119,7 +119,7 @@
 	            	</div>		           
                     <h1 class="page-header">Produtos</h1>   
                     <div class="form-group">                 
-                    	<a class="btn btn-primary" href="Product?action=new">Cadastrar novo produto</a>  
+                    	<a class="btn btn-primary" href="Product?action=newProduct">Cadastrar novo produto</a>  
                     </div>                  
                 </div>
                 <!-- /.col-lg-12 -->
@@ -162,8 +162,8 @@
 												</c:if>
                                             </td>
                                             <td class="center">
-                               					<a class="btn btn-outline btn-primary btn-xs" href="Product?action=update&id=<c:out value="${product.id}"/>">Editar</a>
-												<a class="btn btn-outline btn-primary btn-xs" href="Product?action=delete&id=<c:out value="${product.id}"/>" data-confirm="Tem certeza que deseja excluir?">Excluir</a>                                                	
+                               					<a class="btn btn-outline btn-primary btn-xs" href="Product?action=getProduct&id=<c:out value="${product.id}"/>">Editar</a>
+												<a class="btn btn-outline btn-primary btn-xs" href="Product?action=deleteProduct&id=<c:out value="${product.id}"/>" data-confirm="Tem certeza que deseja excluir?">Excluir</a>                                                	
                                             </td>
                                         </tr>
                                     </c:forEach>                                       
@@ -232,8 +232,6 @@
     		$('#dataConfirmModal').modal({show:true});
     		return false;
     	});
-
-      	$(".alert").addClass("in")
 
     });
     </script>

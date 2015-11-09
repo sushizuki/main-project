@@ -169,6 +169,11 @@ function confirmation (){
 	                                    </div>
                                         <div class="form-group">
                                             <label>Imagem:</label>
+			            				 	<c:if test="${not empty product.imgUrl}">
+			                                    <div class="well well-sm" style="width: 120px">
+							                        <img src="../${product.imgUrl}" data-lightbox="image-1" data-title="${product.name}" style="width:100px;" />
+							                    </div>
+		                                    </c:if>
                                             <input type="file" name="img" accept="image/jpeg; image/png">
                                         </div>
                                          <div class="form-group">

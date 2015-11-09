@@ -76,8 +76,8 @@ public class ProductDAO {
 			stmt.close();
 			return productList; 
 
-		}catch (SQLException e) {
-			throw new RuntimeException(e);
+		}catch (Exception e) {
+			throw new RuntimeException("ERROR LISTING PRODUCTS: "+e.getMessage());
 		}
    }
 	
@@ -100,7 +100,7 @@ public class ProductDAO {
 
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+			throw new RuntimeException("ERROR GETTING PRODUCT: "+e.getMessage());
         }
         
         return product;
@@ -207,4 +207,14 @@ public class ProductDAO {
 			throw new RuntimeException(e);
 		}
 	}	
+	
+	public void finalize() {
+		try {
+			if(!this.con.isClosed()){
+				this.con.close();
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException("Connection ERROR, could not close connection: "+e.getMessage());
+		}
+	}
 }
