@@ -312,3 +312,6 @@ div.FixedHeader_Cloned table {
 	margin: 0 !important
 }
 
+table.display thead th div.DataTables_sort_wrapper {
+  padding: 0
+}

@@ -1,5 +1,6 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+ï»¿<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -118,7 +119,7 @@
 	            	</div>		           
                     <h1 class="page-header">Produtos</h1>   
                     <div class="form-group">                 
-                    	<a class="btn btn-primary" href="Product?action=new">Cadastrar novo produto</a>  
+                    	<a class="btn btn-primary" href="Product?action=newProduct">Cadastrar novo produto</a>  
                     </div>                  
                 </div>
                 <!-- /.col-lg-12 -->
@@ -137,12 +138,12 @@
                                     <thead>
                                         <tr>
                                         	<th style="display: none">ID</th>
-                                            <th>Nome</th>
-                                            <th>Descrição</th>
-                                            <th class="center">Preço</th>
-                                            <th class="center">Categoria</th>
-                                            <th class="center">Imagem</th>
-                                            <th class="center">Ações</th>
+                                            <th style="width:150px;">Nome</th>
+                                            <th style="width:350px;">DescriÃ§Ã£o</th>
+                                            <th class="center" style="width:100px;">PreÃ§o </th>
+                                            <th class="center" style="width:150px;">Categoria </th>
+                                            <th class="center">Imagem </th>
+                                            <th class="center" style="width:150px;">AÃ§Ãµes </th>
                                         </tr>
                                     </thead>
                                     <tbody>                                    	
@@ -161,8 +162,8 @@
 												</c:if>
                                             </td>
                                             <td class="center">
-                               					<a class="btn btn-outline btn-primary btn-xs" href="Product?action=update&id=<c:out value="${product.id}"/>">Editar</a>
-												<a class="btn btn-outline btn-primary btn-xs" href="Product?action=delete&id=<c:out value="${product.id}"/>" data-confirm="Tem certeza que deseja excluir?">Excluir</a>                                                	
+                               					<a class="btn btn-outline btn-primary btn-xs" href="Product?action=getProduct&id=<c:out value="${product.id}"/>">Editar</a>
+												<a class="btn btn-outline btn-primary btn-xs" href="Product?action=deleteProduct&id=<c:out value="${product.id}"/>" data-confirm="Tem certeza que deseja excluir?">Excluir</a>                                                	
                                             </td>
                                         </tr>
                                     </c:forEach>                                       
@@ -197,6 +198,9 @@
     <script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 
 	<!-- Lightbox -->
+    <script src="../js/lightbox.js"></script>
+    
+    <!-- Mask Money -->
     <script src="../js/jquery.maskMoney.min.js"></script>
     
     <!-- Custom Theme JavaScript -->
@@ -228,8 +232,6 @@
     		$('#dataConfirmModal').modal({show:true});
     		return false;
     	});
-
-      	$(".alert").addClass("in")
 
     });
     </script>
