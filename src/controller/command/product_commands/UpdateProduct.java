@@ -1,8 +1,9 @@
 /**
  * 
  */
-package controller.command;
+package controller.command.product_commands;
 
+import controller.command.Command;
 import dao.ProductDAO;
 import domain.Product;
 

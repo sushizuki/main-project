@@ -760,6 +760,7 @@ a:hover {
 }
 .shop-item .image {
   text-align: center;
+  height:150px;
 }
 .shop-item .title {
   padding: 20px 0 10px;
@@ -824,7 +825,6 @@ a:hover {
   text-align: center;
 }
 .shop-item .actions span {
-  font-size: 0.8em;
   white-space: nowrap;
 }
 .colors {

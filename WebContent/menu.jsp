@@ -43,7 +43,7 @@
 					<ul>
 						<li class="shopping-cart-items"><i
 							class="glyphicon glyphicon-shopping-cart icon-white"></i> <a
-							href="page-shopping-cart.html"><b>3 items</b></a></li>
+							href="shopping-cart"><b>3 items</b></a></li>
 						<li></li>
 						<li><a href="login.jsp">Login</a></li>
 					</ul>
@@ -73,6 +73,7 @@
 					<c:forEach items="${products}" var="product">
 						<div class="col-md-3 col-sm-6">
 							<div class="shop-item">
+								<input type="checkbox" value="${product.id}" id="product-${product.id }" style="float:left;">
 								<div class="shop-item-image">
 									<img src="${product.imgUrl}" alt="${product.name}">
 								</div>
@@ -86,21 +87,16 @@
 									<p><c:out value="${product.description}" /></p>
 								</div>
 								<div class="actions">
-									<a href="page-product-details.html" class="btn btn-small"><i class="icon-shopping-cart icon-white"></i> Adicionar</a>
+									<button class="btn btn-small btn-add" id="${product.id}"><i class="glyphicon glyphicon-shopping-cart icon-white"></i><span> Adicionar</span></button>
+									<br>
+									<label>
+										Quantidade:
+									</label>									
+  									<input type="number" name="prod_quantity" min="1" max="1000" size='2'>
 								</div>
 							</div>
 						</div>
 					</c:forEach>
-				</div>
-				<div class="pagination-wrapper ">
-					<ul class="pagination pagination-lg">
-						<li class="disabled"><a href="#">Previous</a></li>
-						<li class="active"><a href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">Next</a></li>
-					</ul>
 				</div>
 			</div>
 	    </div>
@@ -114,6 +110,21 @@
 		window.jQuery
 				|| document
 						.write('<script src="js/jquery-1.9.1.min.js"><\/script>')
+	</script>
+	<script>
+	$(document).ready(function() {
+        $('.btn-add').click(function(ev) {
+    		var prod = "#product-"+$(this).attr('id');
+    		if($(prod).prop("checked") == false){
+        		$(prod).prop("checked", true);
+        		$('span', this).text(" Remover");
+    		} else {
+    			$(prod).prop("checked", false);
+        		$('span', this).text(" Adicionar");
+    		}
+    	});
+
+    });
 	</script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.js"></script>

@@ -1,7 +1,8 @@
-package controller.command;
+package controller.command.product_commands;
 
 import java.util.List;
 
+import controller.command.Command;
 import dao.ProductDAO;
 
 public class NewProduct implements Command {

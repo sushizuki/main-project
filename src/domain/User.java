@@ -1,12 +1,16 @@
 ﻿package domain;
-public class User {
+
+public abstract class User {
 
 	private int id;
 	private String name;
 	private String email;
-	private String address;
 	private String password;
 	private String phone;
+	
+	public User(){
+		
+	}
 	
 	public int getId() {
 		return id;
@@ -30,14 +34,6 @@ public class User {
 	
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	
-	public String getAddress() {
-		return address;
-	}
-	
-	public void setAddress(String address) {
-		this.address = address;
 	}
 	
 	public String getPassword() {

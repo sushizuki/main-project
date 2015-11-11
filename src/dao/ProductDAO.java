@@ -99,6 +99,9 @@ public class ProductDAO {
 				product.setCategory(rs.getString("Category_idCategory"));
 
             }
+            
+            preparedStatement.close();
+            rs.close();
         } catch (SQLException e) {
 			throw new RuntimeException("ERROR GETTING PRODUCT: "+e.getMessage());
         }
@@ -208,7 +211,7 @@ public class ProductDAO {
 		}
 	}	
 	
-	public void finalize() {
+	/*public void finalize() {
 		try {
 			if(!this.con.isClosed()){
 				this.con.close();
@@ -216,5 +219,31 @@ public class ProductDAO {
 		} catch (SQLException e) {
 			throw new RuntimeException("Connection ERROR, could not close connection: "+e.getMessage());
 		}
-	}
+	}*/
+
+	public List<String> getProductExtraList() throws SQLException{
+
+		String sql = "select name from extra";
+
+		PreparedStatement stmt = con.prepareStatement(sql);
+		List<String> extraList = new ArrayList<String>(); 
+
+		ResultSet rs = null;
+		
+		try { 
+	    	   
+			rs = stmt.executeQuery(sql);       
+
+			while (rs.next()) { 			
+				extraList.add(rs.getString("name"));
+			}
+			
+			rs.close();
+			stmt.close();
+			return extraList; 
+
+		}catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}	
 }

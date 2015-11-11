@@ -19,12 +19,12 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import controller.command.Command;
 import controller.command.CommandFactory;
-import controller.command.DeleteProduct;
-import controller.command.GetProduct;
-import controller.command.InsertProduct;
-import controller.command.ListProducts;
-import controller.command.NewProduct;
-import controller.command.UpdateProduct;
+import controller.command.product_commands.DeleteProduct;
+import controller.command.product_commands.GetProduct;
+import controller.command.product_commands.InsertProduct;
+import controller.command.product_commands.ListProducts;
+import controller.command.product_commands.NewProduct;
+import controller.command.product_commands.UpdateProduct;
 import domain.Product;
 
 public class ProductController extends HttpServlet {
@@ -51,27 +51,22 @@ public class ProductController extends HttpServlet {
         		action = "listProducts";
         	} 
 			
-        	System.out.println("REQUEST URL = "+request.getRequestURI());
         	Command command = cf.getCommand(action);
         	
         	//Default command: List Products
-        	if(command == null){
+        	if(command == null){//Invalid command passed, go to default command
         		action = "listProducts";
         		command = cf.getCommand(action);;
         	}
         	
-        	if(request.getRequestURI().contains("/menu")){
-				action = "listProducts";
-				command = cf.getCommand(action);
-				((ListProducts) command).setPageToRedirect("menu.jsp");
-			}
 			command.execute();
 			
 			//ACHO QUE CABE OUTRO PADRÃO AQUI
 			
 			//SET RETURN ATRIBUTES FOR THE REQUEST IN ACCORDANCE OF EACH COMMAND
 			if(command instanceof ListProducts){
-		 		request.setAttribute("products", ((ListProducts)command).getProducts() );		
+		 		request.setAttribute("products", ((ListProducts)command).getProducts() );
+				((ListProducts) command).setPageToRedirect(request.getRequestURI());		
 			} else if(command instanceof NewProduct){
 				request.setAttribute("categories", ((NewProduct)command).getProductCategories());		 
 			} else if(command instanceof GetProduct){				

@@ -13,22 +13,25 @@ public class Product {
 	private double price;
 	private String imgUrl;
 	private String category;
+	private String extra;
 
-	public Product(int id, String name, String description, double price, String imgUrl, String category) throws SQLException {
+	public Product(int id, String name, String description, double price, String imgUrl, String category, String extra) throws SQLException {
 		this.setId(id);
 		this.setName(name);
 		this.setDescription(description);
 		this.setPrice(price);
 		this.setImgUrl(imgUrl);
 		this.setCategory(category);
+		this.setExtra(extra);
 	}
 	
-	public Product(String name, String description, double price, String imgUrl, String category) throws SQLException {
+	public Product(String name, String description, double price, String imgUrl, String category, String extra) throws SQLException {
 		this.setName(name);
 		this.setDescription(description);
 		this.setPrice(price);
 		this.setImgUrl(imgUrl);
 		this.setCategory(category);
+		this.setExtra(extra);
 	}
 	
 	public Product(){
@@ -105,6 +108,37 @@ public class Product {
 		    }
 		}
 		return 0; //if not found 0 = none
+	}
+
+	public int getExtraId(String extra) throws SQLException {
+		ProductDAO dao = new ProductDAO();
+		List<String> list = dao.getProductExtraList();
+		
+		for (int i = 1; i <= list.size(); i++) {
+		    if(extra.equalsIgnoreCase(this.getExtra())){
+		    	return i;
+		    }
+		}
+		return 0; //if not found 0 = none
+	}
+
+	public String getExtra() {
+		return extra;
+	}
+	
+	//Get a number, look into category list from database to assign Name proper to the number
+	public void setExtra(String extra) throws SQLException {
+		ProductDAO dao = new ProductDAO();
+		List<String> list = dao.getProductExtraList();
+		try {
+			this.extra = list.get(Integer.parseInt(extra)-1);
+		}catch(RuntimeException e){
+			System.out.println("Error assigning extra");
+		}
+	}
+	
+	public void setExtra(int extra) {
+		this.extra = String.valueOf(extra);
 	}
 	
 }

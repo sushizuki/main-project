@@ -1,7 +1,8 @@
-package controller.command;
+package controller.command.product_commands;
 
 import java.util.List;
 
+import controller.command.Command;
 import dao.ProductDAO;
 import domain.Product;
 
@@ -35,8 +36,12 @@ public class ListProducts implements Command {
 		return this.pageToRedirect;
 	}
 
-	public void setPageToRedirect(String pageToRedirect) {
-		this.pageToRedirect = pageToRedirect;
+	public void setPageToRedirect(String context) {
+		if(context.contains("/menu")){
+			this.pageToRedirect = "menu.jsp";
+		} else {
+			this.pageToRedirect = "/adm/product-list.jsp";
+		}
 	}
 	
 }

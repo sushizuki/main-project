@@ -4,8 +4,17 @@ public class Additional {
 	
 	private int id;
 	private String name;
-	private String imgUrl;
 	
+	public Additional(){
+		
+	}
+	
+	public Additional(int id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -21,15 +30,4 @@ public class Additional {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public String getImgUrl() {
-		return imgUrl;
-	}
-	
-	public void setImgUrl(String imgUrl) {
-		this.imgUrl = imgUrl;
-	}
-
-	
-
 }

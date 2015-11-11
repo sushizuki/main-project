@@ -1,19 +1,25 @@
 ﻿package domain;
-import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.List;
 
 public class Order {
 
-	//implements interface Delivery (Design pattern strategy)
+	//implements interface Receiving (Design pattern strategy)
 	
 	private int id;
 	private Client client;
-	private ArrayList<Product> items;
-	private ArrayList<Additional> additionals;
+	private List<Product> items;
+	private List<Additional> additionals;
 	private double totalPrice;
-	private String deliveryAddress;
-	private Calendar deliveryTime;
+	private String extra; //Cream cheese or green onion;
+	private Receiving receiving;
+	private Payment payment;
 
+	//Composition - Payment and Receiving must be an instance only here
+	public Order(){
+		//NEW PAYMENT
+		//NEW COLLECT OR DELIVERY
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -30,19 +36,19 @@ public class Order {
 		this.client = client;
 	}
 
-	public ArrayList<Product> getItems() {
+	public List<Product> getItems() {
 		return items;
 	}
 
-	public void setItems(ArrayList<Product> items) {
+	public void setItems(List<Product> items) {
 		this.items = items;
 	}
 
-	public ArrayList<Additional> getAdditionals() {
+	public List<Additional> getAdditionals() {
 		return additionals;
 	}
 
-	public void setAdditionals(ArrayList<Additional> additionals) {
+	public void setAdditionals(List<Additional> additionals) {
 		this.additionals = additionals;
 	}
 
@@ -53,21 +59,34 @@ public class Order {
 	public void setTotalPrice(double totalPrice) {
 		this.totalPrice = totalPrice;
 	}
-
-	public String getDeliveryAddress() {
-		return deliveryAddress;
+	
+	public void setTotalPrice() {
+		for(Product p : this.getItems()){
+			this.totalPrice += p.getPrice();			
+		}
 	}
 
-	public void setDeliveryAddress(String deliveryAddress) {
-		this.deliveryAddress = deliveryAddress;
+	public String getExtra() {
+		return extra;
 	}
 
-	public Calendar getDeliveryTime() {
-		return deliveryTime;
+	public void setExtra(String e) {
+		this.extra = e;
 	}
 
-	public void setDeliveryTime(Calendar deliveryTime) {
-		this.deliveryTime = deliveryTime;
+	public Receiving getReceiving() {
+		return receiving;
+	}	
+
+	public void setReceiving(Receiving receiving) {
+		this.receiving = receiving;
 	}	
 	
+	public Payment getPayment() {
+		return payment;
+	}
+
+	public void setPayment(Payment payment) {
+		this.payment = payment;
+	}
 }
