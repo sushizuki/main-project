@@ -115,7 +115,7 @@
 				<div class="col-md-12">
 					<div class="calltoaction-wrapper">
 						<h3>Faça seu pedido agora!</h3>
-						<a href="" class="btn btn-orange">aqui!</a>
+						<a href="" class="btn btn-orange">Aqui!</a>
 					</div>
 				</div>
 			</div>
@@ -161,6 +161,21 @@
 		</div>
 	</div> -->
 	<!-- End Services -->
+	
+	<div class="section">
+	    	<div class="container">
+	    		<h2>SushiZuki</h2>
+				<div class="row">
+						<div>
+							<p>É uma microempresa que produz comida japonesa e entrega em domicílio no Park Way (DF).
+							Caso o cliente não resida no Park Way, também existe a possibilidade de buscar o pedido no local de produção.
+							As comidas japonesas produzidas são: sushi, temaki, niguiri e sashimi.</p>
+							<p>Para mais informações consulte o nosso <a href="menu.jsp">cardápio</a></p>
+							
+						</div>
+				</div>
+			</div>
+		</div>
 
 
 
