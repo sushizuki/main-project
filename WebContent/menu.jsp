@@ -10,7 +10,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>Sushizuki</title>
+<title>Sushizuki - Cardápio</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width">
 
@@ -40,11 +40,8 @@
 			<div class="menuextras">
 				<div class="extras">
 					<ul>
-						<li class="shopping-cart-items"><i
-							class="glyphicon glyphicon-shopping-cart icon-white"></i> <a
-							href="page-shopping-cart.html"><b>3 items</b></a></li>
-						<li></li>
-						<li><a href="login.jsp">Login</a></li>
+						<li><a href="login.jsp">Entrar</a></li>
+						<li><a href=#>Cadastrar</a></li>
 					</ul>
 				</div>
 			</div>
@@ -54,8 +51,7 @@
 							src="img/sushi/sushizuki-logo.png" alt="Sushizuki"></a></li>
 					<li><a href="index.jsp">Home</a></li>
 					<li class="active"><a href="menu.jsp">Cardápio</a></li>
-
-					<li><a href="contatos.html">Contatos</a></li>
+					<li><a href="contact.jsp">Contatos</a></li>
 				</ul>
 			</nav>
 		</div>

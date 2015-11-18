@@ -1,14 +1,10 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
 <html class="no-js">
 <!--<![endif]-->
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>Sushizuki - Login</title>
+<title>Sushizuki</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width">
 
@@ -37,8 +33,11 @@
 		<div class="container">
 			<div class="menuextras">
 				<div class="extras">
+					<ul>
+						<li>Nome usuário</li>
+					</ul>
 				</div>
-			</div> 
+			</div>
 			<nav id="mainmenu" class="mainmenu">
 				<ul>
 					<li class="logo-wrapper"><a href="index.jsp"><img
@@ -50,51 +49,40 @@
 			</nav>
 		</div>
 	</div>
-
-	<!-- Page Title -->
-	<div class="section section-breadcrumbs">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<h1>Login</h1>
-				</div>
-			</div>
-		</div>
-	</div>
 	
-	<div class="section-white">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-5">
-					<div class="basic-login">
-						<form role="form" role="form" action="login">
-							<div class="form-group">
-								<label for="login-username"><i class="icon-user"></i> <b>Email</b></label>
-								<input class="form-control" id="login-username" type="text" placeholder="">
-							</div>
-							<div class="form-group">
-								<label for="login-password"><i class="icon-lock"></i> <b>Senha</b></label>
-								<input class="form-control" id="login-password" type="password" placeholder="">
-							</div>
-							<div class="form-group">
-							<!--
-								<label class="checkbox">
-									<input type="checkbox"> Continuar conectado
-								</label>
-							-->
-								<a href="page-password-reset.html" class="forgot-password">Esqueceu a senha?</a><br/>
-								<a href="page-register.html">Cadastre-se</a>
-								<button type="submit" class="btn pull-right">Login</button>
-								<div class="clearfix"></div>
-							</div>
-						</form>
+	<!-- Page Title -->
+		<div class="section section-breadcrumbs">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<h1>Redefinir Senha</h1>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<br/><br/>
-	<!-- Footer -->
+        
+        <div class="section">
+	    	<div class="container">
+				<div class="row">
+					<div class="col-sm-6 col-sm-offset-3">
+						<div class="basic-login">
+							<form>
+								<div class="form-group">
+		        				 	<label for="restore-email"><i class="icon-envelope"></i> <b>Digite o Email Cadastrado</b></label>
+									<input class="form-control" id="restore-email" type="text" placeholder="">
+								</div>
+								<div class="form-group">
+									<button type="submit" class="btn pull-right">Redefinir senha</button>
+									<div class="clearfix"></div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+<!-- Footer -->
 	    <div class="footer">
 	    	<div class="container">
 		    	<div class="row">
@@ -111,7 +99,7 @@
 		    			<h3>Contato</h3>
 		    			<p class="contact-us-details">
 	        				<b>Telefone:</b> (61) 8636 8825<br/>
-	        				<b>Email:</b> <a href="mailto:">sushizukiii@gmail.com</a>
+	        				<b>Email:</b> <a href="mailto:">email@sushizuki.com.br</a>
 	        			</p>
 		    		</div>
 					
@@ -130,7 +118,6 @@
 		    	</div>
 		    </div>
 	    </div>
-
 
 	<!-- Javascripts -->
 	<script

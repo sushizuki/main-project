@@ -8,7 +8,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>Sushizuki - Login</title>
+<title>Sushizuki - Contato</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width">
 
@@ -27,10 +27,14 @@
 <script src="js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 </head>
 <body>
-	<!--[if lt IE 7]>
-            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-        <![endif]-->
 
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.5";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 	<!-- Navigation & Logo-->
 	<div class="mainmenu-wrapper">
@@ -52,48 +56,85 @@
 	</div>
 
 	<!-- Page Title -->
-	<div class="section section-breadcrumbs">
-		<div class="container">
-			<div class="row">
+		<div class="section section-breadcrumbs">
+			<div class="container">
+				<div class="row">
 				<div class="col-md-12">
-					<h1>Login</h1>
+					<h1>Contato</h1>
+				</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	
-	<div class="section-white">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-5">
-					<div class="basic-login">
-						<form role="form" role="form" action="login">
-							<div class="form-group">
-								<label for="login-username"><i class="icon-user"></i> <b>Email</b></label>
-								<input class="form-control" id="login-username" type="text" placeholder="">
+        
+        <div class="section">
+	    	<div class="container">
+				<div class="row">
+					<div class="col-sm-4">
+						<!-- Product -->
+						<div class="shop-item">
+							<!-- Product Image -->
+							<div class="fb-page" 
+								data-href="https://www.facebook.com/SushiZuki-165405287145692/?fref=ts" data-small-header="true"
+								data-adapt-container-width="true" 
+								data-hide-cover="false" data-show-facepile="true" data-show-posts="false">
 							</div>
-							<div class="form-group">
-								<label for="login-password"><i class="icon-lock"></i> <b>Senha</b></label>
-								<input class="form-control" id="login-password" type="password" placeholder="">
+							<!-- Product Title -->
+							<div class="facebook">
+								<br>
+								<h3>Facebook</h3>
 							</div>
-							<div class="form-group">
-							<!--
-								<label class="checkbox">
-									<input type="checkbox"> Continuar conectado
-								</label>
-							-->
-								<a href="page-password-reset.html" class="forgot-password">Esqueceu a senha?</a><br/>
-								<a href="page-register.html">Cadastre-se</a>
-								<button type="submit" class="btn pull-right">Login</button>
-								<div class="clearfix"></div>
+							<!-- Product Description-->
+							<div class="description">
+								<p>Curta a nossa página no Facebook</p>
 							</div>
-						</form>
+						</div>
+						<!-- End Product -->
+					</div>
+
+					<div class="col-sm-4">
+						<!-- Product -->
+						<div class="shop-item">
+							<!-- Product Image -->
+							<div class="image">
+								<img src="img/email.png" alt="Email">
+							</div>
+							<!-- Product Title -->
+							<div class="email">
+								<h3>Email</h3>
+							</div>
+							<!-- Product Description-->
+							<div class="description">
+								<p>Qualquer dúvida envie um email<br></p>
+								<p><a href="mailto:">sushizukiii@gmail.com</a></p>
+							</div>
+						</div>
+						<!-- End Product -->
+					</div>
+					
+					<div class="col-sm-4">
+						<!-- Product -->
+						<div class="shop-item">
+							<!-- Product Image -->
+							<div class="image">
+								<img src="img/whatsapp.png" alt="Telefone">
+							</div>
+							<!-- Product Title -->
+							<div class="telefone">
+								<h3>Telefone</h3>
+							</div>
+							<!-- Product Description-->
+							<div class="description">
+								<p>Telefone e Whatsapp para contato<br></p>
+								<p>(61) 8636 8825</p>
+							</div>
+						</div>
+						<!-- End Product -->
 					</div>
 				</div>
+				
 			</div>
-		</div>
-	</div>
-	<br/><br/>
+	    </div>
+	
 	<!-- Footer -->
 	    <div class="footer">
 	    	<div class="container">

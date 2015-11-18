@@ -34,11 +34,7 @@
 			<div class="menuextras">
 				<div class="extras">
 					<ul>
-						<li class="shopping-cart-items"><i
-							class="glyphicon glyphicon-shopping-cart icon-white"></i> <a
-							href="page-shopping-cart.html"><b>3 items</b></a></li>
-						<li></li>
-						<li><a href="login.jsp">Login</a></li>
+						<li>Nome usuário</li>
 					</ul>
 				</div>
 			</div>
@@ -48,27 +44,27 @@
 							src="img/sushi/sushizuki-logo.png" alt="Sushizuki"></a></li>
 					<li><a href="index.jsp">Home</a></li>
 					<li><a href="menu.jsp">Cardápio</a></li>
-
-					<li><a href="contatos.html">Contatos</a></li>
+					<li><a href="contact.jsp">Contatos</a></li>
 				</ul>
 			</nav>
 		</div>
 	</div>
 	
-	<div id="page-wrapper">
-	            <div class="row">
-	                <div class="col-lg-12">
-	                    <h1 class="page-header">Entrega em domicílio</h1>
-	                </div>
-	                <!-- /.col-lg-12 -->
-	            </div>
+		<div id="page-wrapper">
+	            <div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<h1>Entrega em domicílio</h1>
+						</div>
+					</div>
+				</div>
+	            
+
 	            <!-- /.row -->
-	            <div class="row">
-	                <div class="col-lg-12">
-	                    <div class="panel panel-default">
-	                        <div class="panel-body">
-	                            <div class="row">
-	                                <div class="col-lg-6">
+	            	<div class="section-white">
+						<div class="container">
+							<div class="row">
+								<div class="col-sm-8">
 	                                    <form role="form" name="formDelivery" action="delivery.jsp" method="post" enctype="multipart/form-data">
 	                                        <div>
 	                                        	<table style="width:100%">
@@ -99,13 +95,43 @@
                     <!-- /.panel -->
                 </div>
                 <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-        </div>
-        <!-- /#page-wrapper -->
-    </div>
-    <!-- /#wrapper -->
-
+                
+    	<!-- Footer -->
+	    <div class="footer">
+	    	<div class="container">
+		    	<div class="row">
+		    		<div class="col-footer col-md-3 col-xs-6">
+		    			<h3>Navegação</h3>
+		    			<ul class="no-list-style footer-navigate-section">
+		    				<li><a href="index.jsp">Home</a></li>
+		    				<li><a href="menu.jsp">Cardápio</a></li>
+		    				<li><a href="contact.jsp">Contato</a></li>
+		    			</ul>
+		    		</div>
+		    		
+		    		<div class="col-footer col-md-4 col-xs-6">
+		    			<h3>Contato</h3>
+		    			<p class="contact-us-details">
+	        				<b>Telefone:</b> (61) 8636 8825<br/>
+	        				<b>Email:</b> <a href="mailto:">sushizukiii@gmail.com</a>
+	        			</p>
+		    		</div>
+					
+					<div class="col-footer col-md-2 col-xs-6">
+		    			<h3>Social</h3>
+		    			<ul class="footer-stay-connected no-list-style">
+		    				<li><a href="https://www.facebook.com/SushiZuki-165405287145692/?fref=ts" class="facebook"></a></li>
+		    			</ul>
+		    		</div>
+					
+		    	</div>
+		    	<div class="row">
+		    		<div class="col-md-12">
+		    			<div class="footer-copyright">&copy; 2015 Sushizuki. Brasília/DF.</div>
+		    		</div>
+		    	</div>
+		    </div>
+	    </div>
 
 	<!-- Javascripts -->
 	<script

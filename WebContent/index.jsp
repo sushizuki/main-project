@@ -54,8 +54,7 @@
 							src="img/sushi/sushizuki-logo.png" alt="Sushizuki"></a></li>
 					<li class="active"><a href="index.jsp">Home</a></li>
 					<li><a href="menu.jsp">Cardápio</a></li>
-
-					<li><a href="contatos.html">Contatos</a></li>
+					<li><a href="contact.jsp">Contatos</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -121,54 +120,15 @@
 			</div>
 		</div>
 	</div>
-	<!-- End Call to Action Bar -->
-
-	<!-- Services
-	<div class="section">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-4 col-sm-6">
-					<div class="service-wrapper">
-						<img src="img/service-icon/diamond.png" alt="Service 1">
-						<h3>Entrega no parkway</h3>
-						<p>Praesent rhoncus mauris ac sollicitudin vehicula. Nam
-							fringilla turpis turpis, at posuere turpis aliquet sit amet
-							condimentum</p>
-						<a href="#" class="btn">Read more</a>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-6">
-					<div class="service-wrapper">
-						<img src="img/service-icon/ruler.png" alt="Service 2">
-						<h3>Sextas, sábados e domingos</h3>
-						<p>Suspendisse eget libero mi. Fusce ligula orci, vulputate
-							nec elit ultrices, ornare faucibus orci. Aenean lectus sapien,
-							vehicula</p>
-						<a href="#" class="btn">Read more</a>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-6">
-					<div class="service-wrapper">
-						<img src="img/service-icon/box.png" alt="Service 3">
-						<h3>Dinossauro</h3>
-						<p>Phasellus posuere et nisl ac commodo. Nulla facilisi. Sed
-							tincidunt bibendum cursus. Aenean vulputate aliquam risus rutrum
-							scelerisque</p>
-						<a href="#" class="btn">Read more</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div> -->
-	<!-- End Services -->
 	
-	<div class="section">
+	
+	<div class="section" align="center">
 	    	<div class="container">
 	    		<h2>SushiZuki</h2>
 				<div class="row">
 						<div>
-							<p>É uma microempresa que produz comida japonesa e entrega em domicílio no Park Way (DF).
-							Caso o cliente não resida no Park Way, também existe a possibilidade de buscar o pedido no local de produção.
+							<p>É uma microempresa que produz comida japonesa e entrega em domicílio no Park Way (DF).<br>
+							Caso o cliente não resida no Park Way, também é possível buscar o pedido no local de produção.<br>
 							As comidas japonesas produzidas são: sushi, temaki, niguiri e sashimi.</p>
 							<p>Para mais informações consulte o nosso <a href="menu.jsp">cardápio</a></p>
 							
@@ -177,7 +137,42 @@
 			</div>
 		</div>
 
-
+	<!-- Footer -->
+	    <div class="footer">
+	    	<div class="container">
+		    	<div class="row">
+		    		<div class="col-footer col-md-3 col-xs-6">
+		    			<h3>Navegação</h3>
+		    			<ul class="no-list-style footer-navigate-section">
+		    				<li><a href="index.jsp">Home</a></li>
+		    				<li><a href="menu.jsp">Cardápio</a></li>
+		    				<li><a href="contact.jsp">Contato</a></li>
+		    			</ul>
+		    		</div>
+		    		
+		    		<div class="col-footer col-md-4 col-xs-6">
+		    			<h3>Contato</h3>
+		    			<p class="contact-us-details">
+	        				<b>Telefone:</b> (61) 8636 8825<br/>
+	        				<b>Email:</b> <a href="mailto:">sushizukiii@gmail.com</a>
+	        			</p>
+		    		</div>
+					
+					<div class="col-footer col-md-2 col-xs-6">
+		    			<h3>Social</h3>
+		    			<ul class="footer-stay-connected no-list-style">
+		    				<li><a href="https://www.facebook.com/SushiZuki-165405287145692/?fref=ts" class="facebook"></a></li>
+		    			</ul>
+		    		</div>
+					
+		    	</div>
+		    	<div class="row">
+		    		<div class="col-md-12">
+		    			<div class="footer-copyright">&copy; 2015 Sushizuki. Brasília/DF.</div>
+		    		</div>
+		    	</div>
+		    </div>
+	    </div>
 
 	<!-- Javascripts -->
 	<script
