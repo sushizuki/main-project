@@ -2,25 +2,14 @@ package domain;
 
 import java.util.Calendar;
 
-public abstract class Receiving {
-
-	private Address address;
-	private Calendar time;
+public interface Receiving {
 		
-	public void setAddress(Address a){
-		this.address = a;
-	}
+	public void setAddress(Address a);
 	
-	public void setTime(Calendar c){
-		this.time = c;
-	}
+	public void setTime(Calendar c);
 	
-	public Address getAddress(){
-		return this.address;
-	}
+	public Address getAddress();
 	
-	public Calendar getTime(){
-		return this.time;
-	}
+	public Calendar getTime();
 
 }

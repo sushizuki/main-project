@@ -281,7 +281,8 @@ a:hover {
   right: 0;
 }
 .price-ribbon {
-  font: bold 15px Sans-Serif;
+  font-size: 13px;
+  font-variant:small-caps;
   color: #333;
   text-align: center;
   text-shadow: rgba(255, 255, 255, 0.5) 0px 1px 0px;
@@ -307,6 +308,9 @@ a:hover {
 }
 .ribbon-blue {
   background-color: #5ACBFF;
+}
+.ribbon-yellow {
+  background-color: #f1c40f;
 }
 .ribbon-orange {
   background-color: #FF9542;
@@ -736,6 +740,7 @@ a:hover {
 +	E-commerce Style
 --------------------------------------------------------------------------*/
 .shop-item {
+  font-family:'Open Sans', sans-serif;
   position: relative;
   background: #FFF;
   padding-bottom: 10px;
@@ -753,10 +758,14 @@ a:hover {
   box-shadow: inset 0 1px #fff,0 0 8px #c8cfe6;
   color: inset 0 1px #fff,0 0 8px #c8cfe6;
   text-align:center;
+  height:480px;
 }
 .shop-item img {
   max-width: 100%;
   height:150px;
+}
+.shop-item-image {
+  height:160px;	
 }
 .shop-item .image {
   text-align: center;
@@ -970,10 +979,11 @@ span.color-red {
 +	Shopping Cart Style
 --------------------------------------------------------------------------*/
 .shopping-cart {
-  margin: 10px 0 0 0;
-  width: 100%;
+  margin: 0;
+  width: 60%;
   border-collapse: separate;
   border-spacing: 0 10px;
+  font-family:'Open Sans', sans-serif;
 }
 .shopping-cart a {
   color: #535b60;
@@ -1005,9 +1015,10 @@ span.color-red {
 .shopping-cart .image,
 .shopping-cart .image img {
   max-width: 150px;
+  text-align:center;
 }
 .shopping-cart .title {
-  font-size: 1.1em;
+  font-size: 1.3em;
 }
 .shopping-cart .feature {
   font-size: 0.8em;

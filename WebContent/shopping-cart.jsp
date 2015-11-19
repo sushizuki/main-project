@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html class="no-js">
 <!--<![endif]-->
@@ -36,7 +38,7 @@
 					<ul>
 						<li class="shopping-cart-items"><i
 							class="glyphicon glyphicon-shopping-cart icon-white"></i> <a
-							href="page-shopping-cart.html"><b>3 items</b></a></li>
+							href="page-shopping-cart.html"><b>${order.items.size()} itens</b></a></li>
 						<li></li>
 						<li><a href="login.jsp">Login</a></li>
 					</ul>
@@ -55,53 +57,111 @@
 		</div>
 	</div>
 	
-	<div id="page-wrapper">
-	            <div class="row">
-	                <div class="col-lg-12">
-	                    <h1 class="page-header">Confirmação do Pedido</h1>
-	                </div>
-	                <!-- /.col-lg-12 -->
-	            </div>
-	            <!-- /.row -->
-	            <div class="row">
-	                <div class="col-lg-12">
-	                    <div class="panel panel-default">
-	                        <div class="panel-body">
-	                            <div class="row">
-	                                <div class="col-lg-6">
-	                                    <form role="form" name="formConfirmation" action="confirmation.jsp" method="post" enctype="multipart/form-data">
-	                                        <div class="form-group">
-	                                            <label>Seu pedido é:</label>
-	                                            <textarea class="form-control" name="confirmation" rows="5" ></textarea>
-	                                        </div>
-	                                        <div class="form-group">
-	                                        	<label>Gostaria de acrescentar:</label><br>
-	                                        	<input type="checkbox" name="additional" value="shoyu"> Sachê de molho shoyu<br>
-												<input type="checkbox" name="additional" value="wasabi"> Wasabi<br>
-												<input type="checkbox" name="additional" value="hashi"> Hashi<br>
-												<input type="checkbox" name="additional" value="gengibre"> Gengibre
-	                                        </div>
-                                        <a href="menu.jsp"><button type="button" class="btn btn-primary">Voltar</button></a>                                      
-                                        <a href="collect.jsp"><button type="button" class="btn btn-primary">Buscar no local</button></a>
-                                        <a href="delivery.jsp"><button type="button" class="btn btn-primary">Entregar em domicílio</button></a>    
-                                        
-                                          
- 									</form>
-                                </div>                  
-                            </div>
-                            <!-- /.row (nested) -->
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-        </div>
-        <!-- /#page-wrapper -->
-    </div>
-    <!-- /#wrapper -->
+	<!-- Page Title -->
+		<div class="section section-breadcrumbs" >
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<h1>Confirmação de Pedido</h1>
+					</div>
+				</div>
+			</div>
+		</div>        
+        <div>
+	    	<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<!-- Shopping Cart Items -->
+						<table class="shopping-cart">
+							<c:forEach var="item" items="${order.items}">
+								<!-- Shopping Cart Item -->
+								<tr>
+									<!-- Shopping Cart Item Image -->
+									<td class="image"><img src="${item.key.imgUrl}" alt="${item.key.name}"></td>
+									<!-- Shopping Cart Item Description & Features -->
+									<td>
+										<div class="shopping-cart title">${item.key.name }</div>
+										<c:if test="${item.key.extra != null}">
+											<div class="feature">Extra: <b>${item.key.extra }</b></div>
+										</c:if>
+									</td>
+									<!-- Shopping Cart Item Quantity -->
+									<td class="quantity">
+										<input class="form-control input-sm input-micro" type="text" value="${item.value}">
+									</td>
+									<!-- Shopping Cart Item Price -->
+									<td class="price"><fmt:formatNumber value="${item.key.price}" type="currency" currencySymbol="R$" /></td>
+									<!-- Shopping Cart Item Actions -->
+									<td class="actions">
+										<a href="#" class="btn btn-xs btn-grey"><i class="glyphicon glyphicon-trash"></i></a>
+									</td>
+								</tr>
+								<!-- End Shopping Cart Item -->	
+							</c:forEach>						
+						</table>
+						<!-- End Shopping Cart Items -->
+					</div>
+				</div>
+				<div class="row">
+					<!-- Shopping Cart Totals -->
+					<div class="col-md-12">
+						<div style="width: 60%">
+							<table class="cart-totals">
+								<tr>
+									<td><b>Entrega</b></td>
+									<td style="width:20%;">Grátis</td>
+								</tr>
+								<tr class="cart-grand-total">
+									<td><b>Total</b></td>
+									<td><b><fmt:formatNumber value="${order.totalPrice}" type="currency" currencySymbol="R$" /></b></td>
+								</tr>
+							</table>
+							<div>
+								<a href="Order?action=updateOrder" class="btn btn-grey pull-right"><i class="glyphicon glyphicon-refresh icon-white"></i> ATUALIZAR</a>
+							</div>							
+						</div>
+					</div>
+					<div class="col-md-12">
+						<hr>
+					</div>
+					<div>
+						<hr>
+						<!-- Additionals -->
+						<div class="col-md-3  col-md-offset-0 col-sm-6 col-sm-offset-6">
+							<div class="cart-promo-code">
+								<h4><i class="glyphicon glyphicon-gift"></i> Gostaria de acrescentar:</h4>
+								<div class="input-group">			
+									<label><input type="checkbox" name="additional[]" value="1"> Hashi</label><br>
+	                                <label><input type="checkbox" name="additional[]" value="2"> Sachê de molho Shoyu</label><br>
+									<label><input type="checkbox" name="additional[]" value="3"> Gengibre</label><br>
+									<label><input type="checkbox" name="additional[]" value="4"> Wasabi</label><br>
+								</div>
+							</div>
+						</div>
+						
+						<!-- Shipment Options -->
+						<div class="col-md-5 col-md-offset-0 col-sm-6 col-sm-offset-6">
+							<div class="cart-shippment-options">
+								<h4><i class="glyphicon glyphicon-plane"></i> Entrega</h4>
+								<div class="input-append">
+									<select class="form-control input-sm">
+										<option value="1">Receber em casa (Somente Park Way, Quadras 26 a 29, Brasília/DF)</option>
+										<option value="2">Buscar no local</option>
+									</select>
+								</div>
+							</div>
+						</div>				
+					</div>
+				</div>
+				<hr>
+				<!-- Action Buttons -->
+				<div class="pull-right">
+            		<a href="menu" class="btn btn-grey">Adicionar mais itens</a>			
+					<a href="Order?action=createOrder" class="btn"><i class="glyphicon glyphicon-shopping-cart icon-white"></i> PROSSEGUIR</a>
+				</div>
+				<br><br><br><br>
+			</div>
+		</div>
 
 
 	<!-- Javascripts -->

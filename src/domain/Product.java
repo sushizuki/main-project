@@ -13,7 +13,7 @@ public class Product {
 	private double price;
 	private String imgUrl;
 	private String category;
-	private String extra;
+	private String extra; //Cream cheese or green onion
 
 	public Product(int id, String name, String description, double price, String imgUrl, String category, String extra) throws SQLException {
 		this.setId(id);

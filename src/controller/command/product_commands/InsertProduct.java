@@ -28,8 +28,7 @@ public class InsertProduct implements Command{
 	public void execute() {
 		if(this.product != null){
 			dao.insert(product);
-			System.out.println("Comando mandou inserir");
-			dao.finalize();
+			//dao.finalize();
 		}
 	}
 

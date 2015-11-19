@@ -5,7 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 //Design Pattern Factory
-public class ConnectionFactory {
+//MODIFY NAME TO REFER TO A MYSQL CONNECTION
+public class ConnectionFactory implements dao.Connection{
 	public Connection getConnection() {
 		try {
             Class.forName("com.mysql.jdbc.Driver");  

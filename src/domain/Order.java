@@ -1,4 +1,5 @@
 ﻿package domain;
+import java.util.HashMap;
 import java.util.List;
 
 public class Order {
@@ -7,10 +8,9 @@ public class Order {
 	
 	private int id;
 	private Client client;
-	private List<Product> items;
+	private HashMap<Product, Integer> items;
 	private List<Additional> additionals;
 	private double totalPrice;
-	private String extra; //Cream cheese or green onion;
 	private Receiving receiving;
 	private Payment payment;
 
@@ -36,11 +36,11 @@ public class Order {
 		this.client = client;
 	}
 
-	public List<Product> getItems() {
+	public HashMap<Product, Integer> getItems() {
 		return items;
 	}
 
-	public void setItems(List<Product> items) {
+	public void setItems(HashMap<Product, Integer> items) {
 		this.items = items;
 	}
 
@@ -61,17 +61,11 @@ public class Order {
 	}
 	
 	public void setTotalPrice() {
-		for(Product p : this.getItems()){
-			this.totalPrice += p.getPrice();			
+		for (HashMap.Entry<Product, Integer> entry : this.getItems().entrySet()) {
+		    Product p = entry.getKey();
+		    int qtd = entry.getValue();
+		    this.totalPrice += p.getPrice()*qtd;
 		}
-	}
-
-	public String getExtra() {
-		return extra;
-	}
-
-	public void setExtra(String e) {
-		this.extra = e;
 	}
 
 	public Receiving getReceiving() {

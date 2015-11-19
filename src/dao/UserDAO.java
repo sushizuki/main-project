@@ -28,30 +28,30 @@ public class UserDAO {
           preparedStatement.setInt(1, userId);
           ResultSet rs = preparedStatement.executeQuery();
 
+    	  User usr = null;
+          
           if (rs.next()) {
-        	  User user = null;
-        	  
-        	  user.setId(Integer.parseInt(rs.getString("iduser")));
-        	  user.setName(rs.getString("name"));
-        	  user.setEmail(rs.getString("email"));
-        	  user.setPhone(rs.getString("phone"));
-        	  user.setPassword(rs.getString("password"));
-        	  
-        	  if(isUserClient(user.getId())){  
-        		  user = getClientById(user.getId());
+        	  if(isUserClient(userId)){  
+        		  usr = getClientById(userId);
         	  } else {
-        		  user = getAdmById(user.getId());
+        		  usr = getAdmById(userId);
         	  }
+        	  usr.setId(Integer.parseInt(rs.getString("iduser")));
+        	  usr.setName(rs.getString("name"));
+        	  usr.setEmail(rs.getString("email"));
+        	  usr.setPhone(rs.getString("phone"));
+        	  usr.setPassword(rs.getString("password"));
         	  
-        	  return user;
         	  
-          } else {
-        	  return null;
-          }
+        	  
+        	  return usr;
+        	  
+          } 
           
       } catch (SQLException e) {
 			throw new RuntimeException("ERROR SEARCHING FOR USER INTO DATABASE: "+e.getMessage());
       }
+		return null;
     }
 	
 	public boolean isUserClient(int idUser){

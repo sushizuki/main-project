@@ -2,12 +2,8 @@ package controller.command;
 
 import java.util.HashMap;
 
-import controller.command.product_commands.DeleteProduct;
-import controller.command.product_commands.GetProduct;
-import controller.command.product_commands.InsertProduct;
-import controller.command.product_commands.ListProducts;
-import controller.command.product_commands.NewProduct;
-import controller.command.product_commands.UpdateProduct;
+import controller.command.product_commands.*;
+import controller.command.order_commands.*;
 
 public class CommandFactory {
 	private final HashMap<String, Command>	commands;
@@ -44,6 +40,9 @@ public class CommandFactory {
 		cf.addCommand("updateProduct", new UpdateProduct());
 		cf.addCommand("getProduct", new GetProduct());
 		cf.addCommand("deleteProduct", new DeleteProduct());
+		
+		//Order commands
+		cf.addCommand("newOrder", new NewOrder());
 		
 		return cf;
 	}

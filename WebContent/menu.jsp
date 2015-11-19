@@ -43,7 +43,7 @@
 					<ul>
 						<li class="shopping-cart-items"><i
 							class="glyphicon glyphicon-shopping-cart icon-white"></i> <a
-							href="shopping-cart"><b>3 items</b></a></li>
+							href="shopping-cart"><b><span id="items-in-cart">0</span> itens</b></a></li>
 						<li></li>
 						<li><a href="login.jsp">Login</a></li>
 					</ul>
@@ -69,39 +69,51 @@
 						<h2>Cardápio</h2>
 					</div>
 				</div>
-				<div class="row">
-					<c:forEach items="${products}" var="product">
-						<div class="col-md-3 col-sm-6">
-							<div class="shop-item">
-								<input type="checkbox" value="${product.id}" id="product-${product.id }" style="float:left;">
-								<div class="shop-item-image">
-									<img src="${product.imgUrl}" alt="${product.name}">
-								</div>
-								<div class="title">
-									<h3><c:out value="${product.name}"/></h3>
-								</div>
-								<div class="price">
-									<fmt:formatNumber value="${product.price}" type="currency" currencySymbol="R$" />
-								</div>
-								<div class="description">
-									<p><c:out value="${product.description}" /></p>
-								</div>
-								<div class="actions">
-									<button class="btn btn-small btn-add" id="${product.id}"><i class="glyphicon glyphicon-shopping-cart icon-white"></i><span> Adicionar</span></button>
-									<br>
-									<label>
-										Quantidade:
-									</label>									
-  									<input type="number" name="prod_quantity" min="1" max="1000" size='2'>
+				<form action="Order?action=newOrder" method="post">
+					<div class="row">
+						<c:forEach items="${products}" var="product">
+							<div class="col-md-3 col-sm-6">
+								<div class="shop-item">
+									<div class="ribbon-wrapper" style="display: none;" id="product-box-${product.id }">
+									    <div class="price-ribbon ribbon-yellow"> Selecionado </div>
+									</div>
+									<input type="checkbox" name="products[]" value="${product.id}" id="product-${product.id }" style="float:left;display:none;">
+									<div class="shop-item-image">
+										<img src="${product.imgUrl}" alt="${product.name}">
+									</div>
+									<div class="title">
+										<h3><c:out value="${product.name}"/></h3>
+									</div>
+									<div class="price">
+										<fmt:formatNumber value="${product.price}" type="currency" currencySymbol="R$" />
+									</div>
+									<div class="description">
+										<p><c:out value="${product.description}" /></p>
+									</div>
+									<div class="actions">
+										<button type="button" class="btn btn-small btn-add" id="${product.id}"><i class="glyphicon glyphicon-shopping-cart icon-white"></i><span> Adicionar</span></button>
+										<br><br>
+										<div id="product-qtd-div-${product.id }" style="display:none;">
+											<label for="product-qtd-${product.id }">
+												Quantidade:
+											</label>									
+		  									<input type="number" name="prod_quantity[]" id="product-qtd-${product.id }" min="1" max="100" value="1" style="width: 50px">
+	  									</div>
+									</div>
 								</div>
 							</div>
-						</div>
-					</c:forEach>
-				</div>
+						</c:forEach>
+					</div>
+					<hr>
+					<div class="row pull-right">
+						<button type="SUBMIT" class="btn btn-primary" style="font-variant: small-caps; font-size:13pt;" disabled>
+							<i class="glyphicon glyphicon-ok-sign icon-white"></i>
+							<span> Prosseguir com pedido</span>
+						</button>
+					</div>
+				</form>
 			</div>
 	    </div>
-
-	<a href="confirmation.jsp"><button type="button" class="btn btn-primary">Continuar</button></a> 
 
 	<!-- Javascripts -->
 	<script
@@ -113,16 +125,41 @@
 	</script>
 	<script>
 	$(document).ready(function() {
+
+		//Selecting items
         $('.btn-add').click(function(ev) {
     		var prod = "#product-"+$(this).attr('id');
+    		var prodRibbon = "#product-box-"+$(this).attr('id');
+    		var prodQtd = "#product-qtd-"+$(this).attr('id');
+    		var prodDivQtd = "#product-qtd-div-"+$(this).attr('id');
     		if($(prod).prop("checked") == false){
         		$(prod).prop("checked", true);
         		$('span', this).text(" Remover");
+        		$(prodRibbon).show("fast");
+        		$(prodDivQtd).show("fast");
+        		$(prodQtd).focus();
     		} else {
     			$(prod).prop("checked", false);
         		$('span', this).text(" Adicionar");
+        		$(prodRibbon).hide("fast");
+        		$(prodDivQtd).hide("fast");
     		}
+            checkout();
     	});
+
+        function checkout() {
+
+            var arr = $.map($('input:checkbox:checked'), function(e, i) {
+                return +e.value;
+            });
+
+            if(arr.length === 0){
+            	$('button:SUBMIT').prop('disabled', true);
+            } else if(arr.length > 0){
+            	$('button:SUBMIT').prop('disabled', false);
+            }
+        	$('#items-in-cart').text(arr.length);
+        }
 
     });
 	</script>
