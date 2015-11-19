@@ -124,7 +124,7 @@
 							</div>
 							<!-- Product Description-->
 							<div class="description">
-								<p>Telefone e Whatsapp para contato<br></p>
+								<p>Telefone e WhatsApp para contato<br></p>
 								<p>(61) 8636 8825</p>
 							</div>
 						</div>
