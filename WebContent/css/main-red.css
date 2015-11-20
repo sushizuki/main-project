@@ -74,7 +74,7 @@ div[class*="span"] {
 	Typography Style
 --------------------------------------------------------------------------*/
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 14px;
   line-height: 20px;
   color: #535b60;
@@ -980,7 +980,6 @@ span.color-red {
 --------------------------------------------------------------------------*/
 .shopping-cart {
   margin: 0;
-  width: 60%;
   border-collapse: separate;
   border-spacing: 0 10px;
   font-family:'Open Sans', sans-serif;
@@ -1016,12 +1015,16 @@ span.color-red {
 .shopping-cart .image img {
   max-width: 150px;
   text-align:center;
+  padding-right:10px;
 }
 .shopping-cart .title {
   font-size: 1.3em;
+  padding-left:10px;
 }
 .shopping-cart .feature {
-  font-size: 0.8em;
+  font-size: 0.8em; 
+  padding-left:10px; 
+  text-align:justify;
 }
 .shopping-cart .color span {
   display: inline-block;

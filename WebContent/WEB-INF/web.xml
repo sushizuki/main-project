@@ -25,4 +25,7 @@
     <servlet-name>ProductController</servlet-name>
     <url-pattern>/menu</url-pattern>
   </servlet-mapping>
+  <error-page>
+    <location>/404.jsp</location>
+  </error-page>
 </web-app>

@@ -36,7 +36,7 @@
 					<ul>
 						<li class="shopping-cart-items"><i
 							class="glyphicon glyphicon-shopping-cart icon-white"></i> <a
-							href="page-shopping-cart.html"><b>3 items</b></a></li>
+							href="page-shopping-cart.html"><b>${order.items.size()} itens</b></a></li>
 						<li></li>
 						<li><a href="login.jsp">Login</a></li>
 					</ul>
@@ -47,7 +47,7 @@
 					<li class="logo-wrapper"><a href="index.jsp"><img
 							src="img/sushi/sushizuki-logo.png" alt="Sushizuki"></a></li>
 					<li><a href="index.jsp">Home</a></li>
-					<li><a href="menu.jsp">Cardápio</a></li>
+					<li><a href="menu">Cardápio</a></li>
 
 					<li><a href="contatos.html">Contatos</a></li>
 				</ul>
@@ -87,7 +87,7 @@
 	                                        	</tr>
 	                                        	</table>
 	                                        </div>
-                                        <br><a href="confirmation.jsp"><button type="button" class="btn btn-primary">Voltar</button></a>	                                        
+                                        <br><button type="button" class="btn btn-primary" onclick="history.go(-1)">Voltar</button>	                                        
                                         <a href="scheduleDelivery.jsp"><button type="button" class="btn btn-primary">Continuar</button></a>    
  									</form>
                                 </div>                  
@@ -107,6 +107,7 @@
     <!-- /#wrapper -->
 
 
+    <div class="mainmenu-wrapper"></div><br><br>
 	<!-- Javascripts -->
 	<script
 		src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

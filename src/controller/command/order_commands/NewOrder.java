@@ -1,10 +1,12 @@
 package controller.command.order_commands;
 
-import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import controller.command.Command;
+import dao.OrderDAO;
 import dao.ProductDAO;
+import domain.Additional;
 import domain.Order;
 import domain.Product;
 
@@ -12,13 +14,16 @@ public class NewOrder implements Command {
 	
 	private Order order;
 	private ProductDAO productDao;
+	private OrderDAO orderDao;
 	private String pageToRedirect;
 	private String[] productIds;
 	private int[] productQuantities;
+	private List<Additional> availabelAdditionals;
 	
 	public NewOrder() {
 		super();
 		this.productDao = new ProductDAO();
+		this.orderDao = new OrderDAO();
 		this.setPageToRedirect("/shopping-cart.jsp");
 	}
 	
@@ -39,12 +44,30 @@ public class NewOrder implements Command {
 	}
 	
 	public void setProductQuantities(String[] qtds){
-		int[] array = Arrays.stream(qtds).mapToInt(Integer::parseInt).toArray();
+		int count = 0;
+		int[] array = new int[productIds.length];
+		for(String n:qtds){
+			try {  
+				int i = Integer.parseInt(n);  
+				if(i>0){
+					array[count] = i;
+					count++;
+				}
+			}catch(NumberFormatException nfe){  }  
+		}
 		this.productQuantities = array;
 	}
 	
 	public int[] getProductQuantities(){
 		return this.productQuantities;
+	}
+	
+	public void setAvailableAdditionals(){
+		this.availabelAdditionals = orderDao.getAdditionalsList();
+	}
+	
+	public List<Additional> getAvailableAdditionals(){
+		return this.availabelAdditionals;
 	}
 
 	@Override
@@ -59,6 +82,7 @@ public class NewOrder implements Command {
 	    }
 	    this.order.setItems(items);
 	    this.order.setTotalPrice();
+	    this.setAvailableAdditionals();
 	}
 
 	@Override

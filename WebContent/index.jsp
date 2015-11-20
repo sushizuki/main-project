@@ -53,7 +53,7 @@
 					<li class="logo-wrapper"><a href="index.jsp"><img
 							src="img/sushi/sushizuki-logo.png" alt="Sushizuki"></a></li>
 					<li class="active"><a href="index.jsp">Home</a></li>
-					<li><a href="menu.jsp">Cardápio</a></li>
+					<li><a href="menu">Cardápio</a></li>
 
 					<li><a href="contatos.html">Contatos</a></li>
 				</ul>

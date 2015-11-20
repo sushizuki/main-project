@@ -97,7 +97,7 @@
 											<label for="product-qtd-${product.id }">
 												Quantidade:
 											</label>									
-		  									<input type="number" name="prod_quantity[]" id="product-qtd-${product.id }" min="1" max="100" value="1" style="width: 50px">
+		  									<input type="number" name="prod_quantity[]" id="product-qtd-${product.id }" min="1" max="100" style="width: 50px">
 	  									</div>
 									</div>
 								</div>
@@ -137,6 +137,7 @@
         		$('span', this).text(" Remover");
         		$(prodRibbon).show("fast");
         		$(prodDivQtd).show("fast");
+        		$(prodQtd).prop("value", 1);
         		$(prodQtd).focus();
     		} else {
     			$(prod).prop("checked", false);

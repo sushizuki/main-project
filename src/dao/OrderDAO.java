@@ -346,6 +346,61 @@ public class OrderDAO {
 		return null;
    }
 	
+	public List<Additional> getAdditionalsList() {
+		
+		String sql = "SELECT * FROM `additional`";
+
+		
+		List<Additional> list = new ArrayList<Additional>(); 
+
+		ResultSet rs = null;
+		
+		try { 
+			PreparedStatement stmt = con.prepareStatement(sql);
+	    	   
+			rs = stmt.executeQuery(sql);     
+
+			while (rs.next()) { 
+				Additional additional = new Additional();
+				
+				additional.setId(Integer.parseInt(rs.getString("idadditional")));
+				additional.setName(rs.getString("name"));
+				
+				list.add(additional);			
+			}
+			
+			rs.close();
+			stmt.close();
+			return list; 
+
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+   }
+	
+	public Additional getAdditionalById(int idAdditional) {
+        Additional additional = new Additional();
+        String sql = "select * from additional where idadditional=?";
+        
+        try {
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setInt(1, idAdditional);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            if (rs.next()) {
+				
+            	additional.setId(Integer.parseInt(rs.getString("idadditional")));
+				additional.setName(rs.getString("name"));
+
+            }
+        } catch (SQLException e) {
+			throw new RuntimeException("ERROR GETTING ADDITIONAL: "+e.getMessage());
+        }
+        
+        return additional;
+    }
+	
 	private Payment getPaymentFromOrder(int idPayment) {
 		String paymentType, change;
         String sql = "select * from payment where idpayment=?";

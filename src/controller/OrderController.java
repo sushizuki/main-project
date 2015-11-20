@@ -13,7 +13,9 @@ import javax.servlet.http.HttpSession;
 
 import controller.command.Command;
 import controller.command.CommandFactory;
+import controller.command.order_commands.AddAdditionalsToOrder;
 import controller.command.order_commands.NewOrder;
+import domain.Order;
 import domain.Product;
 
 /**
@@ -51,10 +53,19 @@ public class OrderController extends HttpServlet {
 				((NewOrder) command).setProductQuantities(request.getParameterValues("prod_quantity[]"));
 				command.execute();
 				request.setAttribute("order", ((NewOrder)command).getOrder());
+				session.setAttribute("order", ((NewOrder)command).getOrder());
+				request.setAttribute("additionals", ((NewOrder)command).getAvailableAdditionals());
 				/*if(session.getAttribute("user")==null){//User not loged, redirect
 					command = cf.getCommand("doLogin");
 					command.execute();
 				}*/
+			} else if(command instanceof AddAdditionalsToOrder){
+				((AddAdditionalsToOrder) command).setOrder((Order)session.getAttribute("order"));
+				((AddAdditionalsToOrder) command).setAdditionalsIds(request.getParameterValues("additional[]"));
+				((AddAdditionalsToOrder) command).setReceiving(Integer.valueOf(request.getParameter("receiving")));
+				command.execute();
+				request.setAttribute("order", ((AddAdditionalsToOrder)command).getOrder());
+				
 			}
 						
 			//CHECK IF CLIENT IS LOGGED

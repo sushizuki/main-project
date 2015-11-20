@@ -43,6 +43,7 @@ public class CommandFactory {
 		
 		//Order commands
 		cf.addCommand("newOrder", new NewOrder());
+		cf.addCommand("addAdditionals", new AddAdditionalsToOrder());
 		
 		return cf;
 	}
