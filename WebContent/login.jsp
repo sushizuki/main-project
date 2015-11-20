@@ -82,8 +82,8 @@
 									<input type="checkbox"> Continuar conectado
 								</label>
 							-->
-								<a href="page-password-reset.html" class="forgot-password">Esqueceu a senha?</a><br/>
-								<a href="page-register.html">Cadastre-se</a>
+								<a href="passwordReset.jsp" class="forgot-password">Esqueceu a senha?</a><br/>
+								<a href="#">Cadastre-se</a>
 								<button type="submit" class="btn pull-right">Login</button>
 								<div class="clearfix"></div>
 							</div>
