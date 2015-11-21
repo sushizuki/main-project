@@ -16,36 +16,23 @@ public class NewOrder implements Command {
 	private ProductDAO productDao;
 	private OrderDAO orderDao;
 	private String pageToRedirect;
-	private String[] productIds;
-	private int[] productQuantities;
 	private List<Additional> availabelAdditionals;
+	private HashMap<Product, Integer> itemsToOrder;
 	
 	public NewOrder() {
 		super();
 		this.productDao = new ProductDAO();
 		this.orderDao = new OrderDAO();
-		this.setPageToRedirect("/shopping-cart.jsp");
+		this.pageToRedirect = "/shopping-cart.jsp";
 	}
-	
-	public void setOrder(Order o){
-		this.order = o;
-	}
-	
+		
 	public Order getOrder(){
 		return this.order;
 	}
 	
-	public void setPageToRedirect(String pageToRedirect) {
-		this.pageToRedirect = pageToRedirect;
-	}
-	
-	public void setProductIds(String[] ids){
-		this.productIds = ids;
-	}
-	
-	public void setProductQuantities(String[] qtds){
+	private int[] castProductQuantities(int size, String[] qtds){
 		int count = 0;
-		int[] array = new int[productIds.length];
+		int[] array = new int[size];
 		for(String n:qtds){
 			try {  
 				int i = Integer.parseInt(n);  
@@ -55,11 +42,7 @@ public class NewOrder implements Command {
 				}
 			}catch(NumberFormatException nfe){  }  
 		}
-		this.productQuantities = array;
-	}
-	
-	public int[] getProductQuantities(){
-		return this.productQuantities;
+		return array;
 	}
 	
 	public void setAvailableAdditionals(){
@@ -72,17 +55,26 @@ public class NewOrder implements Command {
 
 	@Override
 	public void execute() throws Exception {
-		setOrder(new Order());
-		HashMap<Product,Integer> items = new HashMap<Product,Integer>();
-		int count = 0;
-	    for(String id:productIds){
-	     	Product p = productDao.getProductById(Integer.parseInt(id));
-	     	items.put(p, productQuantities[count]);
-	     	count++;
-	    }
-	    this.order.setItems(items);
+		this.order = new Order();
+		this.setItemsToOrder();
 	    this.order.setTotalPrice();
 	    this.setAvailableAdditionals();
+	}
+	
+	public void setItems(String[] products, String[]qtds){
+		int[] quantities = castProductQuantities(products.length, qtds);
+		HashMap<Product,Integer> items = new HashMap<Product,Integer>();
+		int count = 0;
+	    for(String id:products){
+	     	Product p = productDao.getProductById(Integer.parseInt(id));
+	     	items.put(p, quantities[count]);
+	     	count++;
+	    }
+	    this.itemsToOrder = items;
+	}
+
+	private void setItemsToOrder() {
+		this.order.setItems(itemsToOrder);
 	}
 
 	@Override

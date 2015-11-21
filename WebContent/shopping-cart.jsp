@@ -37,7 +37,21 @@
 							class="glyphicon glyphicon-shopping-cart icon-white"></i> <a
 							href="page-shopping-cart.html"><b>${order.items.size()} itens</b></a></li>
 						<li></li>
-						<li><a href="login.jsp">Login</a></li>
+						<c:choose>
+						    <c:when test="${user.name != null}">
+								<li>
+						        	<c:out value="${user.name}" />
+						        </li>
+						        <li>
+						        	<a href="user?action=doLogout"><i class="glyphicon glyphicon-off icon-white"> </i> Sair</a>
+								</li>
+						    </c:when>    
+						    <c:otherwise>
+						    	<li>
+						        	<a href="login?redir=menu">Login</a>
+					        	</li>
+						    </c:otherwise>
+						</c:choose>
 					</ul>
 				</div>
 			</div>

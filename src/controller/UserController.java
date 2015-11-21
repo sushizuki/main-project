@@ -1,36 +1,107 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import controller.command.Command;
+import controller.command.CommandFactory;
+import controller.command.user_commands.DoLogin;
+import controller.command.user_commands.DoLogout;
 
 public class UserController extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
+private static final long serialVersionUID = 1L;
+	
+	private static CommandFactory cf = CommandFactory.init();
+       
+    public UserController() {
+        super();
+    }
 
-	@Override
-	protected void service(HttpServletRequest request,
-		HttpServletResponse response) throws ServletException, IOException {
-
-		//Process login
-		//Get form data then try to log in as client, redirect to main page
-		//if not able to log as client, try log in as adm
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//if adm		
-		response.sendRedirect("adm/dashboard.jsp");
+		RequestDispatcher view = null;
+		HttpSession session = request.getSession(true);
+		
+		try {
+        	
+        	//Get command from request
+        	String action = request.getParameter("action");
+        				
+        	Command command = cf.getCommand(action);
+        	
+        	//Default command: Redirect to login page
+        	if(command == null){//Invalid command passed, go to default command
+        		view = request.getRequestDispatcher("login.jsp");
+        		view.forward(request, response);
+        		return;
+        	}
+        				
+			if(command instanceof DoLogout){
+				((DoLogout) command).setSession(session);
+				command.execute();
+			}
 
-		PrintWriter out = response.getWriter();
-		out.println("<html>");
-		out.println("<head>");
-		out.println("<title>Essa Servlet tem que tratar a requisi��o</title>");
-		out.println("</head>");
-		out.println("<body>");
-		out.println("<h1>Oi mundo Servlet!</h1>");
-		out.println("</body>");
-		out.println("</html>");
+			//Set redirection
+			view = request.getRequestDispatcher(command.getPageToRedirect());			
+			
+        }catch(Exception e){
+			System.err.println("ERROR while processing request: ");
+			e.printStackTrace();
+			request.setAttribute("message", "failure");    
+			view = request.getRequestDispatcher("index.jsp");
+        }        
+        
+		view.forward(request, response);  
+	}
+	
+	//POST for creating, updating a user or do login
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		RequestDispatcher view = null;
+		HttpSession session = request.getSession(true);
+		
+		try {
+
+			String action = request.getParameter("action");
+			
+			Command command = cf.getCommand(action);
+			
+			System.out.println(action);
+			
+			if(command instanceof DoLogin){	
+				//if user not logged
+				if(session.getAttribute("user") == null){
+					((DoLogin) command).setEmail(request.getParameter("email"));
+					((DoLogin) command).setPassword(request.getParameter("password"));
+					command.execute();
+					session.setAttribute("user", ((DoLogin) command).getUser());
+					request.setAttribute("user", ((DoLogin) command).getUser());
+					if(request.getParameter("redir")!=null){
+						response.sendRedirect(request.getParameter("redir"));
+						return;
+					}
+				}
+			}
+			
+			view = request.getRequestDispatcher(command.getPageToRedirect());
+			
+		}catch (Exception e) {
+			System.err.println("ERROR while processing request for User: ");
+			e.printStackTrace();
+			request.setAttribute("message", "failure");   
+			view = request.getRequestDispatcher("/404.jsp");
+        }
+		
+		//Redirect
+        view.forward(request, response);
+		//response.sendRedirect("menu");
+		
 	}
 }

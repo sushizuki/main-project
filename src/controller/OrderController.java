@@ -15,6 +15,7 @@ import controller.command.Command;
 import controller.command.CommandFactory;
 import controller.command.order_commands.AddAdditionalsToOrder;
 import controller.command.order_commands.NewOrder;
+import controller.command.order_commands.SetClientToOrder;
 import domain.Order;
 import domain.Product;
 
@@ -49,34 +50,29 @@ public class OrderController extends HttpServlet {
 			Command command = cf.getCommand(action);
 			
 			if(command instanceof NewOrder){			
-				((NewOrder) command).setProductIds(request.getParameterValues("products[]"));
-				((NewOrder) command).setProductQuantities(request.getParameterValues("prod_quantity[]"));
+				((NewOrder) command).setItems(request.getParameterValues("products[]"), request.getParameterValues("prod_quantity[]"));
 				command.execute();
 				request.setAttribute("order", ((NewOrder)command).getOrder());
 				session.setAttribute("order", ((NewOrder)command).getOrder());
 				request.setAttribute("additionals", ((NewOrder)command).getAvailableAdditionals());
-				/*if(session.getAttribute("user")==null){//User not loged, redirect
-					command = cf.getCommand("doLogin");
-					command.execute();
-				}*/
-			} else if(command instanceof AddAdditionalsToOrder){
+			} else if(command instanceof SetClientToOrder){
+				
+			} if(command instanceof AddAdditionalsToOrder){
+				Command command2;
+				if(session.getAttribute("user")==null){//User not loged, redirect
+					command2 = cf.getCommand("doLogin");
+					command2.execute();
+				} else {
+					command2 = cf.getCommand("setClientToOrder");
+					command2.execute();
+				}
 				((AddAdditionalsToOrder) command).setOrder((Order)session.getAttribute("order"));
 				((AddAdditionalsToOrder) command).setAdditionalsIds(request.getParameterValues("additional[]"));
 				((AddAdditionalsToOrder) command).setReceiving(Integer.valueOf(request.getParameter("receiving")));
 				command.execute();
-				request.setAttribute("order", ((AddAdditionalsToOrder)command).getOrder());
-				
+				request.setAttribute("order", ((AddAdditionalsToOrder)command).getOrder());				
 			}
 						
-			//CHECK IF CLIENT IS LOGGED
-			
-			//CREATE ORDER WITH PRODUCTS
-	
-			//DESCRIBE ORDER DETAILS IN PAGE
-			
-			//GET RECEIVING DETAILS FOR ORDER
-			
-			//FINALIZE ORDER
 			
 	 		
 			view = request.getRequestDispatcher(command.getPageToRedirect());
@@ -92,16 +88,4 @@ public class OrderController extends HttpServlet {
         view.forward(request, response);	
 		
 	}
-	
-	/*private HashMap<Product, Integer> handleProductList(String[] productIds){
-		HashMap<Product, Integer> hashMap = new HashMap<Product, Integer>();
-		if (!hashMap.containsKey(product)) {
-		    List<Location> list = new ArrayList<Location>();
-		    list.add(student);
-
-		    hashMap.put(product, 1);
-		} else {
-		    hashMap.get(product).;
-		}
-	}*/
 }

@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -38,13 +39,21 @@
 			<div class="menuextras">
 				<div class="extras">
 					<ul>
-						<!-- Para quando estiver logado 
-						<li class="shopping-cart-items"><i
-							class="glyphicon glyphicon-shopping-cart icon-white"></i> <a
-							href="page-shopping-cart.html"><b>3 items</b></a></li>
-						-->
-						<li><a href="login.jsp">Entrar</a></li>
-						<li><a href=#>Cadastrar</a></li>
+						<c:choose>
+						    <c:when test="${user.name != null}">
+								<li>
+						        	<c:out value="${user.name}" />
+						        </li>
+						        <li>
+						        	<a href="user?action=doLogout"><i class="glyphicon glyphicon-off icon-white"> </i> Sair</a>
+								</li>
+						    </c:when>    
+						    <c:otherwise>
+						    	<li>
+						        	<a href="login">Login</a>
+					        	</li>
+						    </c:otherwise>
+						</c:choose>
 					</ul>
 				</div>
 			</div>

@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -44,7 +45,7 @@
 					<li class="logo-wrapper"><a href="index.jsp"><img
 							src="img/sushi/sushizuki-logo.png" alt="Sushizuki"></a></li>
 					<li><a href="index.jsp">Home</a></li>
-					<li><a href="menu.html">Cardápio</a></li>
+					<li><a href="menu">Cardápio</a></li>
 
 					<li><a href="contact.html">Contatos</a></li>
 				</ul>
@@ -65,17 +66,20 @@
 	
 	<div class="section-white">
 		<div class="container">
+		<c:if test="${param.err == 1}">
+			<div class="alert alert-danger alert-dismissable" role="alert"><strong>Erro!</strong> E-mail ou senha inválidos!</div>
+		</c:if>
 			<div class="row">
 				<div class="col-sm-5">
 					<div class="basic-login">
-						<form role="form" role="form" action="login">
+						<form role="form" role="form" action="login?action=doLogin<c:out value='&redir=${param.redir}'/>" method="post">
 							<div class="form-group">
 								<label for="login-username"><i class="icon-user"></i> <b>Email</b></label>
-								<input class="form-control" id="login-username" type="text" placeholder="">
+								<input class="form-control" name="email" id="login-username" type="text" placeholder="">
 							</div>
 							<div class="form-group">
 								<label for="login-password"><i class="icon-lock"></i> <b>Senha</b></label>
-								<input class="form-control" id="login-password" type="password" placeholder="">
+								<input class="form-control" name="password" id="login-password" type="password" placeholder="">
 							</div>
 							<div class="form-group">
 							<!--

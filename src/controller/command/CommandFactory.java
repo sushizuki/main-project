@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import controller.command.product_commands.*;
 import controller.command.order_commands.*;
+import controller.command.user_commands.*;
 
 public class CommandFactory {
 	private final HashMap<String, Command>	commands;
@@ -44,6 +45,13 @@ public class CommandFactory {
 		//Order commands
 		cf.addCommand("newOrder", new NewOrder());
 		cf.addCommand("addAdditionals", new AddAdditionalsToOrder());
+		cf.addCommand("setClientToOrder", new SetClientToOrder());
+		cf.addCommand("finishCollectOrder", new FinishCollectOrder());
+		cf.addCommand("finishDeliveryOrder", new FinishDeliveryOrder());
+		
+		//User commands
+		cf.addCommand("doLogin", new DoLogin());
+		cf.addCommand("doLogout", new DoLogout());
 		
 		return cf;
 	}

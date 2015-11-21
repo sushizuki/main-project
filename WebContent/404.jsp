@@ -38,7 +38,7 @@
 							class="glyphicon glyphicon-shopping-cart icon-white"></i> <a
 							href="page-shopping-cart.html"><b>${order.items.size()} itens</b></a></li>
 						<li></li>
-						<li><a href="login.jsp">Login</a></li>
+						<li><a href="login">Login</a></li>
 					</ul>
 				</div>
 			</div>

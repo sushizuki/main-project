@@ -45,7 +45,21 @@
 							class="glyphicon glyphicon-shopping-cart icon-white"></i> <a
 							href="shopping-cart"><b><span id="items-in-cart">0</span> itens</b></a></li>
 						<li></li>
-						<li><a href="login.jsp">Login</a></li>
+						<c:choose>
+						    <c:when test="${user.name != null}">
+								<li>
+						        	<c:out value="${user.name}" />
+						        </li>
+						        <li>
+						        	<a href="user?action=doLogout"><i class="glyphicon glyphicon-off icon-white"> </i> Sair</a>
+								</li>
+						    </c:when>    
+						    <c:otherwise>
+						    	<li>
+						        	<a href="login?redir=menu">Login</a>
+					        	</li>
+						    </c:otherwise>
+						</c:choose>
 					</ul>
 				</div>
 			</div>
@@ -54,7 +68,7 @@
 					<li class="logo-wrapper"><a href="index.jsp"><img
 							src="img/sushi/sushizuki-logo.png" alt="Sushizuki"></a></li>
 					<li><a href="index.jsp">Home</a></li>
-					<li class="active"><a href="menu.jsp">Cardápio</a></li>
+					<li class="active"><a href="menu">Cardápio</a></li>
 
 					<li><a href="contatos.html">Contatos</a></li>
 				</ul>
