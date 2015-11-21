@@ -42,6 +42,8 @@ public class DoLogin implements Command {
 		}
 		if(this.user==null){//Fail to log in
 			this.setPageToRedirect("login.jsp?err=1");
+		} else if(!pageToRedirect.isEmpty() && pageToRedirect!=null) {
+			this.setPageToRedirect("index.jsp");
 		}
 	}
 

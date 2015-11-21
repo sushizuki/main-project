@@ -12,19 +12,15 @@
 <title>Sushizuki - Login</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width">
-
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/icomoon-social.css">
-<link
-	href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600,800'
-	rel='stylesheet' type='text/css'>
-
+<link rel="stylesheet" href="css/openSansFamily.css">
 <link rel="stylesheet" href="css/leaflet.css" />
 <!--[if lte IE 8]>
 		    <link rel="stylesheet" href="css/leaflet.ie.css" />
 		<![endif]-->
 <link rel="stylesheet" href="css/main-red.css">
-
+<script	src="js/jquery-1.9.1.min.js"></script>
 <script src="js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 </head>
 <body>
@@ -89,7 +85,7 @@
 							-->
 								<a href="page-password-reset.html" class="forgot-password">Esqueceu a senha?</a><br/>
 								<a href="page-register.html">Cadastre-se</a>
-								<button type="submit" class="btn pull-right">Login</button>
+								<button type="submit" class="btn pull-right" disabled="disabled">Login</button>
 								<div class="clearfix"></div>
 							</div>
 						</form>
@@ -119,7 +115,6 @@
 	        				<b>Email:</b> <a href="mailto:">email@sushizuki.com.br</a>
 	        			</p>
 		    		</div>
-					
 					<div class="col-footer col-md-2 col-xs-6">
 		    			<h3>Social</h3>
 		    			<ul class="footer-stay-connected no-list-style">
@@ -144,6 +139,28 @@
 		window.jQuery
 				|| document
 						.write('<script src="js/jquery-1.9.1.min.js"><\/script>')
+	</script>
+	<script>
+	function isEmail(email) {
+		var pattern = new RegExp(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/);
+        return pattern.test(email);
+	}
+	
+	function doCheck(){
+	    var allFilled = true;
+        var email = "#login-username";
+	    $('input').each(function(){
+	        if($(this).val() == '' || !isEmail($(email).val()) ){
+	            allFilled = false;
+	            return false;
+	        }
+	    });
+	    $('button[type=submit]').prop('disabled', !allFilled);
+	}
+
+	$(document).ready(function(){
+	    $('input').keyup(doCheck).focusout(doCheck);
+	});
 	</script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.js"></script>

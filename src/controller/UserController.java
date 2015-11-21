@@ -72,9 +72,7 @@ private static final long serialVersionUID = 1L;
 			String action = request.getParameter("action");
 			
 			Command command = cf.getCommand(action);
-			
-			System.out.println(action);
-			
+						
 			if(command instanceof DoLogin){	
 				//if user not logged
 				if(session.getAttribute("user") == null){
@@ -83,9 +81,10 @@ private static final long serialVersionUID = 1L;
 					command.execute();
 					session.setAttribute("user", ((DoLogin) command).getUser());
 					request.setAttribute("user", ((DoLogin) command).getUser());
-					if(request.getParameter("redir")!=null){
-						response.sendRedirect(request.getParameter("redir"));
-						return;
+					
+					if(!request.getParameter("redir").isEmpty()){
+						System.out.println("redir "+request.getParameter("redir"));
+						((DoLogin) command).setPageToRedirect((request.getParameter("redir")));
 					}
 				}
 			}
