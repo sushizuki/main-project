@@ -20,7 +20,6 @@ public class ProductDAO {
 	private Connection con;
 
 	public ProductDAO() {
-		this.con = new ConnectionFactory().getConnection();
 	}
 	
 	public void insert(Product product) {
@@ -85,8 +84,6 @@ public class ProductDAO {
 				productList.add(product);
 			}
 			
-			rs.close();
-			stmt.close();
 			return productList; 
 
 		}catch (Exception e) {
@@ -128,8 +125,6 @@ public class ProductDAO {
 				product.setCategory(rs.getString("Category_idCategory"));
             }
             
-            stmt.close();
-            rs.close();
         } catch (SQLException e) {
 			throw new RuntimeException("ERROR GETTING PRODUCT: "+e.getMessage());
         }finally {
@@ -164,7 +159,7 @@ public class ProductDAO {
 			stmt.setString(4, product.getCategory());
 			stmt.setInt(5, product.getId());
 			stmt.execute();
-			stmt.close();
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -189,7 +184,6 @@ public class ProductDAO {
 			stmt.setString(1, product.getImgUrl());
 			stmt.setInt(2, product.getId());
 			stmt.execute();
-			stmt.close();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -213,7 +207,6 @@ public class ProductDAO {
 			stmt = con.prepareStatement(sql);
 			stmt.setInt(1, product.getId());
 			stmt.execute();
-			stmt.close();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -278,8 +271,6 @@ public class ProductDAO {
 				categoryList.add(rs.getString("name"));
 			}
 			
-			rs.close();
-			stmt.close();
 			return categoryList; 
 
 		}catch (SQLException e) {
@@ -317,8 +308,6 @@ public class ProductDAO {
 				extraList.add(rs.getString("name"));
 			}
 			
-			rs.close();
-			stmt.close();
 			return extraList; 
 
 		}catch (SQLException e) {

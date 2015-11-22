@@ -11,10 +11,12 @@ public class FinishCollectOrder implements Command {
 	private Order order;
 	private String pageToRedirect;
 	private Calendar collectTime;
+	
+	//Comando é verificar se Order tem tudo setado para salvar
 
 	public FinishCollectOrder() {
 		super();
-		this.pageToRedirect="confirmation.jsp";
+		this.pageToRedirect="/confirmation.jsp";
 	}
 	
 	public void setOrder(Order o){

@@ -4,7 +4,7 @@ import java.util.Calendar;
 
 public class Collect implements Receiving {
 	
-	public static final Address sushizukiLocation = new Address(0,"72000-000", "SMPW Quadra 26 Conjunto 6", "Fim do mundo"); 
+	public static final Address sushizukiLocation = new Address(0,"72000-000", "SMPW Quadra 26 Conjunto 6 Lote 5 casa D", "Condomínio Recanto da Primavera"); 
 
 	private Address address;
 	private Calendar time;

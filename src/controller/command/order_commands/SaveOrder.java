@@ -13,7 +13,7 @@ public class SaveOrder implements Command {
 	public SaveOrder(Order o) {
 		this.order=o;
 		this.orderDao = new OrderDAO();
-		this.pageToRedirect="confirmation.jsp";
+		this.pageToRedirect="/confirmation";
 	}
 	
 	public void setOrder(Order o){

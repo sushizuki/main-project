@@ -68,7 +68,7 @@
 			<div class="row">
 				<div class="col-sm-5">
 					<div class="basic-login">
-						<form role="form" role="form" action="login?action=doLogin<c:out value='&redir=${param.redir}'/>" method="post">
+						<form role="form" role="form" action="login?<c:out value='redir=${param.redir}'/>" method="post">
 							<div class="form-group">
 								<label for="login-username"><i class="icon-user"></i> <b>Email</b></label>
 								<input class="form-control" name="email" id="login-username" type="text" placeholder="">
@@ -78,6 +78,7 @@
 								<input class="form-control" name="password" id="login-password" type="password" placeholder="">
 							</div>
 							<div class="form-group">
+								<input type="hidden" name="redir" value="${param.redir }">
 							<!--
 								<label class="checkbox">
 									<input type="checkbox"> Continuar conectado
@@ -163,7 +164,6 @@
 	});
 	</script>
 	<script src="js/bootstrap.min.js"></script>
-	<script src="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.js"></script>
 	<script src="js/jquery.fitvids.js"></script>
 	<script src="js/jquery.sequence-min.js"></script>
 	<script src="js/jquery.bxslider.js"></script>

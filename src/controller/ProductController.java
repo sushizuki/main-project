@@ -90,7 +90,7 @@ public class ProductController extends HttpServlet {
 			System.err.println("ERROR while processing request: ");
 			e.printStackTrace();
 			request.setAttribute("message", "failure");    
-			view = request.getRequestDispatcher("/adm/Product");
+			view = request.getRequestDispatcher("/404.jsp");
         }        
         
 		view.forward(request, response);  
@@ -98,19 +98,29 @@ public class ProductController extends HttpServlet {
 	
 	//POST for creating or updating a product
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String action;
+		String action = null;
 		RequestDispatcher view = null;
 		
 		try {
-			//Handle form fields and img upload
-			Product product = processProductForm(request, response);
 			
-			//Decide whether it's a update or a insert action
-			if(product.getId() == 0){ //0 is a null for int variables
-				action = "insertProduct";
-			} else {
-				action = "updateProduct";
-			}
+			Product product = null;
+			
+			try {
+				//Handle form fields and img upload
+				product = processProductForm(request, response);				
+
+				//Decide whether it's a update or a insert action
+				if(product.getId() == 0){ //0 is a null for int variables
+					action = "insertProduct";
+				} else {
+					action = "updateProduct";
+				}
+			}catch(Exception e){
+				if(action==null || action.isEmpty()){
+					doGet(request, response);
+					return;
+				}
+			}			
 			
 			Command command = cf.getCommand(action);
 			
@@ -136,7 +146,7 @@ public class ProductController extends HttpServlet {
 			System.err.println("ERROR while retrieving products information: ");
 			e.printStackTrace();
 			request.setAttribute("message", "failure");   
-			view = request.getRequestDispatcher("/adm/Product");
+			view = request.getRequestDispatcher("/404.jsp");
         }
 		
 		//Redirect

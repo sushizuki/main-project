@@ -35,7 +35,7 @@
 					<ul>
 						<li class="shopping-cart-items"><i
 							class="glyphicon glyphicon-shopping-cart icon-white"></i> <a
-							href="page-shopping-cart.html"><b>${order.items.size()} itens</b></a></li>
+							href="#"><b>${order.items.size()} itens</b></a></li>
 						<li></li>
 						<c:choose>
 						    <c:when test="${user.name != null}">
@@ -48,7 +48,7 @@
 						    </c:when>    
 						    <c:otherwise>
 						    	<li>
-						        	<a href="login?redir=menu">Login</a>
+						        	<a href="login?redir=shopping-cart">Login</a>
 					        	</li>
 						    </c:otherwise>
 						</c:choose>
@@ -169,8 +169,15 @@
 					<hr>
 					<!-- Action Buttons -->
 					<div class="pull-right">
-	            		<button type="button" class="btn btn-grey" onclick="history.go(-1)">Adicionar mais itens</button>			
-						<button type="submit" class="btn"><i class="glyphicon glyphicon-shopping-cart icon-white"></i> PROSSEGUIR</button>
+	            		<a href="menu" class="btn btn-grey">Adicionar mais itens</a>
+	            		<c:choose>
+						    <c:when test="${user.name != null}">
+								<button type="submit" class="btn"><i class="glyphicon glyphicon-shopping-cart icon-white"></i> PROSSEGUIR</button>
+						    </c:when>    
+						    <c:otherwise>
+						       	<a class="btn btn-primary" href="login?redir=shopping-cart"><i class="glyphicon glyphicon-shopping-cart icon-white"></i> Fazer Login</a>
+					        </c:otherwise>
+						</c:choose>							
 					</div>
 				</form>
 				<br><br><br><br>

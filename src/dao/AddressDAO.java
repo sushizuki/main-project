@@ -12,7 +12,6 @@ public class AddressDAO {
 	private Connection con;
 
 	public AddressDAO() {
-		this.con = new ConnectionFactory().getConnection();
 	}
 	
 	public void insert(Address address) {

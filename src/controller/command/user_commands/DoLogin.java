@@ -38,12 +38,13 @@ public class DoLogin implements Command {
 	public void execute() throws Exception {
 		this.user = userDao.login(this.email, this.password);
 		if(this.user instanceof Administrator){
-			this.setPageToRedirect("adm/dashboard");
-		}
-		if(this.user==null){//Fail to log in
-			this.setPageToRedirect("login.jsp?err=1");
-		} else if(!pageToRedirect.isEmpty() && pageToRedirect!=null) {
-			this.setPageToRedirect("index.jsp");
+			this.setPageToRedirect("adm/dashboard.jsp");
+		} else {
+			if(this.user==null){//Fail to log in
+				this.setPageToRedirect("login.jsp?err=1");
+			} else if(pageToRedirect.isEmpty() || pageToRedirect==null) {
+				this.setPageToRedirect("index.jsp");
+			}
 		}
 	}
 

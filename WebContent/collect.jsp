@@ -12,8 +12,8 @@
 <link rel="stylesheet" href="css/openSansFamily.css">
 <link rel="stylesheet" href="css/leaflet.css" />
 <!--[if lte IE 8]>
-		    <link rel="stylesheet" href="css/leaflet.ie.css" />
-		<![endif]-->
+    <link rel="stylesheet" href="css/leaflet.ie.css" />
+<![endif]-->
 <link rel="stylesheet" href="css/main-red.css">
 <link rel="stylesheet" href="css/jquery-ui.min.css">
 <!-- timepicker -->
@@ -35,7 +35,6 @@
     $('#timepicker').timepicker({ 'scrollDefault': 'now','timeFormat': 'H:i' });
   });
  </script>
-
 <script src="js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 </head>
 <body>
@@ -73,11 +72,11 @@
 			</div>
 			<nav id="mainmenu" class="mainmenu">
 				<ul>
-					<li class="logo-wrapper"><a href="index.jsp"><img
-							src="img/sushi/sushizuki-logo.png" alt="Sushizuki"></a></li>
+					<li class="logo-wrapper"><a href="index.jsp">
+						<img src="img/sushi/sushizuki-logo.png" alt="Sushizuki"></a>
+					</li>
 					<li><a href="index.jsp">Home</a></li>
 					<li><a href="menu">Cardápio</a></li>
-
 					<li><a href="contatos.html">Contatos</a></li>
 				</ul>
 			</nav>
@@ -85,15 +84,15 @@
 	</div>
 	
 	<!-- Page Title -->
-		<div class="section section-breadcrumbs" >
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-                    	<h1 class="page-header">Buscar no local</h1>
-                	</div>
-				</div>
+	<div class="section section-breadcrumbs" >
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+                   	<h1 class="page-header">Buscar no local</h1>
+               	</div>
 			</div>
 		</div>
+	</div>
   		<div class="container">
   			<form role="form" name="formCollect" action="Order?action=setCollectTime" method="post">
             	<div class="col-lg-6">
@@ -120,17 +119,15 @@
                     <br>
                     <div>
                         <p>
-                        	O endereço para busca no local é:<br>
-                        	<b>${ order.receiving.adress}SMPW Quadra 26 Conjunto 6 Lote 5 casa D - Condomínio Recanto da Primavera</b>
+                        	O endereço para busca no local é:<br><br>
+                        	<b>SMPW Quadra 26 Conjunto 6 Lote 5 casa D, <br>Condomínio Recanto da Primavera.</b>
                         </p>
                     </div>          
       			</div> 
 	      		<div class="col-lg-6 pull-left">
 	             	<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3836.769922896627!2d-47.96928648485721!3d-15.921114130326632!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935a292f4880cdc1%3A0x856e76e030fa3e75!2sSmpw+Trecho+1+Q+26+Conjunto+6+7%2C+7+-+N%C3%BAcleo+Bandeirante%2C+Bras%C3%ADlia+-+DF!5e0!3m2!1sen!2sbr!4v1445826478412" 
-	             	width="550" height="400" frameborder="0" style="border:0;" allowfullscreen></iframe>
+	             	width="550" height="400" style="border:0;"></iframe>
 	            </div>  
-	            <div class="bfh-timepicker" data-time="08:00">
-				</div>          
 	            <br>
                 <!-- Action Buttons -->
                 <div class="col-lg-12">

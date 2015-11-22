@@ -46,4 +46,8 @@ public class Address {
 	public void setComplement(String complement) {
 		this.complement = complement;
 	}
+	
+	public String toString(){
+		return this.address+" "+". Complemento: "+this.complement+". CEP: "+this.cep;
+	}
 }

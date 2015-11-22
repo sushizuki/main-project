@@ -18,7 +18,7 @@ public class UserDAO {
 	private Connection con;
 
 	public UserDAO() {
-		this.con = new ConnectionFactory().getConnection();
+
 	}
 	
 	public void insert(Client user) {

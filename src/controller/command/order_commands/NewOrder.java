@@ -1,12 +1,9 @@
 package controller.command.order_commands;
 
 import java.util.HashMap;
-import java.util.List;
 
 import controller.command.Command;
-import dao.OrderDAO;
 import dao.ProductDAO;
-import domain.Additional;
 import domain.Order;
 import domain.Product;
 
@@ -14,15 +11,12 @@ public class NewOrder implements Command {
 	
 	private Order order;
 	private ProductDAO productDao;
-	private OrderDAO orderDao;
 	private String pageToRedirect;
-	private List<Additional> availabelAdditionals;
 	private HashMap<Product, Integer> itemsToOrder;
 	
 	public NewOrder() {
 		super();
 		this.productDao = new ProductDAO();
-		this.orderDao = new OrderDAO();
 		this.pageToRedirect = "/shopping-cart.jsp";
 	}
 		
@@ -44,21 +38,12 @@ public class NewOrder implements Command {
 		}
 		return array;
 	}
-	
-	public void setAvailableAdditionals(){
-		this.availabelAdditionals = orderDao.getAdditionalsList();
-	}
-	
-	public List<Additional> getAvailableAdditionals(){
-		return this.availabelAdditionals;
-	}
 
 	@Override
 	public void execute() throws Exception {
 		this.order = new Order();
 		this.setItemsToOrder();
 	    this.order.setTotalPrice();
-	    this.setAvailableAdditionals();
 	}
 	
 	public void setItems(String[] products, String[]qtds){

@@ -16,7 +16,7 @@ public class FinishDeliveryOrder implements Command {
 
 	public FinishDeliveryOrder() {
 		super();
-		this.pageToRedirect = "confirmation.jsp";
+		this.pageToRedirect = "/confirmation";
 	}
 	
 	public void setDeliveryAddress(Address a){

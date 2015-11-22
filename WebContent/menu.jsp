@@ -31,9 +31,8 @@
 </head>
 <body>
 	<!--[if lt IE 7]>
-            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-        <![endif]-->
-
+        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->
 
 	<!-- Navigation & Logo-->
 	<div class="mainmenu-wrapper">
@@ -41,10 +40,20 @@
 			<div class="menuextras">
 				<div class="extras">
 					<ul>
-						<li class="shopping-cart-items"><i
-							class="glyphicon glyphicon-shopping-cart icon-white"></i> <a
-							href="shopping-cart"><b><span id="items-in-cart">0</span> itens</b></a></li>
-						<li></li>
+						<c:choose>
+						    <c:when test="${order.items.size()>0 }">								
+								<li class="shopping-cart-items"><i
+									class="glyphicon glyphicon-shopping-cart icon-white"></i> <a
+									href="shopping-cart"><b><span id="items-in-cart"><c:out value="${order.items.size() }"></c:out></span> </b></a></li>
+								<li></li>
+						    </c:when>    
+						    <c:otherwise>
+						    	<li class="shopping-cart-items"><i
+									class="glyphicon glyphicon-shopping-cart icon-white"></i> <a
+									href="#"><b><span id="items-in-cart"><c:out value="${order.items.size() }"></c:out></span> </b></a></li>
+								<li></li>
+						    </c:otherwise>
+						</c:choose>
 						<c:choose>
 						    <c:when test="${user.name != null}">
 								<li>
@@ -85,12 +94,21 @@
 				</div>
 				<form action="Order?action=newOrder" method="post">
 					<div class="row">
-						<c:forEach items="${products}" var="product">
+						<c:forEach items="${products}" var="product" varStatus="status">
 							<div class="col-md-3 col-sm-6">
 								<div class="shop-item">
-									<div class="ribbon-wrapper" style="display: none;" id="product-box-${product.id }">
-									    <div class="price-ribbon ribbon-yellow"> Selecionado </div>
-									</div>
+									<c:choose>
+							    		<c:when test="${order.items[status.index] }">
+											<div class="ribbon-wrapper" id="product-box-${product.id }">
+											    <div class="price-ribbon ribbon-yellow"> Selecionado </div>
+											</div>
+										 </c:when>    
+							    		 <c:otherwise>
+											<div class="ribbon-wrapper" style="display: none;" id="product-box-${product.id }">
+											    <div class="price-ribbon ribbon-yellow"> Selecionado </div>
+											</div>
+										</c:otherwise>
+									</c:choose>
 									<input type="checkbox" name="products[]" value="${product.id}" id="product-${product.id }" style="float:left;display:none;">
 									<div class="shop-item-image">
 										<img src="${product.imgUrl}" alt="${product.name}">
@@ -169,6 +187,7 @@
             });
 
             if(arr.length === 0){
+                
             	$('button:SUBMIT').prop('disabled', true);
             } else if(arr.length > 0){
             	$('button:SUBMIT').prop('disabled', false);

@@ -39,6 +39,10 @@
 			<div class="menuextras">
 				<div class="extras">
 					<ul>
+						<li class="shopping-cart-items"><i
+							class="glyphicon glyphicon-shopping-cart icon-white"></i> <a
+							href="shopping-cart"><b><span id="items-in-cart"><c:out value="${order.items.size() }"></c:out></span> itens</b></a></li>
+						<li></li>
 						<c:choose>
 						    <c:when test="${user.name != null}">
 								<li>
@@ -50,7 +54,7 @@
 						    </c:when>    
 						    <c:otherwise>
 						    	<li>
-						        	<a href="login">Login</a>
+						        	<a href="login?redir=menu">Login</a>
 					        	</li>
 						    </c:otherwise>
 						</c:choose>
@@ -72,7 +76,7 @@
 
 	<!-- Homepage Slider -->
 	<div class="homepage-slider">
-		<div id="sequence">
+		<div id="sequence"  style="border-bottom: 1px solid #cfcfcf">
 			<ul class="sequence-canvas">
 				<!-- Slide 1 -->
 				<li class="bg1">
@@ -99,7 +103,7 @@
 				<li class="bg4">
 					<!-- Slide Title -->
 					<h2 class="title">Niguiri</h2> <!-- Slide Text -->
-					<h3 class="subtitle">De Salmão e skin</h3> <!-- Slide Image -->
+					<h3 class="subtitle">De Salmão e Skin</h3> <!-- Slide Image -->
 				</li>
 				<!-- End Slide 4 -->
 			</ul>
@@ -118,13 +122,13 @@
 	<!-- End Homepage Slider -->
 
 	<!-- Call to Action Bar -->
-	<div class="section bg-orange">
+	<div class="section bg-orange" style="position:fixed; bottom:0; width:100%;">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="calltoaction-wrapper">
 						<h3>Faça seu pedido agora!</h3>
-						<a href="" class="btn btn-orange">aqui!</a>
+						<a href="menu" class="btn btn-orange">aqui!</a>
 					</div>
 				</div>
 			</div>

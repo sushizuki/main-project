@@ -30,7 +30,6 @@ public class OrderDAO {
 	private Connection con;
 
 	public OrderDAO() {
-		this.con = new ConnectionFactory().getConnection();
 	}
 	
 	private int saveDeliveryAddress(Address a) {

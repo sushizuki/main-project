@@ -55,7 +55,7 @@ private static final long serialVersionUID = 1L;
 			System.err.println("ERROR while processing request: ");
 			e.printStackTrace();
 			request.setAttribute("message", "failure");    
-			view = request.getRequestDispatcher("index.jsp");
+			view = request.getRequestDispatcher("404.jsp");
         }        
         
 		view.forward(request, response);  
@@ -71,6 +71,12 @@ private static final long serialVersionUID = 1L;
 
 			String action = request.getParameter("action");
 			
+			//Default action: try to do login
+			if(action == null || action.isEmpty()){
+        		action = "doLogin";
+        		System.out.println("ACTION DEFAULT DO LOGIN");
+        	}
+			
 			Command command = cf.getCommand(action);
 						
 			if(command instanceof DoLogin){	
@@ -80,14 +86,21 @@ private static final long serialVersionUID = 1L;
 					((DoLogin) command).setPassword(request.getParameter("password"));
 					command.execute();
 					session.setAttribute("user", ((DoLogin) command).getUser());
+					System.out.println("Session user: "+session.getAttribute("user"));
 					request.setAttribute("user", ((DoLogin) command).getUser());
 					
-					if(!request.getParameter("redir").isEmpty()){
-						System.out.println("redir "+request.getParameter("redir"));
-						((DoLogin) command).setPageToRedirect((request.getParameter("redir")));
+					if(!request.getParameter("redir").isEmpty() && request.getParameter("redir")!=null){
+						System.out.println("Redirecionando para:"+request.getParameter("redir"));
+						((DoLogin) command).setPageToRedirect("/"+request.getParameter("redir"));
+						request.setAttribute("order", session.getAttribute("order"));
+					} else {
+						System.out.println("Não identificou redirecionamento");		
+						System.out.println("Indo para "+command.getPageToRedirect());
+						System.out.println("Devia ir para "+request.getParameter("redir"));
 					}
 				}
 			}
+			System.out.println("Indo para "+command.getPageToRedirect());
 			
 			view = request.getRequestDispatcher(command.getPageToRedirect());
 			
@@ -100,7 +113,6 @@ private static final long serialVersionUID = 1L;
 		
 		//Redirect
         view.forward(request, response);
-		//response.sendRedirect("menu");
 		
 	}
 }
