@@ -78,8 +78,7 @@
 							src="img/sushi/sushizuki-logo.png" alt="Sushizuki"></a></li>
 					<li><a href="index.jsp">Home</a></li>
 					<li class="active"><a href="menu">Cardápio</a></li>
-
-					<li><a href="contatos.html">Contatos</a></li>
+					<li><a href="contact.jsp">Contatos</a></li>
 				</ul>
 			</nav>
 		</div>

@@ -80,13 +80,7 @@
                             <a href="index.html"><i class="fa fa-shopping-cart fa-fw"></i> Pedidos</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-envelope fa-fw"></i> Mensagens</a>
-                        </li>
-                        <li>
                             <a href="Product"><i class="fa fa-cutlery fa-fw"></i> Produtos</a>
-                        </li>
-                        <li>
-                            <a href="forms.html"><i class="fa fa-gear fa-fw"></i> Administrador</a>
                         </li>
                     </ul>
                 </div>

@@ -39,22 +39,22 @@
  		 return false;
  	 }
 	 if(document.formProduct.description.value==""){
-		 alert( "Preencha o campo DESCRI��O!" );
+		 alert( "Preencha o campo DESCRIÇÃO!" );
  		 return false;
 	 }
 	 if(document.formProduct.price.value==""){
-		 alert( "Preencha o PRE�O!" );
+		 alert( "Preencha o PREÇO!" );
  		 return false;
 	 }
 	 if(isNaN(document.formProduct.price.value)){
-		 alert( "Digite apenas n�meros!" );
+		 alert( "Digite apenas números!" );
 		 return false;
 	 }
  document.formProduct.submit();
 }
  
 function confirmation (){
-	decision = confirm("Todos os campos ser�o apagados");
+	decision = confirm("Todos os campos serão apagados");
 	if(decision)
 		document.formProduct.reset();	
 }
@@ -103,13 +103,7 @@ function confirmation (){
                             <a href="index.html"><i class="fa fa-shopping-cart fa-fw"></i> Pedidos</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-envelope fa-fw"></i> Mensagens</a>
-                        </li>
-                        <li>
                             <a href="Product"><i class="fa fa-cutlery fa-fw"></i> Produtos</a>
-                        </li>
-                        <li>
-                            <a href="forms.html"><i class="fa fa-gear fa-fw"></i> Administrador</a>
                         </li>
                     </ul>
                 </div>

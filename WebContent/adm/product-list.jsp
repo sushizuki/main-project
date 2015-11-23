@@ -1,4 +1,4 @@
-ï»¿<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
@@ -85,13 +85,7 @@
                             <a href="Order?action=getOrderList"><i class="fa fa-shopping-cart fa-fw"></i> Pedidos</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-envelope fa-fw"></i> Mensagens</a>
-                        </li>
-                        <li>
                             <a href="Product"><i class="fa fa-cutlery fa-fw"></i> Produtos</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-gear fa-fw"></i> Administrador</a>
                         </li>
                     </ul>
                 </div>
@@ -139,11 +133,11 @@
                                         <tr>
                                         	<th style="display: none">ID</th>
                                             <th style="width:150px;">Nome</th>
-                                            <th style="width:350px;">DescriÃ§Ã£o</th>
-                                            <th class="center" style="width:100px;">PreÃ§o </th>
+                                            <th style="width:350px;">Descrição</th>
+                                            <th class="center" style="width:100px;">Preço </th>
                                             <th class="center" style="width:150px;">Categoria </th>
                                             <th class="center">Imagem </th>
-                                            <th class="center" style="width:150px;">AÃ§Ãµes </th>
+                                            <th class="center" style="width:150px;">Ações </th>
                                         </tr>
                                     </thead>
                                     <tbody>                                    	
