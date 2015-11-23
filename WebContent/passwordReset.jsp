@@ -50,58 +50,39 @@
 		</div>
 	</div>
 	
-		<div id="page-wrapper">
-	            <div class="container">
-					<div class="row">
-						<div class="col-md-12">
-							<h1>Informações de entrega e pagamento</h1>
+	<!-- Page Title -->
+		<div class="section section-breadcrumbs">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<h1>Redefinir Senha</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+        
+        <div class="section">
+	    	<div class="container">
+				<div class="row">
+					<div class="col-sm-6 col-sm-offset-3">
+						<div class="basic-login">
+							<form>
+								<div class="form-group">
+		        				 	<label for="restore-email"><i class="icon-envelope"></i> <b>Digite o Email Cadastrado</b></label>
+									<input class="form-control" id="restore-email" type="text" placeholder="">
+								</div>
+								<div class="form-group">
+									<button type="submit" class="btn pull-right">Redefinir senha</button>
+									<div class="clearfix"></div>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
-	            
+			</div>
+		</div>
 
-	            <!-- /.row -->
-	            	<div class="section-white">
-						<div class="container">
-							<div class="row">
-								<div class="col-sm-8">
-	                                    <form role="form" name="formScheduleCollect" action="scheduleCollect.jsp" method="post" enctype="multipart/form-data">
-	                                        <div class="form-group">
-	                                            <label><i>Os dias para entrega são: sexta-feira, sábado e domingo. Entre às 11:00 e 00:00</i></label><br>
-	                                        </div>
-	                                        <div class="form-group">
-	                                        	<label>Data da entrega:</label>
-	                                        	<input type="date">
-	                                        </div>
-	                                        <div>
-	                                        	<label>Horário da entrega:</label>
-	                                        	<input type="time">
-	                                        </div>
-	                                        <div>
-	                                        	<br><label>Forma de pagamento:</label><br>
-	                                        	<label>O pagamento só é efetuado na hora da entrega do pedido</label><br>
-	                                        	<form action="">
-	                                        	<input type="radio" name="payment" value="card"> Cartão de crédito/débito<br>
-	                                        	<input type="radio" name="payment" value="money"> Dinheiro<br>
-	                                        	<label>Troco para: R$</label>
-	                                        	<input type="number">
-	                                        	</form>	 
-	                                        </div>
-	                                        <br>
-                                        	<a href="confirmation.jsp"><button type="button" class="btn btn-primary">Voltar</button></a>	                                        
-                                        	<button type="submit" class="btn btn-primary">Confirmar</button> 
- 									</form>
- 									
-                                </div>                  
-                            </div>
-                            <!-- /.row (nested) -->
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-12 -->
-	<!-- Footer -->
+<!-- Footer -->
 	    <div class="footer">
 	    	<div class="container">
 		    	<div class="row">
@@ -118,7 +99,7 @@
 		    			<h3>Contato</h3>
 		    			<p class="contact-us-details">
 	        				<b>Telefone:</b> (61) 8636 8825<br/>
-	        				<b>Email:</b> <a href="mailto:">sushizukiii@gmail.com</a>
+	        				<b>Email:</b> <a href="mailto:">email@sushizuki.com.br</a>
 	        			</p>
 		    		</div>
 					

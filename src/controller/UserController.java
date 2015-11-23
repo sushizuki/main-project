@@ -87,6 +87,11 @@ private static final long serialVersionUID = 1L;
 				System.out.println("Session user: "+session.getAttribute("user"));
 				request.setAttribute("user", ((DoLogin) command).getUser());
 				
+				if(command.getPageToRedirect().contains("adm/")){
+					response.sendRedirect("adm/Order?action=getOrderList");
+					return;
+				}
+				
 				if(!request.getParameter("redir").isEmpty() && request.getParameter("redir")!=null){
 					System.out.println("Redirecionando para:"+request.getParameter("redir"));
 					((DoLogin) command).setPageToRedirect("/"+request.getParameter("redir"));
