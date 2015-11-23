@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.mysql.jdbc.Statement;
+
 import domain.Address;
 
 //Design pattern DAO
@@ -14,7 +16,7 @@ public class AddressDAO {
 	public AddressDAO() {
 	}
 	
-	public void insert(Address address) {
+	public int insert(Address address) {
 		this.con = new ConnectionFactory().getConnection();
 		
 		String sql = "insert into address " +
@@ -25,16 +27,27 @@ public class AddressDAO {
 		
 		try {
 		// prepared statement for insertion
-		stmt = con.prepareStatement(sql);
+		stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		
 		// set values for each '?'
 		stmt.setString(1, address.getCep());
 		stmt.setString(2, address.getAddress());
 		stmt.setString(3, address.getComplement());
-		
-		// execute
-		stmt.execute();
-		stmt.close();
+		int affectedRows = stmt.executeUpdate();
+
+        if (affectedRows == 0) {
+            throw new SQLException("Creating address failed, no rows affected.");
+        }
+
+        try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+			stmt.close();
+            if (generatedKeys.next()) {
+                return (int) generatedKeys.getLong(1);
+            }
+            else {
+                throw new SQLException("Creating address failed, no ID obtained.");
+            }
+        }
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -48,6 +61,52 @@ public class AddressDAO {
 			} catch(SQLException e){}
         }
 	}	
+	
+	public Address getAddress(String addr) {
+		this.con = new ConnectionFactory().getConnection();
+		
+        Address address = null;
+        String cep, complement;
+        int id;
+        String sql = "select * from address where address=? limit 1";
+        
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, addr);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+				id = Integer.parseInt(rs.getString("idAddress"));
+				cep = rs.getString("cep");
+				addr = rs.getString("address");
+				complement = rs.getString("addressComplement");
+				
+				address = new Address(id, cep, addr, complement);
+
+            }
+            
+            stmt.close();
+            rs.close();
+        } catch (SQLException e) {
+			throw new RuntimeException("ERROR GETTING PRODUCT: "+e.getMessage());
+        }  finally {
+			try {
+				if(this.con != null) {
+					con.close();
+				}
+				if(stmt != null) {
+					stmt.close();
+				}
+				if(rs != null){
+					rs.close();
+				}
+			} catch(SQLException e){}
+        }
+        
+        return address;
+    }
 	
 	public Address getAddressById(int addressId) {
 		this.con = new ConnectionFactory().getConnection();

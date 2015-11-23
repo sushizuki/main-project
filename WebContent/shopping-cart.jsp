@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
-<html class="no-js">
+<html>
 <!--<![endif]-->
 <head>
 <meta charset="utf-8">
@@ -9,7 +9,6 @@
 <title>Sushizuki</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width">
-
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/icomoon-social.css">
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600,800' rel='stylesheet' type='text/css'>
@@ -18,6 +17,9 @@
 		    <link rel="stylesheet" href="css/leaflet.ie.css" />
 		<![endif]-->
 <link rel="stylesheet" href="css/main-red.css">
+<script	src="js/jquery-1.9.1.min.js"></script>
+<!-- Mask Money -->
+<script src="js/jquery.maskMoney.min.js"></script>
 
 <script src="js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 </head>
@@ -127,7 +129,7 @@
 									</tr>
 									<tr class="cart-grand-total">
 										<td><b>Total</b></td>
-										<td><b><fmt:formatNumber value="${order.totalPrice}" type="currency" currencySymbol="R$" /></b></td>
+										<td id="total"><b><fmt:formatNumber value="${order.totalPrice}" type="currency" currencySymbol="R$" /></b></td>
 									</tr>
 								</table>
 								<div>
@@ -138,33 +140,64 @@
 						<div class="col-md-12">
 							<hr>
 						</div>
-						<div>
-							<hr>
-							<!-- Additionals -->
-							<div class="col-md-3  col-md-offset-0 col-sm-6 col-sm-offset-6">
-								<div class="cart-promo-code">
-									<h4><i class="glyphicon glyphicon-gift"></i> Gostaria de acrescentar:</h4>
-									<div class="input-group">	
-										<c:forEach var="additional" items="${additionals}">	
-											<label><input type="checkbox" name="additional[]" value="${additional.id }"> ${additional.name }</label><br>
-		                                </c:forEach>
+					    <c:if test="${user.name != null}">
+							<div id="order-info">
+								<div>
+									<hr>
+									<!-- Additionals -->
+									<div class="col-md-3  col-md-offset-0 col-sm-6 col-sm-offset-6">
+										<div class="cart-promo-code">
+											<h4><i class="glyphicon glyphicon-gift"></i> Gostaria de acrescentar:</h4>
+											<div class="input-group"  style="padding-left: 40px">	
+												<c:forEach var="additional" items="${additionals}">	
+													<label><input type="checkbox" name="additional[]" value="${additional.id }"> ${additional.name }</label><br>
+				                                </c:forEach>
+											</div>
+										</div>
 									</div>
+									<!-- Payment -->
+									<div class="col-md-3  col-md-offset-0 col-sm-6 col-sm-offset-6">
+										<div class="cart-promo-code">
+											<h4><i class="glyphicon glyphicon-tag"></i> Pagamento:</h4>
+											<div class="input-group" style="padding-left: 40px; width:100%;">
+								            	<div class="input-group">
+									            	<label><input type="radio" id="pay-card" class="payment-option" name="payment" value="card">&nbsp;
+									            		<i class="glyphicon glyphicon-credit-card"></i> Cartão.
+									            	</label>
+								            	</div>	
+								            	<br>
+								            	<div>
+									            	<label><input type="radio" id="pay-money" class="payment-option" checked="checked" name="payment" value="money">&nbsp;
+									            		<i class="glyphicon glyphicon-usd"></i> Dinheiro.
+									            	</label>
+									            	<div class="input-group" style="width:100%;">
+								            			<label for="change">Troco para: <br>	
+			                                            </label>  
+			                                        	<div class="input-group">                                          	
+				                                            <span class="input-group-addon">R$</span>
+				                                            <input type="text" name="change" id="change" class="form-control validate" style="width:120px;float:left;" maxlength="6" />
+			                                            </div>
+			                                        </div>	
+								            	</div>  	
+							            	</div>
+							           	</div> 
+						           	</div>
+									
+									<!-- Shipment Options -->
+									<div class="col-md-5 col-md-offset-0 col-sm-6 col-sm-offset-6">
+										<div class="cart-shippment-options">
+											<h4><i class="glyphicon glyphicon-plane"></i> Entrega</h4>
+											<div class="input-append">
+												<select class="form-control input-sm" name="receiving">
+													<option value="2">Buscar no local</option>
+													<option value="1">Receber em casa (Somente Park Way, Quadras 26 a 29, Brasília/DF)</option>
+												</select>
+											</div>
+										</div>
+									</div>				
 								</div>
 							</div>
-							
-							<!-- Shipment Options -->
-							<div class="col-md-5 col-md-offset-0 col-sm-6 col-sm-offset-6">
-								<div class="cart-shippment-options">
-									<h4><i class="glyphicon glyphicon-plane"></i> Entrega</h4>
-									<div class="input-append">
-										<select class="form-control input-sm" name="receiving">
-											<option value="1">Receber em casa (Somente Park Way, Quadras 26 a 29, Brasília/DF)</option>
-											<option value="2">Buscar no local</option>
-										</select>
-									</div>
-								</div>
-							</div>				
-						</div>
+						</c:if>
 					</div>
 					<hr>
 					<!-- Action Buttons -->
@@ -185,12 +218,48 @@
 		</div>	
     <div class="mainmenu-wrapper"></div><br><br>
 	<!-- Javascripts -->
-	<script
-		src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script>
-		window.jQuery
-				|| document
-						.write('<script src="js/jquery-1.9.1.min.js"><\/script>')
+	function doCheck(){
+	    var allFilled = true;
+
+		if($('#pay-money').prop("checked") == false){
+			$('.validate').each(function(){
+		        if($('change').val() < $('total').val() ){
+		            allFilled = false;
+		            return false;
+		        }
+		    });
+		} else {
+			$('input[type=text]').each(function(){
+		        if($(this).val() == '' ){
+		            allFilled = false;
+		            return false;
+		        }
+		    });
+		}
+	    $('button[type=submit]').prop('disabled', !allFilled);
+	}
+
+	$(document).ready(function(){
+
+	    $('input').keyup(doCheck).focusout(doCheck);
+
+		//Selecting items
+        $('.payment-option').click(function(ev) {
+    		var cliAddr = "#client-addr";
+    		var newAddr = "#new-addr";
+    		if($('#pay-money').prop("checked") == false){
+        		$('#change').prop("readonly", true);
+        		$('#change').val("");
+    		} else {
+        		$('#change').prop("readonly", false);
+        		$('#change').val("");
+        		$('#change').focus();
+    		}
+    	});
+
+        $("#change").maskMoney();
+	});
 	</script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.js"></script>

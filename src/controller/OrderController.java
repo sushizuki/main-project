@@ -14,9 +14,12 @@ import controller.command.CommandFactory;
 import controller.command.order_commands.AddAdditionalsToOrder;
 import controller.command.order_commands.GetAvailableAdditionals;
 import controller.command.order_commands.GetOrder;
+import controller.command.order_commands.GetOrderList;
 import controller.command.order_commands.NewOrder;
+import controller.command.order_commands.SaveOrder;
 import controller.command.order_commands.SetClientToOrder;
 import controller.command.order_commands.SetCollectTime;
+import controller.command.order_commands.SetDeliveryDetails;
 import controller.command.user_commands.CheckUserLogged;
 import domain.Client;
 import domain.Order;
@@ -44,20 +47,22 @@ public class OrderController extends HttpServlet {
 			//Default action: List Products
         	if(action == null || action.isEmpty()){
         		action = "getOrder";
-        		System.out.println("ACTION GET ORDER DEFAULT");
         	}
 			
 			Command command = cf.getCommand(action);
-			System.out.println("EXECUTING GET COMMAND: "+action);
 			
 			if(command instanceof GetOrder){	
-				System.out.println("GETTING ORDER");
 				((GetOrder) command).setSession(session);				
 				command.execute();		
 
 				Command command2 = cf.getCommand("getAvailableAdditionals");
 				command2.execute();
 				request.setAttribute("additionals", ((GetAvailableAdditionals)command2).getAdditionals());
+			}else if(command instanceof GetOrderList){
+				((GetOrderList) command).setSession(session);
+				command.execute();
+				request.setAttribute("orders", ((GetOrderList) command).getOrderList());
+				request.setAttribute("user", session.getAttribute("user"));
 			}
 
 			view = request.getRequestDispatcher(command.getPageToRedirect());
@@ -136,6 +141,15 @@ public class OrderController extends HttpServlet {
 				
 				((AddAdditionalsToOrder) command).setOrder((Order)session.getAttribute("order"));
 				((AddAdditionalsToOrder) command).setAdditionalsIds(request.getParameterValues("additional[]"));
+				String change = request.getParameter("change");
+				//Payment by card
+				if(change.isEmpty()){
+					change = "0";
+				}
+				((AddAdditionalsToOrder) command).setPayment(request.getParameter("payment"),
+						((Order)session.getAttribute("order")).getTotalPrice(),
+						Double.valueOf(change) );					
+				
 				((AddAdditionalsToOrder) command).setReceiving(Integer.valueOf(request.getParameter("receiving")));
 				command.execute();
 				request.setAttribute("order", ((AddAdditionalsToOrder)command).getOrder());
@@ -144,6 +158,17 @@ public class OrderController extends HttpServlet {
 				((SetCollectTime)command).setOrder((Order)session.getAttribute("order"));
 				((SetCollectTime)command).setCollectTime(request.getParameter("date"), request.getParameter("time"));
 				command.execute();
+			} else if(command instanceof SetDeliveryDetails){
+				((SetDeliveryDetails)command).setOrder((Order)session.getAttribute("order"));
+				((SetDeliveryDetails)command).setCollectTime(request.getParameter("date"), request.getParameter("time"));
+				((SetDeliveryDetails)command).setAddress(((Client)session.getAttribute("user")).getAddress());
+				request.setAttribute("order", ((SetDeliveryDetails)command).getOrder());
+				session.setAttribute("order", ((SetDeliveryDetails)command).getOrder());		
+				command.execute();
+			} else if(command instanceof SaveOrder){
+				((SaveOrder)command).setOrder( (Order)session.getAttribute("order") );
+				command.execute();
+				session.setAttribute("order", null);
 			}
 						
 	 		view = request.getRequestDispatcher(command.getPageToRedirect());

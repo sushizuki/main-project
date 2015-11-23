@@ -22,12 +22,12 @@ public class Payment {
 	}
 
 	public Payment(String p) throws SQLException {
-		this.setPaymentType(p); //the id of payment
+		this.setPaymentType(p); //the id of payment (1 card, 2 money)
 	}
 	
-	public Payment(String p, double total, double value) throws SQLException {
-		this.setPaymentType(p);
-		this.setChange(value, total);
+	public Payment(String type, double total, double change) throws SQLException {
+		this.setPaymentType(type);
+		this.setChange(change, total);
 	}
 
 	public int getId() {
@@ -43,7 +43,7 @@ public class Payment {
 	}
 
 	public void setChange(double value, double total) {
-		this.change = String.valueOf(total - value);
+		this.change = String.valueOf(value - total);
 	}
 	
 	public void setChange(String change) {

@@ -37,6 +37,10 @@
   <servlet-mapping>
     <servlet-name>OrderController</servlet-name>
     <url-pattern>/Order</url-pattern>
+  </servlet-mapping>  
+  <servlet-mapping>
+    <servlet-name>OrderController</servlet-name>
+    <url-pattern>/adm/Order</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>OrderController</servlet-name>
@@ -45,4 +49,16 @@
   <error-page>
     <location>/404.jsp</location>
   </error-page>
+<filter>
+    <filter-name>UserCheckFilter</filter-name>
+    <filter-class>controller.UserCheckFilter</filter-class>
+    <init-param>
+        <param-name>loginActionURI</param-name>
+        <param-value>/login</param-value>
+    </init-param>
+</filter>
+<filter-mapping>
+    <filter-name>UserCheckFilter</filter-name>
+    <url-pattern>/adm/*</url-pattern>
+</filter-mapping>
 </web-app>

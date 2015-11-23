@@ -1,4 +1,4 @@
-﻿<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
@@ -65,11 +65,11 @@
                 
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i> <c:out value="${user.name}" /><i class="fa fa-caret-down"></i>
+                        <i class="fa fa-user fa-fw"></i> <c:out value="${user.name}" /> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li class="divider"></li>
-                        <li><a href="../user?action=doLogout"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
+                        <li><a href="user?action=doLogout"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -117,10 +117,7 @@
 				            </div>
 			            </c:if>
 	            	</div>		           
-                    <h1 class="page-header">Produtos</h1>   
-                    <div class="form-group">                 
-                    	<a class="btn btn-primary" href="Product?action=newProduct">Cadastrar novo produto</a>  
-                    </div>                  
+                    <h1 class="page-header">Pedidos</h1>   
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -129,7 +126,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Lista de produtos cadastrados
+                            Lista de pedidos.
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -137,35 +134,69 @@
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
-                                        	<th style="display: none">ID</th>
-                                            <th style="width:150px;">Nome</th>
-                                            <th style="width:350px;">Descrição</th>
-                                            <th class="center" style="width:100px;">Preço </th>
-                                            <th class="center" style="width:150px;">Categoria </th>
-                                            <th class="center">Imagem </th>
-                                            <th class="center" style="width:150px;">Ações </th>
+                                        	<th>Pedido</th>
+                                            <th>Cliente</th>
+                                            <th class="center">Hor�rio</th>
+                                            <th class="center">Status </th>
+                                            <th class="center">A��o</th>
                                         </tr>
                                     </thead>
                                     <tbody>                                    	
-                                    <c:forEach items="${products}" var="product">                                    	
+                                    <c:forEach items="${orders}" var="order">                                    	
                                         <tr class="gradeA">
-                                        	<td style="display: none"><c:out value="${product.id}" /></td>
-                                            <td><c:out value="${product.name}" /></td>
-                                            <td><c:out value="${product.description}" /></td>
-                                            <td class="center"><c:out value="${product.price}" /></td>
-                                            <td class="center"><c:out value="${product.category}" /></td>
-                                            <td class="center">
-                                            	<c:if test="${product.imgUrl != null}">
-	                                            	<a href="../${product.imgUrl}" data-lightbox="image-1" data-title="${product.name}" class="btn btn-outline btn-primary btn-xs">
-														Ver
-													</a>
-												</c:if>
-                                            </td>
-                                            <td class="center">
-                               					<a class="btn btn-outline btn-primary btn-xs" href="Product?action=getProduct&id=<c:out value="${product.id}"/>">Editar</a>
-												<a class="btn btn-outline btn-primary btn-xs" href="Product?action=deleteProduct&id=<c:out value="${product.id}"/>" data-confirm="Tem certeza que deseja excluir?">Excluir</a>                                                	
-                                            </td>
+                                        	<td class="center" style="width:85px;"><c:out value="${order.id}" /></td>
+                                            <td><c:out value="${order.client.name}" /></td>
+                                            
+                                            <td class="center" style="width: 100px"><fmt:formatDate type="both" pattern="dd/MM/yyyy HH:mm" value="${order.receiving.time.time}" /></td>
+                                            
+                                            <td class="center"><c:out value="${order.status}" /></td>
+                                            <td>
+												<a class="btn btn-outline btn-primary btn-xs show-item" href="#" id="${order.id }" style="width: 100%" >Ver detalhes</a>
+												
+											</td>
                                         </tr>
+                                        <div style="display:none;" class="orderDetail" id="orderDetail-${order.id }">
+                                        	<div class="col-lg-12">
+                                        		<strong>Pedido: </strong>#<c:out value="${order.id}" /><br>
+                                        		<strong>Cliente: </strong><c:out value="${order.client.name}" />
+                                        	</div>
+                                        	<div class="col-lg-4" style="padding-bottom:50px;"><strong>Itens:</strong>
+                                        		<ul>
+												<c:forEach items="${order.items}" var="item">
+													<li><c:out value="${item.key.name}" /></li>
+												</c:forEach>
+												</ul>
+												</div> 
+												<div class="col-lg-4"><strong>Adicionais:</strong>
+                                        		<ul>
+												<c:forEach items="${order.additionals}" var="additional">
+													<li><c:out value="${additional.name}" /></li>
+												</c:forEach>
+												</ul> 
+                                        	</div>                                        	
+											<div class="col-lg-4"><strong>Pagamento:</strong>
+												<c:out value="${order.payment.paymentType}" />
+												<c:if test="${order.payment.change > 0.0}">
+													<br>
+			                	 					<strong>Troco para: </strong><fmt:formatNumber value="${order.payment.change+order.totalPrice}" type="currency" currencySymbol="R$" />
+			               	 					</c:if>
+											</div>
+											<div class="col-lg-4 pull-right" style="padding-bottom:50px;"><br>
+			                	 					<strong>Recebimento: </strong><br>
+                                            	<c:choose>
+                                            		<c:when test="${order.receiving.getClass().name =='domain.Collect'}">
+                                            			Coleta
+                                            		</c:when>                                          		
+	                                          		<c:when test="${order.receiving.getClass().name =='domain.Delivery'}">
+	                                            		Entrega - ${order.receiving.address.address }
+	                                          		</c:when>
+	                                          		<c:otherwise>${order.receiving.getClass().name}</c:otherwise>
+                                          		</c:choose>
+                                          		<br><br>
+                                          		<strong>Data e Hora: </strong><br>
+                                          		<fmt:formatDate type="both" pattern="dd/MM/yyyy HH:mm" value="${order.receiving.time.time}" />
+                                           	</div>					
+                                        </div>
                                     </c:forEach>                                       
                                     </tbody>
                                 </table>                                
@@ -214,23 +245,23 @@
         	  "columns": [
         	    null,
         	    null,
-        	    { "orderable": false }, //description
         	    null,
-        	    null,
-        	    { "orderable": false }, //img
+        	    { "orderable": false }, 
         	    { "orderable": false } //actions
         	  ]
         	} );
 
-        $('a[data-confirm]').click(function(ev) {
-    		var href = $(this).attr('href');
-    		if (!$('#dataConfirmModal').length) {    			
-    			$('body').append('<div class="modal fade" id="dataConfirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel">Confirmar</h4></div><div class="modal-body"></div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button><a class="btn btn-primary" id="dataConfirmOK">OK</a></div></div></div></div>');
-    		} 
-    		$('#dataConfirmModal').find('.modal-body').text($(this).attr('data-confirm'));
-    		$('#dataConfirmOK').attr('href', href);
-    		$('#dataConfirmModal').modal({show:true});
-    		return false;
+      //Showing items
+        $('.show-item').click(function(ev) {
+    		var list = "#orderDetail-"+$(this).attr('id');
+    		if($(list).css('display') == 'none'){
+    			$('.orderDetail').hide("fast");
+        		$(list).show("fast");
+        		$(this).text("Ocultar");
+    		} else {
+        		$(list).hide("fast");
+        		$(this).text("Ver");
+    		}
     	});
 
     });

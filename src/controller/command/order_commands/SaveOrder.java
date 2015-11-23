@@ -10,10 +10,9 @@ public class SaveOrder implements Command {
 	private Order order;
 	private String pageToRedirect;
 
-	public SaveOrder(Order o) {
-		this.order=o;
+	public SaveOrder() {
 		this.orderDao = new OrderDAO();
-		this.pageToRedirect="/confirmation";
+		this.pageToRedirect="/index.jsp"; //redir to user page
 	}
 	
 	public void setOrder(Order o){

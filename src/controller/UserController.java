@@ -80,24 +80,21 @@ private static final long serialVersionUID = 1L;
 			Command command = cf.getCommand(action);
 						
 			if(command instanceof DoLogin){	
-				//if user not logged
-				if(session.getAttribute("user") == null){
-					((DoLogin) command).setEmail(request.getParameter("email"));
-					((DoLogin) command).setPassword(request.getParameter("password"));
-					command.execute();
-					session.setAttribute("user", ((DoLogin) command).getUser());
-					System.out.println("Session user: "+session.getAttribute("user"));
-					request.setAttribute("user", ((DoLogin) command).getUser());
-					
-					if(!request.getParameter("redir").isEmpty() && request.getParameter("redir")!=null){
-						System.out.println("Redirecionando para:"+request.getParameter("redir"));
-						((DoLogin) command).setPageToRedirect("/"+request.getParameter("redir"));
-						request.setAttribute("order", session.getAttribute("order"));
-					} else {
-						System.out.println("Não identificou redirecionamento");		
-						System.out.println("Indo para "+command.getPageToRedirect());
-						System.out.println("Devia ir para "+request.getParameter("redir"));
-					}
+				((DoLogin) command).setEmail(request.getParameter("email"));
+				((DoLogin) command).setPassword(request.getParameter("password"));
+				command.execute();
+				session.setAttribute("user", ((DoLogin) command).getUser());
+				System.out.println("Session user: "+session.getAttribute("user"));
+				request.setAttribute("user", ((DoLogin) command).getUser());
+				
+				if(!request.getParameter("redir").isEmpty() && request.getParameter("redir")!=null){
+					System.out.println("Redirecionando para:"+request.getParameter("redir"));
+					((DoLogin) command).setPageToRedirect("/"+request.getParameter("redir"));
+					request.setAttribute("order", session.getAttribute("order"));
+				} else {
+					System.out.println("Não identificou redirecionamento");		
+					System.out.println("Indo para "+command.getPageToRedirect());
+					System.out.println("Devia ir para "+request.getParameter("redir"));
 				}
 			}
 			System.out.println("Indo para "+command.getPageToRedirect());

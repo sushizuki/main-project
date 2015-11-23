@@ -1,11 +1,13 @@
 package controller.command.order_commands;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import controller.command.Command;
 import dao.OrderDAO;
 import domain.Additional;
 import domain.Order;
+import domain.Payment;
 
 public class AddAdditionalsToOrder implements Command {
 	
@@ -13,7 +15,8 @@ public class AddAdditionalsToOrder implements Command {
 	private OrderDAO orderDao;
 	private String pageToRedirect;
 	private String[] additionalIds;
-	private int receiving; //1 = Delivery; 2 = Collect
+	private int receiving; 
+	private Payment payment;
 
 	public AddAdditionalsToOrder() {
 		super();
@@ -30,6 +33,20 @@ public class AddAdditionalsToOrder implements Command {
 		} else {
 			this.pageToRedirect = "/collect.jsp";
 		}
+	}
+	
+	public void setPayment(String type, double total, double change) throws SQLException{
+		if(type.equalsIgnoreCase("money")){
+			type = "2";
+		} else if(type.equalsIgnoreCase("card")){
+			type="1";
+		}
+		if(type=="2" && change>0){
+			this.payment = new Payment(type, total, change);
+		} else {
+			this.payment = new Payment(type);
+		}
+		
 	}
 	
 	public void setAdditionalsIds(String[] ids){
@@ -63,6 +80,9 @@ public class AddAdditionalsToOrder implements Command {
 	public void execute() throws Exception {
 		this.setPageToRedirect();
 		this.setAdditionalsToOrder();
+		if(this.payment!=null){
+			this.order.setPayment(this.payment);
+		}
 	}
 
 	@Override

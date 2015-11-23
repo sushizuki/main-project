@@ -46,11 +46,12 @@ public class CommandFactory {
 		cf.addCommand("newOrder", new NewOrder());
 		cf.addCommand("addAdditionals", new AddAdditionalsToOrder());
 		cf.addCommand("getOrder", new GetOrder());
+		cf.addCommand("getOrderList", new GetOrderList());
 		cf.addCommand("getAvailableAdditionals", new GetAvailableAdditionals());
 		cf.addCommand("setClientToOrder", new SetClientToOrder());
 		cf.addCommand("setCollectTime", new SetCollectTime());
-		cf.addCommand("finishCollectOrder", new FinishCollectOrder());
-		cf.addCommand("finishDeliveryOrder", new FinishDeliveryOrder());
+		cf.addCommand("setDeliveryDetails", new SetDeliveryDetails());
+		cf.addCommand("saveOrder", new SaveOrder());
 		
 		//User commands
 		cf.addCommand("doLogin", new DoLogin());

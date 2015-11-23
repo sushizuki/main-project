@@ -71,11 +71,11 @@
 						<form role="form" role="form" action="login?<c:out value='redir=${param.redir}'/>" method="post">
 							<div class="form-group">
 								<label for="login-username"><i class="icon-user"></i> <b>Email</b></label>
-								<input class="form-control" name="email" id="login-username" type="text" placeholder="">
+								<input class="form-control validate" name="email" id="login-username" type="text" placeholder="">
 							</div>
 							<div class="form-group">
 								<label for="login-password"><i class="icon-lock"></i> <b>Senha</b></label>
-								<input class="form-control" name="password" id="login-password" type="password" placeholder="">
+								<input class="form-control validate" name="password" id="login-password" type="password" placeholder="">
 							</div>
 							<div class="form-group">
 								<input type="hidden" name="redir" value="${param.redir }">
@@ -95,43 +95,9 @@
 			</div>
 		</div>
 	</div>
-	<br/><br/>
-	<!-- Footer -->
-	    <div class="footer">
-	    	<div class="container">
-		    	<div class="row">
-		    		<div class="col-footer col-md-3 col-xs-6">
-		    			<h3>Navegação</h3>
-		    			<ul class="no-list-style footer-navigate-section">
-		    				<li><a href="index.jsp">Home</a></li>
-		    				<li><a href="menu.html">Cardápio</a></li>
-		    				<li><a href="contact.html">Contato</a></li>
-		    			</ul>
-		    		</div>
-		    		
-		    		<div class="col-footer col-md-4 col-xs-6">
-		    			<h3>Contato</h3>
-		    			<p class="contact-us-details">
-	        				<b>Telefone:</b> (61) 8636 8825<br/>
-	        				<b>Email:</b> <a href="mailto:">email@sushizuki.com.br</a>
-	        			</p>
-		    		</div>
-					<div class="col-footer col-md-2 col-xs-6">
-		    			<h3>Social</h3>
-		    			<ul class="footer-stay-connected no-list-style">
-		    				<li><a href="#" class="facebook"></a></li>
-		    			</ul>
-		    		</div>
-					
-		    	</div>
-		    	<div class="row">
-		    		<div class="col-md-12">
-		    			<div class="footer-copyright">&copy; 2015 Sushizuki. Brasília/DF.</div>
-		    		</div>
-		    	</div>
-		    </div>
-	    </div>
-
+	<br><br>
+    <div class="mainmenu-wrapper"></div><br><br>
+	
 
 	<!-- Javascripts -->
 	<script
@@ -150,7 +116,7 @@
 	function doCheck(){
 	    var allFilled = true;
         var email = "#login-username";
-	    $('input').each(function(){
+	    $('.validate').each(function(){
 	        if($(this).val() == '' || !isEmail($(email).val()) ){
 	            allFilled = false;
 	            return false;

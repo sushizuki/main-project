@@ -111,6 +111,9 @@ public class Product {
 	}
 
 	public int getExtraId(String extra) throws SQLException {
+		if(extra == null || extra.isEmpty()){
+			return 0;
+		}
 		ProductDAO dao = new ProductDAO();
 		List<String> list = dao.getProductExtraList();
 		

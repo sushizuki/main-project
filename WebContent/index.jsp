@@ -54,7 +54,7 @@
 						    </c:when>    
 						    <c:otherwise>
 						    	<li>
-						        	<a href="login?redir=menu">Login</a>
+						        	<a href="login">Login</a>
 					        	</li>
 						    </c:otherwise>
 						</c:choose>
@@ -79,31 +79,31 @@
 		<div id="sequence"  style="border-bottom: 1px solid #cfcfcf">
 			<ul class="sequence-canvas">
 				<!-- Slide 1 -->
-				<li class="bg1">
+				<li class="bg1" style="font-variant: small-caps;">
 					<!-- Slide Title -->
-					<h2 class="title">Sushi</h2> <!-- Slide Text -->
-					<h3 class="subtitle">De Salmão, Kani e muito mais</h3> <!-- Slide Image -->
+					<h2 class="title" style="font-size:48pt;">Sushi</h2> <!-- Slide Text -->
+					<h3 class="subtitle" style="font-size:20pt;">De Salmão, Kani e muito mais</h3> <!-- Slide Image -->
 				</li>
 				<!-- End Slide 1 -->
 				<!-- Slide 2 -->
-				<li class="bg2">
+				<li class="bg2" style="font-variant: small-caps;">
 					<!-- Slide Title -->
-					<h2 class="title">Sashimi</h2> <!-- Slide Text -->
-					<h3 class="subtitle">De Salmão</h3> <!-- Slide Image -->
+					<h2 class="title" style="font-size:48pt;">Sashimi</h2> <!-- Slide Text -->
+					<h3 class="subtitle" style="font-size:20pt;">De Salmão</h3> <!-- Slide Image -->
 				</li>
 				<!-- End Slide 2 -->
 				<!-- Slide 3 -->
-				<li class="bg3">
+				<li class="bg3" style="font-variant: small-caps;">
 					<!-- Slide Title -->
-					<h2 class="title">Temaki</h2> <!-- Slide Text -->
-					<h3 class="subtitle">De Salmão e Kani</h3> <!-- Slide Image -->
+					<h2 class="title" style="font-size:48pt;">Temaki</h2> <!-- Slide Text -->
+					<h3 class="subtitle"  style="font-size:20pt;">De Salmão e Kani</h3> <!-- Slide Image -->
 				</li>
 				<!-- End Slide 3 -->
 				<!-- Slide 4 -->
-				<li class="bg4">
+				<li class="bg4" style="font-variant: small-caps;">
 					<!-- Slide Title -->
-					<h2 class="title">Niguiri</h2> <!-- Slide Text -->
-					<h3 class="subtitle">De Salmão e Skin</h3> <!-- Slide Image -->
+					<h2 class="title"  style="font-size:48pt;">Niguiri</h2> <!-- Slide Text -->
+					<h3 class="subtitle"  style="font-size:20pt;">De Salmão e Skin</h3> <!-- Slide Image -->
 				</li>
 				<!-- End Slide 4 -->
 			</ul>

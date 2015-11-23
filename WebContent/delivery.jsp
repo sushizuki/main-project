@@ -93,19 +93,21 @@
 		</div>
 	</div>
     <div class="container">
-  		<form role="form" name="formDelivery" action="Order?action=setDeliveryAddressTime" method="post" enctype="multipart/form-data">
+  		<form role="form" name="formDelivery" action="Order?action=setDeliveryDetails" method="post">
           	<div class="col-lg-6">	          		
 	    		<p>Informe o endereço para entrega do seu pedido.</p>
 	          	
 	           	<div class="col-lg-6 pull-left">	           		
 	                <div class="input-group">
-		            	<label><input type="radio" id="new-addr" name="address" value="new"> Em outro endereço.</label>
+		            	<label><input type="radio" id="new-addr" name="address" value="new"> 
+		            		<i class="glyphicon glyphicon-home"></i> Em outro endereço.
+		            	</label>
 		            	<div class="input-group">
 		            		<label>CEP: 
-		            			<input type="text" data-mask="00000-000"  class="form-control new-addrInput cep" readonly="readonly" value="" id="cep" name="newCep">
+		            			<input type="text" data-mask="00000-000"  class="form-control new-addrInput cep validateNewAddr" readonly="readonly" value="" id="cep" name="newCep">
 	            			</label>
 	            			<label>Endereço:
-		            			<input type="text" class="form-control new-addrInput" readonly="readonly" value="" name="newAddress">
+		            			<input type="text" class="form-control new-addrInput validateNewAddr" readonly="readonly" value="" name="newAddress">
 		            		</label>
 		            		<label>Complemento:
 		            			<input type="text" class="form-control new-addrInput" readonly="readonly" value="" name="newComplement">
@@ -120,11 +122,13 @@
 	           	</div> 
 	           	<div class="col-lg-6">
 	                <div class="input-group">
-		            	<label><input type="radio" checked="checked" id="client-addr" name="address" value="client"> No endereço cadastrado.</label>
+		            	<label><input type="radio" checked="checked" id="client-addr" name="address" value="client">
+		            		<i class="glyphicon glyphicon-home"></i> No endereço cadastrado.
+		            	</label>
 		            	<div class="input-group">
 		            		<input type="hidden" name="clientAddrId" value="1${user.address.id}" class="validate">
 		            		<div>
-		            			<p>${user.address.id}Endereço do cliente</p>
+		            			<p>${user.address}</p>
 	            			</div>
 		            	</div>  
 	            	</div>
@@ -176,7 +180,7 @@
 		        }
 		    });
 		} else {
-			$('input[type=text]').each(function(){
+			$('.validateNewAddr').each(function(){
 		        if($(this).val() == '' ){
 		            allFilled = false;
 		            return false;

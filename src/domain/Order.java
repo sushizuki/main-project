@@ -13,6 +13,7 @@ public class Order {
 	private double totalPrice;
 	private Receiving receiving;
 	private Payment payment;
+	private String status;
 
 	//Composition - Payment and Receiving must be an instance only here
 	public Order(){
@@ -82,5 +83,13 @@ public class Order {
 
 	public void setPayment(Payment payment) {
 		this.payment = payment;
+	}
+	
+	public String getStatus(){
+		return this.status;
+	}
+	
+	public void setStatus(String s){
+		this.status = s;
 	}
 }

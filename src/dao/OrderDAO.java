@@ -1,10 +1,10 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,51 +33,13 @@ public class OrderDAO {
 	}
 	
 	private int saveDeliveryAddress(Address a) {
-		this.con = new ConnectionFactory().getConnection();
-		
-		String sql = "insert into address " +
-		"(cep, address, addressComplement)" +
-		" values (?,?,?)";
-		
-		PreparedStatement stmt = null;
-		
-		try {
-			// prepared statement for insertion
-			stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			
-			// set values for each '?'
-			stmt.setString(1, a.getCep());
-			stmt.setString(2, a.getAddress());
-			stmt.setString(3, a.getComplement());
-			
-			int affectedRows = stmt.executeUpdate();
-
-	        if (affectedRows == 0) {
-	            throw new SQLException("Creating address failed, no rows affected.");
-	        }
-
-	        try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
-				stmt.close();
-	            if (generatedKeys.next()) {
-	                return (int) generatedKeys.getLong(1);
-	            }
-	            else {
-	                throw new SQLException("Creating address failed, no ID obtained.");
-	            }
-	        }
-			
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		} finally {
-			try {
-				if(this.con != null) {
-					con.close();
-				}
-				if(stmt != null) {
-					stmt.close();
-				}
-			} catch(SQLException e){}
-        }
+		AddressDAO addressDao = new AddressDAO();
+		Address addr = addressDao.getAddress(a.getAddress());
+		if(addr==null){
+			return addressDao.insert(a);
+		} else {
+			return addr.getId();
+		}
 	}
 	
 	private Receiving getReceivingFromOrder(int addressId){
@@ -100,7 +62,7 @@ public class OrderDAO {
 				
 				Address add = new Address(addressId, cep, address, complement);
 				
-				if(add.equals(Collect.sushizukiLocation)){
+				if(add.getAddress().equals(Collect.sushizukiLocation.getAddress())){
 					r = new Collect();
 				} else {
 					r = new Delivery(add);
@@ -132,7 +94,7 @@ public class OrderDAO {
 		this.con = new ConnectionFactory().getConnection();
 		
 		String sql = "insert into payment " +
-		"(change, paymentType_id)" +
+		"(paymentChange, paymentType_id)" +
 		" values (?,?)";
 		
 		PreparedStatement stmt = null;
@@ -142,7 +104,11 @@ public class OrderDAO {
 			stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			
 			// set values for each '?'
-			stmt.setString(1, p.getChange());
+			if(p.getChange()==null){
+				stmt.setInt(1, 0);
+			} else {
+				stmt.setString(1, p.getChange());
+			}
 			stmt.setLong(2, p.getPaymentId(p.getPaymentType()));
 			
 			int affectedRows = stmt.executeUpdate();
@@ -178,30 +144,48 @@ public class OrderDAO {
 	public void insert(Order order) {
 		this.con = new ConnectionFactory().getConnection();
 		
-		String sql = "insert into order " +
-		"(client_user_iduser, deliveryTime, totalPrice, idDeliveryAdress, payment_idPayment)" +
-		" values (?,?,?,?,?)";
+		String sql = "insert into `order` " +
+		"(client_user_iduser, deliveryTime, totalPrice, idDeliveryAddress, payment_idPayment, status_idstatus)" +
+		" values (?,?,?,?,?,?)";
 		
 		PreparedStatement stmt = null;		
 		
 		try {
 			// prepared statement for insertion
-			stmt = con.prepareStatement(sql);
+			stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			
 			// set values for each '?'
 			stmt.setLong(1, order.getClient().getId());
 			//CONVERTER CALENDAR PARA DATETIME SQL
-			stmt.setDate(2, (Date) order.getReceiving().getTime().getTime());
-			stmt.setString(3, String.valueOf(order.getTotalPrice()));
+			Calendar cal = order.getReceiving().getTime();
+			java.sql.Timestamp sqlDate = new java.sql.Timestamp(cal.getTime().getTime());
+			stmt.setTimestamp(2, sqlDate);
+			stmt.setDouble(3, order.getTotalPrice());
 			stmt.setLong(4, saveDeliveryAddress(order.getReceiving().getAddress()));
 			stmt.setLong(5, savePayment(order.getPayment()));
+			stmt.setInt(6,1); //1 = New Order
+
+
+			int affectedRows = stmt.executeUpdate();
+
+	        if (affectedRows == 0) {
+	            throw new SQLException("Creating order failed, no rows affected.");
+	        }
+
+	        try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+				stmt.close();
+	            if (generatedKeys.next()) {
+	                order.setId( (int) generatedKeys.getLong(1));
+	    			saveProductsToOrder(order);
+	    			saveAdditionalsToOrder(order);
+	            }
+	            else {
+	                throw new SQLException("Creating Order failed, no ID obtained.");
+	            }
+	        }
 			
-			// execute
-			stmt.execute();
 			stmt.close();
 			
-			saveProductsToOrder(order);
-			saveAdditionalsToOrder(order);
 			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -235,8 +219,13 @@ public class OrderDAO {
 			int qtd = entry.getValue();
 			stmt.setLong(1, order.getId());
 			stmt.setLong(2, p.getId());
-			stmt.setLong(3, p.getExtraId(p.getExtra()));
+			if(p.getExtra()==null || p.getExtra().isEmpty()){
+				stmt.setNull(3, Types.INTEGER);
+			} else {
+				stmt.setLong(3, p.getExtraId(p.getExtra()));
+			}
 			stmt.setLong(4, qtd);
+			System.out.println("STATEMENT:"+stmt.toString());
 			
 			// execute
 			stmt.execute();
@@ -296,15 +285,15 @@ public class OrderDAO {
 	}
 	
 	private HashMap<Product,Integer> setExtraFromProductsInOrder(HashMap<Product,Integer> mapProductList, Order order) throws SQLException{
-		this.con = new ConnectionFactory().getConnection();
-		
+				
 		for(Product p : mapProductList.keySet()){
+			Connection c2 = new ConnectionFactory().getConnection();
 			String sql = "select extra_idExtra from order_has_product "
 					+ "where order_idOrder=? and product_idProduct=?";
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
 			try { 
-				stmt = con.prepareStatement(sql);   
+				stmt = c2.prepareStatement(sql);   
 				stmt.setInt(1, order.getId());
 				stmt.setInt(2, p.getId());
 				rs = stmt.executeQuery();
@@ -312,15 +301,14 @@ public class OrderDAO {
 					p.setExtra(rs.getInt("extra_idExtra"));
 				}
 				
-				rs.close();
-				stmt.close();
 	
 			}catch (Exception e) {
+				e.printStackTrace();
 				throw new RuntimeException("ERROR ASSIGNING EXTRAS FOR PRODUCTS OF AN ORDER: "+e.getMessage());
 			}finally {
 				try {
-					if(this.con != null) {
-						con.close();
+					if(c2 != null) {
+						c2.close();
 					}
 					if(stmt != null) {
 						stmt.close();
@@ -336,7 +324,7 @@ public class OrderDAO {
 	}
 	
 	public HashMap<Product, Integer> getProductsFromOrder(Order order) throws SQLException{
-		this.con = new ConnectionFactory().getConnection();
+		Connection c = new ConnectionFactory().getConnection();
 		
 		ProductDAO prodDao = new ProductDAO();
 		HashMap<Product,Integer> map = new HashMap<Product,Integer>();
@@ -346,7 +334,7 @@ public class OrderDAO {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try { 
-			stmt = con.prepareStatement(sql);   
+			stmt = c.prepareStatement(sql);   
 			stmt.setInt(1, order.getId());
 			rs = stmt.executeQuery();
 			while (rs.next()) {       
@@ -357,15 +345,14 @@ public class OrderDAO {
 			rs.close();
 			stmt.close();
 			map = setExtraFromProductsInOrder(map, order);
-			
-			return map; 
 
 		}catch (Exception e) {
+			e.printStackTrace();
 			throw new RuntimeException("ERROR RECOVERING PRODUCTS FROM ORDER: "+e.getMessage());
 		}finally {
 			try {
-				if(this.con != null) {
-					con.close();
+				if(c != null) {
+					c.close();
 				}
 				if(stmt != null) {
 					stmt.close();
@@ -375,10 +362,11 @@ public class OrderDAO {
 				}
 			} catch(SQLException e){}
         }
+		return map; 
 	}
 	
 	private List<Additional> assignAdditionalsToOrder(Order order) throws SQLException{
-		this.con = new ConnectionFactory().getConnection();
+		Connection c2 = new ConnectionFactory().getConnection();
 		
 		List<Additional> list = new ArrayList<Additional>();
 		
@@ -388,7 +376,7 @@ public class OrderDAO {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try { 
-			stmt = con.prepareStatement(sql);   
+			stmt = c2.prepareStatement(sql);   
 			stmt.setInt(1, order.getId());
 			rs = stmt.executeQuery();
 			while (rs.next()) {       
@@ -397,18 +385,14 @@ public class OrderDAO {
 				a.setName(rs.getString("name"));
 				list.add(a);
 			}
-			
-			rs.close();
-			stmt.close();
-			
-			return list; 
+						
 
 		}catch (Exception e) {
 			throw new RuntimeException("ERROR RECOVERING ADDITIONALS FROM ORDER: "+e.getMessage());
 		}finally {
 			try {
-				if(this.con != null) {
-					con.close();
+				if(c2 != null) {
+					c2.close();
 				}
 				if(stmt != null) {
 					stmt.close();
@@ -418,6 +402,8 @@ public class OrderDAO {
 				}
 			} catch(SQLException e){}
         }
+		
+		return list; 
 	}
 	
 	public List<Order> getList() throws SQLException {
@@ -444,6 +430,14 @@ public class OrderDAO {
 				order.setReceiving(getReceivingFromOrder((rs.getInt("idDeliveryAddress"))));
 				order.setPayment(getPaymentFromOrder(rs.getInt("payment_idPayment")));
 				
+				//SET ORDER STATUS
+				int status = rs.getInt("status_idstatus");
+				if(status==1){
+					order.setStatus("Novo Pedido");
+				} else if(status==2){
+					order.setStatus("Entregue");
+				}
+				
 				//SET TIME OF RECEIVING
 				Calendar cal = Calendar.getInstance();
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
@@ -453,9 +447,15 @@ public class OrderDAO {
 				
 				//ASSIGN PRODUCTS TO ORDER
 				order.setItems(this.getProductsFromOrder(order));
+				if(this.con == null){
+					this.con = new ConnectionFactory().getConnection();
+				}
 			
 				//ASSIGN ADDITIONALS TO ORDER
 				order.setAdditionals(this.assignAdditionalsToOrder(order));
+				if(this.con == null){
+					this.con = new ConnectionFactory().getConnection();
+				}
 				
 				//ASSIGN CLIENT
 				order.setClient((Client) userDao.getUserById(rs.getInt("client_user_iduser")));
@@ -585,7 +585,7 @@ public class OrderDAO {
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-				change = rs.getString("change");
+				change = rs.getString("paymentChange");
 				paymentType = rs.getString("paymentType_id");
 				
 				p = new Payment(idPayment, paymentType, change);

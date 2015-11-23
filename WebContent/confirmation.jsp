@@ -80,7 +80,7 @@
 		</div>
   		<div class="container">
   			<p>Confira os detalhes do seu pedido: </p>
-  			<form role="form" action="Order?action=finishCollectOrder" method="post">
+  			<form role="form" action="Order?action=saveOrder" method="post">
             	<div class="col-lg-6">
                 	 <div>
                 	 	<table class="shopping-cart" >
@@ -98,8 +98,8 @@
 								</td>
                 	 			<td colspan="3" style="vertical-align: top"><strong>Pagamento: </strong><br>
                 	 				<c:out value="${order.payment.paymentType}" /><br>
-                	 				<c:if test="${order.payment.change}">
-                	 					<c:out value="Troco para: ${order.payment.change}" />
+                	 				<c:if test="${order.payment.change != null}">
+                	 					Troco para: <fmt:formatNumber value="${order.payment.change+order.totalPrice}" type="currency" currencySymbol="R$" />
                	 					</c:if>
                 	 			</td>
                 	 		</tr>

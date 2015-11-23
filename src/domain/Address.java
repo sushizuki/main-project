@@ -13,6 +13,12 @@ public class Address {
 		this.setComplement(complement);
 		this.setAddress(address);
 	}	
+	
+	public Address(String cep, String address, String complement) {
+		this.setCep(cep);
+		this.setComplement(complement);
+		this.setAddress(address);
+	}
 
 	public Integer getId() {
 		return id;
