@@ -20,11 +20,11 @@ hs_err_pid*
 ehthumbs.db
 Thumbs.db
 
-.class
+*.class
 
 # eclipse settings #
-.settings
-.classpath
-.project
-.tern-project
-.orig
+*.settings
+*.classpath
+*.project
+*.tern-project
+*.orig
