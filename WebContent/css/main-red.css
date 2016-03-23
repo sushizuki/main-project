@@ -2,6 +2,7 @@
 	General Style
 --------------------------------------------------------------------------*/
 body {
+	color:#454545;
 }
 .section {
   padding: 30px 0;
@@ -11,13 +12,6 @@ body {
   -ms-transform: translateZ(0);
   transform: translateZ(0);
 }
-.bg-orange {	
-  background: #E93B26;
-  color:#f0f0f0;
-  -webkit-box-shadow: 0 -1px 12px rgba(0,0,0,0.4);
-  -moz-box-shadow: 0 -1px 12px rgba(0,0,0,0.4);
-  box-shadow: 0 -1px 12px rgba(0,0,0,0.4);
-}
 .section-white {
   background: #FFF;
 }
@@ -25,11 +19,14 @@ body {
 .section .container:first-child h2,
 .section .container:first-child h3 {
   margin-top: 0;
-  font-weight: 700;
 }
 .input-micro {
   width: 50px;
   margin-bottom: 0 !important;
+}
+.center {	
+  text-align:center;
+  margin:auto;
 }
 textarea:focus,
 input[type="text"]:focus,
@@ -83,20 +80,23 @@ h1 {
   color: #53555c;
   font-family: 'Open Sans', sans-serif;
   font-weight: 800;
+  font-variant:small-caps;
+  font-weight:lighter;
 }
 h2 {
-  color: #53555c;
+  color: #2B2B2B;
   font-family: 'Open Sans', sans-serif;
   font-size: 2em;
-  border-bottom: 2px solid #53555c;
-  line-height: 1.5em;
+  font-weight:lighter;
   margin: 30px 0;
   padding-left: 10px;
+  font-variant:small-caps;
 }
 h3 {
   font-family: 'Open Sans', sans-serif;
   color: #53555c;
   font-size: 1.5em;
+  font-variant:small-caps;
 }
 h4 {
   font-family: 'Open Sans', sans-serif;
@@ -164,113 +164,53 @@ a:hover {
   color: 0 0 8px #999;
 }
 /*--------------------------------------------------------------------------
-+	Pricing Table Style
++	Order Items
 --------------------------------------------------------------------------*/
-.pricing-plan {
-  float: left;
-  text-align: center;
-  background: #fafafa;
-  position: relative;
-  width: 48%;
-  margin: 10px 1% 10px 0;
-  padding: 20px;
-  -webkit-border-radius: 7px;
-  -webkit-background-clip: padding-box;
-  -moz-border-radius: 7px;
-  -moz-background-clip: padding;
-  border-radius: 7px;
-  background-clip: padding-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  -webkit-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
-  -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
-  color: 0 1px 8px rgba(0, 0, 0, 0.4);
-  -webkit-transition: -webkit-box-shadow .25s linear;
-  -moz-transition: -moz-box-shadow .25s linear;
-  -o-transition: box-shadow .25s linear;
-  -ms-transition: box-shadow .25s linear;
-  transition: box-shadow .25s linear;
+.items-heading {
+	border-bottom:2px solid #222;
 }
-.pricing-plan:hover {
-  -webkit-box-shadow: 0 0 8px #333;
-  -moz-box-shadow: 0 0 8px #333;
-  box-shadow: 0 0 8px #333;
-  color: 0 0 8px #333;
-  z-index: 5;
+@media screen and (max-width: 980px) {
+    .items-heading{        
+		font-size:8pt;
+    }
 }
-.pricing-plan .pricing-plan-title {
-  position: relative;
-  margin: -20px -10px 20px;
-  padding: 20px;
-  line-height: 1;
-  font-size: 16px;
-  font-weight: bold;
-  color: #595f6b;
-  border-bottom: 1px dashed #d2d2d2;
+@media screen and (max-width: 760px) {
+    .items-heading{        
+		display:none;
+    }
 }
-.pricing-plan .pricing-plan-title:before {
-  content: '';
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background-size: 3px 1px;
-  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMSAxIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48bGluZWFyR3JhZGllbnQgaWQ9ImdyYWQtdWNnZy1nZW5lcmF0ZWQiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIwJSI+PHN0b3Agb2Zmc2V0PSIiIHN0b3AtY29sb3I9IndoaXRlIiBzdG9wLW9wYWNpdHk9IjEiLz48c3RvcCBvZmZzZXQ9IjMzJSIgc3RvcC1jb2xvcj0id2hpdGUiIHN0b3Atb3BhY2l0eT0iMSIvPjxzdG9wIG9mZnNldD0iMzQlIiBzdG9wLWNvbG9yPSIjZDJkMmQyIiBzdG9wLW9wYWNpdHk9IjEiLz48c3RvcCBvZmZzZXQ9IiIgc3RvcC1jb2xvcj0iI2QyZDJkMiIgc3RvcC1vcGFjaXR5PSIxIi8+PC9saW5lYXJHcmFkaWVudD48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPjwvc3ZnPg==);
-  background-image: -moz-linear-gradient(left, white, white 33%, #d2d2d2 34%, #d2d2d2);
-  background-image: -webkit-linear-gradient(left, white, white 33%, #d2d2d2 34%, #d2d2d2);
-  background-image: -o-linear-gradient(left, white, white 33%, #d2d2d2 34%, #d2d2d2);
-  background-image: linear-gradient(to right, white, white 33%, #d2d2d2 34%, #d2d2d2);
+.item-line {
+	min-height:100%;
+	height:100%;
+	border-bottom:1px dotted #222;
 }
-.pricing-plan .pricing-plan-price {
-  margin: 0 auto 20px;
-  width: 90px;
-  height: 90px;
-  line-height: 90px;
-  font-size: 19px;
-  font-weight: bold;
-  color: white;
-  background: #595f6b;
-  -webkit-border-radius: 45px;
-  -webkit-background-clip: padding-box;
-  -moz-border-radius: 45px;
-  -moz-background-clip: padding;
-  border-radius: 45px;
-  background-clip: padding-box;
+.item-line-prop {
+	min-height:100%;
+	height:100%;
+	margin:auto;
 }
-.pricing-plan .pricing-plan-price span {
-  font-size: 12px;
-  font-weight: normal;
-  color: rgba(255, 255, 255, 0.9);
+.item-desc, .item-qtd, .item-price, .item-actions, .item-total {
+	margin-top:8px;
 }
-.pricing-plan .pricing-plan-features {
-  margin-bottom: 20px;
-  margin-left: 0;
-  padding: 0;
-  line-height: 2;
-  font-size: 12px;
-  color: #999;
-  text-align: center;
-  list-style-type: none;
+.item-img {
+	text-align:center;	
 }
-.pricing-plan .pricing-plan-features li strong {
-  font-weight: bold;
-  color: #888;
+.item-img img{
+	margin:5px auto 5px auto;
+	max-width:70px;
+	display:block;
 }
-.pricing-plan .pricing-plan-promote {
-  margin: 0;
-  padding: 40px 20px;
-  background-color: white;
-  border-width: 2px;
-  -webkit-border-radius: 7px;
-  -webkit-background-clip: padding-box;
-  -moz-border-radius: 7px;
-  -moz-background-clip: padding;
-  border-radius: 7px;
-  background-clip: padding-box;
-  z-index: 4;
+@media screen and (max-width: 980px) {
+    .item-img img{        
+		max-width:140px;
+    }
+    .items {
+    	margin:0 10px;
+    }
+    .item-line {
+    	margin:5px 0;
+    	padding-bottom:10px;
+    } 
 }
 .ribbon-wrapper {
   width: 85px;
@@ -395,11 +335,10 @@ a:hover {
 --------------------------------------------------------------------------*/
 .calltoaction-wrapper {
   text-align: center;
+  vertical-align:center;
 }
 .calltoaction-wrapper h3 {
-  color:white;
-  display: inline-block;
-  line-height: 36px;
+  line-height: 55px;
   margin-right: 10px;
   margin-bottom: 0;
 }
@@ -739,13 +678,14 @@ a:hover {
 /*--------------------------------------------------------------------------
 +	E-commerce Style
 --------------------------------------------------------------------------*/
+.menu-title {	
+  line-height: 2em;
+  border-bottom:2px ridge #53555c;
+}
 .shop-item {
-  font-family:'Open Sans', sans-serif;
-  position: relative;
-  background: #FFF;
-  padding-bottom: 10px;
-  margin-top: 20px;
-  margin-bottom: 10px;
+  background:#fff;
+  margin:20px 0;
+  padding:5px 0; 
   border: 8px solid #FFF;
   -webkit-border-radius: 5px;
   -webkit-background-clip: padding-box;
@@ -758,10 +698,9 @@ a:hover {
   box-shadow: inset 0 1px #fff,0 0 8px #c8cfe6;
   color: inset 0 1px #fff,0 0 8px #c8cfe6;
   text-align:center;
-  height:480px;
 }
 .shop-item img {
-  max-width: 100%;
+  max-width: 95%;
   height:150px;
 }
 .shop-item-image {
@@ -1075,7 +1014,7 @@ span.color-red {
 /*--------------------------------------------------------------------------
 +	Products Slider Style
 --------------------------------------------------------------------------*/
-.products-slider .shop-item {
+.products-slider {
   border: 0;
   margin: 0;
   padding: 0;
@@ -1104,7 +1043,7 @@ span.color-red {
 }
 .products-slider .shop-item .title h3 a {
   font-size: 1em;
-  font-weight: 400;
+  font-weight: 100;
 }
 .products-slider .shop-item .price {
   font-size: 1.1em;
@@ -1722,6 +1661,13 @@ span.color-red {
   text-transform: none;
 }
 /*--------------------------------------------------------------------------
+	Content
+--------------------------------------------------------------------------*/
+.content {
+	min-height:450px;
+}
+
+/*--------------------------------------------------------------------------
 	Footer Style
 --------------------------------------------------------------------------*/
 .footer {
@@ -1730,6 +1676,7 @@ span.color-red {
   padding: 0 20px 10px 20px;
   border-top: 4px solid #e74c3c;
   margin-top: 20px;
+  margin-bottom:-12px;
   -webkit-box-shadow: 0 -1px 12px rgba(0,0,0,0.4);
   -moz-box-shadow: 0 -1px 12px rgba(0,0,0,0.4);
   box-shadow: 0 -1px 12px rgba(0,0,0,0.4);
@@ -1895,7 +1842,7 @@ span.color-red {
   width: 100%;
 }
 #sequence h2 {
-  font-size: 4em;
+  font-size: 8em;
   color: #FFF;
   text-shadow: 2px 2px 3px #444;
   border: none;
@@ -1903,9 +1850,11 @@ span.color-red {
   margin-top: 0;
 }
 #sequence h3 {
-  font-size: 2em;
+  font-size: 3.6em;
   color: #FFF;
   text-shadow: 2px 2px 3px #444;
+  font-variant: small-caps;
+  font-style:oblique;
 }
 #sequence > .sequence-canvas > li {
   position: absolute;
@@ -2074,7 +2023,6 @@ span.color-red {
   transition-duration: 1s;
 }
 #sequence .title {
-  font-size: 3.8em;
   text-transform: none;
   left: 0%;
   width: 35%;
@@ -2393,7 +2341,7 @@ span.color-red {
   padding-top: 0;
   padding-bottom: 7px;
 }
-.mainmenu-wrapper {
+.topbar-wrapper {
   background-color: #FFF;
   border-bottom: 3px solid #e74c3c;
   z-index: 4;
@@ -2503,25 +2451,33 @@ span.color-red {
 }
 @media screen and (max-width: 479px) {
   .mainmenu {
-    font-size: 120%;
     border: none;
   }
   .mainmenu > ul,
   .mainmenu .mainmenu-submenu-inner {
     width: 100%;
     padding: 0;
+    text-align:center;
   }
   .mainmenu .mainmenu-submenu-inner {
     padding: 0 1.5em;
     font-size: 75%;
   }
   .mainmenu > ul > li {
-    display: block;
-    border-bottom: 4px solid #e74c3c;
+    display: inline-block;
+  	text-align:center;
   }
   .mainmenu > ul > li > a {
     display: block;
-    padding: 1em 3em;
+    padding: 1em;
+  }
+  .mainmenu .logo-wrapper {
+  	display:block;
+  	text-align:center;
+  	border:none;
+  }
+  .mainmenu li.logo-wrapper a {
+  	border:none;
   }
   .mainmenu > ul > li:last-child {
     border: none;
@@ -2585,6 +2541,7 @@ span.color-red {
   color: #fff;
   background-color: #333 !important;
 }
+
 /*--------------------------------------------------------------------------
 +	Buttons Style
 --------------------------------------------------------------------------*/
