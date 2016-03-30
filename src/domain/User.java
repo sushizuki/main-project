@@ -1,4 +1,4 @@
-﻿package domain;
+package domain;
 
 public abstract class User {
 
