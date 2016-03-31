@@ -1,3 +1,8 @@
+/** 
+*    AddAdditionalsToOrder.java to define AddAdditionalsToOrder 
+*    {purpose} 
+*/ 
+
 package controller.command.order_commands;
 
 import java.sql.SQLException;

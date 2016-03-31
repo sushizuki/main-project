@@ -1,3 +1,8 @@
+/** 
+*    SetCollectTime.java to define SetCollectTime 
+*    {purpose} 
+*/ 
+
 package controller.command.order_commands;
 
 import java.text.DateFormat;

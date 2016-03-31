@@ -1,3 +1,8 @@
+/** 
+*    Teste.java to define Teste 
+*    {purpose} 
+*/ 
+
 package dao;
 
 import java.sql.SQLException;

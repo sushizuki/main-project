@@ -1,3 +1,8 @@
+/** 
+*    CheckUserLogged.java to define CheckUserLogged 
+*    {purpose} 
+*/ 
+
 package controller.command.user_commands;
 
 import javax.servlet.http.HttpSession;

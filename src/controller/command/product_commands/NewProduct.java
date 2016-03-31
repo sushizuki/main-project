@@ -1,3 +1,8 @@
+/** 
+*    NewProduct.java to define NewProduct 
+*    {purpose} 
+*/ 
+
 package controller.command.product_commands;
 
 import java.util.List;

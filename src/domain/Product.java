@@ -1,3 +1,8 @@
+/** 
+*    Product.java to define Product 
+*    {purpose} 
+*/ 
+
 package domain;
 
 import java.sql.SQLException;

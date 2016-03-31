@@ -1,3 +1,8 @@
+/** 
+*    Connection.java to define Connection 
+*    {purpose} 
+*/ 
+
 package dao;
 
 interface Connection {

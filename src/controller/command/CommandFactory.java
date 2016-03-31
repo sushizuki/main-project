@@ -1,3 +1,8 @@
+/** 
+*    CommandFactory.java to define CommandFactory 
+*    {purpose} 
+*/ 
+
 package controller.command;
 
 import java.util.HashMap;

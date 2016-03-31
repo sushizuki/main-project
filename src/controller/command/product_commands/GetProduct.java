@@ -1,3 +1,8 @@
+/** 
+*    GetProduct.java to define GetProduct 
+*    {purpose} 
+*/ 
+
 package controller.command.product_commands;
 
 import java.util.List;

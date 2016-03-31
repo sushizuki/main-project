@@ -1,3 +1,8 @@
+/** 
+*    Order.java to define Order 
+*    {purpose} 
+*/ 
+
 package domain;
 import java.util.HashMap;
 import java.util.List;

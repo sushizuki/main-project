@@ -1,3 +1,8 @@
+/** 
+*    GetOrderList.java to define GetOrderList 
+*    {purpose} 
+*/ 
+
 package controller.command.order_commands;
 
 import java.util.List;

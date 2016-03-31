@@ -1,3 +1,8 @@
+/** 
+*    ProductController.java to define ProductController 
+*    {purpose} 
+*/ 
+
 package controller;
 
 import java.io.File;

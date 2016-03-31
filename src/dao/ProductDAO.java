@@ -1,3 +1,8 @@
+/** 
+*    ProductDAO.java to define ProductDAO 
+*    {purpose} 
+*/ 
+
 package dao;
 
 import java.io.IOException;

@@ -1,3 +1,8 @@
+/** 
+*    GetAvailableAdditionals.java to define GetAvailableAdditionals 
+*    {purpose} 
+*/ 
+
 package controller.command.order_commands;
 
 import java.util.ArrayList;

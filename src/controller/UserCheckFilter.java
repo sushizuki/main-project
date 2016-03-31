@@ -1,3 +1,8 @@
+/** 
+*    UserCheckFilter.java to define UserCheckFilter 
+*    {purpose} 
+*/ 
+
 package controller;
 
 import java.io.IOException;

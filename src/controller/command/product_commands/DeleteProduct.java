@@ -1,3 +1,8 @@
+/** 
+*    DeleteProduct.java to define DeleteProduct 
+*    {purpose} 
+*/ 
+
 package controller.command.product_commands;
 
 import controller.command.Command;

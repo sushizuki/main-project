@@ -1,3 +1,8 @@
+/** 
+*    Address.java to define Address 
+*    {purpose} 
+*/ 
+
 package domain;
 
 public class Address {

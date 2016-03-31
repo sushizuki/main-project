@@ -1,3 +1,8 @@
+/** 
+*    UpdateProduct.java to define UpdateProduct 
+*    {purpose} 
+*/ 
+
 /**
  * 
  */

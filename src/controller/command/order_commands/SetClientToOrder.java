@@ -1,3 +1,8 @@
+/** 
+*    SetClientToOrder.java to define SetClientToOrder 
+*    {purpose} 
+*/ 
+
 package controller.command.order_commands;
 
 import controller.command.Command;

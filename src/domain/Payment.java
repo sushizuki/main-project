@@ -1,3 +1,8 @@
+/** 
+*    Payment.java to define Payment 
+*    {purpose} 
+*/ 
+
 package domain;
 
 import java.sql.SQLException;

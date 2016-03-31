@@ -1,3 +1,8 @@
+/** 
+*    Client.java to define Client 
+*    {purpose} 
+*/ 
+
 package domain;
 
 public class Client extends User {

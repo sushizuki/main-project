@@ -1,3 +1,8 @@
+/** 
+*    User.java to define User 
+*    {purpose} 
+*/ 
+
 package domain;
 
 public abstract class User {

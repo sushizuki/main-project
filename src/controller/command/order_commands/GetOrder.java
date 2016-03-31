@@ -1,3 +1,8 @@
+/** 
+*    GetOrder.java to define GetOrder 
+*    {purpose} 
+*/ 
+
 package controller.command.order_commands;
 
 import javax.servlet.http.HttpSession;

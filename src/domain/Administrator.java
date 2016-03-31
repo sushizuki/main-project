@@ -1,3 +1,8 @@
+/** 
+*    Administrator.java to define Administrator 
+*    {purpose} 
+*/ 
+
 package domain;
 
 public class Administrator extends User {

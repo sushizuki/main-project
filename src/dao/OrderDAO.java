@@ -1,3 +1,8 @@
+/** 
+*    OrderDAO.java to define OrderDAO 
+*    {purpose} 
+*/ 
+
 package dao;
 
 import java.sql.Connection;

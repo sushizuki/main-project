@@ -1,3 +1,8 @@
+/** 
+*    Receiving.java to define Receiving 
+*    {purpose} 
+*/ 
+
 package domain;
 
 import java.util.Calendar;

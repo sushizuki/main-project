@@ -1,3 +1,8 @@
+/** 
+*    Delivery.java to define Delivery 
+*    {purpose} 
+*/ 
+
 package domain;
 
 import java.util.Calendar;

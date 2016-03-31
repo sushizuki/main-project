@@ -1,3 +1,8 @@
+/** 
+*    Message.java to define Message 
+*    {purpose} 
+*/ 
+
 package domain;
 
 import java.util.Calendar;

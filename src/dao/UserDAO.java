@@ -1,3 +1,8 @@
+/** 
+*    UserDAO.java to define UserDAO 
+*    {purpose} 
+*/ 
+
 package dao;
 
 import java.sql.Connection;

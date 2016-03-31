@@ -1,3 +1,8 @@
+/** 
+*    InsertProduct.java to define InsertProduct 
+*    {purpose} 
+*/ 
+
 package controller.command.product_commands;
 
 import controller.command.Command;

@@ -1,3 +1,8 @@
+/** 
+*    UserController.java to define UserController 
+*    {purpose} 
+*/ 
+
 package controller;
 
 import java.io.IOException;

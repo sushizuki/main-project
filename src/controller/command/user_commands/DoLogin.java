@@ -1,3 +1,8 @@
+/** 
+*    DoLogin.java to define DoLogin 
+*    {purpose} 
+*/ 
+
 package controller.command.user_commands;
 
 import controller.command.Command;

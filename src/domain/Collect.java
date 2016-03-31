@@ -1,3 +1,8 @@
+/** 
+*    Collect.java to define Collect 
+*    {purpose} 
+*/ 
+
 package domain;
 
 import java.util.Calendar;

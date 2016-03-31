@@ -1,3 +1,8 @@
+/** 
+*    ListProducts.java to define ListProducts 
+*    {purpose} 
+*/ 
+
 package controller.command.product_commands;
 
 import java.util.List;

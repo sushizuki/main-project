@@ -1,3 +1,8 @@
+/** 
+*    NewOrder.java to define NewOrder 
+*    {purpose} 
+*/ 
+
 package controller.command.order_commands;
 
 import java.util.HashMap;

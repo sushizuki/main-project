@@ -1,3 +1,8 @@
+/** 
+*    Additional.java to define Additional 
+*    {purpose} 
+*/ 
+
 package domain;
 
 public class Additional {

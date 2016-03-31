@@ -1,3 +1,8 @@
+/** 
+*    DoLogout.java to define DoLogout 
+*    {purpose} 
+*/ 
+
 package controller.command.user_commands;
 
 import javax.servlet.http.HttpSession;

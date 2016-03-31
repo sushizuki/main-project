@@ -1,3 +1,8 @@
+/** 
+*    SetDeliveryDetails.java to define SetDeliveryDetails 
+*    {purpose} 
+*/ 
+
 package controller.command.order_commands;
 
 import java.text.DateFormat;

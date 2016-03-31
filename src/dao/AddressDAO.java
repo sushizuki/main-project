@@ -1,3 +1,8 @@
+/** 
+*    AddressDAO.java to define AddressDAO 
+*    {purpose} 
+*/ 
+
 package dao;
 
 import java.sql.Connection;
