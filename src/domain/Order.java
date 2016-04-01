@@ -1,7 +1,7 @@
-/** 
-*    Order.java to define Order 
-*    {purpose} 
-*/ 
+/**
+*    Order.java to define Order
+*    Order describes a set of Products and other details of a Client's order. 
+*/
 
 package domain;
 import java.util.HashMap;
@@ -10,7 +10,7 @@ import java.util.List;
 public class Order {
 
 	//implements interface Receiving (Design pattern strategy)
-	
+
 	private int id;
 	private Client client;
 	private HashMap<Product, Integer> items;
@@ -25,7 +25,7 @@ public class Order {
 		//NEW PAYMENT
 		//NEW COLLECT OR DELIVERY
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -65,7 +65,7 @@ public class Order {
 	public void setTotalPrice(double totalPrice) {
 		this.totalPrice = totalPrice;
 	}
-	
+
 	public void setTotalPrice() {
 		for (HashMap.Entry<Product, Integer> entry : this.getItems().entrySet()) {
 		    Product p = entry.getKey();
@@ -76,12 +76,12 @@ public class Order {
 
 	public Receiving getReceiving() {
 		return receiving;
-	}	
+	}
 
 	public void setReceiving(Receiving receiving) {
 		this.receiving = receiving;
-	}	
-	
+	}
+
 	public Payment getPayment() {
 		return payment;
 	}
@@ -89,11 +89,11 @@ public class Order {
 	public void setPayment(Payment payment) {
 		this.payment = payment;
 	}
-	
+
 	public String getStatus(){
 		return this.status;
 	}
-	
+
 	public void setStatus(String s){
 		this.status = s;
 	}

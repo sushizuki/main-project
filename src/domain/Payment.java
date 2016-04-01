@@ -1,6 +1,6 @@
-/** 
-*    Payment.java to define Payment 
-*    {purpose} 
+/**
+*    Payment.java to define Payment
+*    Describes an Order's Payment properties.
 */ 
 
 package domain;
@@ -11,15 +11,15 @@ import java.util.List;
 import dao.OrderDAO;
 
 public class Payment {
-	
+
 	private int id;
 	private String paymentType;
 	private String change;
-	
+
 	public Payment(){
-		
+
 	}
-	
+
 	public Payment(int id, String paymentType, String change) throws SQLException{
 		this.setId(id);
 		this.setChange(change);
@@ -29,7 +29,7 @@ public class Payment {
 	public Payment(String p) throws SQLException {
 		this.setPaymentType(p); //the id of payment (1 card, 2 money)
 	}
-	
+
 	public Payment(String type, double total, double change) throws SQLException {
 		this.setPaymentType(type);
 		this.setChange(change, total);
@@ -50,16 +50,16 @@ public class Payment {
 	public void setChange(double value, double total) {
 		this.change = String.valueOf(value - total);
 	}
-	
+
 	public void setChange(String change) {
 		this.change = change;
 	}
-	
+
 
 	public int getPaymentId(String payment) throws SQLException {
 		OrderDAO dao = new OrderDAO();
 		List<String> list = dao.getPaymentTypes();
-		
+
 		for (int i = 1; i <= list.size(); i++) {
 		    if(payment.equalsIgnoreCase(this.getPaymentType())){
 		    	return i;
@@ -71,7 +71,7 @@ public class Payment {
 	public String getPaymentType() {
 		return paymentType;
 	}
-	
+
 	//Get a number, look into category list from database to assign Name proper to the number
 	public void setPaymentType(String i) throws SQLException {
 		OrderDAO dao = new OrderDAO();
@@ -82,7 +82,7 @@ public class Payment {
 			System.out.println("Error assigning payment type");
 		}
 	}
-		
+
 	public void setPaymentType(int i) {
 		this.paymentType = String.valueOf(i);
 	}

@@ -1,19 +1,19 @@
-/** 
-*    Additional.java to define Additional 
-*    {purpose} 
-*/ 
+/**
+*    Additional.java to define Additional
+*    Additional describe an attachment to a Product
+*/
 
 package domain;
 
 public class Additional {
-	
+
 	private int id;
 	private String name;
-	
+
 	public Additional(){
-		
+
 	}
-	
+
 	public Additional(int id, String name) {
 		super();
 		this.id = id;
@@ -31,7 +31,7 @@ public class Additional {
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}

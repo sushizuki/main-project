@@ -1,7 +1,7 @@
-/** 
-*    Product.java to define Product 
-*    {purpose} 
-*/ 
+/**
+*    Product.java to define Product
+*    Product is an item shown to the Client to be bought.
+*/
 
 package domain;
 
@@ -29,7 +29,7 @@ public class Product {
 		this.setCategory(category);
 		this.setExtra(extra);
 	}
-	
+
 	public Product(String name, String description, double price, String imgUrl, String category, String extra) throws SQLException {
 		this.setName(name);
 		this.setDescription(description);
@@ -38,9 +38,9 @@ public class Product {
 		this.setCategory(category);
 		this.setExtra(extra);
 	}
-	
+
 	public Product(){
-		
+
 	}
 
 	public int getId() {
@@ -82,7 +82,7 @@ public class Product {
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
 	}
-	
+
 	public String getCategory() {
 		return category;
 	}
@@ -97,16 +97,16 @@ public class Product {
 			System.out.println("Error assigning category");
 		}
 	}
-	
+
 	public void setCategory(int category) {
 		this.category = String.valueOf(category);
 	}
-	
+
 	//Get a number, look into category list from database to assign Name proper to the number
 	public int getCategoryId(String category) throws SQLException {
 		ProductDAO dao = new ProductDAO();
 		List<String> list = dao.getProductCategoryList();
-		
+
 		for (int i = 1; i <= list.size(); i++) {
 		    if(category.equalsIgnoreCase(this.getCategory())){
 		    	return i;
@@ -121,7 +121,7 @@ public class Product {
 		}
 		ProductDAO dao = new ProductDAO();
 		List<String> list = dao.getProductExtraList();
-		
+
 		for (int i = 1; i <= list.size(); i++) {
 		    if(extra.equalsIgnoreCase(this.getExtra())){
 		    	return i;
@@ -133,7 +133,7 @@ public class Product {
 	public String getExtra() {
 		return extra;
 	}
-	
+
 	//Get a number, look into category list from database to assign Name proper to the number
 	public void setExtra(String extra) throws SQLException {
 		ProductDAO dao = new ProductDAO();
@@ -144,9 +144,9 @@ public class Product {
 			System.out.println("Error assigning extra");
 		}
 	}
-	
+
 	public void setExtra(int extra) {
 		this.extra = String.valueOf(extra);
 	}
-	
+
 }

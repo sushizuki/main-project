@@ -1,14 +1,14 @@
-/** 
-*    Delivery.java to define Delivery 
-*    {purpose} 
-*/ 
+/**
+*    Delivery.java to define Delivery
+*    When setting an Order retrieving, Delivery define details for the User Delivery.
+*/
 
 package domain;
 
 import java.util.Calendar;
 
 public class Delivery implements Receiving {
-	
+
 	private Address address;
 	private Calendar time;
 
@@ -16,7 +16,7 @@ public class Delivery implements Receiving {
 		setAddress(a);
 		setTime(c);
 	}
-	
+
 	public Delivery(Address a) {
 		setAddress(a);
 	}
