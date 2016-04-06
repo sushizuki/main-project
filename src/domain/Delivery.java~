@@ -13,26 +13,21 @@ public class Delivery implements Receiving {
 	private Calendar time;
 
 	public Delivery(Address a, Calendar c) {
-		assert(a != null);
-		assert(c != null);
 		setAddress(a);
 		setTime(c);
 	}
 
 	public Delivery(Address a) {
-		assert(a != null);
 		setAddress(a);
 	}
 
 	@Override
 	public void setAddress(Address a) {
-		assert(a != null);
 		this.address = a;
 	}
 
 	@Override
 	public void setTime(Calendar c) {
-		assert(c != null);
 		this.time = c;
 	}
 
