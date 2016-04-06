@@ -15,7 +15,6 @@ public class Administrator extends User {
 	}
 
 	public void setId(int id) {
-		assert(id != null);
 		this.id = id;
 	}
 
