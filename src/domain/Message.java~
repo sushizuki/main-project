@@ -20,7 +20,6 @@ public class Message {
 	}
 
 	public void setId(int id) {
-		assert(id != null);
 		this.id = id;
 	}
 
@@ -29,7 +28,6 @@ public class Message {
 	}
 
 	public void setSender(Client sender) {
-		assert(sender != null);
 		this.sender = sender;
 	}
 
@@ -38,7 +36,6 @@ public class Message {
 	}
 
 	public void setMessage(String message) {
-		assert(message != null);
 		this.message = message;
 	}
 
@@ -47,7 +44,6 @@ public class Message {
 	}
 
 	public void setDateSent(Calendar dateSent) {
-		assert(dateSent != null);
 		this.dateSent = dateSent;
 	}
 
