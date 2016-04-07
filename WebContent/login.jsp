@@ -74,7 +74,7 @@
 		</div> <!-- End top bar  -->
 
 		<!-- Main Content  -->
-		<div class="content container">	
+		<div class="content container">
 			<div class="row">
 				<h2>Login</h2>
 			</div>
@@ -102,9 +102,9 @@
 						</form>
 					</div>
 				</div>
-			</div>			
+			</div>
 		</div>
-		
+
 		<!-- Footer -->
 	    <div class="footer">
 	    	<div class="container">
@@ -117,7 +117,7 @@
 		    				<li><a href="contact.jsp">Contato</a></li>
 		    			</ul>
 		    		</div>
-		    		
+
 		    		<div class="col-footer col-md-4 col-sm-4 col-xs-12">
 		    			<h3>Contato</h3>
 		    			<p class="contact-us-details">
@@ -125,14 +125,14 @@
 	        				<b>Email:</b> <a href="mailto:">sushizukiii@gmail.com</a>
 	        			</p>
 		    		</div>
-					
+
 					<div class="col-footer col-md-4 col-sm-4 col-xs-12">
 		    			<h3>Social</h3>
 		    			<ul class="footer-stay-connected no-list-style">
 		    				<li><a href="https://www.facebook.com/SushiZuki-165405287145692/?fref=ts" class="facebook"></a></li>
 		    			</ul>
 		    		</div>
-					
+
 		    	</div>
 		    	<div class="row">
 		    		<div class="col-md-12">
@@ -140,7 +140,7 @@
 		    		</div>
 		    	</div>
 		    </div>
-	    </div><!-- End footer -->	
+	    </div><!-- End footer -->
 
 		<!-- Javascripts -->
 		<script
@@ -149,11 +149,12 @@
 			window.jQuery || document.write('<script src="js/jquery-1.9.1.min.js"><\/script>')
 		</script>
 		<script>
+			//Check if input's content is a valid email
 			function isEmail(email) {
 				var pattern = new RegExp(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/);
 		        return pattern.test(email);
 			}
-			
+
 			function doCheck(){
 			    var allFilled = true;
 		        var email = "#login-username";
@@ -165,7 +166,7 @@
 			    });
 			    $('button[type=submit]').prop('disabled', !allFilled);
 			}
-		
+
 			$(document).ready(function(){
 			    $('input').keyup(doCheck).focusout(doCheck);
 			});

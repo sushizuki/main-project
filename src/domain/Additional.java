@@ -1,6 +1,6 @@
 /**
 *    Additional.java to define Additional
-*    Additional describe an attachment to a Product
+*    Additional describes an attachment to a Product
 */
 
 package domain;
