@@ -22,9 +22,7 @@ public class AddressDAO {
 	}
 	
 	public int insert(Address address) {
-		assert(address != null);
 		this.con = new ConnectionFactory().getConnection();
-		assert(this.con != null);
 		
 		String sql = "insert into address " +
 		"(cep,address,addressComplement)" +
@@ -47,13 +45,13 @@ public class AddressDAO {
         }
 
         try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
-		stmt.close();
-		if (generatedKeys.next()) {
-			return (int) generatedKeys.getLong(1);
-		}
-		else {
-			throw new SQLException("Creating address failed, no ID obtained.");
-		}
+			stmt.close();
+            if (generatedKeys.next()) {
+                return (int) generatedKeys.getLong(1);
+            }
+            else {
+                throw new SQLException("Creating address failed, no ID obtained.");
+            }
         }
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -70,36 +68,35 @@ public class AddressDAO {
 	}	
 	
 	public Address getAddress(String addr) {
-		assert(addr != null);
 		this.con = new ConnectionFactory().getConnection();
-		assert(this.con != null);
-        	Address address = null;
-        	String cep, complement;
-        	int id;
-		String sql = "select * from address where address=? limit 1";
 		
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
-		try {
-			stmt = con.prepareStatement(sql);
-			stmt.setString(1, addr);
-			rs = stmt.executeQuery();
+        Address address = null;
+        String cep, complement;
+        int id;
+        String sql = "select * from address where address=? limit 1";
+        
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, addr);
+            rs = stmt.executeQuery();
 
-			if (rs.next()) {
+            if (rs.next()) {
 				id = Integer.parseInt(rs.getString("idAddress"));
 				cep = rs.getString("cep");
 				addr = rs.getString("address");
 				complement = rs.getString("addressComplement");
-
+				
 				address = new Address(id, cep, addr, complement);
 
-			}
-			    
-			stmt.close();
-			rs.close();
-		} catch (SQLException e) {
+            }
+            
+            stmt.close();
+            rs.close();
+        } catch (SQLException e) {
 			throw new RuntimeException("ERROR GETTING PRODUCT: "+e.getMessage());
-		}  finally {
+        }  finally {
 			try {
 				if(this.con != null) {
 					con.close();
@@ -111,62 +108,59 @@ public class AddressDAO {
 					rs.close();
 				}
 			} catch(SQLException e){}
-		}
+        }
         
-        	return address;
+        return address;
     }
 	
 	public Address getAddressById(int addressId) {
-		assert(addressId != null);
 		this.con = new ConnectionFactory().getConnection();
-		assert(this.con != null);
-		Address address = null;
-		String cep, addr, complement;
-		int id;
-		String sql = "select * from address where idAddress=?";
+		
+        Address address = null;
+        String cep, addr, complement;
+        int id;
+        String sql = "select * from address where idAddress=?";
+        
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, addressId);
+            rs = stmt.executeQuery();
 
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
-		try {
-			stmt = con.prepareStatement(sql);
-			stmt.setInt(1, addressId);
-			rs = stmt.executeQuery();
+            if (rs.next()) {
+				id = Integer.parseInt(rs.getString("idAddress"));
+				cep = rs.getString("cep");
+				addr = rs.getString("address");
+				complement = rs.getString("addressComplement");
+				
+				address = new Address(id, cep, addr, complement);
 
-			if (rs.next()) {
-					id = Integer.parseInt(rs.getString("idAddress"));
-					cep = rs.getString("cep");
-					addr = rs.getString("address");
-					complement = rs.getString("addressComplement");
-
-					address = new Address(id, cep, addr, complement);
-
-			}
-
-			stmt.close();
-			rs.close();
-		} catch (SQLException e) {
+            }
+            
+            stmt.close();
+            rs.close();
+        } catch (SQLException e) {
 			throw new RuntimeException("ERROR GETTING PRODUCT: "+e.getMessage());
-		}  finally {
-				try {
-					if(this.con != null) {
-						con.close();
-					}
-					if(stmt != null) {
-						stmt.close();
-					}
-					if(rs != null){
-						rs.close();
-					}
-				} catch(SQLException e){}
-		}
-
-		return address;
+        }  finally {
+			try {
+				if(this.con != null) {
+					con.close();
+				}
+				if(stmt != null) {
+					stmt.close();
+				}
+				if(rs != null){
+					rs.close();
+				}
+			} catch(SQLException e){}
+        }
+        
+        return address;
     }
 	
 	public void update(Address address) {
-		assert(address != null);
 		this.con = new ConnectionFactory().getConnection();
-		assert(this.con != null);
 		
 		String sql = "update address set cep=?, address=?, addressComplement=? where idAddress=?";
 		PreparedStatement stmt = null;
@@ -193,9 +187,7 @@ public class AddressDAO {
 	}
 	
 	public void delete(Address address) {
-		assert(address != null);
 		this.con = new ConnectionFactory().getConnection();
-		assert(this.con != null);
 		
 		String sql = "delete from address where idAddress=?";
 		PreparedStatement stmt = null;
