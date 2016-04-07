@@ -28,9 +28,7 @@ public class ProductDAO {
 	}
 	
 	public void insert(Product product) {
-		assert(product != null);
 		this.con = new ConnectionFactory().getConnection();
-		assert(this.con != null);
 		
 		String sql = "insert into product " +
 		"(name,description,price,image,Category_idCategory)" +
@@ -66,7 +64,6 @@ public class ProductDAO {
 	
 	public List<Product> getList() throws SQLException {
 		this.con = new ConnectionFactory().getConnection();
-		assert(this.con != null);
 		
 		String sql = "select * from product";
 
@@ -113,49 +110,47 @@ public class ProductDAO {
 	
 	public Product getProductById(int productId) {
 		this.con = new ConnectionFactory().getConnection();
-        	assert(this.con != null);
+        
 		Product product = new Product();
-		String sql = "select * from product where idProduct=?";
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
-		
-		try {
-		    stmt = con.prepareStatement(sql);
-		    stmt.setInt(1, productId);
-		    rs = stmt.executeQuery();
+        String sql = "select * from product where idProduct=?";
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, productId);
+            rs = stmt.executeQuery();
 
-		    if (rs.next()) {
-					product.setId(Integer.parseInt(rs.getString("idproduct")));
-					product.setName(rs.getString("name"));
-					product.setDescription(rs.getString("description"));
-					product.setPrice(Double.parseDouble(rs.getString("price")));
-					product.setImgUrl(rs.getString("image"));
-					product.setCategory(rs.getString("Category_idCategory"));
-		    }
-		    
-		} catch (SQLException e) {
-				throw new RuntimeException("ERROR GETTING PRODUCT: "+e.getMessage());
-		}finally {
-				try {
-					if(this.con != null) {
-						con.close();
-					}
-					if(stmt != null) {
-						stmt.close();
-					}
-					if(rs != null){
-						rs.close();
-					}
-				} catch(SQLException e){}
-		}
-		
-		return product;
+            if (rs.next()) {
+				product.setId(Integer.parseInt(rs.getString("idproduct")));
+				product.setName(rs.getString("name"));
+				product.setDescription(rs.getString("description"));
+				product.setPrice(Double.parseDouble(rs.getString("price")));
+				product.setImgUrl(rs.getString("image"));
+				product.setCategory(rs.getString("Category_idCategory"));
+            }
+            
+        } catch (SQLException e) {
+			throw new RuntimeException("ERROR GETTING PRODUCT: "+e.getMessage());
+        }finally {
+			try {
+				if(this.con != null) {
+					con.close();
+				}
+				if(stmt != null) {
+					stmt.close();
+				}
+				if(rs != null){
+					rs.close();
+				}
+			} catch(SQLException e){}
+        }
+        
+        return product;
     }
 	
 	public void update(Product product) {
-		assert(product != null);
 		this.con = new ConnectionFactory().getConnection();
-		assert(this.con != null);
 		
 		String sql = "update product set name=?, description=?, price=?," +
 		" Category_idCategory=? where idProduct=?";
@@ -185,9 +180,7 @@ public class ProductDAO {
 	}
 	
 	public void updateImage(Product product) {
-		assert(product != null);
 		this.con = new ConnectionFactory().getConnection();
-		assert(this.con != null);
 		
 		String sql = "update product set image=? where idProduct=?";
 		PreparedStatement stmt = null;
@@ -211,9 +204,7 @@ public class ProductDAO {
 	}
 	
 	public void delete(Product product) {
-		assert(product != null);
 		this.con = new ConnectionFactory().getConnection();
-		assert(this.con != null);
 		
 		String sql = "delete from product where idProduct=?";
 		PreparedStatement stmt = null;
@@ -241,7 +232,6 @@ public class ProductDAO {
 	}
 	
 	private Path convertImagePath(Product product){
-		assert(product != null);
 		String path = getClass().getResource("/").getPath();
 		path = path.replace("WEB-INF/classes/", "");
 		path = path.substring(1, path.length()); //remove first slash
@@ -252,13 +242,11 @@ public class ProductDAO {
 	}
 	
 	public void deleteImageProduct(Product product){
-		assert(product != null);
 		Path path = convertImagePath(product);
 		deleteImageProduct(path);
 	}
 	
 	private void deleteImageProduct(Path path){
-		assert(path != null);
 		try {
 		    Files.delete(path);
 		} catch (NoSuchFileException x) {
@@ -273,7 +261,6 @@ public class ProductDAO {
 	
 	public List<String> getProductCategoryList() throws SQLException{
 		this.con = new ConnectionFactory().getConnection();
-		assert(this.con != null);
 
 		String sql = "select name from category";
 
@@ -310,7 +297,6 @@ public class ProductDAO {
 
 	public List<String> getProductExtraList() throws SQLException{
 		this.con = new ConnectionFactory().getConnection();
-		assert(this.con != null);
 
 		String sql = "select name from extra";
 

@@ -38,9 +38,7 @@ public class OrderDAO {
 	}
 	
 	private int saveDeliveryAddress(Address a) {
-		assert(a != null);
 		AddressDAO addressDao = new AddressDAO();
-		assert(addressDao != null);
 		Address addr = addressDao.getAddress(a.getAddress());
 		if(addr==null){
 			return addressDao.insert(a);
@@ -51,56 +49,54 @@ public class OrderDAO {
 	
 	private Receiving getReceivingFromOrder(int addressId){
 		this.con = new ConnectionFactory().getConnection();
-		assert(this.con != null);
-		String address, cep, complement;
-		String sql = "select * from address where idAddress=?";
-		Receiving r = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
-		try {
-		    stmt = con.prepareStatement(sql);
-		    stmt.setInt(1, addressId);
-		    rs = stmt.executeQuery();
-
-		    if (rs.next()) {
-					cep = rs.getString("cep");
-					address = rs.getString("address");
-					complement = rs.getString("addressComplement");
-	
-					Address add = new Address(addressId, cep, address, complement);
-	
-					if(add.getAddress().equals(Collect.sushizukiLocation.getAddress())){
-						r = new Collect();
-					} else {
-						r = new Delivery(add);
-					}
-		    }
-		    
-		    stmt.close();
-		    rs.close();
-		} catch (SQLException e) {
-				throw new RuntimeException("ERROR SETTING RECEIVING METHOD: "+e.getMessage());
-		} finally {
-				try {
-					if(this.con != null) {
-						con.close();
-					}
-					if(stmt != null) {
-						stmt.close();
-					}
-					if(rs != null){
-						rs.close();
-					}
-				} catch(SQLException e){}
-		}
 		
-		return r;
+		String address, cep, complement;
+        String sql = "select * from address where idAddress=?";
+        Receiving r = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, addressId);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+				cep = rs.getString("cep");
+				address = rs.getString("address");
+				complement = rs.getString("addressComplement");
+				
+				Address add = new Address(addressId, cep, address, complement);
+				
+				if(add.getAddress().equals(Collect.sushizukiLocation.getAddress())){
+					r = new Collect();
+				} else {
+					r = new Delivery(add);
+				}
+            }
+            
+            stmt.close();
+            rs.close();
+        } catch (SQLException e) {
+			throw new RuntimeException("ERROR SETTING RECEIVING METHOD: "+e.getMessage());
+        } finally {
+			try {
+				if(this.con != null) {
+					con.close();
+				}
+				if(stmt != null) {
+					stmt.close();
+				}
+				if(rs != null){
+					rs.close();
+				}
+			} catch(SQLException e){}
+        }
+        
+        return r;
 	}
 	
 	private int savePayment(Payment p) {
-		assert(p != null);
 		this.con = new ConnectionFactory().getConnection();
-		assert(this,con != null);
 		
 		String sql = "insert into payment " +
 		"(paymentChange, paymentType_id)" +
@@ -151,9 +147,7 @@ public class OrderDAO {
 	}
 	
 	public void insert(Order order) {
-		assert(order != null);
 		this.con = new ConnectionFactory().getConnection();
-		assert(this.con != null);
 		
 		String sql = "insert into `order` " +
 		"(client_user_iduser, deliveryTime, totalPrice, idDeliveryAddress, payment_idPayment, status_idstatus)" +
@@ -213,9 +207,7 @@ public class OrderDAO {
 	}	
 	
 	private void saveProductsToOrder(Order order) {
-		assert(order != null);
 		this.con = new ConnectionFactory().getConnection();
-		assert(this.con != null);
 		
 		String sql = "insert into order_has_product " +
 		"(order_idOrder, product_idProduct, extra_idExtra, quantity)" +
@@ -261,9 +253,7 @@ public class OrderDAO {
 	}	
 	
 	private void saveAdditionalsToOrder(Order order) {
-		assert(order != null);
 		this.con = new ConnectionFactory().getConnection();
-		assert(this.con != null);
 		
 		String sql = "insert into order_has_additional " +
 		"(order_idOrder, additional_idAdditional)" +
@@ -300,12 +290,9 @@ public class OrderDAO {
 	}
 	
 	private HashMap<Product,Integer> setExtraFromProductsInOrder(HashMap<Product,Integer> mapProductList, Order order) throws SQLException{
-		assert(mapProductList != null);
-		assert(order != null);
 				
 		for(Product p : mapProductList.keySet()){
 			Connection c2 = new ConnectionFactory().getConnection();
-			assert(c2 != null);
 			String sql = "select extra_idExtra from order_has_product "
 					+ "where order_idOrder=? and product_idProduct=?";
 			PreparedStatement stmt = null;
@@ -342,9 +329,7 @@ public class OrderDAO {
 	}
 	
 	public HashMap<Product, Integer> getProductsFromOrder(Order order) throws SQLException{
-		assert(order != null);
 		Connection c = new ConnectionFactory().getConnection();
-		assert(c != null);
 		
 		ProductDAO prodDao = new ProductDAO();
 		HashMap<Product,Integer> map = new HashMap<Product,Integer>();
@@ -386,9 +371,7 @@ public class OrderDAO {
 	}
 	
 	private List<Additional> assignAdditionalsToOrder(Order order) throws SQLException{
-		assert(order != null);
 		Connection c2 = new ConnectionFactory().getConnection();
-		assert(c2 != null);
 		
 		List<Additional> list = new ArrayList<Additional>();
 		
@@ -430,7 +413,6 @@ public class OrderDAO {
 	
 	public List<Order> getList() throws SQLException {
 		this.con = new ConnectionFactory().getConnection();
-		assert(this.con != null);
 		
 		String sql = "SELECT * FROM `order`";
 
@@ -511,7 +493,6 @@ public class OrderDAO {
 	
 	public List<Additional> getAdditionalsList() {
 		this.con = new ConnectionFactory().getConnection();
-		assert(this.con != null);
 		
 		String sql = "SELECT * FROM `additional`";
 
@@ -560,140 +541,138 @@ public class OrderDAO {
 	
 	public Additional getAdditionalById(int idAdditional) {
 		this.con = new ConnectionFactory().getConnection();
-		assert(this.con != null);
-        	Additional additional = new Additional();
-		String sql = "select * from additional where idadditional=?";
-		PreparedStatement stmt = null;
-			ResultSet rs = null;
-		try {
-		    stmt = con.prepareStatement(sql);
-		    stmt.setInt(1, idAdditional);
-		    rs = stmt.executeQuery();
-
-		    if (rs.next()) {
-				
-		    	additional.setId(Integer.parseInt(rs.getString("idadditional")));
-					additional.setName(rs.getString("name"));
-
-		    }
-		} catch (SQLException e) {
-				throw new RuntimeException("ERROR GETTING ADDITIONAL: "+e.getMessage());
-		} finally {
-				try {
-					if(this.con != null) {
-						con.close();
-					}
-					if(stmt != null) {
-						stmt.close();
-					}
-					if(rs != null){
-						rs.close();
-					}
-				} catch(SQLException e){}
-		}
 		
-		return additional;
+        Additional additional = new Additional();
+        String sql = "select * from additional where idadditional=?";
+        PreparedStatement stmt = null;
+		ResultSet rs = null;
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, idAdditional);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+				
+            	additional.setId(Integer.parseInt(rs.getString("idadditional")));
+				additional.setName(rs.getString("name"));
+
+            }
+        } catch (SQLException e) {
+			throw new RuntimeException("ERROR GETTING ADDITIONAL: "+e.getMessage());
+        } finally {
+			try {
+				if(this.con != null) {
+					con.close();
+				}
+				if(stmt != null) {
+					stmt.close();
+				}
+				if(rs != null){
+					rs.close();
+				}
+			} catch(SQLException e){}
+        }
+        
+        return additional;
     }
 	
 	private Payment getPaymentFromOrder(int idPayment) {
 		this.con = new ConnectionFactory().getConnection();
-		assert(this.con != null);
-		String paymentType, change;
-		String sql = "select * from payment where idpayment=?";
-		Payment p = null;
-		PreparedStatement stmt = null;
-			ResultSet rs = null;
-		try {
-		    stmt = con.prepareStatement(sql);
-		    stmt.setInt(1, idPayment);
-		    rs = stmt.executeQuery();
-
-		    if (rs.next()) {
-					change = rs.getString("paymentChange");
-					paymentType = rs.getString("paymentType_id");
-				
-					p = new Payment(idPayment, paymentType, change);
-		    }
-		    
-		    stmt.close();
-		    rs.close();
-		} catch (SQLException e) {
-				throw new RuntimeException("ERROR RETRIEVING PAYMENT FROM ORDER: "+e.getMessage());
-		} finally {
-				try {
-					if(this.con != null) {
-						con.close();
-					}
-					if(stmt != null) {
-						stmt.close();
-					}
-					if(rs != null){
-						rs.close();
-					}
-				} catch(SQLException e){}
-		}
 		
-		return p;
+		String paymentType, change;
+        String sql = "select * from payment where idpayment=?";
+        Payment p = null;
+        PreparedStatement stmt = null;
+		ResultSet rs = null;
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, idPayment);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+				change = rs.getString("paymentChange");
+				paymentType = rs.getString("paymentType_id");
+				
+				p = new Payment(idPayment, paymentType, change);
+            }
+            
+            stmt.close();
+            rs.close();
+        } catch (SQLException e) {
+			throw new RuntimeException("ERROR RETRIEVING PAYMENT FROM ORDER: "+e.getMessage());
+        } finally {
+			try {
+				if(this.con != null) {
+					con.close();
+				}
+				if(stmt != null) {
+					stmt.close();
+				}
+				if(rs != null){
+					rs.close();
+				}
+			} catch(SQLException e){}
+        }
+        
+        return p;
 	}
 
 	public Order getOrderById(int orderId) throws ParseException {
 		this.con = new ConnectionFactory().getConnection();
-		assert(this.con != null);
 		
-        	Order order = new Order();
+        Order order = new Order();
 		UserDAO userDao = new UserDAO();
-		String sql = "select * from order where idProduct=?";
-		PreparedStatement stmt = null;
-			ResultSet rs = null;
-		try {
-		    stmt = con.prepareStatement(sql);
-		    stmt.setInt(1, orderId);
-		    rs = stmt.executeQuery();
+        String sql = "select * from order where idProduct=?";
+        PreparedStatement stmt = null;
+		ResultSet rs = null;
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, orderId);
+            rs = stmt.executeQuery();
 
-		    if (rs.next()) {
+            if (rs.next()) {
 				
-					order.setId(Integer.parseInt(rs.getString("idOrder")));
-					order.setTotalPrice(rs.getDouble("totalPrice"));
-					order.setReceiving(getReceivingFromOrder((rs.getInt("idDeliveryAddress"))));
+				order.setId(Integer.parseInt(rs.getString("idOrder")));
+				order.setTotalPrice(rs.getDouble("totalPrice"));
+				order.setReceiving(getReceivingFromOrder((rs.getInt("idDeliveryAddress"))));
 				
-					//SET TIME OF RECEIVING
-					Calendar cal = Calendar.getInstance();
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-					cal.setTime(sdf.parse(rs.getString("deliveryTime")));
-					order.getReceiving().setTime(cal);
+				//SET TIME OF RECEIVING
+				Calendar cal = Calendar.getInstance();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+				cal.setTime(sdf.parse(rs.getString("deliveryTime")));
+				order.getReceiving().setTime(cal);
 
 				
-					//ASSIGN PRODUCTS TO ORDER
-					order.setItems(this.getProductsFromOrder(order));
+				//ASSIGN PRODUCTS TO ORDER
+				order.setItems(this.getProductsFromOrder(order));
 			
-					//ASSIGN ADDITIONALS TO ORDER
-					order.setAdditionals(this.assignAdditionalsToOrder(order));
+				//ASSIGN ADDITIONALS TO ORDER
+				order.setAdditionals(this.assignAdditionalsToOrder(order));
 				
-					//ASSIGN CLIENT
-					order.setClient((Client) userDao.getUserById(rs.getInt("client_user_iduser")));
+				//ASSIGN CLIENT
+				order.setClient((Client) userDao.getUserById(rs.getInt("client_user_iduser")));
 
-		    }
-		} catch (SQLException e) {
-				throw new RuntimeException("ERROR GETTING ORDER: "+e.getMessage());
-		} finally {
-				try {
-					if(this.con != null) {
-						con.close();
-					}
-					if(stmt != null) {
-						stmt.close();
-					}
-					if(rs != null){
-						rs.close();
-					}
-				} catch(SQLException e){}
-		}
-		
-		return order;
+            }
+        } catch (SQLException e) {
+			throw new RuntimeException("ERROR GETTING ORDER: "+e.getMessage());
+        } finally {
+			try {
+				if(this.con != null) {
+					con.close();
+				}
+				if(stmt != null) {
+					stmt.close();
+				}
+				if(rs != null){
+					rs.close();
+				}
+			} catch(SQLException e){}
+        }
+        
+        return order;
     }
 			
 	public void delete(Order order) {
-		assert(order != null);
 		String sql = "delete from order where idOrder=?";
 		PreparedStatement stmt = null;
 		try {
@@ -717,7 +696,6 @@ public class OrderDAO {
 	
 	public List<String> getPaymentTypes() throws SQLException{
 		this.con = new ConnectionFactory().getConnection();
-		assert(this.con != null);
 		
 		String sql = "select payment from payment_type";
 
