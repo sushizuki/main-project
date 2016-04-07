@@ -31,7 +31,6 @@ public class Order {
 	}
 
 	public void setId(int id) {
-		assert(id != null);
 		this.id = id;
 	}
 
@@ -40,7 +39,6 @@ public class Order {
 	}
 
 	public void setClient(Client client) {
-		assert(client != null);
 		this.client = client;
 	}
 
@@ -49,7 +47,6 @@ public class Order {
 	}
 
 	public void setItems(HashMap<Product, Integer> items) {
-		assert(items != null);
 		this.items = items;
 	}
 
@@ -58,7 +55,6 @@ public class Order {
 	}
 
 	public void setAdditionals(List<Additional> additionals) {
-		assert(additionals != null);
 		this.additionals = additionals;
 	}
 
@@ -67,7 +63,6 @@ public class Order {
 	}
 
 	public void setTotalPrice(double totalPrice) {
-		assert(totalPrice != null);
 		this.totalPrice = totalPrice;
 	}
 
@@ -84,7 +79,6 @@ public class Order {
 	}
 
 	public void setReceiving(Receiving receiving) {
-		assert(receiving != null);
 		this.receiving = receiving;
 	}
 
@@ -93,7 +87,6 @@ public class Order {
 	}
 
 	public void setPayment(Payment payment) {
-		assert(payment != null);
 		this.payment = payment;
 	}
 
@@ -102,7 +95,6 @@ public class Order {
 	}
 
 	public void setStatus(String s){
-		assert(s != null);
 		this.status = s;
 	}
 }
