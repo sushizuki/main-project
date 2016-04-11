@@ -117,7 +117,7 @@ public class AddressDAO {
     }
 	
 	public Address getAddressById(int addressId) {
-		assert(addressId != null);
+		assert(addressId != 0);
 		this.con = new ConnectionFactory().getConnection();
 		assert(this.con != null);
 		Address address = null;

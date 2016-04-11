@@ -31,7 +31,7 @@ public class Order {
 	}
 
 	public void setId(int id) {
-		assert(id != null);
+		assert(id != 0);
 		this.id = id;
 	}
 
@@ -67,7 +67,7 @@ public class Order {
 	}
 
 	public void setTotalPrice(double totalPrice) {
-		assert(totalPrice != null);
+		assert(totalPrice != 0);
 		this.totalPrice = totalPrice;
 	}
 

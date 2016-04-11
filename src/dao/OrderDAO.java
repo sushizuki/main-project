@@ -100,7 +100,7 @@ public class OrderDAO {
 	private int savePayment(Payment p) {
 		assert(p != null);
 		this.con = new ConnectionFactory().getConnection();
-		assert(this,con != null);
+		assert(this.con != null);
 		
 		String sql = "insert into payment " +
 		"(paymentChange, paymentType_id)" +

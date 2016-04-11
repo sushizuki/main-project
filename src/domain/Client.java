@@ -20,7 +20,7 @@ public class Client extends User {
 	}
 
 	public void setId(int id) {
-		assert(id != null);
+		assert(id != 0);
 		this.id = id;
 	}
 

@@ -13,7 +13,7 @@ public class Address {
 	private String complement;
 
 	public Address(int id, String cep, String address, String complement) {
-		assert(id != null);
+		assert(id != 0);
 		assert(cep != null);
 		assert(address != null);
 		assert(complement != null);

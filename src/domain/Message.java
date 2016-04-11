@@ -20,7 +20,7 @@ public class Message {
 	}
 
 	public void setId(int id) {
-		assert(id != null);
+		assert(id != 0);
 		this.id = id;
 	}
 
