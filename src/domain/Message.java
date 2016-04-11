@@ -20,7 +20,7 @@ public class Message {
 	}
 
 	public void setId(int id) {
-		assert(id != 0);
+		assert(id < 0);
 		this.id = id;
 	}
 
@@ -30,6 +30,16 @@ public class Message {
 
 	public void setSender(Client sender) {
 		assert(sender != null);
+		assert(sender.getAddress() != null);
+		assert(sender.getAddress() != "");
+		assert(sender.getEmail() != null);
+		assert(sender.getEmail() != "");
+		assert(sender.getId() > 0);
+		assert(sender.getName() != null);
+		assert(sender.getName() != "");
+		assert(sender.getPhone() != null);
+		assert(sender.getName() != "");
+		
 		this.sender = sender;
 	}
 
@@ -39,6 +49,8 @@ public class Message {
 
 	public void setMessage(String message) {
 		assert(message != null);
+		assert(message != "");
+		
 		this.message = message;
 	}
 
