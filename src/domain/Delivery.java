@@ -14,14 +14,26 @@ public class Delivery implements Receiving {
 
 	public Delivery(Address a, Calendar c) {
 		assert(a != null);
-		assert(c != null);
+		assert(a.getAddress() != null);
+		assert(a.getAddress() != "");
+		assert(a.getCep() != null);
+		assert(a.getCep() != "");
+		assert(a.getComplement() != null);
+		assert(a.getComplement() != "");
+		assert(a.getId() > 0);assert(c != null);
 		setAddress(a);
 		setTime(c);
 	}
 
 	public Delivery(Address a) {
 		assert(a != null);
-		setAddress(a);
+		assert(a.getAddress() != null);
+		assert(a.getAddress() != "");
+		assert(a.getCep() != null);
+		assert(a.getCep() != "");
+		assert(a.getComplement() != null);
+		assert(a.getComplement() != "");
+		assert(a.getId() > 0);setAddress(a);
 	}
 
 	@Override
