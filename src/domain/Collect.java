@@ -15,7 +15,7 @@ public class Collect implements Receiving {
 	private Calendar time;
 
 	public Collect(Calendar c) {
-		assert(c != null);		
+		assert(c != null);
 		setAddress(sushizukiLocation);
 		setTime(c);
 	}
@@ -27,6 +27,14 @@ public class Collect implements Receiving {
 	@Override
 	public void setAddress(Address a) {
 		assert(a != null);
+		assert(a.getAddress() != null);
+		assert(a.getAddress() != "");
+		assert(a.getCep() != null);
+		assert(a.getCep() != "");
+		assert(a.getComplement() != null);
+		assert(a.getComplement() != "");
+		assert(a.getId() > 0);
+		
 		this.address = a;
 	}
 
