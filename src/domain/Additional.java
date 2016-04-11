@@ -17,7 +17,9 @@ public class Additional {
 	public Additional(int id, String name) {
 		super();
 		assert(id != 0);
+		assert(id > 0);
 		assert(name != null);
+		assert(name != "");
 		this.id = id;
 		this.name = name;
 	}
@@ -28,6 +30,7 @@ public class Additional {
 
 	public void setId(int id) {
 		assert(id != 0);
+		assert(id > 0);
 		this.id = id;
 	}
 
@@ -36,7 +39,8 @@ public class Additional {
 	}
 
 	public void setName(String name) {
-		assert(name != null);		
+		assert(name != null);
+		assert(name != "");
 		this.name = name;
 	}
 }

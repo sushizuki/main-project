@@ -14,9 +14,13 @@ public class Address {
 
 	public Address(int id, String cep, String address, String complement) {
 		assert(id != 0);
+		assert(id > 0);
 		assert(cep != null);
+		assert(cep != "");
 		assert(address != null);
+		assert(address != "");
 		assert(complement != null);
+		assert(complement != "");
 		this.setId(id);
 		this.setCep(cep);
 		this.setComplement(complement);
@@ -38,6 +42,7 @@ public class Address {
 
 	public void setId(Integer id) {
 		assert(id != null);
+		assert(id > 0);
 		this.id = id;
 	}
 
@@ -48,6 +53,7 @@ public class Address {
 
 	public void setCep(String cep) {
 		assert(cep != null);
+		assert(cep != "");
 		this.cep = cep;
 	}
 
@@ -56,7 +62,8 @@ public class Address {
 	}
 
 	public void setAddress(String address) {
-		assert(address != null);		
+		assert(address != null);	
+		assert(address != "");
 		this.address = address;
 	}
 
@@ -66,6 +73,7 @@ public class Address {
 
 	public void setComplement(String complement) {
 		assert(complement != null);
+		assert(complement != "");
 		this.complement = complement;
 	}
 
