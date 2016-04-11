@@ -12,6 +12,14 @@ public class Client extends User {
 
 	public Client(Address address){
 		assert(address != null);
+		assert(address.getAddress() != null);
+		assert(address.getAddress() != "");
+		assert(address.getCep() != null);
+		assert(address.getCep() != "");
+		assert(address.getComplement() != null);
+		assert(address.getComplement() != "");
+		assert(address.getId() > 0);
+		
 		this.setAddress(address);
 	}
 
@@ -20,7 +28,8 @@ public class Client extends User {
 	}
 
 	public void setId(int id) {
-		assert(id != 0);
+		assert(id > 0);
+		
 		this.id = id;
 	}
 
@@ -30,6 +39,14 @@ public class Client extends User {
 
 	public void setAddress(Address a) {
 		assert(a != null);
+		assert(a.getAddress() != null);
+		assert(a.getAddress() != "");
+		assert(a.getCep() != null);
+		assert(a.getCep() != "");
+		assert(a.getComplement() != null);
+		assert(a.getComplement() != "");
+		assert(a.getId() > 0);
+		
 		this.address = a;
 	}
 
