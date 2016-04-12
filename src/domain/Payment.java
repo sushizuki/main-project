@@ -40,6 +40,8 @@ public class Payment {
 	}
 
 	public void setId(int id) {
+		assert(id > 0);
+		
 		this.id = id;
 	}
 
@@ -48,16 +50,27 @@ public class Payment {
 	}
 
 	public void setChange(double value, double total) {
+		assert(value > 0);
+		assert(total > 0);
+		
 		this.change = String.valueOf(value - total);
 	}
 
 	public void setChange(String change) {
+		assert(change != null);
+		assert(change != "");
+		
 		this.change = change;
 	}
 
 
 	public int getPaymentId(String payment) throws SQLException {
+		assert(payment != null);
+		assert(payment != "");
+		
 		OrderDAO dao = new OrderDAO();
+		assert(dao != null);
+		
 		List<String> list = dao.getPaymentTypes();
 
 		for (int i = 1; i <= list.size(); i++) {
@@ -74,7 +87,12 @@ public class Payment {
 
 	//Get a number, look into category list from database to assign Name proper to the number
 	public void setPaymentType(String i) throws SQLException {
+		assert(i != null);
+		assert(i != "");
+		
 		OrderDAO dao = new OrderDAO();
+		assert(dao != null);
+		
 		List<String> list = dao.getPaymentTypes();
 		try {
 			this.paymentType = list.get(Integer.parseInt(i)-1);
@@ -83,7 +101,10 @@ public class Payment {
 		}
 	}
 
-	public void setPaymentType(int i) {
+	public void setPaymentType(int type) {
+		assert(type > 0);
+		assert(type < 3);
+		
 		this.paymentType = String.valueOf(i);
 	}
 }
