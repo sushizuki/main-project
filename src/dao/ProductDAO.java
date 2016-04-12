@@ -29,6 +29,19 @@ public class ProductDAO {
 	
 	public void insert(Product product) {
 		assert(product != null);
+		assert(product.getCategory() != null);
+		assert(product.getCategory() != "");
+		assert(product.getDescription() != null);
+		assert(product.getDescription() != "");
+		assert(product.getExtra() != null);
+		assert(product.getExtra() != "");
+		assert(product.getId() > 0);
+		assert(product.getImgUrl() != null);
+		assert(product.getImgUrl() != "");
+		assert(product.getName() != null);
+		assert(product.getName() != "");
+		assert(product.getPrice() > 0);
+		
 		this.con = new ConnectionFactory().getConnection();
 		assert(this.con != null);
 		
@@ -112,9 +125,12 @@ public class ProductDAO {
    }
 	
 	public Product getProductById(int productId) {
+		assert(productId > 0);
+		
 		this.con = new ConnectionFactory().getConnection();
-        	assert(this.con != null);
-		Product product = new Product();
+        assert(this.con != null);
+		
+        Product product = new Product();
 		String sql = "select * from product where idProduct=?";
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -154,6 +170,19 @@ public class ProductDAO {
 	
 	public void update(Product product) {
 		assert(product != null);
+		assert(product.getCategory() != null);
+		assert(product.getCategory() != "");
+		assert(product.getDescription() != null);
+		assert(product.getDescription() != "");
+		assert(product.getExtra() != null);
+		assert(product.getExtra() != "");
+		assert(product.getId() > 0);
+		assert(product.getImgUrl() != null);
+		assert(product.getImgUrl() != "");
+		assert(product.getName() != null);
+		assert(product.getName() != "");
+		assert(product.getPrice() > 0);
+		
 		this.con = new ConnectionFactory().getConnection();
 		assert(this.con != null);
 		
@@ -186,6 +215,19 @@ public class ProductDAO {
 	
 	public void updateImage(Product product) {
 		assert(product != null);
+		assert(product.getCategory() != null);
+		assert(product.getCategory() != "");
+		assert(product.getDescription() != null);
+		assert(product.getDescription() != "");
+		assert(product.getExtra() != null);
+		assert(product.getExtra() != "");
+		assert(product.getId() > 0);
+		assert(product.getImgUrl() != null);
+		assert(product.getImgUrl() != "");
+		assert(product.getName() != null);
+		assert(product.getName() != "");
+		assert(product.getPrice() > 0);
+		
 		this.con = new ConnectionFactory().getConnection();
 		assert(this.con != null);
 		
@@ -212,6 +254,19 @@ public class ProductDAO {
 	
 	public void delete(Product product) {
 		assert(product != null);
+		assert(product.getCategory() != null);
+		assert(product.getCategory() != "");
+		assert(product.getDescription() != null);
+		assert(product.getDescription() != "");
+		assert(product.getExtra() != null);
+		assert(product.getExtra() != "");
+		assert(product.getId() > 0);
+		assert(product.getImgUrl() != null);
+		assert(product.getImgUrl() != "");
+		assert(product.getName() != null);
+		assert(product.getName() != "");
+		assert(product.getPrice() > 0);
+		
 		this.con = new ConnectionFactory().getConnection();
 		assert(this.con != null);
 		
@@ -242,6 +297,19 @@ public class ProductDAO {
 	
 	private Path convertImagePath(Product product){
 		assert(product != null);
+		assert(product.getCategory() != null);
+		assert(product.getCategory() != "");
+		assert(product.getDescription() != null);
+		assert(product.getDescription() != "");
+		assert(product.getExtra() != null);
+		assert(product.getExtra() != "");
+		assert(product.getId() > 0);
+		assert(product.getImgUrl() != null);
+		assert(product.getImgUrl() != "");
+		assert(product.getName() != null);
+		assert(product.getName() != "");
+		assert(product.getPrice() > 0);
+		
 		String path = getClass().getResource("/").getPath();
 		path = path.replace("WEB-INF/classes/", "");
 		path = path.substring(1, path.length()); //remove first slash
@@ -253,12 +321,26 @@ public class ProductDAO {
 	
 	public void deleteImageProduct(Product product){
 		assert(product != null);
+		assert(product.getCategory() != null);
+		assert(product.getCategory() != "");
+		assert(product.getDescription() != null);
+		assert(product.getDescription() != "");
+		assert(product.getExtra() != null);
+		assert(product.getExtra() != "");
+		assert(product.getId() > 0);
+		assert(product.getImgUrl() != null);
+		assert(product.getImgUrl() != "");
+		assert(product.getName() != null);
+		assert(product.getName() != "");
+		assert(product.getPrice() > 0);
+		
 		Path path = convertImagePath(product);
 		deleteImageProduct(path);
 	}
 	
 	private void deleteImageProduct(Path path){
 		assert(path != null);
+		
 		try {
 		    Files.delete(path);
 		} catch (NoSuchFileException x) {
