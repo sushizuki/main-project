@@ -39,8 +39,17 @@ public class OrderDAO {
 	
 	private int saveDeliveryAddress(Address a) {
 		assert(a != null);
+		assert(a.getAddress() != null);
+		assert(a.getAddress() != "");
+		assert(a.getCep() != null);
+		assert(a.getCep() != "");
+		assert(a.getComplement() != null);
+		assert(a.getComplement() != "");
+		assert(a.getId() > 0);
+		
 		AddressDAO addressDao = new AddressDAO();
 		assert(addressDao != null);
+		
 		Address addr = addressDao.getAddress(a.getAddress());
 		if(addr==null){
 			return addressDao.insert(a);
@@ -50,6 +59,8 @@ public class OrderDAO {
 	}
 	
 	private Receiving getReceivingFromOrder(int addressId){
+		assert(addressId > 0);
+		
 		this.con = new ConnectionFactory().getConnection();
 		assert(this.con != null);
 		String address, cep, complement;
@@ -99,6 +110,12 @@ public class OrderDAO {
 	
 	private int savePayment(Payment p) {
 		assert(p != null);
+		assert(p.getChange() != null);
+		assert(p.getChange() != "");
+		assert(p.getId() > 0);
+		assert(p.getPaymentType() != null);
+		assert(p.getPaymentType() != "");
+		
 		this.con = new ConnectionFactory().getConnection();
 		assert(this.con != null);
 		
@@ -152,6 +169,16 @@ public class OrderDAO {
 	
 	public void insert(Order order) {
 		assert(order != null);
+		assert(order.getAdditionals() != null);
+		assert(order.getClient() != null);
+		assert(order.getId() > 0);
+		assert(order.getItems() != null);
+		assert(order.getPayment() != null);
+		assert(order.getReceiving() != null);
+		assert(order.getStatus() != null);
+		assert(order.getStatus() != "");
+		assert(order.getTotalPrice() > 0);
+		
 		this.con = new ConnectionFactory().getConnection();
 		assert(this.con != null);
 		
@@ -214,6 +241,16 @@ public class OrderDAO {
 	
 	private void saveProductsToOrder(Order order) {
 		assert(order != null);
+		assert(order.getAdditionals() != null);
+		assert(order.getClient() != null);
+		assert(order.getId() > 0);
+		assert(order.getItems() != null);
+		assert(order.getPayment() != null);
+		assert(order.getReceiving() != null);
+		assert(order.getStatus() != null);
+		assert(order.getStatus() != "");
+		assert(order.getTotalPrice() > 0);
+		
 		this.con = new ConnectionFactory().getConnection();
 		assert(this.con != null);
 		
@@ -262,6 +299,16 @@ public class OrderDAO {
 	
 	private void saveAdditionalsToOrder(Order order) {
 		assert(order != null);
+		assert(order.getAdditionals() != null);
+		assert(order.getClient() != null);
+		assert(order.getId() > 0);
+		assert(order.getItems() != null);
+		assert(order.getPayment() != null);
+		assert(order.getReceiving() != null);
+		assert(order.getStatus() != null);
+		assert(order.getStatus() != "");
+		assert(order.getTotalPrice() > 0);
+		
 		this.con = new ConnectionFactory().getConnection();
 		assert(this.con != null);
 		
@@ -302,6 +349,15 @@ public class OrderDAO {
 	private HashMap<Product,Integer> setExtraFromProductsInOrder(HashMap<Product,Integer> mapProductList, Order order) throws SQLException{
 		assert(mapProductList != null);
 		assert(order != null);
+		assert(order.getAdditionals() != null);
+		assert(order.getClient() != null);
+		assert(order.getId() > 0);
+		assert(order.getItems() != null);
+		assert(order.getPayment() != null);
+		assert(order.getReceiving() != null);
+		assert(order.getStatus() != null);
+		assert(order.getStatus() != "");
+		assert(order.getTotalPrice() > 0);
 				
 		for(Product p : mapProductList.keySet()){
 			Connection c2 = new ConnectionFactory().getConnection();
@@ -343,6 +399,16 @@ public class OrderDAO {
 	
 	public HashMap<Product, Integer> getProductsFromOrder(Order order) throws SQLException{
 		assert(order != null);
+		assert(order.getAdditionals() != null);
+		assert(order.getClient() != null);
+		assert(order.getId() > 0);
+		assert(order.getItems() != null);
+		assert(order.getPayment() != null);
+		assert(order.getReceiving() != null);
+		assert(order.getStatus() != null);
+		assert(order.getStatus() != "");
+		assert(order.getTotalPrice() > 0);
+		
 		Connection c = new ConnectionFactory().getConnection();
 		assert(c != null);
 		
@@ -387,6 +453,15 @@ public class OrderDAO {
 	
 	private List<Additional> assignAdditionalsToOrder(Order order) throws SQLException{
 		assert(order != null);
+		assert(order.getAdditionals() != null);
+		assert(order.getClient() != null);
+		assert(order.getId() > 0);
+		assert(order.getItems() != null);
+		assert(order.getPayment() != null);
+		assert(order.getReceiving() != null);
+		assert(order.getStatus() != null);
+		assert(order.getStatus() != "");
+		assert(order.getTotalPrice() > 0);
 		Connection c2 = new ConnectionFactory().getConnection();
 		assert(c2 != null);
 		
@@ -559,6 +634,8 @@ public class OrderDAO {
    }
 	
 	public Additional getAdditionalById(int idAdditional) {
+		assert(idAddicional > 0);
+		
 		this.con = new ConnectionFactory().getConnection();
 		assert(this.con != null);
         	Additional additional = new Additional();
@@ -596,6 +673,8 @@ public class OrderDAO {
     }
 	
 	private Payment getPaymentFromOrder(int idPayment) {
+		assert(idpayment > 0);
+		
 		this.con = new ConnectionFactory().getConnection();
 		assert(this.con != null);
 		String paymentType, change;
@@ -637,14 +716,17 @@ public class OrderDAO {
 	}
 
 	public Order getOrderById(int orderId) throws ParseException {
+		assert(orderId > 0);
+		
 		this.con = new ConnectionFactory().getConnection();
 		assert(this.con != null);
 		
-        	Order order = new Order();
+        Order order = new Order();
 		UserDAO userDao = new UserDAO();
 		String sql = "select * from order where idProduct=?";
 		PreparedStatement stmt = null;
-			ResultSet rs = null;
+		ResultSet rs = null;
+		
 		try {
 		    stmt = con.prepareStatement(sql);
 		    stmt.setInt(1, orderId);
@@ -694,6 +776,16 @@ public class OrderDAO {
 			
 	public void delete(Order order) {
 		assert(order != null);
+		assert(order.getAdditionals() != null);
+		assert(order.getClient() != null);
+		assert(order.getId() > 0);
+		assert(order.getItems() != null);
+		assert(order.getPayment() != null);
+		assert(order.getReceiving() != null);
+		assert(order.getStatus() != null);
+		assert(order.getStatus() != "");
+		assert(order.getTotalPrice() > 0);
+		
 		String sql = "delete from order where idOrder=?";
 		PreparedStatement stmt = null;
 		try {
