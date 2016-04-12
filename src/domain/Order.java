@@ -31,7 +31,7 @@ public class Order {
 	}
 
 	public void setId(int id) {
-		assert(id != 0);
+		assert(id > 0);
 		this.id = id;
 	}
 
@@ -41,6 +41,16 @@ public class Order {
 
 	public void setClient(Client client) {
 		assert(client != null);
+		assert(client.getAddress() != null);
+		assert(client.getAddress() != "");
+		assert(client.getEmail() != null);
+		assert(client.getEmail() != "");
+		assert(client.getId() > 0);
+		assert(client.getName() != null);
+		assert(client.getName() != "");
+		assert(client.getPhone() != null);
+		assert(client.getName() != "");
+
 		this.client = client;
 	}
 
@@ -67,7 +77,7 @@ public class Order {
 	}
 
 	public void setTotalPrice(double totalPrice) {
-		assert(totalPrice != 0);
+		assert(totalPrice > 0);
 		this.totalPrice = totalPrice;
 	}
 
@@ -85,6 +95,10 @@ public class Order {
 
 	public void setReceiving(Receiving receiving) {
 		assert(receiving != null);
+		assert(receiving.getAddress() != null);
+		assert(receiving.getAddress() != "");
+		assert(receiving.getTime() != null);
+		
 		this.receiving = receiving;
 	}
 
@@ -94,6 +108,12 @@ public class Order {
 
 	public void setPayment(Payment payment) {
 		assert(payment != null);
+		assert(payment.getChange() != null);
+		assert(payment.getChange() != "");
+		assert(payment.getId() > 0);
+		assert(payment.getPaymentType() != null);
+		assert(payment.getPaymentType() != "");
+		
 		this.payment = payment;
 	}
 
@@ -103,6 +123,8 @@ public class Order {
 
 	public void setStatus(String s){
 		assert(s != null);
+		assert(s != "");
+		
 		this.status = s;
 	}
 }
