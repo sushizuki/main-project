@@ -48,6 +48,8 @@ public class Product {
 	}
 
 	public void setId(int id) {
+		assert(id > 0);
+		
 		this.id = id;
 	}
 
@@ -56,6 +58,8 @@ public class Product {
 	}
 
 	public void setPrice(double price) {
+		assert(price > 0);
+		
 		this.price = price;
 	}
 
@@ -64,6 +68,9 @@ public class Product {
 	}
 
 	public void setDescription(String description) {
+		assert(description != null);
+		assert(description != "");
+		
 		this.description = description;
 	}
 
@@ -72,6 +79,9 @@ public class Product {
 	}
 
 	public void setName(String name) {
+		assert(name != null);
+		assert(name != "");
+		
 		this.name = name;
 	}
 
@@ -80,6 +90,9 @@ public class Product {
 	}
 
 	public void setImgUrl(String imgUrl) {
+		assert(imgUrl != null);
+		assert(imgUrl != "");
+		
 		this.imgUrl = imgUrl;
 	}
 
@@ -89,7 +102,12 @@ public class Product {
 
 	//Get a number, look into category list from database to assign Name proper to the number
 	public void setCategory(String category) throws SQLException {
+		assert(category != null);
+		assert(category != "");
+		
 		ProductDAO dao = new ProductDAO();
+		assert(dao != null);
+	
 		List<String> list = dao.getProductCategoryList();
 		try {
 			this.category = list.get(Integer.parseInt(category)-1);
@@ -99,12 +117,20 @@ public class Product {
 	}
 
 	public void setCategory(int category) {
+		assert(category > 0);
+		assert(category < 6);
+		
 		this.category = String.valueOf(category);
 	}
 
 	//Get a number, look into category list from database to assign Name proper to the number
 	public int getCategoryId(String category) throws SQLException {
+		assert(category != null);
+		assert(category != "");
+		
 		ProductDAO dao = new ProductDAO();
+		assert(dao != null);
+		
 		List<String> list = dao.getProductCategoryList();
 
 		for (int i = 1; i <= list.size(); i++) {
@@ -116,10 +142,15 @@ public class Product {
 	}
 
 	public int getExtraId(String extra) throws SQLException {
+		assert(extra != null);
+		assert(extra != "");
+		
 		if(extra == null || extra.isEmpty()){
 			return 0;
 		}
 		ProductDAO dao = new ProductDAO();
+		assert(dao != null);
+		
 		List<String> list = dao.getProductExtraList();
 
 		for (int i = 1; i <= list.size(); i++) {
@@ -136,7 +167,12 @@ public class Product {
 
 	//Get a number, look into category list from database to assign Name proper to the number
 	public void setExtra(String extra) throws SQLException {
+		assert(extra != null);
+		assert(extra != "");
+		
 		ProductDAO dao = new ProductDAO();
+		assert(dao != null);
+		
 		List<String> list = dao.getProductExtraList();
 		try {
 			this.extra = list.get(Integer.parseInt(extra)-1);
@@ -146,6 +182,9 @@ public class Product {
 	}
 
 	public void setExtra(int extra) {
+		assert(extra > 0);
+		assert(extra < 3);
+		
 		this.extra = String.valueOf(extra);
 	}
 
