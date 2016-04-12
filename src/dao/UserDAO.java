@@ -28,6 +28,16 @@ public class UserDAO {
 	
 	public void insert(Client user) {
 		assert(user != null);
+		assert(user.getAddress() != null);
+		assert(user.getAddress() != "");
+		assert(user.getEmail() != null);
+		assert(user.getEmail() != "");
+		assert(user.getId() > 0);
+		assert(user.getPassword() != null);
+		assert(user.getPassword() != "");
+		assert(user.getPhone() != null);
+		assert(user.getPhone() != "");
+		
 		this.con = new ConnectionFactory().getConnection();
 		assert(this.con != null);
 		
@@ -67,6 +77,14 @@ public class UserDAO {
 	
 	private int saveAddress(Address a) {
 		assert(a != null);
+		assert(a.getAddress() != null);
+		assert(a.getAddress() != "");
+		assert(a.getCep() != null);
+		assert(a.getCep() != "");
+		assert(a.getComplement() != null);
+		assert(a.getComplement() != "");
+		assert(a.getId() > 0);
+		
 		this.con = new ConnectionFactory().getConnection();
 		assert(this.con != null);
 		
@@ -116,6 +134,16 @@ public class UserDAO {
 	
 	public void update(User user) {
 		assert(user != null);
+		assert(user.getAddress() != null);
+		assert(user.getAddress() != "");
+		assert(user.getEmail() != null);
+		assert(user.getEmail() != "");
+		assert(user.getId() > 0);
+		assert(user.getPassword() != null);
+		assert(user.getPassword() != "");
+		assert(user.getPhone() != null);
+		assert(user.getPhone() != "");
+		
 		this.con = new ConnectionFactory().getConnection();
 		assert(this.con != null);
 		
@@ -149,6 +177,14 @@ public class UserDAO {
 	
 	private void updateAddress(Address a) {
 		assert(a != null);
+		assert(a.getAddress() != null);
+		assert(a.getAddress() != "");
+		assert(a.getCep() != null);
+		assert(a.getCep() != "");
+		assert(a.getComplement() != null);
+		assert(a.getComplement() != "");
+		assert(a.getId() > 0);
+		
 		this.con = new ConnectionFactory().getConnection();
 		assert(this.con != null);
 		
@@ -180,7 +216,10 @@ public class UserDAO {
 	
 	public User login(String email, String password) throws SQLException{
 		assert(email != null);
+		assert(email != "");
 		assert(password != null);
+		assert(password != "");
+		
 		this.con = new ConnectionFactory().getConnection();
 		assert(this.con != null);
 		
@@ -232,6 +271,8 @@ public class UserDAO {
 	}
 		
 	public User getUserById(int userId) {
+		assert(userId > 0);
+		
 		this.con = new ConnectionFactory().getConnection();		
 		assert(this.con != null);
 		String sql = "select * from user where iduser=?";
@@ -281,6 +322,8 @@ public class UserDAO {
     }
 	
 	public boolean isUserClient(int idUser){
+		assert(idUser > 0);
+		
 		this.con = new ConnectionFactory().getConnection();
 		assert(this.con != null);
 		String sql = "select 1 from client where user_iduser=?";
@@ -318,6 +361,8 @@ public class UserDAO {
 	}
 	
 	private Client getClientById(int id){
+		assert(id > 0);
+		
 		this.con = new ConnectionFactory().getConnection();
 		assert(this.con != null);
 		
@@ -359,6 +404,8 @@ public class UserDAO {
 	}
 	
 	private Administrator getAdmById(int id){
+		assert(id > 0);
+		
 		this.con = new ConnectionFactory().getConnection();		
 		assert(this.con != null);
 		String sql = "select 1 from administrator where user_iduser=?";
