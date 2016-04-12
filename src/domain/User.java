@@ -22,6 +22,7 @@ public abstract class User {
 	}
 
 	public void setId(int id) {
+		assert(id > 0);
 		this.id = id;
 	}
 
@@ -30,6 +31,9 @@ public abstract class User {
 	}
 
 	public void setName(String name) {
+		assert(name != null);
+		assert(name != "");
+		
 		this.name = name;
 	}
 
@@ -38,6 +42,9 @@ public abstract class User {
 	}
 
 	public void setEmail(String email) {
+		assert(email != null);
+		assert(email != "");
+		
 		this.email = email;
 	}
 
@@ -46,6 +53,9 @@ public abstract class User {
 	}
 
 	public void setPassword(String password) {
+		assert(password != null);
+		assert(password != "");
+		
 		this.password = password;
 	}
 
@@ -54,6 +64,9 @@ public abstract class User {
 	}
 
 	public void setPhone(String phone) {
+		assert(phone != null);
+		assert(phone != "");
+		
 		this.phone = phone;
 	}
 }
