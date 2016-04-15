@@ -20,11 +20,16 @@ import controller.command.CommandFactory;
 import controller.command.user_commands.DoLogin;
 import controller.command.user_commands.DoLogout;
 
+/**
+ * Servlet UserController
+ */
 public class UserController extends HttpServlet {
 
 private static final long serialVersionUID = 1L;
 	
-	//Initialises the command factory
+	/**
+	 * Command factory uses Factory and Command design patterns
+	 */
 	private static CommandFactory commandFactory = CommandFactory.init();
 	
 	//Servlet
@@ -32,7 +37,9 @@ private static final long serialVersionUID = 1L;
 		super();
         }
 
-	//GET requests: user logout
+	/**
+	 * Handle GET requests: do logout.
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		RequestDispatcher view = null;
@@ -71,7 +78,9 @@ private static final long serialVersionUID = 1L;
 		view.forward(request, response);  
 	}
 	
-	//POST requests: creating, updating a user or do login
+	/**
+	 * Handle POST requests: creating, updating a user or do login.
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		RequestDispatcher view = null;
