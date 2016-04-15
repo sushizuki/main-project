@@ -1,6 +1,7 @@
 /** 
 *    UserController.java to define UserController 
-*    {purpose} 
+*    Manages POST and GET requests about User related operations
+*    and shows exceptions handling.
 */ 
 
 package controller;
@@ -23,73 +24,76 @@ public class UserController extends HttpServlet {
 
 private static final long serialVersionUID = 1L;
 	
-	private static CommandFactory cf = CommandFactory.init();
-       
-    public UserController() {
-        super();
-    }
+	//Initialises the command factory
+	private static CommandFactory commandFactory = CommandFactory.init();
+	
+	//Servlet
+	public UserController() {
+		super();
+        }
 
+	//GET requests: user logout
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		RequestDispatcher view = null;
 		HttpSession session = request.getSession(true);
 		
 		try {
-        	
-        	//Get command from request
-        	String action = request.getParameter("action");
+			//Get command from request
+			String action = request.getParameter("action");
+			
+			Command command = commandFactory.getCommand(action);
+			
+			//Default command: Redirect to login page
+			if(command == null){ //Invalid command passed, go to default command
+				view = request.getRequestDispatcher("login.jsp");
+				view.forward(request, response);
+				return;
+        		} else {
         				
-        	Command command = cf.getCommand(action);
-        	
-        	//Default command: Redirect to login page
-        	if(command == null){//Invalid command passed, go to default command
-        		view = request.getRequestDispatcher("login.jsp");
-        		view.forward(request, response);
-        		return;
-        	}
-        				
-			if(command instanceof DoLogout){
-				((DoLogout) command).setSession(session);
-				command.execute();
-			}
+				if(command instanceof DoLogout){
+					((DoLogout) command).setSession(session);
+					command.execute();
+				}
+        		}
 
-			//Set redirection
+			//Set redirect page according to the command
 			view = request.getRequestDispatcher(command.getPageToRedirect());			
 			
-        }catch(Exception e){
+	        } catch(Exception e){
 			System.err.println("ERROR while processing request: ");
 			e.printStackTrace();
 			request.setAttribute("message", "failure");    
 			view = request.getRequestDispatcher("404.jsp");
-        }        
-        
+	        }        
+        	
+        	//Redirects to page 
 		view.forward(request, response);  
 	}
 	
-	//POST for creating, updating a user or do login
+	//POST requests: creating, updating a user or do login
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		RequestDispatcher view = null;
 		HttpSession session = request.getSession(true);
 		
 		try {
-
 			String action = request.getParameter("action");
 			
 			//Default action: try to do login
 			if(action == null || action.isEmpty()){
-        		action = "doLogin";
-        		System.out.println("ACTION DEFAULT DO LOGIN");
-        	}
+				action = "doLogin";
+        		} else {
+        			//Do nothing
+        		}
 			
-			Command command = cf.getCommand(action);
+			Command command = commandFactory.getCommand(action);
 						
 			if(command instanceof DoLogin){	
 				((DoLogin) command).setEmail(request.getParameter("email"));
 				((DoLogin) command).setPassword(request.getParameter("password"));
 				command.execute();
 				session.setAttribute("user", ((DoLogin) command).getUser());
-				System.out.println("Session user: "+session.getAttribute("user"));
 				request.setAttribute("user", ((DoLogin) command).getUser());
 				
 				if(command.getPageToRedirect().contains("adm/")){
@@ -116,10 +120,10 @@ private static final long serialVersionUID = 1L;
 			e.printStackTrace();
 			request.setAttribute("message", "failure");   
 			view = request.getRequestDispatcher("/404.jsp");
-        }
+        	}
 		
-		//Redirect
-        view.forward(request, response);
+		//Redirects to page
+		view.forward(request, response);
 		
 	}
 }
