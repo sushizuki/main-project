@@ -39,6 +39,8 @@ private static final long serialVersionUID = 1L;
 
 	/**
 	 * Handle GET requests: do logout.
+	 * @param request contains request information for this servlet
+	 * @param response sends response information from this servlet to the client
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -80,6 +82,8 @@ private static final long serialVersionUID = 1L;
 	
 	/**
 	 * Handle POST requests: creating, updating a user or do login.
+	 * @param request contains request information for this servlet
+	 * @param response sends response information from this servlet to the client
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
