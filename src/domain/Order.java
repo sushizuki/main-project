@@ -8,23 +8,19 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Order {
-
-	//implements interface Receiving (Design pattern strategy)
+	public static final int NEW_ORDER_STATUS = 1;
+	public static final int FINISHED_ORDER_STATUS = 2;
 
 	private int id;
 	private Client client;
 	private HashMap<Product, Integer> items;
 	private List<Additional> additionals;
 	private double totalPrice;
-	private Receiving receiving;
+	private Receiving receiving; 
 	private Payment payment;
 	private String status;
 
-	//Composition - Payment and Receiving must be an instance only here
-	public Order(){
-		//NEW PAYMENT
-		//NEW COLLECT OR DELIVERY
-	}
+	public Order(){	}
 
 	public int getId() {
 		return id;
@@ -94,7 +90,15 @@ public class Order {
 		return this.status;
 	}
 
-	public void setStatus(String s){
-		this.status = s;
+	public void setStatus(String status){		
+		this.status = status;
+	}
+	
+	public void setStatus(int status){
+		if(status == NEW_ORDER_STATUS){
+			this.status = "Novo Pedido";
+		} else if(status == FINISHED_ORDER_STATUS){
+			this.status = "Entregue";
+		}
 	}
 }

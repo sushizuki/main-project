@@ -174,7 +174,7 @@ public class ProductController extends HttpServlet {
 		List<FileItem> items;
 
 		// create object
- 	    Product product = new Product();
+ 	    Product product = null;
 		try {
 			items = upload.parseRequest(request);
 
@@ -204,7 +204,7 @@ public class ProductController extends HttpServlet {
 				 		product.setCategory(category);
 			    	}else if(item.getFieldName().equals("img")){
 			    		imgUrl = factory.getRepository()+item.getString("UTF-8");
-				 		product.setImgUrl(imgUrl);
+				 		product.setImageURL(imgUrl);
 			    	}else if(item.getFieldName().equals("id")){
 			    		try{
 			    			id = Integer.parseInt(item.getString("UTF-8"));
@@ -218,10 +218,10 @@ public class ProductController extends HttpServlet {
 			    	if ("img".equals(item.getFieldName())) {
 			            if (item.getName() == null || item.getName().isEmpty()) {
 			                // No file was been selected.
-			            	product.setImgUrl(null);
+			            	product.setImageURL(null);
 			            } else if (item.getSize() == 0) {
 			                // No file was been selected, or it was an empty file.
-			            	product.setImgUrl(null);
+			            	product.setImageURL(null);
 			            }
 			            else {
 			            	//Save img
@@ -229,7 +229,7 @@ public class ProductController extends HttpServlet {
 					 		String uploadDir = contextRoot+"img"+File.separator+"products"+File.separator;
 					 		String imgUrl = uploadDir+fileName;
 
-					 		product.setImgUrl("img/products/"+fileName);
+					 		product.setImageURL("img/products/"+fileName);
 
 
 					 		//Create product images directory if not exists

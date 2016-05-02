@@ -5,7 +5,6 @@
 
 package domain;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import dao.ProductDAO;
@@ -16,31 +15,29 @@ public class Product {
 	private String name;
 	private String description;
 	private double price;
-	private String imgUrl;
+	private String imageURL;
 	private String category;
 	private String extra; //Cream cheese or green onion
 
-	public Product(int id, String name, String description, double price, String imgUrl, String category, String extra) throws SQLException {
+	public Product(int id, String name, String description, double price,
+			String imageURL, String category, String extra) {
 		this.setId(id);
 		this.setName(name);
 		this.setDescription(description);
 		this.setPrice(price);
-		this.setImgUrl(imgUrl);
+		this.setImageURL(imageURL);
 		this.setCategory(category);
 		this.setExtra(extra);
 	}
 
-	public Product(String name, String description, double price, String imgUrl, String category, String extra) throws SQLException {
+	public Product(String name, String description, double price, String imageURL,
+			String category, String extra) {
 		this.setName(name);
 		this.setDescription(description);
 		this.setPrice(price);
-		this.setImgUrl(imgUrl);
+		this.setImageURL(imageURL);
 		this.setCategory(category);
 		this.setExtra(extra);
-	}
-
-	public Product(){
-
 	}
 
 	public int getId() {
@@ -75,12 +72,12 @@ public class Product {
 		this.name = name;
 	}
 
-	public String getImgUrl() {
-		return imgUrl;
+	public String getImageURL() {
+		return imageURL;
 	}
 
-	public void setImgUrl(String imgUrl) {
-		this.imgUrl = imgUrl;
+	public void setImageURL(String imageURL) {
+		this.imageURL = imageURL;
 	}
 
 	public String getCategory() {
@@ -88,7 +85,7 @@ public class Product {
 	}
 
 	//Get a number, look into category list from database to assign Name proper to the number
-	public void setCategory(String category) throws SQLException {
+	public void setCategory(String category) {
 		ProductDAO dao = new ProductDAO();
 		List<String> list = dao.getProductCategoryList();
 		try {
@@ -103,7 +100,7 @@ public class Product {
 	}
 
 	//Get a number, look into category list from database to assign Name proper to the number
-	public int getCategoryId(String category) throws SQLException {
+	public int getCategoryId(String category) {
 		ProductDAO dao = new ProductDAO();
 		List<String> list = dao.getProductCategoryList();
 
@@ -115,7 +112,7 @@ public class Product {
 		return 0; //if not found 0 = none
 	}
 
-	public int getExtraId(String extra) throws SQLException {
+	public int getExtraId(String extra) {
 		if(extra == null || extra.isEmpty()){
 			return 0;
 		}
@@ -135,14 +132,18 @@ public class Product {
 	}
 
 	//Get a number, look into category list from database to assign Name proper to the number
-	public void setExtra(String extra) throws SQLException {
-		ProductDAO dao = new ProductDAO();
-		List<String> list = dao.getProductExtraList();
-		try {
-			this.extra = list.get(Integer.parseInt(extra)-1);
-		}catch(RuntimeException e){
-			System.out.println("Error assigning extra");
-		}
+	public void setExtra(String extra) {
+        if(extra != null && !extra.isEmpty()){
+			ProductDAO dao = new ProductDAO();
+			List<String> list = dao.getProductExtraList();
+			try {
+				this.extra = list.get(Integer.parseInt(extra)-1);
+			}catch(RuntimeException e){
+				System.out.println("Error assigning extra");
+			}
+        } else {
+        	//do nothing
+        }
 	}
 
 	public void setExtra(int extra) {

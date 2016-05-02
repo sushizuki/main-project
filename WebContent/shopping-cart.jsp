@@ -95,7 +95,7 @@
 										<div class="row item-line"> <!-- Item (line) -->
 											<!-- Image -->
 											<div class="col-md-1 col-sm-3 col-xs-12 item-img item-line-prop">
-												<img src="${item.key.imgUrl}" class="center" alt="${item.key.name}">
+												<img src="${item.key.imageURL}" class="center" alt="${item.key.name}">
 											</div>
 											<!-- Item Description & Features -->
 											<div class="col-md-6 col-sm-5 col-xs-5 item-line-prop item-desc">

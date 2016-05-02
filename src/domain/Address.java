@@ -26,27 +26,35 @@ public class Address {
 	}
 
 	public Integer getId() {
-		return id;
+		assert this.id > 0 : "Address ID value inconsistent";
+		return this.id;
 	}
 
 	public void setId(Integer id) {
+		assert id > 0 : "Address ID value inconsistent";
 		this.id = id;
 	}
 
 
 	public String getCep() {
-		return cep;
+		assert (this.cep.length() == 8 || this.cep.length() == 9)
+				: "Address CEP value inconsistent";
+		return this.cep;
 	}
 
 	public void setCep(String cep) {
+		assert (cep.length() == 8 || cep.length() == 9)
+				: "Address CEP value inconsistent";
 		this.cep = cep;
 	}
 
 	public String getAddress() {
+		assert this.address != null;
 		return address;
 	}
 
 	public void setAddress(String address) {
+		assert address != null;
 		this.address = address;
 	}
 

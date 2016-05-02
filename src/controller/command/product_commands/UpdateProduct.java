@@ -37,14 +37,6 @@ public class UpdateProduct implements Command {
 	
 	@Override
 	public void execute() throws Exception {
-		//Check for an image update
-        if(product.getImgUrl() != null){
-     	   Product oldProduct = dao.getProductById(product.getId());
-     	   //Change img
-     	   dao.deleteImageProduct(oldProduct);
-     	   dao.updateImage(product);
-        }
-        //Update product
         dao.update(product);
 	}
 

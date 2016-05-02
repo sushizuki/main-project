@@ -1,7 +1,7 @@
 /** 
-*    ProductDAO.java to define ProductDAO 
-*    {purpose} 
-*/ 
+ * ProductDAO.java to define ProductDAO 
+ * This class persists into or from database any information about addresses
+ */
 
 package dao;
 
@@ -11,9 +11,6 @@ import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,213 +18,33 @@ import java.util.List;
 import domain.Product;
 
 //Design pattern DAO
-public class ProductDAO {
-	private Connection con;
+public class ProductDAO extends DataAccessObject{
+
+	private String sqlQuery;	
 
 	public ProductDAO() {
+		super();
 	}
 	
-	public void insert(Product product) {
-		this.con = new ConnectionFactory().getConnection();
-		
-		String sql = "insert into product " +
-		"(name,description,price,image,Category_idCategory)" +
-		" values (?,?,?,?,?)";
-		PreparedStatement stmt = null;
-		try {
-		// prepared statement for insertion
-		stmt = con.prepareStatement(sql);
-		
-		// set values for each '?'
-		stmt.setString(1, product.getName());
-		stmt.setString(2, product.getDescription());
-		stmt.setString(3, String.valueOf(product.getPrice()));
-		stmt.setString(4, product.getImgUrl());
-		stmt.setString(5, product.getCategory());
-		
-		// execute
-		stmt.execute();
-		stmt.close();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		} finally {
-			try {
-				if(this.con != null) {
-					con.close();
-				}
-				if(stmt != null) {
-					stmt.close();
-				}
-			} catch(SQLException e){}
-        }
-	}	
-	
-	public List<Product> getList() throws SQLException {
-		this.con = new ConnectionFactory().getConnection();
-		
-		String sql = "select * from product";
+	private void updateImage(Product product) {	
+		this.sqlQuery = "update product set image=? where idProduct=?";
 
-		PreparedStatement stmt = con.prepareStatement(sql);
-		List<Product> productList = new ArrayList<Product>(); 
-
-		ResultSet rs = null;
-		
-		try { 
-	    	   
-			rs = stmt.executeQuery(sql);       
-
-			while (rs.next()) { 
-				Product product = new Product();
-				
-				product.setId(Integer.parseInt(rs.getString("idproduct")));
-				product.setName(rs.getString("name"));
-				product.setDescription(rs.getString("description"));
-				product.setPrice(Double.parseDouble(rs.getString("price")));
-				product.setImgUrl(rs.getString("image"));
-				product.setCategory(rs.getString("Category_idCategory"));
-			
-				productList.add(product);
-			}
-			
-			return productList; 
-
-		}catch (Exception e) {
-			throw new RuntimeException("ERROR LISTING PRODUCTS: "+e.getMessage());
-		} finally {
-			try {
-				if(this.con != null) {
-					con.close();
-				}
-				if(stmt != null) {
-					stmt.close();
-				}
-				if(rs != null){
-					rs.close();
-				}
-			} catch(SQLException e){}
-        }
-   }
-	
-	public Product getProductById(int productId) {
-		this.con = new ConnectionFactory().getConnection();
-        
-		Product product = new Product();
-        String sql = "select * from product where idProduct=?";
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        
-        try {
-            stmt = con.prepareStatement(sql);
-            stmt.setInt(1, productId);
-            rs = stmt.executeQuery();
-
-            if (rs.next()) {
-				product.setId(Integer.parseInt(rs.getString("idproduct")));
-				product.setName(rs.getString("name"));
-				product.setDescription(rs.getString("description"));
-				product.setPrice(Double.parseDouble(rs.getString("price")));
-				product.setImgUrl(rs.getString("image"));
-				product.setCategory(rs.getString("Category_idCategory"));
-            }
-            
-        } catch (SQLException e) {
-			throw new RuntimeException("ERROR GETTING PRODUCT: "+e.getMessage());
-        }finally {
-			try {
-				if(this.con != null) {
-					con.close();
-				}
-				if(stmt != null) {
-					stmt.close();
-				}
-				if(rs != null){
-					rs.close();
-				}
-			} catch(SQLException e){}
-        }
-        
-        return product;
-    }
-	
-	public void update(Product product) {
-		this.con = new ConnectionFactory().getConnection();
-		
-		String sql = "update product set name=?, description=?, price=?," +
-		" Category_idCategory=? where idProduct=?";
-		PreparedStatement stmt = null;
+		setupConnectionObjects();
 		
 		try {
-			stmt = con.prepareStatement(sql);
-			stmt.setString(1, product.getName());
-			stmt.setString(2, product.getDescription());
-			stmt.setDouble(3, product.getPrice());
-			stmt.setString(4, product.getCategory());
-			stmt.setInt(5, product.getId());
-			stmt.execute();
+			deleteImageProduct(product);
+			this.statement = this.connection.prepareStatement(this.sqlQuery);
 			
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		} finally {
-			try {
-				if(this.con != null) {
-					con.close();
-				}
-				if(stmt != null) {
-					stmt.close();
-				}
-			} catch(SQLException e){}
-        }
-	}
-	
-	public void updateImage(Product product) {
-		this.con = new ConnectionFactory().getConnection();
-		
-		String sql = "update product set image=? where idProduct=?";
-		PreparedStatement stmt = null;
-		try {
-			stmt = con.prepareStatement(sql);
-			stmt.setString(1, product.getImgUrl());
-			stmt.setInt(2, product.getId());
-			stmt.execute();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		} finally {
-			try {
-				if(this.con != null) {
-					con.close();
-				}
-				if(stmt != null) {
-					stmt.close();
-				}
-			} catch(SQLException e){}
-        }
-	}
-	
-	public void delete(Product product) {
-		this.con = new ConnectionFactory().getConnection();
-		
-		String sql = "delete from product where idProduct=?";
-		PreparedStatement stmt = null;
-		try {
-			stmt = con.prepareStatement(sql);
-			stmt.setInt(1, product.getId());
-			stmt.execute();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		} finally {
-			//Convert file path to delete
-			Path path = convertImagePath(product);
+			//Replace '?' characters from sql variable into statement
+			this.statement.setString(1, product.getImageURL());
+			this.statement.setInt(2, product.getId());
 			
-			//delete product image
-			deleteImageProduct(path);
-			try {
-				if(this.con != null) {
-					con.close();
-				}
-				if(stmt != null) {
-					stmt.close();
-				}
-			} catch(SQLException e){}
+			this.statement.execute();
+		} catch (SQLException exception) {
+			throw new RuntimeException("Error processing SQL - updateImage in ProductDAO: "
+					+exception.getMessage());
+		} finally {
+			closeConnectionObjects();
         }
 	}
 	
@@ -235,18 +52,18 @@ public class ProductDAO {
 		String path = getClass().getResource("/").getPath();
 		path = path.replace("WEB-INF/classes/", "");
 		path = path.substring(1, path.length()); //remove first slash
-		path = path.replaceAll("%20", " "); //Caracter space
-		path = path+product.getImgUrl();
+		path = path.replaceAll("%20", " "); //Character space
+		path = path+product.getImageURL();
 		
 		return Paths.get(path);
 	}
 	
-	public void deleteImageProduct(Product product){
+	private void deleteImageProduct(Product product){
 		Path path = convertImagePath(product);
-		deleteImageProduct(path);
+		deleteFile(path);
 	}
 	
-	private void deleteImageProduct(Path path){
+	private void deleteFile(Path path){
 		try {
 		    Files.delete(path);
 		} catch (NoSuchFileException x) {
@@ -259,76 +76,242 @@ public class ProductDAO {
 		}
 	}
 	
-	public List<String> getProductCategoryList() throws SQLException{
-		this.con = new ConnectionFactory().getConnection();
-
-		String sql = "select name from category";
-
-		PreparedStatement stmt = con.prepareStatement(sql);
-		List<String> categoryList = new ArrayList<String>(); 
-
-		ResultSet rs = null;
+	/** insert registers a product into the database
+	 * @param Product object containing full product details
+	 */
+	public void insert(Product product) {
 		
-		try { 	    	   
-			rs = stmt.executeQuery(sql);       
-
-			while (rs.next()) { 			
-				categoryList.add(rs.getString("name"));
-			}
+		this.sqlQuery = "insert into product "
+				+ "(name,description,price,image,Category_idCategory)"
+				+ "values (?,?,?,?,?)";
+		
+		setupConnectionObjects();
+		
+		try {
+			this.statement = this.connection.prepareStatement(sqlQuery);
 			
-			return categoryList; 
-
-		}catch (SQLException e) {
-			throw new RuntimeException(e);
-		}finally {
-			try {
-				if(this.con != null) {
-					con.close();
-				}
-				if(stmt != null) {
-					stmt.close();
-				}
-				if(rs != null){
-					rs.close();
-				}
-			} catch(SQLException e){}
+			//Replace '?' characters from sql variable into statement
+			this.statement.setString(1, product.getName());
+			this.statement.setString(2, product.getDescription());
+			this.statement.setString(3, String.valueOf(product.getPrice()));
+			this.statement.setString(4, product.getImageURL());
+			this.statement.setString(5, product.getCategory());
+			
+			// execute
+			this.statement.execute();
+		} catch (SQLException exception) {
+			throw new RuntimeException("Error processing SQL - insert in ProductDAO: "
+					+exception.getMessage());
+		} finally {
+			closeConnectionObjects();
         }
 	}	
-
-	public List<String> getProductExtraList() throws SQLException{
-		this.con = new ConnectionFactory().getConnection();
-
-		String sql = "select name from extra";
-
-		PreparedStatement stmt = con.prepareStatement(sql);
-		List<String> extraList = new ArrayList<String>(); 
-
-		ResultSet rs = null;
+	
+	/** getList fetch from database all  products saved
+	 * @return List<Product> list of products and their details 
+	 */
+	public List<Product> getList() {
+		
+		this.sqlQuery = "select * from product";
+		List<Product> productList = new ArrayList<Product>(); 
+		
+		setupConnectionObjects();
 		
 		try { 
-	    	   
-			rs = stmt.executeQuery(sql);       
-
-			while (rs.next()) { 			
-				extraList.add(rs.getString("name"));
-			}
+			this.statement = this.connection.prepareStatement(this.sqlQuery);	    	   
+			this.result = this.statement.executeQuery(this.sqlQuery);     
 			
-			return extraList; 
+			int id = 0;
+			String name = null;
+			String description = null;
+			String imageURL = null;
+			String category = null;
+			String extra = null;
+			double price = 0;
+			
+			//for every product found in database
+			while (this.result.next()) { 				
+				id = Integer.parseInt(this.result.getString("idproduct"));
+				name = this.result.getString("name");
+				description = this.result.getString("description");
+				price = Double.parseDouble(this.result.getString("price"));
+				imageURL = this.result.getString("image");
+				category = this.result.getString("Category_idCategory");
+							
+				productList.add(new Product(id, name, description, price, imageURL, category, extra));
+			}			
 
-		}catch (SQLException e) {
-			throw new RuntimeException(e);
-		}finally {
-			try {
-				if(this.con != null) {
-					con.close();
-				}
-				if(stmt != null) {
-					stmt.close();
-				}
-				if(rs != null){
-					rs.close();
-				}
-			} catch(SQLException e){}
+		}catch (SQLException exception) {
+			throw new RuntimeException("Error processing SQL - getList in ProductDAO: "
+					+exception.getMessage());
+		} finally {
+			closeConnectionObjects();
+		}
+		
+		return productList; 
+	}
+	
+	/** getProductById fetch from database all  products saved
+	 * @param productId int id number to be searched
+	 * @return List<Product> list of products and their details 
+	 */
+	public Product getProductById(int productId) {
+        
+		Product product = null;
+		int id = 0;
+		String name = null;
+		String description = null;
+		String imageURL = null;
+		String category = null;
+		String extra = null;
+		double price = 0;
+		
+        this.sqlQuery = "select * from product where idProduct=?";
+
+        setupConnectionObjects();
+        
+        try {
+        	this.statement = this.connection.prepareStatement(this.sqlQuery);
+        	
+        	//Replace '?' characters from sql variable into statement
+        	this.statement.setInt(1, productId);
+        	
+            this.result = this.statement.executeQuery();
+
+            if (this.result.next()) {
+            	//Binding product info
+				id = Integer.parseInt(this.result.getString("idproduct"));
+				name = this.result.getString("name");
+				description = this.result.getString("description");
+				price = Double.parseDouble(this.result.getString("price"));
+				imageURL = this.result.getString("image");
+				category = this.result.getString("Category_idCategory");
+				
+				product = new Product(id, name, description, price, imageURL, category, extra);
+            }
+            
+        } catch (SQLException exception) {
+			throw new RuntimeException("Error processing SQL - getProductById in ProductDAO: "
+					+exception.getMessage());
+		} finally {
+			closeConnectionObjects();
         }
+        
+        return product;
+    }
+	
+	/**
+	 * update product in the database
+	 * @param product object containing full product details
+	 */
+	public void update(Product product) {
+		
+		this.sqlQuery = "update product set name=?, description=?, price=?,"
+				+ " Category_idCategory=? where idProduct=?";		
+		
+		setupConnectionObjects();
+		
+		try {
+			this.statement = this.connection.prepareStatement(this.sqlQuery);
+			
+			//Replace '?' characters from sql variable into statement
+			this.statement.setString(1, product.getName());
+			this.statement.setString(2, product.getDescription());
+			this.statement.setDouble(3, product.getPrice());
+			this.statement.setString(4, product.getCategory());
+			this.statement.setInt(5, product.getId());
+			
+			this.statement.execute();	
+			
+			//Check for an image update
+	        if(product.getImageURL() != null){
+	        	updateImage(product);
+	        } else {
+	        	//nothing to do
+	        }
+			
+		} catch (SQLException exception) {
+			throw new RuntimeException("Error processing SQL - update in ProductDAO: "
+					+exception.getMessage());
+		} finally {
+			closeConnectionObjects();
+        }
+	}	
+	
+	/**
+	 * delete product from database
+	 * @param product object containing full product details
+	 */
+	public void delete(Product product) {	
+		this.sqlQuery = "delete from product where idProduct=?";
+
+		setupConnectionObjects();
+		
+		try {
+			this.statement = connection.prepareStatement(this.sqlQuery);
+			
+			//Replace '?' characters from sql variable into statement
+			this.statement.setInt(1, product.getId());
+			
+			this.statement.execute();
+		} catch (SQLException exception) {
+			throw new RuntimeException("Error processing SQL - delete in ProductDAO: "
+					+exception.getMessage());
+		} finally {
+			closeConnectionObjects();
+        }
+	}
+	
+	/** getProductCategoryList fetch from database all product categories saved
+	 * @return List<String> list of product categories 
+	 */
+	public List<String> getProductCategoryList(){
+		this.sqlQuery = "select name from category";
+		List<String> categoryList = new ArrayList<String>(); 
+		
+		setupConnectionObjects();
+		
+		try { 	    	   
+			this.statement = this.connection.prepareStatement(this.sqlQuery);
+			this.result = this.statement.executeQuery(this.sqlQuery);       
+
+			while (this.result.next()) { 			
+				categoryList.add(this.result.getString("name"));
+			}
+		}catch (SQLException exception) {
+			throw new RuntimeException("Error processing SQL - getProductCategoryList in ProductDAO: "
+					+exception.getMessage());
+		} finally {
+			closeConnectionObjects();
+        }
+		
+		return categoryList; 
+	}	
+
+	/** getProductExtraList fetch from database all product extras saved
+	 * @return List<String> list of product extras 
+	 */
+	public List<String> getProductExtraList(){
+		this.sqlQuery = "select name from extra";
+		List<String> extraList = new ArrayList<String>(); 
+		
+		setupConnectionObjects();
+		
+		try { 	    	   
+			this.statement = this.connection.prepareStatement(this.sqlQuery);
+			this.result = this.statement.executeQuery(this.sqlQuery);       
+
+			while (this.result.next()) { 			
+				extraList.add(this.result.getString("name"));
+			}		
+
+		}catch (SQLException exception) {
+			throw new RuntimeException("Error processing SQL - getProductExtraList in ProductDAO: "
+					+exception.getMessage());
+		} finally {
+			closeConnectionObjects();
+        }
+		
+		return extraList; 
 	}	
 }

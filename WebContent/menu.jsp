@@ -97,7 +97,7 @@
 										</c:choose>
 										<input type="checkbox" name="products[]" value="${product.id}" id="product-${product.id }" style="float:left;display:none;" />
 										<div class="shop-item-image">
-											<img src="${product.imgUrl}" alt="${product.name}">
+											<img src="${product.imageURL}" alt="${product.name}">
 										</div>
 										<div class="title">
 											<h3><c:out value="${product.name}"/></h3>

@@ -108,7 +108,7 @@
 									<!-- Shopping Cart Item -->
 									<tr style="vertical-align: top">
 										<!-- Shopping Cart Item Image -->
-										<td style="overflow: hidden;" class="image"><img src="${item.key.imgUrl}" alt="${item.key.name}"></td>
+										<td style="overflow: hidden;" class="image"><img src="${item.key.imageURL}" alt="${item.key.name}"></td>
 										<!-- Shopping Cart Item Description & Features -->
 										<td style="width:400px;">
 											<div class="shopping-cart title">${item.key.name }</div>
