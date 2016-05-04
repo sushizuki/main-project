@@ -1,4 +1,4 @@
-ï»¿<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,22 +39,22 @@
  		 return false;
  	 }
 	 if(document.formProduct.description.value==""){
-		 alert( "Preencha o campo DESCRIÃ‡ÃƒO!" );
+		 alert( "Preencha o campo DESCRIÇÃO!" );
  		 return false;
 	 }
 	 if(document.formProduct.price.value==""){
-		 alert( "Preencha o PREÃ‡O!" );
+		 alert( "Preencha o PREÇO!" );
  		 return false;
 	 }
 	 if(isNaN(document.formProduct.price.value)){
-		 alert( "Digite apenas nÃºmeros!" );
+		 alert( "Digite apenas números!" );
 		 return false;
 	 }
  document.formProduct.submit();
 }
  
 function confirmation (){
-	decision = confirm("Todos os campos serÃ£o apagados");
+	decision = confirm("Todos os campos serão apagados");
 	if(decision)
 		document.formProduct.reset();	
 }
@@ -149,12 +149,12 @@ function confirmation (){
                                             	value="<c:out value="${product.name}" />" />
                                         </div>
                                         <div class="form-group">
-                                            <label>DescriÃ§Ã£o:</label>
+                                            <label>Descrição:</label>
                                             <textarea class="form-control" name="description" rows="3" 
-                                            placeholder="Breve descriÃ§Ã£o para o produto"><c:out value="${product.description}" /></textarea>
+                                            placeholder="Breve descrição para o produto"><c:out value="${product.description}" /></textarea>
                                         </div>
                                         <div class="form-group">
-                                            <label>PreÃ§o:</label>
+                                            <label>Preço:</label>
 	                                        <div class="input-group">
 	                                            <span class="input-group-addon">R$</span>
 	                                            <input type="text" name="price" id="price" class="form-control" style="width:80px;" maxlength="6"
@@ -163,12 +163,12 @@ function confirmation (){
 	                                    </div>
                                         <div class="form-group">
                                             <label>Imagem:</label>
-			            				 	<c:if test="${not empty product.imgUrl}">
+			            				 	<c:if test="${not empty product.imageURL}">
 			                                    <div class="well well-sm" style="width: 120px">
-							                        <img src="../${product.imgUrl}" data-lightbox="image-1" data-title="${product.name}" style="width:100px;" />
+							                        <img src="../${product.imageURL}" data-lightbox="image-1" data-title="${product.name}" style="width:100px;" />
 							                    </div>
 		                                    </c:if>
-                                            <input type="file" name="img" accept="image/jpeg; image/png">
+                                            <input type="file" class="btn btn-default" name="img" accept="image/jpeg; image/png">
                                         </div>
                                          <div class="form-group">
                                         	<label>Categoria:</label>
