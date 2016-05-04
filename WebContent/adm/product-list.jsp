@@ -146,11 +146,11 @@
                                         	<td style="display: none"><c:out value="${product.id}" /></td>
                                             <td><c:out value="${product.name}" /></td>
                                             <td><c:out value="${product.description}" /></td>
-                                            <td class="center"><c:out value="${product.price}" /></td>
+                                            <td class="center"><fmt:formatNumber value="${product.price}" type="currency" currencySymbol="R$" /></td>
                                             <td class="center"><c:out value="${product.category}" /></td>
                                             <td class="center">
-                                            	<c:if test="${product.imgUrl != null}">
-	                                            	<a href="../${product.imgUrl}" data-lightbox="image-1" data-title="${product.name}" class="btn btn-outline btn-primary btn-xs">
+                                            	<c:if test="${product.imageURL != null}">
+	                                            	<a href="../${product.imageURL}" data-lightbox="image-1" data-title="${product.name}" class="btn btn-outline btn-primary btn-xs">
 														Ver
 													</a>
 												</c:if>

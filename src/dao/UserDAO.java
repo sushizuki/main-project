@@ -51,33 +51,34 @@ public class UserDAO extends DataAccessObject{
 		}
 	}
 
-	private int saveAddress(Address address) {
+	private int saveAddress(Address address) throws SQLException {
 
 		String sqlQuery = "insert into address "
 				+ "(cep, address, addressComplement) "
 				+ "values (?,?,?)";
 
-		setupConnectionObjects();
+		PreparedStatement statement = null;
+		
+		int addressSavedId = 0;
 
 		try {
 			// prepared statement for insertion
-			this.statement = this.connection.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS);
+			statement = this.connection.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS);
 
 			// set values for each '?'
-			this.statement.setString(1, address.getCep());
-			this.statement.setString(2, address.getAddress());
-			this.statement.setString(3, address.getComplement());
+			statement.setString(1, address.getCep());
+			statement.setString(2, address.getAddress());
+			statement.setString(3, address.getComplement());
 
-			int affectedRows = this.statement.executeUpdate();
+			int affectedRows = statement.executeUpdate();
 
 			if (affectedRows == 0) {
 				throw new SQLException("Creating address failed, no rows affected.");
 			}
 
-			try (ResultSet generatedKeys = this.statement.getGeneratedKeys()) {
-				this.statement.close();
+			try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
 				if (generatedKeys.next()) {
-					return (int) generatedKeys.getLong(1);
+					addressSavedId =  generatedKeys.getInt(1);
 				}
 				else {
 					throw new SQLException("Creating address failed, no ID obtained.");
@@ -87,29 +88,30 @@ public class UserDAO extends DataAccessObject{
 			throw new RuntimeException("Error processing SQL - saveAddress in UserDAO: "
 					+exception.getMessage());
 		}  finally {
-			closeConnectionObjects();
+			statement.close();
 		}
+		return addressSavedId;
 	}
 
-	private void updateAddress(Address address) {
+	private void updateAddress(Address address) throws SQLException {
 
 		String sqlQuery = "update address set cep=?, address=?, addressComplement=? "
 				+ "where idAddress=?";
 
-		setupConnectionObjects();
-
+		PreparedStatement statement = null;
+		
 		try {
-			this.statement = this.connection.prepareStatement(sqlQuery);
-			this.statement.setString(1, address.getCep());
-			this.statement.setString(2, address.getAddress());
-			this.statement.setString(3, address.getComplement());
-			this.statement.setInt(4, address.getId());
-			this.statement.execute();
+			statement = this.connection.prepareStatement(sqlQuery);
+			statement.setString(1, address.getCep());
+			statement.setString(2, address.getAddress());
+			statement.setString(3, address.getComplement());
+			statement.setInt(4, address.getId());
+			statement.execute();
 		} catch (SQLException exception) {
 			throw new RuntimeException("Error processing SQL - updateAddress in UserDAO: "
 					+exception.getMessage());
 		}  finally {
-			closeConnectionObjects();
+			statement.close();
 		}
 	}
 
@@ -129,6 +131,7 @@ public class UserDAO extends DataAccessObject{
 
 			if (this.result.next()) {
 				final int userId = this.result.getInt("iduser");
+				
 				if(isUserClient(userId)){  
 					user = getClientById(userId);
 				} else {
@@ -191,8 +194,6 @@ public class UserDAO extends DataAccessObject{
 		PreparedStatement statement = null;
 		ResultSet result = null;
 		
-		setupConnectionObjects();
-
 		try {
 			statement = this.connection.prepareStatement(sqlQuery);
 			statement.setInt(1, id);

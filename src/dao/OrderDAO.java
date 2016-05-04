@@ -72,28 +72,30 @@ public class OrderDAO extends DataAccessObject{
 		return savedAddressId;
 	}
 	
-	private Receiving getReceivingFromOrder(int addressId){				
+	//Must open new Statement, Query and Result objects to not interfere on calling methods
+	private Receiving getReceivingFromOrder(int addressId) throws SQLException{				
 		String addressDescription = null;
 		String cep = null;
 		String complement = null;
-        this.sqlQuery = "select * from address where idAddress=?";
+        String sqlQuery = "select * from address where idAddress=?";
         Receiving receivingMethod = null;
 
-        setupConnectionObjects();
+        PreparedStatement statement = null;
+		ResultSet result = null;
         
         try {
-            this.statement = this.connection.prepareStatement(this.sqlQuery);
+            statement = this.connection.prepareStatement(sqlQuery);
             
             // Replace '?' characters from sql variable into statement
-            this.statement.setInt(1, addressId);
+            statement.setInt(1, addressId);
             
-            this.result = this.statement.executeQuery();
+            result = statement.executeQuery();
 
             //If SQL query returned result
-            if (this.result.next()) {
-				cep = this.result.getString("cep");
-				addressDescription = this.result.getString("address");
-				complement = this.result.getString("addressComplement");
+            if (result.next()) {
+				cep = result.getString("cep");
+				addressDescription = result.getString("address");
+				complement = result.getString("addressComplement");
 				
 				Address address = new Address(addressId, cep, addressDescription, complement);
 				
@@ -109,7 +111,8 @@ public class OrderDAO extends DataAccessObject{
 			throw new RuntimeException("Error processing SQL - getReceivingFromOrder in OrderDAO: "
 					+exception.getMessage());
 		}  finally {
-			closeConnectionObjects();
+			statement.close();
+			result.close();
 		}
         
         return receivingMethod;
@@ -275,7 +278,7 @@ public class OrderDAO extends DataAccessObject{
 				listAdditional.add(additional);
 			}
 		}catch (SQLException exception) {
-			throw new RuntimeException("Error processing SQL - assignAdditionalsToOrder in OrderDAO: "
+			throw new RuntimeException("Error processing SQL - assignAditionalsToOrder in OrderDAO: "
 					+exception.getMessage());
 		}  finally {
 			statement.close();
@@ -333,31 +336,34 @@ public class OrderDAO extends DataAccessObject{
 		}
 	}	
 	
-	public HashMap<Product, Integer> getProductsFromOrder(Order order) throws SQLException{		
+	//Must open new Statement, Query and Result objects to not interfere on calling methods
+	private HashMap<Product, Integer> getProductsFromOrder(Order order) throws SQLException{		
 		ProductDAO productDao = new ProductDAO();
 		HashMap<Product,Integer> mapProductQuantity = new HashMap<Product,Integer>();
 		
-		this.sqlQuery = "select product_idProduct, quantity from order_has_product "
+		String sqlQuery = "select product_idProduct, quantity from order_has_product "
 				+ "where order_idOrder=? ";
 
-		setupConnectionObjects();
+		PreparedStatement statement = null;
+		ResultSet result = null;
 		
 		try { 
-			this.statement = this.connection.prepareStatement(sqlQuery);   
-			this.statement.setInt(1, order.getId());
+			statement = this.connection.prepareStatement(sqlQuery);   
+			statement.setInt(1, order.getId());
 			
-			this.result = this.statement.executeQuery();
+			result = statement.executeQuery();
 			
-			while (this.result.next()) {       
-				Product product = productDao.getProductById(this.result.getInt("product_idProduct"));
-				mapProductQuantity.put(product, this.result.getInt("quantity"));
+			while (result.next()) {       
+				Product product = productDao.getProductById(result.getInt("product_idProduct"));
+				mapProductQuantity.put(product, result.getInt("quantity"));
 			}
 			mapProductQuantity = setExtraFromProductsInOrder(mapProductQuantity, order);
 		}catch (SQLException exception) {
 			throw new RuntimeException("Error processing SQL - getProductsFromOrder in OrderDAO: "
 					+exception.getMessage());
 		}  finally {
-			closeConnectionObjects();
+			statement.close();
+			result.close();
 		}
 		return mapProductQuantity; 
 	}
@@ -456,22 +462,24 @@ public class OrderDAO extends DataAccessObject{
 		return additional; 
     }
 	
-	private Payment getPaymentFromOrder(int idPayment) {		
+	//Must open new Statement, Query and Result objects to not interfere on calling methods
+	private Payment getPaymentFromOrder(int idPayment) throws SQLException {		
 		String paymentType = null;
 		String change = null;
-        this.sqlQuery = "select * from payment where idpayment=?";
+        String sqlQuery = "select * from payment where idpayment=?";
         Payment payment = null;
 
-        setupConnectionObjects();
+        PreparedStatement statement = null;
+		ResultSet result = null;
         
         try {
-            this.statement = this.connection.prepareStatement(this.sqlQuery);
-            this.statement.setInt(1, idPayment);
-            this.result = this.statement.executeQuery();
+            statement = this.connection.prepareStatement(sqlQuery);
+            statement.setInt(1, idPayment);
+            result = statement.executeQuery();
 
-            if (this.result.next()) {
-				change = this.result.getString("paymentChange");
-				paymentType = this.result.getString("paymentType_id");
+            if (result.next()) {
+				change = result.getString("paymentChange");
+				paymentType = result.getString("paymentType_id");
 				
 				payment = new Payment(idPayment, paymentType, change);
             }
@@ -479,7 +487,8 @@ public class OrderDAO extends DataAccessObject{
 			throw new RuntimeException("Error processing SQL - getPaymentFromOrder in OrderDAO: "
 					+exception.getMessage());
 		}  finally {
-			closeConnectionObjects();
+			statement.close();
+			result.close();
 		}		
 		return payment; 
 	}
