@@ -5,7 +5,6 @@
 
 package dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -116,7 +115,7 @@ public class UserDAO extends DataAccessObject{
 
 	public User login(String email, String password){
 
-		String sqlQuery = "select * from user where email=? and password=? limit 1";
+		String sqlQuery = "select * from user where email=? and password=?";
 		User user = null;
 
 		setupConnectionObjects();
@@ -129,17 +128,20 @@ public class UserDAO extends DataAccessObject{
 			this.result = this.statement.executeQuery();
 
 			if (this.result.next()) {
-				if(isUserClient(this.result.getInt("iduser"))){  
-					user = getClientById(this.result.getInt("iduser"));
+				final int userId = this.result.getInt("iduser");
+				if(isUserClient(userId)){  
+					user = getClientById(userId);
 				} else {
-					user = getAdministratorById(this.result.getInt("iduser"));
+					user = getAdministratorById(userId);
 				}
-				user.setId(Integer.parseInt(this.result.getString("iduser")));
+				user.setId(userId);
 				user.setName(this.result.getString("name"));
 				user.setEmail(this.result.getString("email"));
 				user.setPhone(this.result.getString("phone"));
 				user.setPassword(this.result.getString("password"));	        
-			} 
+			} else {
+				//nothing to do, no user found
+			}
 
 		} catch (SQLException exception) {
 			throw new RuntimeException("Error processing SQL - login in UserDAO: "
@@ -150,58 +152,64 @@ public class UserDAO extends DataAccessObject{
 		return user;
 	}
 
-	private Client getClientById(int id){
+	//Must open new Statement and Result objects to not interfere on calling methods
+	private Client getClientById(int clientId) throws SQLException{
 		String sqlQuery = "select address_idAddress from client where user_iduser=?";
 		Client client = null;
+		PreparedStatement statement = null;
+		ResultSet result = null;
 		
-		setupConnectionObjects();
-
 		try {
-			this.statement = this.connection.prepareStatement(sqlQuery);
-			this.statement.setInt(1, id);
+			statement = this.connection.prepareStatement(sqlQuery);
+			statement.setInt(1, clientId);
 			
-			this.result = this.statement.executeQuery();
+			result = statement.executeQuery();
 
 			//If SQL query returned result
-			if (this.result.next()) {
+			if (result.next()) {
 				AddressDAO daoAddress = new AddressDAO();
-				Address addr = daoAddress.getAddressById(this.result.getInt("address_idAddress"));
-				this.result.getString("address_idAddress");
-				client = new Client(addr);
+				Address address = daoAddress.getAddressById(result.getInt("address_idAddress"));
+				result.getString("address_idAddress");
+				client = new Client(address);
 			} else {
-				//nothing to do
+				//nothing to do, no client found
 			}
 		}  catch (SQLException exception) {
 			throw new RuntimeException("Error processing SQL - getClientById in UserDAO: "
 					+exception.getMessage());
 		}  finally {
-			closeConnectionObjects();
+			statement.close();
+			result.close();
 		}
 		return client;
 	}
 
-	private Administrator getAdministratorById(int id){	
+	//Must open new Statement and Result objects to not interfere on calling methods
+	private Administrator getAdministratorById(int id) throws SQLException{	
 		String sqlQuery = "select 1 from administrator where user_iduser=?";
 		Administrator administrator = null;
+		PreparedStatement statement = null;
+		ResultSet result = null;
 		
 		setupConnectionObjects();
 
 		try {
-			this.statement = this.connection.prepareStatement(sqlQuery);
-			this.statement.setInt(1, id);
-			this.result = this.statement.executeQuery();
+			statement = this.connection.prepareStatement(sqlQuery);
+			statement.setInt(1, id);
+			result = statement.executeQuery();
 
-			if (this.result.next()) {
+			if (result.next()) {
 				administrator = new Administrator();
 			} else {
 				//nothing to do
 			}
 
 		} catch (SQLException exception) {
-			throw new RuntimeException("Error processing SQL - login in UserDAO: "
+			throw new RuntimeException("Error processing SQL - getAdministratorById in UserDAO: "
 					+exception.getMessage());
 		}  finally {
-			closeConnectionObjects();
+			statement.close();
+			result.close();
 		}
 		return administrator;
 	}
@@ -241,18 +249,19 @@ public class UserDAO extends DataAccessObject{
 		return user;
 	}
 	
-	public boolean isUserClient(int idUser){
+	//Must open new Statement and Result objects to not interfere on calling methods
+	private boolean isUserClient(int idUser) throws SQLException{
 		String sqlQuery = "select 1 from client where user_iduser=?";
 		boolean userIsClient = true;
-		
-		setupConnectionObjects();
+		PreparedStatement statement = null;
+		ResultSet result = null;
 
 		try {
-			this.statement = this.connection.prepareStatement(sqlQuery);
-			this.statement.setInt(1, idUser);
-			this.result = this.statement.executeQuery();
+			statement = this.connection.prepareStatement(sqlQuery);
+			statement.setInt(1, idUser);
+			result = statement.executeQuery();
 
-			if (this.result.next()) {
+			if (result.next()) {
 				userIsClient = true;
 			} else {
 				userIsClient = false;
@@ -262,7 +271,8 @@ public class UserDAO extends DataAccessObject{
 			throw new RuntimeException("Error processing SQL - isUserClient in UserDAO: "
 					+exception.getMessage());
 		}  finally {
-			closeConnectionObjects();
+			statement.close();
+			result.close();
 		}
 		
 		return userIsClient;

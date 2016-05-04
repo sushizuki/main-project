@@ -10,10 +10,8 @@
 		<link rel="stylesheet" href="css/bootstrap.min.css" />
 		<link rel="stylesheet" href="css/openSansFamily.css" />
 		<link rel="stylesheet" href="css/main-red.css" />
-		<link rel="stylesheet" href="css/jquery-ui.min.css">
+		<link rel="stylesheet" href="css/jquery-ui.min.css">		
 		<link rel="stylesheet" type="text/css" href="css/jquery.timepicker.css" />
-		<script	src="js/jquery-ui.min.js"></script>
-		<script src="js/jquery.timepicker.js"></script>
 	</head>
 	<body>
 		<!-- Top bar-->
@@ -73,62 +71,58 @@
 				</nav> <!-- End Navigation bar -->
 			</div> <!-- End container  -->
 		</div> <!-- End top bar  -->
-
-	
-		<!-- Main Content  -->
-		<div class="content container">
-			<div class="row">
-               	<h1 class="page-header">Buscar no local</h1>
+		<!-- Main content -->
+	    <div class="content container">
+	    	<div class="row">
+	           	<h2>Retirar no local</h2>
 			</div>
-  			<div class="container">
+  			<div class="row">
 	  			<form role="form" name="formCollect" action="Order?action=setCollectTime" method="post">
-	  				<div class="row">
-		            	<div class="col-md-3 col-sm-6 col-xs-12">
-		                	<div class="row">
-		                    	<p>Informe a data e horário para coleta do seu pedido.</p>
-		                    	<p class="alert-warning" style="padding:10px;">
-		                    		<i class="glyphicon glyphicon-alert icon-dark"></i> 
-		                    		Somente dias de Sexta-feira, Sábado ou Domingo!
-		                    	</p>
-	                    	</div>
-	                    	<div class="row">
-	                    		<div class="input-group bootstrap-timepicker timepicker">                    			
-	                    			<input id="datepicker" type="text" class="form-control" readonly="readonly" style="background:white; cursor:text;" name="date">
-							        <span class="input-group-addon">
-							        	<label for="datepicker"><i class="glyphicon glyphicon-calendar"></i></label>
-							        </span>						        
-	                    		</div>
-		                    	<div class="input-group bootstrap-timepicker timepicker">
-						            <input id="timepicker" type="text" class="form-control input-small" name="time">
-						            <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-						        </div>		                    
-		                    </div>
-		                    <div>
-		                        <p>
-		                        	O endereço para busca no local é:<br><br>
-		                        	<b>SMPW Quadra 26 Conjunto 6 Lote 5 casa D, <br>Condomínio Recanto da Primavera.</b>
-		                        </p>
-		                    </div>          
-						</div> 
-			      		<div class="col-md-9 col-sm-6 col-xs-12">
-			      			<div class="pull-right">
-				             	<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3836.769922896627!2d-47.96928648485721!3d-15.921114130326632!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935a292f4880cdc1%3A0x856e76e030fa3e75!2sSmpw+Trecho+1+Q+26+Conjunto+6+7%2C+7+-+N%C3%BAcleo+Bandeirante%2C+Bras%C3%ADlia+-+DF!5e0!3m2!1sen!2sbr!4v1445826478412" 
-				             	style="min-width:100%;border:0;"></iframe>
-			             	</div>
-			            </div>  
+	            	<div class="col-md-6 col-sm-6 col-xs-12">
+                    	<div class="input-group">
+						   	<p>Informe a data e horário para a entrega do seu pedido.</p>
+						   	<br />
+							<p class="alert-warning" style="padding:10px;">
+								<i class="glyphicon glyphicon-alert icon-dark"></i> 
+								Somente dias de Sexta-feira, Sábado ou Domingo!
+							</p>
+							<br>
+							<div class="input-group">
+								<div class="input-group bootstrap-timepicker timepicker">                    			
+									<span class="input-group-addon">
+									 	<label for="datepicker"><i class="glyphicon glyphicon-calendar"></i></label>
+									</span>
+									<input id="datepicker" type="text" class="form-control validate" readonly="readonly" style="background:white; cursor:text;" name="date">
+								</div>
+					        	<div class="input-group bootstrap-timepicker timepicker">
+							    	<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+							    	<input id="timepicker" type="text" class="form-control input-small validate" name="time">
+							    </div>		                    
+						    </div>
+			        	</div>
+	                    <div>
+	                        <p>
+	                        	O endereço para busca no local é:<br><br>
+	                        	<b>SMPW Quadra 26 Conjunto 6 Lote 5 casa D, <br>Condomínio Recanto da Primavera.</b>
+	                        </p>
+	                    </div>   
 		            </div>
-		            <hr />
-	                <!-- Action Buttons -->
-		            <div class="row">
-		                <div class="pull-right">
-			                 <button type="button" class="btn btn-primary" onclick="history.go(-1)">Voltar</button>	                                        
-			                 <button type="submit" class="btn btn-primary" disabled="disabled">Continuar</button>   
-		                </div> 
-	                </div>
-				</form>               
-	        </div> <!-- End Container -->
-        </div> <!-- End Main Content -->
-        
+		      		<div class="col-md-6 col-sm-6 col-xs-12">
+		      			<div class="pull-right">
+			             	<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3836.769922896627!2d-47.96928648485721!3d-15.921114130326632!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935a292f4880cdc1%3A0x856e76e030fa3e75!2sSmpw+Trecho+1+Q+26+Conjunto+6+7%2C+7+-+N%C3%BAcleo+Bandeirante%2C+Bras%C3%ADlia+-+DF!5e0!3m2!1sen!2sbr!4v1445826478412" 
+			             	style="min-width:100%;border:0;"></iframe>
+		             	</div>
+		            </div>  
+		    	</div> <!-- /.row --> 
+	            <hr />
+	            <!-- Action Buttons -->
+	            <div class="row" style="text-align: right" style="background:red;">
+	              	<button type="button" class="btn btn-primary" onclick="history.go(-1)">Voltar</button>	                                        
+	              	<button type="submit" class="btn btn-primary" disabled="disabled">Continuar</button>   
+	            </div>                     
+			</form>
+	    </div> <!-- End Main Content --> 
+		
 		<!-- Footer -->
 	    <div class="footer">
 	    	<div class="container">
@@ -164,9 +158,14 @@
 		    		</div>
 		    	</div>
 		    </div>
-	    </div><!-- End footer -->    
-    
+	    </div><!-- End footer -->
+	    
 		<!-- Javascripts -->
+		<script	src="js/jquery-1.9.1.min.js"></script>
+		<script	src="js/jquery-ui.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/jquery.timepicker.js"></script>
+		<script src="js/jquery.mask.js"></script>
 		<script>
 		  $(function() {
 		    $('#datepicker').datepicker({ 
@@ -176,29 +175,58 @@
 		        language: 'pt-BR',
 		        beforeShowDay: function(date){ return [(date.getDay() >= 5 || date.getDay() == 0),""]} 
 		    });
-		
 		    $('#timepicker').timepicker({ 'scrollDefault': 'now','timeFormat': 'H:i' });
 		  });
 		</script>
 		<script>
-			function doCheck(){
-			    var allFilled = true;
-			    $('input[type=text]').each(function(){
+		function doCheck(){
+		    var allFilled = true;
+	
+			if($('#new-addr').prop("checked") == false){
+				$('.validate').each(function(){
 			        if($(this).val() == '' ){
 			            allFilled = false;
 			            return false;
 			        }
 			    });
-			    $('button[type=submit]').prop('disabled', !allFilled);
+			} else {
+				$('.validateNewAddr').each(function(){
+			        if($(this).val() == '' ){
+			            allFilled = false;
+			            return false;
+			        }
+			    });
 			}
-		
-			$(document).ready(function(){
-			    $('input[type=text]').keyup(doCheck).focusout(doCheck);
-			});
+		    $('button[type=submit]').prop('disabled', !allFilled);
+		}
+	
+		$(document).ready(function(){
+	
+		    $('input').keyup(doCheck).focusout(doCheck);
+	
+			//Selecting items
+	        $('input[type=radio]').click(function(ev) {
+	    		var cliAddr = "#client-addr";
+	    		var newAddr = "#new-addr";
+	    		if($(newAddr).prop("checked") == false){
+	        		$('.new-addrInput').prop("readonly", true);
+	        		$('#info-addr').hide("fast");
+	    		} else {
+	        		$('.new-addrInput').prop("readonly", false);
+	        		$('#info-addr').show("fast");
+	        		$('#cep').focus();
+	    		}
+	    	});
+	
+	        $('.cep').mask('00000-000');
+		});
 		</script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.js"></script>
+		<script src="js/jquery.fitvids.js"></script>
 		<script src="js/jquery.sequence-min.js"></script>
 		<script src="js/jquery.bxslider.js"></script>
+		<script src="js/main-menu.js"></script>
 		<script src="js/template.js"></script>	
-	
 	</body>
 </html>

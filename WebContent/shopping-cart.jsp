@@ -57,7 +57,7 @@
 								<img src="img/sushi/sushizuki-logo.png" alt="Sushizuki">
 							</a>
 						</li>
-						<li class="active">
+						<li>
 							<a href="index">Home</a>
 						</li>
 						<li>
@@ -83,22 +83,28 @@
 							<div class="col-md-12 col-sm-12 items">
 								<!-- Shopping Cart Items -->
 								<div class="row items-heading"> <!-- Items heading -->
+									<div class="col-md-1 col-sm-1"></div>
 									<div class="col-md-1 col-sm-3 center"></div>
 									<div class="col-md-6 col-sm-5"><h3>Descrição</h3></div>
 									<div class="col-md-1 col-sm-1 center"><h3>Preço</h3></div>
 									<div class="col-md-2 col-sm-1 center"><h3>Qtd.</h3></div>
 									<div class="col-md-1 col-sm-1 center"><h3>Total</h3></div>
-									<div class="col-md-1 col-sm-1"></div>
 								</div>
 									<c:forEach var="item" items="${order.items}">
 										<!-- Shopping Cart Item -->
 										<div class="row item-line"> <!-- Item (line) -->
+											<!-- Shopping Cart Item Actions -->
+											<div class="col-md-1 col-sm-1 col-xs-3 item-line-prop item-actions">
+												<a href="#" class="btn btn-md btn-grey center" aria-hidden="true" style="background:none;border:none;">
+													<i class="glyphicon glyphicon-remove"></i><br />Remover
+												</a>
+											</div>
 											<!-- Image -->
 											<div class="col-md-1 col-sm-3 col-xs-12 item-img item-line-prop">
 												<img src="${item.key.imageURL}" class="center" alt="${item.key.name}">
 											</div>
 											<!-- Item Description & Features -->
-											<div class="col-md-6 col-sm-5 col-xs-5 item-line-prop item-desc">
+											<div class="col-md-6 col-sm-5 col-xs-12 item-line-prop item-desc">
 												<div class="shopping-cart title">${item.key.name }</div>
 												<div class="feature">Descrição: <br><b>${item.key.description }</b></div>
 												<c:if test="${item.key.extra != null}">
@@ -106,22 +112,18 @@
 												</c:if>
 											</div>
 											<!-- Price -->
-											<div class="col-md-1 col-sm-1 col-xs-2 center item-line-prop item-price">		
+											<div class="col-md-1 col-sm-1 col-xs-3 center item-line-prop item-price">		
 												<fmt:setLocale value="pt-BR" />
 												<fmt:formatNumber value="${item.key.price}" type="currency" currencySymbol="R$" />
 											</div>
 											<!-- Quantity -->
-											<div class="col-md-2 col-sm-1 col-xs-2 center item-line-prop item-qtd">
+											<div class="col-md-2 col-sm-1 col-xs-3 center item-line-prop item-qtd">
 												<input class="form-control input-sm input-micro center" type="text" value="${item.value}">
 											</div>
 											<!-- Total -->
-											<div class="col-md-1 col-sm-1 col-xs-2 center item-line-prop item-total">		
+											<div class="col-md-1 col-sm-1 col-xs-3 center item-line-prop item-total">		
 												<fmt:setLocale value="pt-BR" />
 												<fmt:formatNumber value="${item.key.price*item.value}" type="currency" currencySymbol="R$" />
-											</div>
-											<!-- Shopping Cart Item Actions -->
-											<div class="col-md-1 col-sm-1 col-xs-1 item-line-prop item-actions">
-												<a href="#" class="btn btn-xs btn-grey"><i class="glyphicon glyphicon-trash"></i></a>
 											</div>
 										</div> <!-- End item (line) -->
 										<!-- End Shopping Cart Item -->	
@@ -140,10 +142,10 @@
 									<strong>Grátis</strong>
 								</div>
 								<div class="col-md-10 col-sm-9 col-xs-6" style="text-align: right">
-									<strong>Total</strong>
+									<h3><strong>Total</strong></h3>
 								</div>
 								<div class="col-md-2 col-sm-3 col-xs-6">
-									<strong><fmt:formatNumber value="${order.totalPrice}" type="currency" currencySymbol="R$" /></strong>
+									<h3><strong><fmt:formatNumber value="${order.totalPrice}" type="currency" currencySymbol="R$" /></strong></h3>
 								</div>
 							</div>				
 							<div class="col-md-2 col-sm-3 col-xs-3">
@@ -191,7 +193,7 @@
 						           	</div> 
 					           	</div>
 								
-								<!-- Shipment Options -->
+								<!-- Shipping Options -->
 								<div class="col-md-6 col-sm-6 col-xs-12">
 									<div class="cart-shippment-options">
 										<h4><i class="glyphicon glyphicon-plane"></i> Entrega</h4>
@@ -225,7 +227,8 @@
 				</div>
 			</div>
 		</div>	<!-- End Main Content -->
-    <!-- Footer -->
+    	
+    	<!-- Footer -->
 	    <div class="footer">
 	    	<div class="container">
 		    	<div class="row">

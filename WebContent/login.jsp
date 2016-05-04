@@ -97,7 +97,7 @@
 								<input type="hidden" name="redir" value="${param.redir }">
 								<a href="page-password-reset.html" class="forgot-password">Esqueceu sua senha?</a><br/>
 								<a href="page-register.html">Cadastre-se</a>
-								<button type="submit" class="btn pull-right" disabled="disabled">Login</button>
+								<button type="submit" id="btn-login" class="btn pull-right">Login</button>
 							</div>
 						</form>
 					</div>
@@ -169,6 +169,9 @@
 
 			$(document).ready(function(){
 			    $('input').keyup(doCheck).focusout(doCheck);
+			    if($('#login-password').val().length === 0){
+			    	$('#btn-login').prop('disabled', true);
+				}				    
 			});
 		</script>
 		<script src="js/bootstrap.min.js"></script>
