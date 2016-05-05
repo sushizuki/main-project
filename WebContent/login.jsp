@@ -5,14 +5,11 @@
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<title>Sushizuki</title>
-		<meta name="description" content="" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="description" content="Sushizuki" />
+		<meta name="viewport" content="width=device-width, user-scalable=no" />
 		<link rel="stylesheet" href="css/bootstrap.min.css" />
-		<link rel="stylesheet" href="css/icomoon-social.css" />
-		<link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600,800' />
-		<link rel="stylesheet" href="css/leaflet.css" />
+		<link rel="stylesheet" href="css/open-sans-family.css" />
 		<link rel="stylesheet" href="css/main-red.css" />
-		<script src="js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 	</head>
 	<body>
 		<!-- Top bar-->
@@ -143,11 +140,8 @@
 	    </div><!-- End footer -->
 
 		<!-- Javascripts -->
-		<script
-			src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-		<script>
-			window.jQuery || document.write('<script src="js/jquery-1.9.1.min.js"><\/script>')
-		</script>
+		<script src="js/jquery-1.9.1.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
 		<script>
 			//Check if input's content is a valid email
 			function isEmail(email) {
@@ -174,11 +168,5 @@
 				}				    
 			});
 		</script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/jquery.fitvids.js"></script>
-		<script src="js/jquery.sequence-min.js"></script>
-		<script src="js/jquery.bxslider.js"></script>
-		<script src="js/main-menu.js"></script>
-		<script src="js/template.js"></script>
 	</body>
 </html>

@@ -6,8 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Sushizuki">
     <title>Sushizuki - Cadastrar Produto</title>
     <!-- Bootstrap Core CSS -->
     <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -17,33 +16,6 @@
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
     <!-- Custom Fonts -->
     <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-	<script type="text/javascript"> 
-	 function validation(){ 
-		 if(document.formProduct.name.value==""){
-			 alert( "Preencha o campo NOME!" );
-	 		 return false;
-	 	 }
-		 if(document.formProduct.description.value==""){
-			 alert( "Preencha o campo DESCRIÇÃO!" );
-	 		 return false;
-		 }
-		 if(document.formProduct.price.value==""){
-			 alert( "Preencha o PREÇO!" );
-	 		 return false;
-		 }
-		 if(isNaN(document.formProduct.price.value)){
-			 alert( "Digite apenas números!" );
-			 return false;
-		 }
-	 document.formProduct.submit();
-	}
-	 
-	function confirmation (){
-		decision = confirm("Todos os campos serão apagados");
-		if(decision)
-			document.formProduct.reset();	
-	}
-	</script>
 </head>
 <body>
     <div id="wrapper">

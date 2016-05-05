@@ -9,7 +9,7 @@
 		<meta name="description" content="Sushizuki" />
 		<meta name="viewport" content="width=device-width, user-scalable=no" />
 		<link rel="stylesheet" href="css/bootstrap.min.css" />
-		<link rel="stylesheet" href="css/openSansFamily.css" />
+		<link rel="stylesheet" href="css/open-sans-family.css" />
 		<link rel="stylesheet" href="css/main-red.css" />
 	</head>
 	<body>
@@ -308,10 +308,7 @@
         $("#change").maskMoney();
 	});
 	</script>
+	<script src="js/jquery-1.9.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.sequence-min.js"></script>
-	<script src="js/jquery.bxslider.js"></script>
-	<script src="js/template.js"></script>
-
 </body>
 </html>

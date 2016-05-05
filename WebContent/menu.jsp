@@ -9,7 +9,7 @@
 		<meta name="description" content="Sushizuki" />
 		<meta name="viewport" content="width=device-width, user-scalable=no" />
 		<link rel="stylesheet" href="css/bootstrap.min.css" />
-		<link rel="stylesheet" href="css/openSansFamily.css" />
+		<link rel="stylesheet" href="css/open-sans-family.css" />
 		<link rel="stylesheet" href="css/main-red.css" />
 	</head>
 	<body>
@@ -174,11 +174,9 @@
 		    </div>
 	    </div><!-- End footer -->
 		
-		<!-- Javascripts -->
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-		<script>
-			window.jQuery || document.write('<script src="js/jquery-1.9.1.min.js"><\/script>')
-		</script>
+		<!-- Javascripts -->		
+		<script src="js/jquery-1.9.1.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
 		<script>
 			$(document).ready(function() {
 	
@@ -220,11 +218,5 @@
 				}
 			});
 		</script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/jquery.fitvids.js"></script>
-		<script src="js/jquery.sequence-min.js"></script>
-		<script src="js/jquery.bxslider.js"></script>
-		<script src="js/main-menu.js"></script>
-		<script src="js/template.js"></script>
 	</body>
 </html>

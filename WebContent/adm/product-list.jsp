@@ -7,38 +7,22 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Sushizuki">
     <title>Sushizuki</title>
-
     <!-- Bootstrap Core CSS -->
     <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- MetisMenu CSS -->
     <link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
-
     <!-- DataTables CSS -->
     <link href="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
-
     <!-- DataTables Responsive CSS -->
-    <link href="../bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
-    
+    <link href="../bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">    
     <!-- Lightbox -->
     <link href="../css/lightbox.css" rel="stylesheet">
-
     <!-- Custom CSS -->
-    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
-    
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">    
     <!-- Custom Fonts -->
     <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
 </head>
 
 <body>
@@ -92,80 +76,75 @@
 
         <div id="page-wrapper">       
             <div class="row">
-	            <div class="col-lg-12">
-	            	<div class="message" id="message">
-	            		 <c:if test="${message == 'sucess'}">
-				        	<div class="alert alert-success alert-dismissable fade">
-				                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				                Realizado com sucesso!
-				            </div>
-			            </c:if>
-			        	<c:if test="${message == 'failure'}">            
-				            <div class="alert alert-danger alert-dismissable fade">
-				                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				                Algum erro ocorreu.
-				            </div>
-			            </c:if>
-	            	</div>		           
-                    <h1 class="page-header">Produtos</h1>   
-                    <div class="form-group">                 
-                    	<a class="btn btn-primary" href="Product?action=newProduct">Cadastrar novo produto</a>  
-                    </div>                  
+                <h1 class="page-header">Produtos</h1>   
+            	<div class="message" id="message">
+            		 <c:if test="${message == 'sucess'}">
+			        	<div class="alert alert-success alert-dismissable fade">
+			                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			                Realizado com sucesso!
+			            </div>
+		            </c:if>
+		        	<c:if test="${message == 'failure'}">            
+			            <div class="alert alert-danger alert-dismissable fade">
+			                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			                Algum erro ocorreu.
+			            </div>
+		            </c:if>
+            	</div>		           
+                <div class="form-group">                 
+                	<a class="btn btn-primary" href="Product?action=newProduct">Cadastrar novo produto</a>  
                 </div>
-                <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Lista de produtos cadastrados
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="dataTable_wrapper">
-                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                    <thead>
-                                        <tr>
-                                        	<th style="display: none">ID</th>
-                                            <th style="width:150px;">Nome</th>
-                                            <th style="width:350px;">Descrição</th>
-                                            <th class="center" style="width:100px;">Preço </th>
-                                            <th class="center" style="width:150px;">Categoria </th>
-                                            <th class="center">Imagem </th>
-                                            <th class="center" style="width:150px;">Ações </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>                                    	
-                                    <c:forEach items="${products}" var="product">                                    	
-                                        <tr class="gradeA">
-                                        	<td style="display: none"><c:out value="${product.id}" /></td>
-                                            <td><c:out value="${product.name}" /></td>
-                                            <td><c:out value="${product.description}" /></td>
-                                            <td class="center"><fmt:formatNumber value="${product.price}" type="currency" currencySymbol="R$" /></td>
-                                            <td class="center"><c:out value="${product.category}" /></td>
-                                            <td class="center">
-                                            	<c:if test="${product.imageURL != null}">
-	                                            	<a href="../${product.imageURL}" data-lightbox="image-1" data-title="${product.name}" class="btn btn-outline btn-primary btn-xs">
-														Ver
-													</a>
-												</c:if>
-                                            </td>
-                                            <td class="center">
-                               					<a class="btn btn-outline btn-primary btn-xs" href="Product?action=getProduct&id=<c:out value="${product.id}"/>">Editar</a>
-												<a class="btn btn-outline btn-primary btn-xs" href="Product?action=deleteProduct&id=<c:out value="${product.id}"/>" data-confirm="Tem certeza que deseja excluir?">Excluir</a>                                                	
-                                            </td>
-                                        </tr>
-                                    </c:forEach>                                       
-                                    </tbody>
-                                </table>                                
-                            </div>    
-                            <!-- /.table-responsive -->                            
-                        </div>
-                        <!-- /.panel-body -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Lista de produtos cadastrados
                     </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="dataTable_wrapper">
+                            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                <thead>
+                                    <tr>
+                                    	<th style="display: none">ID</th>
+                                        <th style="width:150px;">Nome</th>
+                                        <th style="width:350px;">Descrição</th>
+                                        <th class="center" style="width:100px;">Preço </th>
+                                        <th class="center" style="width:150px;">Categoria </th>
+                                        <th class="center">Imagem </th>
+                                        <th class="center" style="width:150px;">Ações </th>
+                                    </tr>
+                                </thead>
+                                <tbody>                                    	
+                                <c:forEach items="${products}" var="product">                                    	
+                                    <tr class="gradeA">
+                                    	<td style="display: none"><c:out value="${product.id}" /></td>
+                                        <td><c:out value="${product.name}" /></td>
+                                        <td><c:out value="${product.description}" /></td>
+                                        <td class="center"><fmt:formatNumber value="${product.price}" type="currency" currencySymbol="R$" /></td>
+                                        <td class="center"><c:out value="${product.category}" /></td>
+                                        <td class="center">
+                                        	<c:if test="${product.imageURL != null}">
+                                         	<a href="../${product.imageURL}" data-lightbox="image-1" data-title="${product.name}" class="btn btn-outline btn-primary btn-xs">
+										Ver
+									</a>
+								</c:if>
+                                        </td>
+                                        <td class="center">
+                           					<a class="btn btn-outline btn-primary btn-xs" href="Product?action=getProduct&id=<c:out value="${product.id}"/>">Editar</a>
+								<a class="btn btn-outline btn-primary btn-xs" href="Product?action=deleteProduct&id=<c:out value="${product.id}"/>" data-confirm="Tem certeza que deseja excluir?">Excluir</a>                                                	
+                                        </td>
+                                    </tr>
+                                </c:forEach>                                       
+                                </tbody>
+                            </table>                                
+                        </div>    
+                        <!-- /.table-responsive -->                            
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
                     <!-- /.panel -->
-	            </div>
 	            <!-- /.row -->
 	        </div>
 	        <!-- /#page-wrapper -->
@@ -225,7 +204,6 @@
 
     });
     </script>
-
 </body>
 
 </html>

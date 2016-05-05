@@ -9,7 +9,7 @@
 		<meta name="description" content="Sushizuki" />
 		<meta name="viewport" content="width=device-width, user-scalable=no" />
 		<link rel="stylesheet" href="css/bootstrap.min.css" />
-		<link rel="stylesheet" href="css/openSansFamily.css" />
+		<link rel="stylesheet" href="css/open-sans-family.css" />
 		<link rel="stylesheet" href="css/main-red.css" />
 	</head>
 	<body>
