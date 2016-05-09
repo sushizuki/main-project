@@ -51,25 +51,19 @@
 				<!--Navigation bar -->
 				<nav id="mainmenu" class="mainmenu">
 					<ul>
+						<!-- Image Logo -->
 						<li class="logo-wrapper">
-							<a href="index.jsp">
+							<a href="/sushizuki">
 								<img src="img/sushi/sushizuki-logo.png" alt="Sushizuki">
 							</a>
 						</li>
-						<li>
-							<a href="index">Home</a>
-						</li>
-						<li>
-							<a href="menu">Cardápio</a>
-						</li>
-						<li class="active">
-							<a href="contact.jsp">Contatos</a>
-						</li>
+						<li><a href="/sushizuki">Home</a></li>
+						<li><a href="menu">Cardápio</a></li>
+						<li class="active"><a href="contact.jsp">Contatos</a></li>
 					</ul>
 				</nav> <!-- End Navigation bar -->
 			</div> <!-- End container  -->
 		</div> <!-- End top bar  -->
-
 	
        <!-- Main Content  -->
 		<div class="content container">

@@ -9,7 +9,7 @@
     <meta name="description" content="Sushizuki">
     <title>Sushizuki - Cadastrar Produto</title>
     <!-- Bootstrap Core CSS -->
-    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
     <!-- MetisMenu CSS -->
     <link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
     <!-- Custom CSS -->
@@ -34,7 +34,7 @@
             <ul class="nav navbar-top-links navbar-right">                
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i> Administrator name <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-user fa-fw"></i> <c:out value="${user.name} " /> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li class="divider"></li>
@@ -50,7 +50,7 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="index.html"><i class="fa fa-shopping-cart fa-fw"></i> Pedidos</a>
+                            <a href="Order?action=getOrderList"><i class="fa fa-shopping-cart fa-fw"></i> Pedidos</a>
                         </li>
                         <li>
                             <a href="Product"><i class="fa fa-cutlery fa-fw"></i> Produtos</a>
@@ -125,11 +125,9 @@
 												<option <c:if test="${product.category == category}">selected</c:if> value="${theCount.count}"><c:out value="${category}" /></option>
 											</c:forEach>
 											</select>
-                                        </div>    
-                                                                  
+                                        </div>                                                                      
                                         <button type="button" class="btn btn-primary" onclick="validation()">Enviar</button>
-                                        <button type="button" class="btn btn-primary" onclick="confirmation()">Limpar</button>
-                                       
+                                        <button type="button" class="btn btn-primary" onclick="confirmation()">Limpar</button>                                       
                                     </form>
                                 </div>                                
                             </div>
@@ -151,23 +149,17 @@
     </div>
     <!-- /#wrapper -->
 
-    <!-- jQuery -->
+    <!-- Javascripts -->
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap Core JavaScript -->
     <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- Metis Menu Plugin JavaScript -->
     <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
-    <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>    
-    <!-- Mask Money -->
     <script src="../js/jquery.maskMoney.min.js"></script>	
 	<script>
     $(document).ready(function() {
         
-      	$(".alert").addClass("in")
-      	
+      	$(".alert").addClass("in");      	
       	$("#price").maskMoney();
-
       	$('form').validate({
       	    rules: {
       	        name: {

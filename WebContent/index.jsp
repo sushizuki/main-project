@@ -15,58 +15,53 @@
 		<!-- Top bar-->
 		<div class="topbar-wrapper">
 			<div class="container">
+			
 				<!-- Login and User area -->
 				<div class="menuextras">
 					<div class="extras">
 						<ul>
 							<li class="shopping-cart-items">
 								<i class="glyphicon glyphicon-shopping-cart icon-white"></i>
-								<a href="shopping-cart">
-									<b>
+								<c:if test="${order.items.size() > 0}">
+									<b><a href="shopping-cart">
 										<span id="items-in-cart">
 											<c:out value="${order.items.size() }"></c:out>
 										</span> itens
-									</b>
-								</a>
+									</a></b>
+								</c:if>
 							</li>
 							<c:choose>
 								<c:when test="${user.name != null}">
-									<li>
-										<c:out value="${user.name}" />
-									</li>
+									<li><c:out value="${user.name}" /></li>
 									<li>
 										<a href="user?action=doLogout"><i class="glyphicon glyphicon-off icon-white"> </i> Sair</a>
 									</li>
 								</c:when>
 								<c:otherwise>
-									<li>
-										<a href="login">Login</a>
-									</li>
+									<li><a href="login">Login</a></li>
 								</c:otherwise>
 							</c:choose>
 						</ul>
 					</div>
-				</div> <!-- End Login and User area -->
+				</div> 
+				<!-- End Login and User area -->
 
 				<!--Navigation bar -->
 				<nav id="mainmenu" class="mainmenu">
 					<ul>
+						<!-- Image Logo -->
 						<li class="logo-wrapper">
-							<a href="index.jsp">
+							<a href="/sushizuki">
 								<img src="img/sushi/sushizuki-logo.png" alt="Sushizuki">
 							</a>
 						</li>
-						<li class="active">
-							<a href="index">Home</a>
-						</li>
-						<li>
-							<a href="menu">Cardápio</a>
-						</li>
-						<li>
-							<a href="contact.jsp">Contatos</a>
-						</li>
+						<li class="active"><a href="/sushizuki">Home</a></li>
+						<li><a href="menu">Cardápio</a></li>
+						<li><a href="contact.jsp">Contatos</a></li>
 					</ul>
-				</nav> <!-- End Navigation bar -->
+				</nav> 
+				<!-- End Navigation bar -->
+				
 			</div> <!-- End container  -->
 		</div> <!-- End top bar  -->
 		
@@ -165,8 +160,6 @@
 		
 		<!-- Javascripts -->
 		<script src="js/jquery-1.9.1.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
 		<script src="js/jquery.sequence-min.js"></script> <!-- Slider -->
-		<script src="js/template.js"></script>
 	</body>
 </html>

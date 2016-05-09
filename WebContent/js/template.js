@@ -13,6 +13,4 @@ $(document).ready(function(){
     
     var mySequence = $("#sequence").sequence(options).data("sequence");
     
-    //Main menu Initialization
-    mainMenu.init();
 });
