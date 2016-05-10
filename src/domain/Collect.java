@@ -13,11 +13,11 @@ public class Collect implements Receiving {
 	public static final Address SUSHIZUKI_LOCATION = new Address(0,"72000-000", "SMPW Quadra 26 Conjunto 6 Lote 5 casa D", "Condomínio Recanto da Primavera");
 
 	private Address address;
-	private Calendar time;
+	private Calendar dateTime;
 
-	public Collect(Calendar c) {
+	public Collect(Calendar dateTime) {
 		setAddress(SUSHIZUKI_LOCATION);
-		setTime(c);
+		setDateTime(dateTime);
 	}
 
 	public Collect(){
@@ -25,13 +25,8 @@ public class Collect implements Receiving {
 	}
 
 	@Override
-	public void setAddress(Address a) {
-		this.address = a;
-	}
-
-	@Override
-	public void setTime(Calendar c) {
-		this.time = c;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	@Override
@@ -39,9 +34,12 @@ public class Collect implements Receiving {
 		return this.address;
 	}
 
-	@Override
-	public Calendar getTime() {
-		return this.time;
+	public Calendar getDateTime() {
+		return dateTime;
+	}
+
+	public void setDateTime(Calendar dateTime) {
+		this.dateTime = dateTime;
 	}
 
 }
