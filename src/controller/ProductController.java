@@ -1,6 +1,7 @@
 /**
 *    ProductController.java to define ProductController
-*    {purpose}
+*    Manages POST and GET requests about Product related operations
+*    and shows exceptions handling.
 */
 
 package controller;
@@ -26,16 +27,29 @@ import controller.command.*;
 import controller.command.product_commands.*;
 import domain.Product;
 
+
+/**
+ * Servlet ProductController
+ */
 public class ProductController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-    private static CommandFactory cf = CommandFactory.init();
+	/**
+	 * Command factory uses Factory and Command design patterns
+	 */
+    private static CommandFactory commandFactory = CommandFactory.init();
 
 	public ProductController() {
         super();
     }
 
+	
+	/**
+	 * Handle GET requests: do logout.
+	 * @param request contains request information for this servlet
+	 * @param response sends response information from this servlet to the client
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		RequestDispatcher view = null;
@@ -48,21 +62,23 @@ public class ProductController extends HttpServlet {
         	//Default action: List Products
         	if(action == null || action.isEmpty()){
         		action = "listProducts";
+        	}else{
+        		//Do nothing
         	}
 
-        	Command command = cf.getCommand(action);
+        	Command command = commandFactory.getCommand(action);
 
         	//Default command: List Products
         	if(command == null){//Invalid command passed, go to default command
         		action = "listProducts";
-        		command = cf.getCommand(action);;
+        		command = commandFactory.getCommand(action);;
+        	}else{
+        		//Do nothing
         	}
 
 			command.execute();
 
-			//ACHO QUE CABE OUTRO PADRÃO AQUI
-
-			//SET RETURN ATRIBUTES FOR THE REQUEST IN ACCORDANCE OF EACH COMMAND
+			// Set retunr atributes for the request in accordance of each command
 			if(command instanceof ListProducts){
 		 		request.setAttribute("products", ((ListProducts)command).getProducts() );
 				((ListProducts) command).setPageToRedirect(request.getRequestURI());
@@ -76,10 +92,12 @@ public class ProductController extends HttpServlet {
 			} else if(command instanceof DeleteProduct){
 				((DeleteProduct)command).setProduct(Integer.parseInt(request.getParameter("id")));
 				command.execute();
-		        command = cf.getCommand("listProducts");
+		        command = commandFactory.getCommand("listProducts");
 		        command.execute();
 		 		request.setAttribute("products", ((ListProducts)command).getProducts() );
 		        request.setAttribute("message", "sucess");
+			}else{
+				//Do nothing
 			}
 
 			//Set redirection
@@ -121,7 +139,7 @@ public class ProductController extends HttpServlet {
 				}
 			}
 
-			Command command = cf.getCommand(action);
+			Command command = commandFactory.getCommand(action);
 
 			if(command instanceof InsertProduct){
 				((InsertProduct) command).setProduct(product);
@@ -132,7 +150,7 @@ public class ProductController extends HttpServlet {
 			}
 
 			//Set return attributes
-	        command = cf.getCommand("listProducts");
+	        command = commandFactory.getCommand("listProducts");
 	        command.execute();
 	 		request.setAttribute("products", ((ListProducts)command).getProducts() );
 
