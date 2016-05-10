@@ -17,7 +17,7 @@ public class GetOrder implements Command {
 	private String pageToRedirec;
 
 	public GetOrder() {
-		this.pageToRedirec = "/shopping-cart.jsp"; //Default page to redirec
+		this.pageToRedirec = "/shopping-cart.jsp"; //Default page to redirect
 	}
 	
 	public void setSession(HttpSession s){

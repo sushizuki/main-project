@@ -1,6 +1,7 @@
 /** 
 *    CommandFactory.java to define CommandFactory 
-*    {purpose} 
+*    Class to define structure for creating commands 
+*    initializing them (See Factory design pattern).
 */ 
 
 package controller.command;
@@ -12,6 +13,10 @@ import controller.command.order_commands.*;
 import controller.command.user_commands.*;
 
 public class CommandFactory {
+	
+	/**
+	 * Map to define a name (key) for every command, 
+	 * this is the way that every command will be identified*/
 	private final HashMap<String, Command>	commands;
 	
 	private CommandFactory() {
@@ -37,32 +42,33 @@ public class CommandFactory {
 	
 	/* Factory pattern */
 	public static CommandFactory init() {
-		CommandFactory cf = new CommandFactory();
+		
+		CommandFactory commmandFactory = new CommandFactory();
 		
 		//Product commands
-		cf.addCommand("insertProduct", new InsertProduct());
-		cf.addCommand("listProducts", new ListProducts());
-		cf.addCommand("newProduct", new NewProduct());
-		cf.addCommand("updateProduct", new UpdateProduct());
-		cf.addCommand("getProduct", new GetProduct());
-		cf.addCommand("deleteProduct", new DeleteProduct());
+		commmandFactory.addCommand("insertProduct", new InsertProduct());
+		commmandFactory.addCommand("listProducts", new ListProducts());
+		commmandFactory.addCommand("newProduct", new NewProduct());
+		commmandFactory.addCommand("updateProduct", new UpdateProduct());
+		commmandFactory.addCommand("getProduct", new GetProduct());
+		commmandFactory.addCommand("deleteProduct", new DeleteProduct());
 		
 		//Order commands
-		cf.addCommand("newOrder", new NewOrder());
-		cf.addCommand("addAdditionals", new AddAdditionalsToOrder());
-		cf.addCommand("getOrder", new GetOrder());
-		cf.addCommand("getOrderList", new GetOrderList());
-		cf.addCommand("getAvailableAdditionals", new GetAvailableAdditionals());
-		cf.addCommand("setClientToOrder", new SetClientToOrder());
-		cf.addCommand("setCollectTime", new SetCollectTime());
-		cf.addCommand("setDeliveryDetails", new SetDeliveryDetails());
-		cf.addCommand("saveOrder", new SaveOrder());
+		commmandFactory.addCommand("newOrder", new NewOrder());
+		commmandFactory.addCommand("addAdditionals", new AddAdditionalsToOrder());
+		commmandFactory.addCommand("getOrder", new GetOrder());
+		commmandFactory.addCommand("getOrderList", new GetOrderList());
+		commmandFactory.addCommand("getAvailableAdditionals", new GetAvailableAdditionals());
+		commmandFactory.addCommand("setClientToOrder", new SetClientToOrder());
+		commmandFactory.addCommand("setCollectTime", new SetCollectTime());
+		commmandFactory.addCommand("setDeliveryDetails", new SetDeliveryDetails());
+		commmandFactory.addCommand("saveOrder", new SaveOrder());
 		
 		//User commands
-		cf.addCommand("doLogin", new DoLogin());
-		cf.addCommand("doLogout", new DoLogout());
-		cf.addCommand("checkUserLogged", new CheckUserLogged());
+		commmandFactory.addCommand("doLogin", new DoLogin());
+		commmandFactory.addCommand("doLogout", new DoLogout());
+		commmandFactory.addCommand("checkUserLogged", new CheckUserLogged());
 		
-		return cf;
+		return commmandFactory;
 	}
 }
