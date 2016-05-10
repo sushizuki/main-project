@@ -9,6 +9,7 @@ import java.util.Calendar;
 
 public class Collect implements Receiving {
 
+	//Administrator address
 	public static final Address SUSHIZUKI_LOCATION = new Address(0,"72000-000", "SMPW Quadra 26 Conjunto 6 Lote 5 casa D", "Condomínio Recanto da Primavera");
 
 	private Address address;
