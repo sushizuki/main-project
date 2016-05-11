@@ -429,7 +429,7 @@ public class OrderDAO extends DataAccessObject{
 			// set values for each '?'
 			this.statement.setLong(1, order.getClient().getId());
 			
-			Timestamp sqlDate = castCalendarToDateTimeSQL(order.getReceiving().getTime());
+			Timestamp sqlDate = castCalendarToDateTimeSQL(order.getReceiving().getDateTime());
 			int addressId = getDeliveryAddressId(order.getReceiving().getAddress());
 			
 			this.statement.setTimestamp(2, sqlDate);
@@ -491,7 +491,7 @@ public class OrderDAO extends DataAccessObject{
 				order.setStatus(this.result.getInt("status_idstatus"));				
 				//SET TIME OF RECEIVING
 				Calendar receivingTime = castStringToCalendar((this.result.getString("deliveryTime")));
-				order.getReceiving().setTime(receivingTime);				
+				order.getReceiving().setDateTime(receivingTime);				
 				//ASSIGN PRODUCTS TO ORDER
 				order.setItems(this.getProductsFromOrder(order));			
 				//ASSIGN ADDITIONALS TO ORDER
@@ -606,7 +606,7 @@ public class OrderDAO extends DataAccessObject{
 				Calendar time = Calendar.getInstance();
 				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 				time.setTime(dateFormat.parse(this.result.getString("deliveryTime")));
-				order.getReceiving().setTime(time);
+				order.getReceiving().setDateTime(time);
 				
 				//ASSIGN PRODUCTS TO ORDER
 				order.setItems(this.getProductsFromOrder(order));

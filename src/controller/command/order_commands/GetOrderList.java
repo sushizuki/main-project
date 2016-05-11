@@ -1,6 +1,6 @@
 /** 
 *    GetOrderList.java to define GetOrderList 
-*    {purpose} 
+*    The purpose of this class is to return all orders saved in the database
 */ 
 
 package controller.command.order_commands;
@@ -23,7 +23,7 @@ public class GetOrderList implements Command {
 
 	public GetOrderList() {
 		this.orderDao = new OrderDAO();
-		this.pageToRedirec = "/adm/order-list.jsp"; //Default page to redirec
+		this.pageToRedirec = "/adm/order-list.jsp"; //Default page to redirect
 	}
 	
 	public void setSession(HttpSession s){
@@ -42,6 +42,8 @@ public class GetOrderList implements Command {
 	public void execute() throws Exception {
 		if(session.getAttribute("user") instanceof Administrator ){
 			this.orderList = orderDao.getList();
+		}else{
+			// Do nothing
 		} 
 	}
 

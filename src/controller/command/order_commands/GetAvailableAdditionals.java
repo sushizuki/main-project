@@ -1,6 +1,7 @@
 /** 
 *    GetAvailableAdditionals.java to define GetAvailableAdditionals 
-*    {purpose} 
+*    The purpose of this class is to get all additional 
+*    registered into the database 
 */ 
 
 package controller.command.order_commands;
@@ -14,23 +15,23 @@ import domain.Additional;
 
 public class GetAvailableAdditionals implements Command {
 	
-	private List<Additional> additionals;
-	private OrderDAO orderDao;
+	private List<Additional> additionalsList;
+	private OrderDAO orderDao; // Object to handle the connection and get order related info from the database
 	private String pageToRedirect;
 
 	public GetAvailableAdditionals() {
-		this.additionals = new ArrayList<Additional>();
+		this.additionalsList = new ArrayList<Additional>();
 		this.orderDao = new OrderDAO();
-		this.pageToRedirect = "/shopping-cart.jsp";
+		this.pageToRedirect = "/shopping-cart.jsp"; //Default page to redirect
 	}
 	
 	public List<Additional> getAdditionals(){
-		return this.additionals;
+		return this.additionalsList;
 	}
 
 	@Override
 	public void execute() throws Exception {
-		this.additionals = orderDao.getAdditionalsList();
+		this.additionalsList = orderDao.getAdditionalsList();
 	}
 
 	@Override
