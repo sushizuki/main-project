@@ -1,6 +1,6 @@
 /** 
 *    SaveOrder.java to define SaveOrder 
-*    {purpose} 
+*    The purpose of this class is to save the client’s order
 */ 
 
 package controller.command.order_commands;
@@ -12,26 +12,28 @@ import domain.Order;
 public class SaveOrder implements Command {
 	
 	private OrderDAO orderDao;
-	private Order order;
+	private Order orderOfSession; // Order object from the current session
 	private String pageToRedirect;
 
 	public SaveOrder() {
 		this.orderDao = new OrderDAO();
-		this.pageToRedirect="/index.jsp"; //redir to user page
+		this.pageToRedirect="/index.jsp"; //Default page to redirect
 	}
 	
-	public void setOrder(Order o){
-		this.order = o;
+	public void setOrder(Order orderOfSession){
+		this.orderOfSession = orderOfSession;
 	}
 
 	@Override
 	public void execute() throws Exception {
 		try{
-			if(this.order != null){
-				this.orderDao.insert(this.order);
+			if(this.orderOfSession != null){
+				this.orderDao.insert(this.orderOfSession);
+			}else{
+				//Do nothing
 			}
-		}catch(Exception e){
-			e.printStackTrace();
+		}catch(Exception executeException){
+			executeException.printStackTrace();
 		}
 	}
 
