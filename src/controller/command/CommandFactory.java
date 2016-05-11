@@ -16,7 +16,8 @@ public class CommandFactory {
 	
 	/**
 	 * Map to define a name (key) for every command, 
-	 * this is the way that every command will be identified*/
+	 * this is the way that every command will be identified
+	 * */
 	private final HashMap<String, Command>	commands;
 	
 	private CommandFactory() {
@@ -30,12 +31,13 @@ public class CommandFactory {
 	public Command getCommand(String name) {
 		if ( this.commands.containsKey(name) ) {
 			return this.commands.get(name);
+		}else{
+			//Do nothing
 		}
 		return null;
 	}
 
 	public void listCommands() {
-		// using stream (Java 8)
 		System.out.println("Commands enabled :");
 		this.commands.keySet().stream().forEach(System.out::println);
 	}

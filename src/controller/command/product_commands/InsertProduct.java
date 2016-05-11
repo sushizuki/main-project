@@ -1,6 +1,7 @@
+
 /** 
 *    InsertProduct.java to define InsertProduct 
-*    {purpose} 
+*    The purpose of this class is to insert a new product into the database
 */ 
 
 package controller.command.product_commands;
@@ -12,17 +13,17 @@ import domain.Product;
 public class InsertProduct implements Command{
 
 	private Product product;	
-	private ProductDAO dao;
+	private ProductDAO productDao;
 	private String pageToRedirect;
 	
 	public InsertProduct() {
 		super();
-		this.dao = new ProductDAO();
+		this.productDao = new ProductDAO();
 		this.setPageToRedirect("/adm/product-list.jsp");
 	}
 	
-	public void setProduct(Product p){
-		this.product = p;
+	public void setProduct(Product product){
+		this.product = product;
 	}	
 
 	public void setPageToRedirect(String pageToRedirect) {
@@ -31,9 +32,11 @@ public class InsertProduct implements Command{
 
 	@Override
 	public void execute() {
+		
 		if(this.product != null){
-			dao.insert(product);
-			//dao.finalize();
+			productDao.insert(product);
+		}else{
+			//Do nothing
 		}
 	}
 

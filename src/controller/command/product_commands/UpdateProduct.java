@@ -1,30 +1,24 @@
+
 /** 
 *    UpdateProduct.java to define UpdateProduct 
-*    {purpose} 
+*    The purpose of this class is to update product info
 */ 
 
-/**
- * 
- */
 package controller.command.product_commands;
 
 import controller.command.Command;
 import dao.ProductDAO;
 import domain.Product;
 
-/**
- * @author Allan
- *
- */
 public class UpdateProduct implements Command {
 
-	private ProductDAO dao;
+	private ProductDAO productDao;
 	private Product product;
 	private String pageToRedirect;
 	
 	public UpdateProduct(){
-		this.dao = new ProductDAO();
-		this.setPageToRedirect("/adm/product-list.jsp");
+		this.productDao = new ProductDAO();
+		this.setPageToRedirect("/adm/product-list.jsp"); //Default page to redirect
 	}
 	
 	public void setProduct(Product product){
@@ -37,7 +31,11 @@ public class UpdateProduct implements Command {
 	
 	@Override
 	public void execute() throws Exception {
-        dao.update(product);
+		try{
+			productDao.update(product);
+		}catch(Exception executeException){
+			executeException.printStackTrace();
+		}
 	}
 
 	@Override
