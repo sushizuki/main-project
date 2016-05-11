@@ -1,4 +1,3 @@
-
 /** 
 *    NewProduct.java to define NewProduct 
 *    The purpose of this class is open the form for a new product and 

@@ -1,4 +1,3 @@
-
 /** 
 *    ListProducts.java to define ListProducts 
 *    The purpose of this class is to list all products saved in the database 

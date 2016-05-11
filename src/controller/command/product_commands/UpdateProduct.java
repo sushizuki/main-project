@@ -1,4 +1,3 @@
-
 /** 
 *    UpdateProduct.java to define UpdateProduct 
 *    The purpose of this class is to update product info
