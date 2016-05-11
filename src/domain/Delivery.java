@@ -10,25 +10,25 @@ import java.util.Calendar;
 public class Delivery implements Receiving {
 
 	private Address address;
-	private Calendar time;
+	private Calendar dateTime;
 
-	public Delivery(Address a, Calendar c) {
-		setAddress(a);
-		setTime(c);
+	public Delivery(Address address, Calendar dateTime) {
+		setAddress(address);
+		setDateTime(dateTime);
 	}
 
-	public Delivery(Address a) {
-		setAddress(a);
-	}
-
-	@Override
-	public void setAddress(Address a) {
-		this.address = a;
+	public Delivery(Address address) {
+		setAddress(address);
 	}
 
 	@Override
-	public void setTime(Calendar c) {
-		this.time = c;
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	@Override
+	public void setDateTime(Calendar dateTime) {
+		this.dateTime = dateTime;
 	}
 
 	@Override
@@ -37,8 +37,8 @@ public class Delivery implements Receiving {
 	}
 
 	@Override
-	public Calendar getTime() {
-		return this.time;
+	public Calendar getDateTime() {
+		return this.dateTime;
 	}
 
 }

@@ -11,10 +11,10 @@ public interface Receiving {
 
 	public void setAddress(Address a);
 
-	public void setTime(Calendar c);
+	public void setDateTime(Calendar c);
 
 	public Address getAddress();
 
-	public Calendar getTime();
+	public Calendar getDateTime();
 
 }

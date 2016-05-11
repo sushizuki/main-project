@@ -1,6 +1,6 @@
 /** 
-*    OrderDAO.java to define OrderDAO 
-*    {purpose} 
+* OrderDAO.java to define OrderDAO 
+* This class persists into or from database any information about orders 
 */ 
 
 package dao;
@@ -39,12 +39,24 @@ public class OrderDAO extends DataAccessObject{
 		super();
 	}
 	
+	/*
+	 * Converts Calendar date to Timestamp object type
+	 */
 	private Timestamp castCalendarToDateTimeSQL(Calendar calendar){
+		
+		assert calendar != null: "Invalid Calendar: null value cannot be accepted";
+		
 		Timestamp sqlDate = new Timestamp(calendar.getTime().getTime());
 		return sqlDate;
 	}
 	
+	/*
+	 * Converts string date to Calendar object type
+	 */
 	private Calendar castStringToCalendar(String date){
+		
+		assert date != null: "Invalid Date: null value cannot be accepted";
+		
 		Calendar time = Calendar.getInstance();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 		try {
@@ -56,7 +68,13 @@ public class OrderDAO extends DataAccessObject{
 		return time;
 	}
 	
-	private int getDeliveryAddressId(Address deliveryAddress) {		
+	/*
+	 * Retuns the registered Address ID from database
+	 */
+	private int getDeliveryAddressId(Address deliveryAddress) {			
+
+		assert deliveryAddress != null: "Invalid Address: null value cannot be accepted";
+		
 		AddressDAO addressDao = new AddressDAO();
 		int savedAddressId = 0;
 		
@@ -72,14 +90,16 @@ public class OrderDAO extends DataAccessObject{
 		return savedAddressId;
 	}
 	
-	//Must open new Statement, Query and Result objects to not interfere on calling methods
-	private Receiving getReceivingFromOrder(int addressId) throws SQLException{				
-		String addressDescription = null;
-		String cep = null;
-		String complement = null;
+	/*
+	 * Returns the Order's receiving method (Collect, Delivery) according to address
+	 * Must open new Statement, Query and Result objects to not interfere on calling methods
+	 */
+	private Receiving getReceivingFromOrder(int addressId) throws SQLException{	
+		
+		assert addressId > 0: "Invalid Address ID";
+		
         String sqlQuery = "select * from address where idAddress=?";
         Receiving receivingMethod = null;
-
         PreparedStatement statement = null;
 		ResultSet result = null;
         
@@ -93,9 +113,9 @@ public class OrderDAO extends DataAccessObject{
 
             //If SQL query returned result
             if (result.next()) {
-				cep = result.getString("cep");
-				addressDescription = result.getString("address");
-				complement = result.getString("addressComplement");
+        		String  cep = result.getString("cep");
+				String addressDescription = result.getString("address");
+				String complement = result.getString("addressComplement");
 				
 				Address address = new Address(addressId, cep, addressDescription, complement);
 				
@@ -105,7 +125,7 @@ public class OrderDAO extends DataAccessObject{
 					receivingMethod = new Delivery(address);
 				}
             } else {
-            	//nothing to do
+            	//No address found, nothing to do
             }
         } catch (SQLException exception) {
 			throw new RuntimeException("Error processing SQL - getReceivingFromOrder in OrderDAO: "
@@ -118,8 +138,14 @@ public class OrderDAO extends DataAccessObject{
         return receivingMethod;
 	}
 	
-	//Must open new Statement, Query and Result objects to not interfere on calling methods
-	private int savePayment(Payment payment) throws SQLException {		
+	/*
+	 * Saves into database payment details and returns ID of saved payment of an order
+	 * Must open new Statement, Query and Result objects to not interfere on calling methods
+	 */
+	private int savePayment(Payment payment) throws SQLException {	
+		
+		assert payment != null: "Invalid Payment: null value cannot be accepted";
+		
 		String sqlQuery = "insert into payment "
 				+ "(paymentChange, paymentType_id) "
 				+ "values (?,?)";
@@ -162,8 +188,49 @@ public class OrderDAO extends DataAccessObject{
 		return insertedId;
 	}
 	
-	//Must open new Statement, Query and Result objects to not interfere on calling methods
-	private void saveProductsToOrder(Order order) throws SQLException {		
+	/*
+	 * Returns the saved Payment of an order based on ID
+	 * Must open new Statement, Query and Result objects to not interfere on calling methods
+	 */
+	private Payment getPaymentFromOrder(int idPayment) throws SQLException {	
+		
+		assert idPayment > 0: "Invalid Payment ID";
+		
+        String sqlQuery = "select * from payment where idpayment=?";
+        Payment payment = null;
+
+        PreparedStatement statement = null;
+		ResultSet result = null;
+        
+        try {
+            statement = this.connection.prepareStatement(sqlQuery);
+            statement.setInt(1, idPayment);
+            result = statement.executeQuery();
+
+            if (result.next()) {
+            	String change = result.getString("paymentChange");
+            	String paymentType = result.getString("paymentType_id");
+				
+				payment = new Payment(idPayment, paymentType, change);
+            }
+        } catch (SQLException exception) {
+			throw new RuntimeException("Error processing SQL - getPaymentFromOrder in OrderDAO: "
+					+exception.getMessage());
+		}  finally {
+			statement.close();
+			result.close();
+		}		
+		return payment; 
+	}
+	
+	/*
+	 * Saves in database selected products of the order
+	 * Must open new Statement, Query and Result objects to not interfere on calling methods
+	 */
+	private void saveProductsToOrder(Order order) throws SQLException {	
+		
+		assert order != null: "Invalid Order: null value cannot be accepted";
+		
 		String sqlQuery = "insert into order_has_product "
 				+ "(order_idOrder, product_idProduct, extra_idExtra, quantity) "
 				+ "values (?,?,?,?)";
@@ -198,8 +265,14 @@ public class OrderDAO extends DataAccessObject{
 		}
 	}	
 	
-	//Must open new Statement, Query and Result objects to not interfere on calling methods
-	private void saveAdditionalsToOrder(Order order) throws SQLException {		
+	/*
+	 * Saves in database selected additionals of the order
+	 * Must open new Statement, Query and Result objects to not interfere on calling methods
+	 */
+	private void saveAdditionalsToOrder(Order order) throws SQLException {	
+		
+		assert order != null: "Invalid Order: null value cannot be accepted";
+		
 		String sqlQuery = "insert into order_has_additional "
 				+ "(order_idOrder, additional_idAdditional) "
 				+ "values (?,?)";
@@ -224,9 +297,13 @@ public class OrderDAO extends DataAccessObject{
 		}
 	}
 	
-	//Must open new Statement, Query and Result objects to not interfere on calling methods
+	/*
+	 * Saves in database selected extras for every product of the order
+	 * Must open new Statement, Query and Result objects to not interfere on calling methods
+	 */
 	private HashMap<Product,Integer> setExtraFromProductsInOrder(HashMap<Product,Integer> mapProductList, 
 			Order order) throws SQLException{		
+		
 		PreparedStatement statement = null;
 		ResultSet result = null;
 		
@@ -257,8 +334,14 @@ public class OrderDAO extends DataAccessObject{
 		return mapProductList; 
 	}
 	
-	//Must open new Statement, Query and Result objects to not interfere on calling methods
-	private List<Additional> assignAdditionalsToOrder(Order order) throws SQLException{		
+	/*
+	 * Process to order the selected additionals
+	 * Must open new Statement, Query and Result objects to not interfere on calling methods
+	 */
+	private List<Additional> assignAdditionalsToOrder(Order order) throws SQLException{	
+		
+		assert order != null: "Invalid Order: null value cannot be accepted";
+		
 		List<Additional> listAdditional = new ArrayList<Additional>();
 		
 		String sqlQuery = "select o_a.additional_idadditional, a.name from order_has_additional o_a, additional a "
@@ -287,57 +370,14 @@ public class OrderDAO extends DataAccessObject{
 		return listAdditional; 
 	}
 	
-	public void insert(Order order) {		
-		this.sqlQuery = "insert into `order` "
-				+ "(client_user_iduser, deliveryTime, totalPrice, idDeliveryAddress, "
-				+ "status_idstatus, payment_idPayment) "
-				+ "values (?,?,?,?,?,?)";
+	/*
+	 * Returns the list of products of an order and their quantities
+	 * Must open new Statement, Query and Result objects to not interfere on calling methods
+	 */
+	private HashMap<Product, Integer> getProductsFromOrder(Order order) throws SQLException{	
 		
-		setupConnectionObjects();		
+		assert order != null: "Invalid Order: null value cannot be accepted";
 		
-		try {
-			this.statement = this.connection.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS);
-			
-			// set values for each '?'
-			this.statement.setLong(1, order.getClient().getId());
-			
-			Timestamp sqlDate = castCalendarToDateTimeSQL(order.getReceiving().getTime());
-			int addressId = getDeliveryAddressId(order.getReceiving().getAddress());
-			
-			this.statement.setTimestamp(2, sqlDate);
-			this.statement.setDouble(3, order.getTotalPrice());
-			this.statement.setInt(4, addressId);
-			this.statement.setInt(5, Order.NEW_ORDER_STATUS);
-			this.statement.setInt(6, savePayment(order.getPayment()));
-
-
-			int affectedRows = this.statement.executeUpdate();
-
-	        if (affectedRows == 0) {
-	            throw new SQLException("Creating order failed, no rows affected.");
-	        }
-
-	        try (ResultSet generatedKeys = this.statement.getGeneratedKeys()) {
-				this.statement.close();
-	            if (generatedKeys.next()) {
-	                order.setId(generatedKeys.getInt(1));
-	    			saveProductsToOrder(order);
-	    			saveAdditionalsToOrder(order);
-	            }
-	            else {
-	                throw new SQLException("Creating Order failed, no ID obtained.");
-	            }
-	        }			
-		} catch (SQLException exception) {
-			throw new RuntimeException("Error processing SQL - insert in OrderDAO: "
-					+exception.getMessage());
-		}  finally {
-			closeConnectionObjects();
-		}
-	}	
-	
-	//Must open new Statement, Query and Result objects to not interfere on calling methods
-	private HashMap<Product, Integer> getProductsFromOrder(Order order) throws SQLException{		
 		ProductDAO productDao = new ProductDAO();
 		HashMap<Product,Integer> mapProductQuantity = new HashMap<Product,Integer>();
 		
@@ -368,7 +408,67 @@ public class OrderDAO extends DataAccessObject{
 		return mapProductQuantity; 
 	}
 	
-	public List<Order> getList() throws SQLException {		
+	/**
+	 * Saves order in database
+	 * @param order containing full order details
+	 */
+	public void insert(Order order) {	
+		
+		assert order != null: "Invalid Order: null value cannot be accepted";
+		
+		this.sqlQuery = "insert into `order` "
+				+ "(client_user_iduser, deliveryTime, totalPrice, idDeliveryAddress, "
+				+ "status_idstatus, payment_idPayment) "
+				+ "values (?,?,?,?,?,?)";
+		
+		setupConnectionObjects();		
+		
+		try {
+			this.statement = this.connection.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS);
+			
+			// set values for each '?'
+			this.statement.setLong(1, order.getClient().getId());
+			
+			Timestamp sqlDate = castCalendarToDateTimeSQL(order.getReceiving().getDateTime());
+			int addressId = getDeliveryAddressId(order.getReceiving().getAddress());
+			
+			this.statement.setTimestamp(2, sqlDate);
+			this.statement.setDouble(3, order.getTotalPrice());
+			this.statement.setInt(4, addressId);
+			this.statement.setInt(5, Order.NEW_ORDER_STATUS);
+			this.statement.setInt(6, savePayment(order.getPayment()));
+
+
+			int affectedRows = this.statement.executeUpdate();
+
+	        if (affectedRows == 0) {
+	            throw new SQLException("Creating order failed, no rows affected.");
+	        }
+
+	        //Save others details of the order
+	        try (ResultSet generatedKeys = this.statement.getGeneratedKeys()) {
+				this.statement.close();
+	            if (generatedKeys.next()) {
+	                order.setId(generatedKeys.getInt(1));
+	    			saveProductsToOrder(order);
+	    			saveAdditionalsToOrder(order);
+	            }
+	            else {
+	                throw new SQLException("Creating Order failed, no ID obtained.");
+	            }
+	        }			
+		} catch (SQLException exception) {
+			throw new RuntimeException("Error processing SQL - insert in OrderDAO: "
+					+exception.getMessage());
+		}  finally {
+			closeConnectionObjects();
+		}
+	}	
+	
+	/**
+	 * Returns all saved orders from database
+	 */
+	public List<Order> getList() {		
 		this.sqlQuery = "select * from `order`";
 		List<Order> orderList = new ArrayList<Order>(); 
 
@@ -391,7 +491,7 @@ public class OrderDAO extends DataAccessObject{
 				order.setStatus(this.result.getInt("status_idstatus"));				
 				//SET TIME OF RECEIVING
 				Calendar receivingTime = castStringToCalendar((this.result.getString("deliveryTime")));
-				order.getReceiving().setTime(receivingTime);				
+				order.getReceiving().setDateTime(receivingTime);				
 				//ASSIGN PRODUCTS TO ORDER
 				order.setItems(this.getProductsFromOrder(order));			
 				//ASSIGN ADDITIONALS TO ORDER
@@ -408,9 +508,14 @@ public class OrderDAO extends DataAccessObject{
 		} finally {
 			closeConnectionObjects();
 		}		
+		
 		return orderList;
-   }
+	}
 	
+	/**
+	 * Returns all options of additionals to an order from database
+	 * @return List<Additional> List of saved Additionals from database
+	 */
 	public List<Additional> getAdditionalsList() {		
 		this.sqlQuery = "select * from `additional`";		
 		List<Additional> listAdditional = new ArrayList<Additional>(); 
@@ -435,10 +540,19 @@ public class OrderDAO extends DataAccessObject{
 		}  finally {
 			closeConnectionObjects();
 		}		
+		
 		return listAdditional; 
-   }
+	}
 	
+	/**
+	 * Returns additional from database according to ID
+	 * @param int id number generated from database
+	 * @return Additional object from database
+	 */
 	public Additional getAdditionalById(int idAdditional) {		
+		
+		assert idAdditional > 0: "Invalid Additional ID";
+		
         Additional additional = new Additional();
         this.sqlQuery = "select * from additional where idadditional=?";
 
@@ -462,38 +576,15 @@ public class OrderDAO extends DataAccessObject{
 		return additional; 
     }
 	
-	//Must open new Statement, Query and Result objects to not interfere on calling methods
-	private Payment getPaymentFromOrder(int idPayment) throws SQLException {		
-		String paymentType = null;
-		String change = null;
-        String sqlQuery = "select * from payment where idpayment=?";
-        Payment payment = null;
-
-        PreparedStatement statement = null;
-		ResultSet result = null;
-        
-        try {
-            statement = this.connection.prepareStatement(sqlQuery);
-            statement.setInt(1, idPayment);
-            result = statement.executeQuery();
-
-            if (result.next()) {
-				change = result.getString("paymentChange");
-				paymentType = result.getString("paymentType_id");
-				
-				payment = new Payment(idPayment, paymentType, change);
-            }
-        } catch (SQLException exception) {
-			throw new RuntimeException("Error processing SQL - getPaymentFromOrder in OrderDAO: "
-					+exception.getMessage());
-		}  finally {
-			statement.close();
-			result.close();
-		}		
-		return payment; 
-	}
-
-	public Order getOrderById(int orderId) throws ParseException {		
+	/**
+	 * Returns order from database according to ID
+	 * @param int id of the order to be searched within database
+	 * @return Order object containing full order details from database
+	 */
+	public Order getOrderById(int orderId) throws ParseException {	
+		
+		assert orderId > 0: "Invalid Order ID";
+		
         Order order = new Order();
 		UserDAO userDao = new UserDAO();
         this.sqlQuery = "select * from order where idProduct=?";
@@ -515,7 +606,7 @@ public class OrderDAO extends DataAccessObject{
 				Calendar time = Calendar.getInstance();
 				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 				time.setTime(dateFormat.parse(this.result.getString("deliveryTime")));
-				order.getReceiving().setTime(time);
+				order.getReceiving().setDateTime(time);
 				
 				//ASSIGN PRODUCTS TO ORDER
 				order.setItems(this.getProductsFromOrder(order));
@@ -536,8 +627,15 @@ public class OrderDAO extends DataAccessObject{
         
         return order;
     }
-			
-	public void delete(Order order) {		
+	
+	/**
+	 * Delete order from database according to ID
+	 * @param Order object containing id which is to delete
+	 */
+	public void delete(Order order) {	
+		
+		assert order != null: "Invalid Order: null value cannot be accepted";
+		
 		this.sqlQuery = "delete from order where idOrder=?";
 		
 		setupConnectionObjects();
@@ -554,6 +652,10 @@ public class OrderDAO extends DataAccessObject{
 		}
 	}
 	
+	/**
+	 * Returns all options of Payment of an order from database
+	 * @return List<String> List of saved Payment types from database
+	 */
 	public List<String> getPaymentTypes(){		
 		this.sqlQuery = "select payment from payment_type";
 		List<String> paymentTypes = new ArrayList<String>(); 

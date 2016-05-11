@@ -1,6 +1,6 @@
 /** 
- *    UserDAO.java to define UserDAO 
- *    {purpose} 
+ * UserDAO.java to define UserDAO 
+ * This class persists into or from database any information about users 
  */ 
 
 package dao;
@@ -8,8 +8,6 @@ package dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import com.mysql.jdbc.Statement;
 
 import domain.Address;
 import domain.Administrator;
@@ -23,7 +21,111 @@ public class UserDAO extends DataAccessObject{
 		super();
 	}
 
+	//Must open new Statement and Result objects to not interfere on calling methods
+	private Client getClientById(int clientId) throws SQLException{
+		
+		assert clientId > 0: "Invalid Client ID";
+		
+		String sqlQuery = "select address_idAddress from client where user_iduser=?";
+		Client client = null;
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		
+		try {
+			statement = this.connection.prepareStatement(sqlQuery);
+			statement.setInt(1, clientId);
+			
+			result = statement.executeQuery();
+
+			//If SQL query returned result
+			if (result.next()) {
+				AddressDAO daoAddress = new AddressDAO();
+				Address address = daoAddress.getAddressById(result.getInt("address_idAddress"));
+				result.getString("address_idAddress");
+				client = new Client(address);
+			} else {
+				//nothing to do, no client found
+			}
+		}  catch (SQLException exception) {
+			throw new RuntimeException("Error processing SQL - getClientById in UserDAO: "
+					+exception.getMessage());
+		}  finally {
+			statement.close();
+			result.close();
+		}
+		return client;
+	}
+
+	//Must open new Statement and Result objects to not interfere on calling methods
+	private Administrator getAdministratorById(int id) throws SQLException{	
+		
+		assert id > 0: "Invalid Administrator ID";
+		
+		String sqlQuery = "select 1 from administrator where user_iduser=?";
+		Administrator administrator = null;
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		
+		try {
+			statement = this.connection.prepareStatement(sqlQuery);
+			statement.setInt(1, id);
+			result = statement.executeQuery();
+
+			if (result.next()) {
+				administrator = new Administrator();
+			} else {
+				//nothing to do
+			}
+
+		} catch (SQLException exception) {
+			throw new RuntimeException("Error processing SQL - getAdministratorById in UserDAO: "
+					+exception.getMessage());
+		}  finally {
+			statement.close();
+			result.close();
+		}
+		return administrator;
+	}
+	
+	//Must open new Statement and Result objects to not interfere on calling methods
+	private boolean isUserClient(int idUser) throws SQLException{
+		
+		assert idUser > 0: "Invalid User id";
+		
+		String sqlQuery = "select 1 from client where user_iduser=?";
+		boolean userIsClient = true;
+		PreparedStatement statement = null;
+		ResultSet result = null;
+
+		try {
+			statement = this.connection.prepareStatement(sqlQuery);
+			statement.setInt(1, idUser);
+			result = statement.executeQuery();
+
+			if (result.next()) {
+				userIsClient = true;
+			} else {
+				userIsClient = false;
+			}
+
+		}  catch (SQLException exception) {
+			throw new RuntimeException("Error processing SQL - isUserClient in UserDAO: "
+					+exception.getMessage());
+		}  finally {
+			statement.close();
+			result.close();
+		}
+		
+		return userIsClient;
+	}
+	
+	/**
+	 * Inserts into database a new Client
+	 * @param Client user object containing full client details
+	 */
 	public void insert(Client user) {
+		
+		assert user != null: "Invalid Client: null value cannot be accepted";
 
 		String sqlQuery = "insert into user "
 				+ "(name,email,phone,password,address) "
@@ -40,7 +142,8 @@ public class UserDAO extends DataAccessObject{
 			this.statement.setString(2, user.getEmail());
 			this.statement.setString(3, user.getPhone());
 			this.statement.setString(4, user.getPassword());
-			this.statement.setInt(5, saveAddress(user.getAddress()) );
+			AddressDAO daoAddress = new AddressDAO();
+			this.statement.setInt(5, daoAddress.insert(user.getAddress()) );
 
 			this.statement.execute();
 		} catch (SQLException exception) {
@@ -50,73 +153,47 @@ public class UserDAO extends DataAccessObject{
 			closeConnectionObjects();
 		}
 	}
-
-	private int saveAddress(Address address) throws SQLException {
-
-		String sqlQuery = "insert into address "
-				+ "(cep, address, addressComplement) "
-				+ "values (?,?,?)";
-
-		PreparedStatement statement = null;
+	
+	/**
+	 * Updates into database a User details
+	 * @param User object containing full details
+	 */
+	public void update(User user) {
 		
-		int addressSavedId = 0;
+		assert user != null: "Invalid User: null value cannot be accepted";
+
+		String sqlQuery = "update user set name=?, email=?, phone=?," +
+				" password=? where iduser=?";
+
+		setupConnectionObjects();
 
 		try {
-			// prepared statement for insertion
-			statement = this.connection.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS);
-
-			// set values for each '?'
-			statement.setString(1, address.getCep());
-			statement.setString(2, address.getAddress());
-			statement.setString(3, address.getComplement());
-
-			int affectedRows = statement.executeUpdate();
-
-			if (affectedRows == 0) {
-				throw new SQLException("Creating address failed, no rows affected.");
-			}
-
-			try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
-				if (generatedKeys.next()) {
-					addressSavedId =  generatedKeys.getInt(1);
-				}
-				else {
-					throw new SQLException("Creating address failed, no ID obtained.");
-				}
-			}
+			this.statement = this.connection.prepareStatement(sqlQuery);
+			this.statement.setString(1, user.getName());
+			this.statement.setString(2, user.getEmail());
+			this.statement.setString(3, user.getPhone());
+			this.statement.setString(4, user.getPassword());
+			this.statement.setInt(5, user.getId());
+			this.statement.execute();
+			AddressDAO daoAddress = new AddressDAO();
+			daoAddress.update( ((Client) user).getAddress() );
 		} catch (SQLException exception) {
-			throw new RuntimeException("Error processing SQL - saveAddress in UserDAO: "
+			throw new RuntimeException("Error processing SQL - update in UserDAO: "
 					+exception.getMessage());
 		}  finally {
-			statement.close();
-		}
-		return addressSavedId;
-	}
-
-	private void updateAddress(Address address) throws SQLException {
-
-		String sqlQuery = "update address set cep=?, address=?, addressComplement=? "
-				+ "where idAddress=?";
-
-		PreparedStatement statement = null;
-		
-		try {
-			statement = this.connection.prepareStatement(sqlQuery);
-			statement.setString(1, address.getCep());
-			statement.setString(2, address.getAddress());
-			statement.setString(3, address.getComplement());
-			statement.setInt(4, address.getId());
-			statement.execute();
-		} catch (SQLException exception) {
-			throw new RuntimeException("Error processing SQL - updateAddress in UserDAO: "
-					+exception.getMessage());
-		}  finally {
-			statement.close();
+			closeConnectionObjects();
 		}
 	}
-
+	
+	/**
+	 * Performs login of a user according to email and password in database
+	 * @param email, password strings of user's email and user's password from login form
+	 */
 	public User login(String email, String password){
 
+		assert email != null: "Invalid User email: null value cannot be accepted";
+		assert password != null: "Invalid User password: null value cannot be accepted";
+		
 		String sqlQuery = "select * from user where email=? and password=?";
 		User user = null;
 
@@ -154,68 +231,15 @@ public class UserDAO extends DataAccessObject{
 		}
 		return user;
 	}
-
-	//Must open new Statement and Result objects to not interfere on calling methods
-	private Client getClientById(int clientId) throws SQLException{
-		String sqlQuery = "select address_idAddress from client where user_iduser=?";
-		Client client = null;
-		PreparedStatement statement = null;
-		ResultSet result = null;
-		
-		try {
-			statement = this.connection.prepareStatement(sqlQuery);
-			statement.setInt(1, clientId);
-			
-			result = statement.executeQuery();
-
-			//If SQL query returned result
-			if (result.next()) {
-				AddressDAO daoAddress = new AddressDAO();
-				Address address = daoAddress.getAddressById(result.getInt("address_idAddress"));
-				result.getString("address_idAddress");
-				client = new Client(address);
-			} else {
-				//nothing to do, no client found
-			}
-		}  catch (SQLException exception) {
-			throw new RuntimeException("Error processing SQL - getClientById in UserDAO: "
-					+exception.getMessage());
-		}  finally {
-			statement.close();
-			result.close();
-		}
-		return client;
-	}
-
-	//Must open new Statement and Result objects to not interfere on calling methods
-	private Administrator getAdministratorById(int id) throws SQLException{	
-		String sqlQuery = "select 1 from administrator where user_iduser=?";
-		Administrator administrator = null;
-		PreparedStatement statement = null;
-		ResultSet result = null;
-		
-		try {
-			statement = this.connection.prepareStatement(sqlQuery);
-			statement.setInt(1, id);
-			result = statement.executeQuery();
-
-			if (result.next()) {
-				administrator = new Administrator();
-			} else {
-				//nothing to do
-			}
-
-		} catch (SQLException exception) {
-			throw new RuntimeException("Error processing SQL - getAdministratorById in UserDAO: "
-					+exception.getMessage());
-		}  finally {
-			statement.close();
-			result.close();
-		}
-		return administrator;
-	}
 	
+	/**
+	 * Returns a User from database based on ID
+	 * @param int user id number
+	 */
 	public User getUserById(int userId) {	
+		
+		assert userId > 0: "Invalid User ID";
+		
 		String sqlQuery = "select * from user where iduser=?";
 		User user = null;
 		
@@ -248,58 +272,5 @@ public class UserDAO extends DataAccessObject{
 			closeConnectionObjects();
 		}
 		return user;
-	}
-	
-	//Must open new Statement and Result objects to not interfere on calling methods
-	private boolean isUserClient(int idUser) throws SQLException{
-		String sqlQuery = "select 1 from client where user_iduser=?";
-		boolean userIsClient = true;
-		PreparedStatement statement = null;
-		ResultSet result = null;
-
-		try {
-			statement = this.connection.prepareStatement(sqlQuery);
-			statement.setInt(1, idUser);
-			result = statement.executeQuery();
-
-			if (result.next()) {
-				userIsClient = true;
-			} else {
-				userIsClient = false;
-			}
-
-		}  catch (SQLException exception) {
-			throw new RuntimeException("Error processing SQL - isUserClient in UserDAO: "
-					+exception.getMessage());
-		}  finally {
-			statement.close();
-			result.close();
-		}
-		
-		return userIsClient;
-	}
-	
-	public void update(User user) {
-
-		String sqlQuery = "update user set name=?, email=?, phone=?," +
-				" password=? where iduser=?";
-
-		setupConnectionObjects();
-
-		try {
-			this.statement = this.connection.prepareStatement(sqlQuery);
-			this.statement.setString(1, user.getName());
-			this.statement.setString(2, user.getEmail());
-			this.statement.setString(3, user.getPhone());
-			this.statement.setString(4, user.getPassword());
-			this.statement.setInt(5, user.getId());
-			this.statement.execute();
-			updateAddress( ((Client)user).getAddress() );
-		} catch (SQLException exception) {
-			throw new RuntimeException("Error processing SQL - update in UserDAO: "
-					+exception.getMessage());
-		}  finally {
-			closeConnectionObjects();
-		}
 	}
 }

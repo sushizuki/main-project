@@ -16,6 +16,10 @@ public class ConnectionFactory implements dao.Connection{
 	private final String user = "root";
 	private final String password = "";
 	
+	/**
+	 * Establishes a connection with database
+	 * @return SQL Connection object
+	 */
 	public Connection getConnection() {		
 		Connection myConnection = null;		
 		
@@ -31,6 +35,7 @@ public class ConnectionFactory implements dao.Connection{
 		return myConnection;
 	}
 	
+	//Configuration for a MySQL Connection
 	private Connection MySqlConnection(final String host, final String user, 
 			final String password) throws SQLException{
 		

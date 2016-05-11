@@ -1,6 +1,6 @@
 /** 
  * ProductDAO.java to define ProductDAO 
- * This class persists into or from database any information about addresses
+ * This class persists into or from database any information about products
  */
 
 package dao;
@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,28 +27,36 @@ public class ProductDAO extends DataAccessObject{
 		super();
 	}
 	
-	private void updateImage(Product product) {	
-		this.sqlQuery = "update product set image=? where idProduct=?";
+	/*
+	 * Updates image URL in database
+	 * Must open new Statement and Query objects to not interfere on calling methods
+	 */
+	private void updateImage(Product product) throws SQLException {	
+		
+		assert product != null: "Invalid Product: null value cannot be accepted";
+		
+		String sqlQuery = "update product set image=? where idProduct=?";
 
-		setupConnectionObjects();
+		PreparedStatement statement = null;
 		
 		try {
 			deleteImageProduct(product);
-			this.statement = this.connection.prepareStatement(this.sqlQuery);
+			statement = this.connection.prepareStatement(sqlQuery);
 			
 			//Replace '?' characters from sql variable into statement
-			this.statement.setString(1, product.getImageURL());
-			this.statement.setInt(2, product.getId());
+			statement.setString(1, product.getImageURL());
+			statement.setInt(2, product.getId());
 			
-			this.statement.execute();
+			statement.execute();
 		} catch (SQLException exception) {
 			throw new RuntimeException("Error processing SQL - updateImage in ProductDAO: "
 					+exception.getMessage());
 		} finally {
-			closeConnectionObjects();
+			statement.close();
         }
 	}
 	
+	//Converts String to Path object (URL)
 	private Path convertImagePath(Product product){
 		String path = getClass().getResource("/").getPath();
 		path = path.replace("WEB-INF/classes/", "");
@@ -58,12 +67,20 @@ public class ProductDAO extends DataAccessObject{
 		return Paths.get(path);
 	}
 	
+	//Deletes image from product
 	private void deleteImageProduct(Product product){
+		
+		assert product != null: "Invalid Product: null value cannot be accepted";
+		
 		Path path = convertImagePath(product);
 		deleteFile(path);
 	}
 	
+	//Deletes file from disk
 	private void deleteFile(Path path){
+		
+		assert path != null: "Invalid Path: null value cannot be accepted";
+		
 		try {
 		    Files.delete(path);
 		} catch (NoSuchFileException x) {
@@ -80,6 +97,8 @@ public class ProductDAO extends DataAccessObject{
 	 * @param Product object containing full product details
 	 */
 	public void insert(Product product) {
+		
+		assert product != null: "Invalid Product: null value cannot be accepted";
 		
 		this.sqlQuery = "insert into product "
 				+ "(name,description,price,image,Category_idCategory)"
@@ -156,15 +175,10 @@ public class ProductDAO extends DataAccessObject{
 	 * @return List<Product> list of products and their details 
 	 */
 	public Product getProductById(int productId) {
+		
+		assert productId > 0: "Invalid Product ID";
         
 		Product product = null;
-		int id = 0;
-		String name = null;
-		String description = null;
-		String imageURL = null;
-		String category = null;
-		String extra = null;
-		double price = 0;
 		
         this.sqlQuery = "select * from product where idProduct=?";
 
@@ -180,13 +194,13 @@ public class ProductDAO extends DataAccessObject{
 
             if (this.result.next()) {
             	//Binding product info
-				id = Integer.parseInt(this.result.getString("idproduct"));
-				name = this.result.getString("name");
-				description = this.result.getString("description");
-				price = Double.parseDouble(this.result.getString("price"));
-				imageURL = this.result.getString("image");
-				category = this.result.getString("Category_idCategory");
-				
+				int id = Integer.parseInt(this.result.getString("idproduct"));
+				String name = this.result.getString("name");
+				String description = this.result.getString("description");
+				double price = Double.parseDouble(this.result.getString("price"));
+				String imageURL = this.result.getString("image");
+				String category = this.result.getString("Category_idCategory");
+				String extra = null;
 				product = new Product(id, name, description, price, imageURL, category, extra);
             }
             
@@ -205,6 +219,8 @@ public class ProductDAO extends DataAccessObject{
 	 * @param product object containing full product details
 	 */
 	public void update(Product product) {
+		
+		assert product != null: "Invalid Product: null value cannot be accepted";
 		
 		this.sqlQuery = "update product set name=?, description=?, price=?,"
 				+ " Category_idCategory=? where idProduct=?";		
@@ -243,6 +259,9 @@ public class ProductDAO extends DataAccessObject{
 	 * @param product object containing full product details
 	 */
 	public void delete(Product product) {	
+		
+		assert product != null: "Invalid Product: null value cannot be accepted";
+		
 		this.sqlQuery = "delete from product where idProduct=?";
 
 		setupConnectionObjects();
