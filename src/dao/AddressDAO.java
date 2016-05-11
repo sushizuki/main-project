@@ -21,7 +21,8 @@ public class AddressDAO extends DataAccessObject{
 		super();
 	}
 
-	/** insert registers an address into the database and returns its generated id
+	/** 
+	 * Registers an address into the database and returns its generated id
 	 * @param Address object containing full address details
 	 * @return int id number generated from database
 	 */
