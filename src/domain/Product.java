@@ -1,3 +1,4 @@
+
 /**
 *    Product.java to define Product
 *    Product is an item shown to the Client to be bought.
@@ -11,12 +12,12 @@ import dao.ProductDAO;
 
 public class Product {
 
-	private int id;
-	private String name;
-	private String description;
-	private double price;
+	private int idProduct;
+	private String nameProduct;
+	private String descriptionOfProduct;
+	private double priceOfProduct;
 	private String imageURL;
-	private String category;
+	private String categoryOfProduct;
 	private String extra; //Cream cheese or green onion
 
 	public Product(int id, String name, String description, double price,
@@ -41,35 +42,35 @@ public class Product {
 	}
 
 	public int getId() {
-		return id;
+		return idProduct;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.idProduct = id;
 	}
 
 	public double getPrice() {
-		return price;
+		return priceOfProduct;
 	}
 
 	public void setPrice(double price) {
-		this.price = price;
+		this.priceOfProduct = price;
 	}
 
 	public String getDescription() {
-		return description;
+		return descriptionOfProduct;
 	}
 
 	public void setDescription(String description) {
-		this.description = description;
+		this.descriptionOfProduct = description;
 	}
 
 	public String getName() {
-		return name;
+		return nameProduct;
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.nameProduct = name;
 	}
 
 	public String getImageURL() {
@@ -81,50 +82,60 @@ public class Product {
 	}
 
 	public String getCategory() {
-		return category;
+		return categoryOfProduct;
 	}
 
 	//Get a number, look into category list from database to assign Name proper to the number
 	public void setCategory(String category) {
-		ProductDAO dao = new ProductDAO();
-		List<String> list = dao.getProductCategoryList();
+		ProductDAO daoProduct = new ProductDAO();
+		List<String> listOfCategory = daoProduct.getProductCategoryList();
 		try {
-			this.category = list.get(Integer.parseInt(category)-1);
+			this.categoryOfProduct = listOfCategory.get(Integer.parseInt(category)-1);
 		}catch(RuntimeException e){
 			System.out.println("Error assigning category");
 		}
 	}
 
 	public void setCategory(int category) {
-		this.category = String.valueOf(category);
+		this.categoryOfProduct = String.valueOf(category);
 	}
 
 	//Get a number, look into category list from database to assign Name proper to the number
 	public int getCategoryId(String category) {
-		ProductDAO dao = new ProductDAO();
-		List<String> list = dao.getProductCategoryList();
+		
+		ProductDAO daoProduct = new ProductDAO();
+		List<String> listOfCategory = daoProduct.getProductCategoryList();
+		int returnValue=0;
 
-		for (int i = 1; i <= list.size(); i++) {
+		for (int i = 1; i <= listOfCategory.size(); i++) {
 		    if(category.equalsIgnoreCase(this.getCategory())){
-		    	return i;
+		    	returnValue= i;
 		    }
 		}
-		return 0; //if not found 0 = none
+		return returnValue; //if not found 0 = none
 	}
 
 	public int getExtraId(String extra) {
+		
+		int returnValue=-1; 
+		
 		if(extra == null || extra.isEmpty()){
-			return 0;
-		}
-		ProductDAO dao = new ProductDAO();
-		List<String> list = dao.getProductExtraList();
+			returnValue = 0;
+		}else{
+			
+			ProductDAO daoProduct = new ProductDAO();
+			List<String> listOfExtra = daoProduct.getProductExtraList();
 
-		for (int i = 1; i <= list.size(); i++) {
-		    if(extra.equalsIgnoreCase(this.getExtra())){
-		    	return i;
-		    }
+			for (int i = 1; i <= listOfExtra.size(); i++) {
+				if(extra.equalsIgnoreCase(this.getExtra())){
+					returnValue= i;
+				}
+			}
+		returnValue=0; //if not found 0 = none
 		}
-		return 0; //if not found 0 = none
+		
+		return returnValue;
+		
 	}
 
 	public String getExtra() {
@@ -133,11 +144,12 @@ public class Product {
 
 	//Get a number, look into category list from database to assign Name proper to the number
 	public void setExtra(String extra) {
-        if(extra != null && !extra.isEmpty()){
-			ProductDAO dao = new ProductDAO();
-			List<String> list = dao.getProductExtraList();
+        
+		if(extra != null && !extra.isEmpty()){
+			ProductDAO daoProduct = new ProductDAO();
+			List<String> listOfExtra = daoProduct.getProductExtraList();
 			try {
-				this.extra = list.get(Integer.parseInt(extra)-1);
+				this.extra = listOfExtra.get(Integer.parseInt(extra)-1);
 			}catch(RuntimeException e){
 				System.out.println("Error assigning extra");
 			}

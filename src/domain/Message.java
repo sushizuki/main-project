@@ -9,18 +9,18 @@ import java.util.Calendar;
 
 public class Message {
 
-	private int id;
+	private int idMessage;
 	private Client sender;
 	private String message;
 	private Calendar dateSent;
 
 
 	public int getId() {
-		return id;
+		return idMessage;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.idMessage = id;
 	}
 
 	public Client getSender() {

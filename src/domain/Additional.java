@@ -7,8 +7,8 @@ package domain;
 
 public class Additional {
 
-	private int id;
-	private String name;
+	private int idAdditional;
+	private String nameAdditional;
 
 	public Additional(){
 
@@ -16,23 +16,23 @@ public class Additional {
 
 	public Additional(int id, String name) {
 		super();
-		this.id = id;
-		this.name = name;
+		this.idAdditional = id;
+		this.nameAdditional = name;
 	}
 
 	public int getId() {
-		return id;
+		return idAdditional;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.idAdditional = id;
 	}
 
 	public String getName() {
-		return name;
+		return nameAdditional;
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.nameAdditional = name;
 	}
 }

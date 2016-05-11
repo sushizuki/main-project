@@ -1,3 +1,4 @@
+
 /**
 *    Order.java to define Order
 *    Order describes a set of Products and other details of a Client's order. 
@@ -14,11 +15,11 @@ public class Order {
 	private int id;
 	private Client client;
 	private HashMap<Product, Integer> items;
-	private List<Additional> additionals;
+	private List<Additional> additionalsList;
 	private double totalPrice;
 	private Receiving receiving; 
-	private Payment payment;
-	private String status;
+	private Payment paymentOfOrder;
+	private String statusOfOrder;
 
 	public Order(){	}
 
@@ -47,11 +48,11 @@ public class Order {
 	}
 
 	public List<Additional> getAdditionals() {
-		return additionals;
+		return additionalsList;
 	}
 
 	public void setAdditionals(List<Additional> additionals) {
-		this.additionals = additionals;
+		this.additionalsList = additionals;
 	}
 
 	public double getTotalPrice() {
@@ -79,26 +80,26 @@ public class Order {
 	}
 
 	public Payment getPayment() {
-		return payment;
+		return paymentOfOrder;
 	}
 
 	public void setPayment(Payment payment) {
-		this.payment = payment;
+		this.paymentOfOrder = payment;
 	}
 
 	public String getStatus(){
-		return this.status;
+		return this.statusOfOrder;
 	}
 
 	public void setStatus(String status){		
-		this.status = status;
+		this.statusOfOrder = status;
 	}
 	
 	public void setStatus(int status){
 		if(status == NEW_ORDER_STATUS){
-			this.status = "Novo Pedido";
+			this.statusOfOrder = "Novo Pedido";
 		} else if(status == FINISHED_ORDER_STATUS){
-			this.status = "Entregue";
+			this.statusOfOrder = "Entregue";
 		}
 	}
 }
