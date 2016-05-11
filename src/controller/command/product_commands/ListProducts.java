@@ -1,6 +1,6 @@
 /** 
 *    ListProducts.java to define ListProducts 
-*    {purpose} 
+*    The purpose of this class is to list all products saved in the database
 */ 
 
 package controller.command.product_commands;
@@ -13,27 +13,27 @@ import domain.Product;
 
 public class ListProducts implements Command {
 
-	private ProductDAO dao;
-	private List<Product> products;
+	private ProductDAO productDao;
+	private List<Product> productsList;
 	private String pageToRedirect;
 	
 	public ListProducts() {
 		super();
-		this.dao = new ProductDAO();
-		this.setPageToRedirect("/adm/product-list.jsp");
+		this.productDao = new ProductDAO();
+		this.setPageToRedirect("/adm/product-list.jsp"); //Default page to redirect
 	}	
 	
 	public List<Product> getProducts() {
-		return products;
+		return productsList;
 	}
 	
 	public void setProducts(List<Product> products) {
-		this.products = products;
+		this.productsList = products;
 	}
 
 	@Override
 	public void execute() throws Exception {
-		setProducts(dao.getList());		
+		setProducts(productDao.getList());		
 	}
 
 	@Override
@@ -48,5 +48,4 @@ public class ListProducts implements Command {
 			this.pageToRedirect = "/adm/product-list.jsp";
 		}
 	}
-	
 }
