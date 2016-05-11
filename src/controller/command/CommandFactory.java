@@ -40,7 +40,7 @@ public class CommandFactory {
 		this.commands.keySet().stream().forEach(System.out::println);
 	}
 	
-	/** Factory pattern **/
+	/* Factory pattern */
 	public static CommandFactory init() {
 		
 		CommandFactory commmandFactory = new CommandFactory();

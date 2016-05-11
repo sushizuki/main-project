@@ -1,6 +1,6 @@
 /** 
 *    GetOrder.java to define GetOrder 
-*    The purpose of this class is to return the order in the user session 
+*    {purpose} 
 */ 
 
 package controller.command.order_commands;
@@ -12,9 +12,9 @@ import domain.Order;
 
 public class GetOrder implements Command {
 	
-	private Order orderOfTheUser;
+	private Order order;
 	private HttpSession session;
-	private String pageToRedirec; 
+	private String pageToRedirec;
 
 	public GetOrder() {
 		this.pageToRedirec = "/shopping-cart.jsp"; //Default page to redirect
@@ -29,12 +29,12 @@ public class GetOrder implements Command {
 	}
 	
 	public Order getOrder(){
-		return this.orderOfTheUser;
+		return this.order;
 	}
 
 	@Override
 	public void execute() throws Exception {
-		this.orderOfTheUser = (Order) this.session.getAttribute("order");
+		this.order = (Order) this.session.getAttribute("order");
 	}
 
 	@Override
