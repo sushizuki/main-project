@@ -1,6 +1,6 @@
 /** 
 *    DeleteProduct.java to define DeleteProduct 
-*    The purpose of this class is to delete a product from database. 
+*    This purpose of this class is to delete product from database
 */ 
 
 package controller.command.product_commands;
@@ -13,12 +13,12 @@ public class DeleteProduct implements Command {
 
 	private ProductDAO productDao;
 	private String pageToRedirect;
-	private Product productToDelete;
+	private Product product;
 	
 	public DeleteProduct() {
 		super();
 		this.productDao = new ProductDAO();
-		this.setPageToRedirect("/adm/product-list.jsp"); // Default page to redirect
+		this.setPageToRedirect("/adm/product-list.jsp"); //Default page to redirect
 	}
 	
 	public void setPageToRedirect(String pageToRedirect) {
@@ -26,19 +26,19 @@ public class DeleteProduct implements Command {
 	}
 	
 	public void setProduct(Integer productId){
-		this.productToDelete = productDao.getProductById(productId);
+		this.product = productDao.getProductById(productId);
 	}
 
 	@Override
 	public void execute() throws Exception {
 		try{
-			if(this.productToDelete != null){
-				productDao.delete(productToDelete);
+			if(this.product != null){
+				productDao.delete(product);
 			}else{
-			//Do nothing
+				//Do nothing
 			}
 		}catch(Exception executeException){
-				executeException.printStackTrace();
+			executeException.printStackTrace();
 		}
 	}
 

@@ -1,6 +1,6 @@
 /** 
 *    GetProduct.java to define GetProduct 
-*    The purpose of this class is to get a product with a provided id 
+*    {purpose} 
 */ 
 
 package controller.command.product_commands;
@@ -13,24 +13,24 @@ import domain.Product;
 
 public class GetProduct implements Command {
 
-	private ProductDAO productDao;
+	private ProductDAO dao;
 	private Product product;
 	private String pageToRedirect;
-	private Integer productId; //Product id used to search into the database
-	private List<String> productCategoriesList;
+	private Integer productId;
+	private List<String> productCategories;
 	
 	public GetProduct(){
 		super();
-		this.productDao = new ProductDAO();
-		this.setPageToRedirect("/adm/product.jsp"); //Default page to redirect
+		this.dao = new ProductDAO();
+		this.setPageToRedirect("/adm/product.jsp");
 	}
 	
-	public void setProductId(int productId){
-		this.productId = productId;
+	public void setProductId(int i){
+		this.productId = i;
 	}
 	
-	public void setPageToRedirect(String pageToRedirect){
-		this.pageToRedirect = pageToRedirect;
+	public void setPageToRedirect(String page){
+		this.pageToRedirect = page;
 	}
 	
 	public Product getProduct(){
@@ -38,26 +38,18 @@ public class GetProduct implements Command {
 	}
 	
 	public List<String> getProductCategories() {
-		return productCategoriesList;
+		return productCategories;
 	}
 	
 	public void setProductCategories(List<String> categoryList) {
-		this.productCategoriesList = categoryList;		
+		this.productCategories = categoryList;		
 	}
 	
 	@Override
 	public void execute() throws Exception {
-		try{
-		
-			this.setProductCategories(productDao.getProductCategoryList());
-		
-				if(productId != null){ 
-					this.product = productDao.getProductById(productId);
-				}else{
-					//Do nothing
-				}
-		}catch(Exception executeException){
-			executeException.printStackTrace();
+		this.setProductCategories(dao.getProductCategoryList());
+		if(productId != null){ 
+			this.product = dao.getProductById(productId);
 		}
 	}
 

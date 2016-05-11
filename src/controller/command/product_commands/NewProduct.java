@@ -1,8 +1,7 @@
 /** 
 *    NewProduct.java to define NewProduct 
-*  	The purpose of this class is to open the form for a 
-*    new product and searches available categories the product can be saved with.
-*/  
+*    {purpose} 
+*/ 
 
 package controller.command.product_commands;
 
@@ -13,22 +12,22 @@ import dao.ProductDAO;
 
 public class NewProduct implements Command {
 
-	private ProductDAO productDao;
-	private List<String> productCategoriesList;
+	private ProductDAO dao;
+	private List<String> productCategories;
 	private String pageToRedirect;
 
 	public NewProduct(){
 		super();
-		this.productDao = new ProductDAO();
-		this.setPageToRedirect("/adm/product.jsp"); //Default page to redirect
+		this.dao = new ProductDAO();
+		this.setPageToRedirect("/adm/product.jsp");
 	}
 	
 	public List<String> getProductCategories() {
-		return productCategoriesList;
+		return productCategories;
 	}
 
 	public void setProductCategories(List<String> productCategories) {
-		this.productCategoriesList = productCategories;
+		this.productCategories = productCategories;
 	}
 
 	public void setPageToRedirect(String pageToRedirect) {
@@ -37,7 +36,7 @@ public class NewProduct implements Command {
 	
 	@Override
 	public void execute() throws Exception {
-		this.setProductCategories(productDao.getProductCategoryList());
+		this.setProductCategories(dao.getProductCategoryList());
 	}
 
 	@Override
