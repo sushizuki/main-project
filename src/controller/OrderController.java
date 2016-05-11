@@ -1,6 +1,7 @@
 /**
 *    OrderController.java to define OrderController
-*    {purpose}
+*    Manages POST and GET requests about Order related operations
+*    and shows exceptions handling.
 */
 
 package controller;
@@ -20,11 +21,16 @@ import controller.command.user_commands.CheckUserLogged;
 import domain.Client;
 import domain.Order;
 
-
+/**
+ * Servlet OrderController
+ */
 public class OrderController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-
+	
+	/**
+	 * Command factory uses Factory and Command design patterns
+	 */
 	private static CommandFactory cf = CommandFactory.init();
 
 	public OrderController() {
@@ -38,11 +44,14 @@ public class OrderController extends HttpServlet {
 
 		try {
 
+        	//Get command from request
 			String action = request.getParameter("action");
 
 			//Default action: List Products
 			if(action == null || action.isEmpty()){
 				action = "getOrder";
+			}else{
+				//Nothing to do
 			}
 
 			Command command = cf.getCommand(action);

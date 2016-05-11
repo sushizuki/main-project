@@ -1,6 +1,7 @@
 /** 
 *    AddAdditionalsToOrder.java to define AddAdditionalsToOrder 
-*    {purpose} 
+*    The purpose of this class is add the additionals selected by the client
+*    into the order
 */ 
 
 package controller.command.order_commands;
@@ -28,8 +29,8 @@ public class AddAdditionalsToOrder implements Command {
 		this.orderDao = new OrderDAO();
 	}
 	
-	public void setOrder(Order o){
-		this.order = o;
+	public void setOrder(Order order){
+		this.order = order;
 	}
 		
 	public void setPageToRedirect(){
@@ -61,9 +62,9 @@ public class AddAdditionalsToOrder implements Command {
 	public void setAdditionalsToOrder(){
 		try{
 			this.getOrder().setAdditionals(new ArrayList<Additional>());
-			for(String s : additionalIds){
-					Additional d = this.orderDao.getAdditionalById(Integer.valueOf(s));
-					this.order.getAdditionals().add(d);
+			for(String stringOfAdditionals : additionalIds){
+					Additional additionals = this.orderDao.getAdditionalById(Integer.valueOf(stringOfAdditionals));
+					this.order.getAdditionals().add(additionals);
 				
 			}
 		}catch(NullPointerException npe){};
@@ -73,8 +74,8 @@ public class AddAdditionalsToOrder implements Command {
 		return this.order;
 	}
 	
-	public void setReceiving(int r){
-		this.receiving = r;
+	public void setReceiving(int receiving){
+		this.receiving = receiving;
 	}
 	
 	public int getReceiving(){
