@@ -1,6 +1,6 @@
 /** 
 *    DeleteProduct.java to define DeleteProduct 
-*    This purpose of this class is to delete product from database
+*    This purpose of this class i to delete product from database
 */ 
 
 package controller.command.product_commands;
