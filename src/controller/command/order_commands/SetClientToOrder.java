@@ -1,6 +1,7 @@
+
 /** 
 *    SetClientToOrder.java to define SetClientToOrder 
-*    {purpose} 
+*    The purpose of this class is to associate the user logged to his order 
 */ 
 
 package controller.command.order_commands;
@@ -20,15 +21,15 @@ public class SetClientToOrder implements Command{
 
 	public SetClientToOrder() {
 		this.userDao = new UserDAO();
-		this.pageToRedirect = "/shopping-cart.jsp";
+		this.pageToRedirect = "/shopping-cart.jsp"; //Default page to redirect
 	}
 	
-	public void setClient(int id){
-		this.client = (Client)userDao.getUserById(id);
+	public void setClient(int idUser){
+		this.client = (Client)userDao.getUserById(idUser);
 	}	
 	
-	public void setClient(User u){
-		this.client = (Client)u;
+	public void setClient(User user){
+		this.client = (Client)user;
 	}
 	
 	public Order getOrder(){
@@ -41,10 +42,14 @@ public class SetClientToOrder implements Command{
 
 	@Override
 	public void execute() throws Exception {
-		if(this.client!=null){
-			this.order.setClient(this.client);
-		} else {
-			this.pageToRedirect = "login.jsp";
+		try{
+			if(this.client!=null){
+				this.order.setClient(this.client);
+			} else {
+				this.pageToRedirect = "login.jsp";
+			}
+		}catch(Exception executeException){
+			executeException.printStackTrace();
 		}
 	}
 

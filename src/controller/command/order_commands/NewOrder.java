@@ -1,3 +1,4 @@
+
 /** 
 *    NewOrder.java to define NewOrder 
 *    The purpose of this class is to initialize the order
@@ -47,9 +48,13 @@ public class NewOrder implements Command {
 
 	@Override
 	public void execute() throws Exception {
-		this.order = new Order();
-		this.setItemsToOrder();
-	    this.order.setTotalPrice();
+		try{	
+			this.order = new Order();
+			this.setItemsToOrder();
+			this.order.setTotalPrice();
+		}catch(Exception executeException){
+			executeException.printStackTrace();
+		}
 	}
 	
 	public void setItems(String[] products, String[]quantity){

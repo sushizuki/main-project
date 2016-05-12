@@ -1,3 +1,4 @@
+
 /** 
 *    GetOrderList.java to define GetOrderList 
 *    The purpose of this class is to return all orders saved in the database
@@ -26,12 +27,12 @@ public class GetOrderList implements Command {
 		this.pageToRedirec = "/adm/order-list.jsp"; //Default page to redirect
 	}
 	
-	public void setSession(HttpSession s){
-		this.session = s;
+	public void setSession(HttpSession session){
+		this.session = session;
 	}
 	
-	public void setPageToRedirect(String p){
-		this.pageToRedirec = p;
+	public void setPageToRedirect(String page){
+		this.pageToRedirec = page;
 	}
 	
 	public List<Order> getOrderList(){
