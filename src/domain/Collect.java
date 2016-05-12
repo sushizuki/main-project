@@ -16,6 +16,8 @@ public class Collect implements Receiving {
 	private Calendar dateTime;
 
 	public Collect(Calendar dateTime) {
+		assert dateTime != null: "Invalid Calendar: null value cannot be accepted";
+		
 		setAddress(SUSHIZUKI_LOCATION);
 		setDateTime(dateTime);
 	}
@@ -26,6 +28,8 @@ public class Collect implements Receiving {
 
 	@Override
 	public void setAddress(Address address) {
+		assert address != null: "Invalid address: null value cannot be accepted";
+		
 		this.address = address;
 	}
 
@@ -39,6 +43,8 @@ public class Collect implements Receiving {
 	}
 
 	public void setDateTime(Calendar dateTime) {
+		assert dateTime != null: "Invalid Calendar: null value cannot be accepted";
+		
 		this.dateTime = dateTime;
 	}
 

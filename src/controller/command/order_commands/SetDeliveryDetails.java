@@ -28,8 +28,10 @@ public class SetDeliveryDetails implements Command {
 		this.pageToRedirect="/confirmation.jsp";
 	}
 	
-	public void setOrder(Order o){
-		this.order = o;
+	public void setOrder(Order order){
+		assert order != null: "Invalid Order: null value cannot be accepted";
+
+		this.order = order;
 	}
 	
 	public Order getOrder(){
@@ -37,18 +39,29 @@ public class SetDeliveryDetails implements Command {
 	}
 	
 	public void setAddress(Address address){
+		assert address != null: "Invalid Address: null value cannot be accepted";
+
 		this.deliveryAddress = address;
 	}
 	
 	public void setAddress(String cep, String address, String complement){
+		assert cep != null: "Invalid CEP: null value cannot be accepted";
+		assert address != null: "Invalid Address: null value cannot be accepted";
+		assert complement != null: "Invalid Complement: null value cannot be accepted";
+
 		this.deliveryAddress = new Address(cep, address, complement);
 	}
 	
-	public void setCollectTime(Calendar date){
-		this.collectTime = date;
+	public void setCollectTime(Calendar dateTime){
+		assert dateTime != null: "Invalid dateTime: null value cannot be accepted";
+
+		this.collectTime = dateTime;
 	}
 	
 	public void setCollectTime(String date, String time){
+		assert date != null: "Invalid Date: null value cannot be accepted";
+		assert time != null: "Invalid Time: null value cannot be accepted";
+		
 		Calendar dateTime = Calendar.getInstance();
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		try {

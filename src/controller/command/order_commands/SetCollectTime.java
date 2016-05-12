@@ -27,6 +27,8 @@ public class SetCollectTime implements Command {
 	}
 	
 	public void setOrder(Order order){
+		assert order != null: "Invalid Order: null value cannot be accepted";
+
 		this.order = order;
 	}
 	
@@ -35,10 +37,15 @@ public class SetCollectTime implements Command {
 	}
 	
 	public void setCollectTime(Calendar dateTime){
+		assert dateTime != null: "Invalid DateTime: null value cannot be accepted";
+
 		this.collectTime = dateTime;
 	}
 	
 	public void setCollectTime(String date, String time){
+		assert date != null: "Invalid Date: null value cannot be accepted";
+		assert time != null: "Invalid Time: null value cannot be accepted";
+
 		Calendar dateTime = Calendar.getInstance();
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		try {

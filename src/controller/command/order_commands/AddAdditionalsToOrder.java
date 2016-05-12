@@ -30,6 +30,8 @@ public class AddAdditionalsToOrder implements Command {
 	}
 	
 	public void setOrder(Order order){
+		assert order != null: "Invalid Order: null value cannot be accepted";
+
 		this.order = order;
 	}
 		
@@ -42,6 +44,12 @@ public class AddAdditionalsToOrder implements Command {
 	}
 	
 	public void setPayment(String type, double total, double change) throws SQLException{
+		assert type != null: "Invalid Type: null value cannot be accepted";
+		assert total != 0: "Invalid Total: null value cannot be accepted";
+		assert total < 0: "Invalid Total: negative value cannot be accepted";
+		assert change != 0: "Invalid Change: null value cannot be accepted";
+		assert change < 0: "Invalid Change: negative value cannot be accepted";
+
 		if(type.equalsIgnoreCase("money")){
 			type = "2";
 		} else if(type.equalsIgnoreCase("card")){
@@ -56,6 +64,8 @@ public class AddAdditionalsToOrder implements Command {
 	}
 	
 	public void setAdditionalsIds(String[] ids){
+		assert ids != null: "Invalid Ids: null value cannot be accepted";
+
 		this.additionalIds = ids;
 	}
 	
@@ -75,6 +85,9 @@ public class AddAdditionalsToOrder implements Command {
 	}
 	
 	public void setReceiving(int receiving){
+		assert receiving != 0: "Invalid Receiving: null value cannot be accepted";
+		assert receiving < 0: "Invalid Receiving: negative value cannot be accepted";
+
 		this.receiving = receiving;
 	}
 	
