@@ -1,6 +1,7 @@
 /** 
 *    NewOrder.java to define NewOrder 
-*    {purpose} 
+*    The purpose of this class is to initialize the order
+*    with the items selected at the menu
 */ 
 
 package controller.command.order_commands;
@@ -29,19 +30,19 @@ public class NewOrder implements Command {
 		return this.order;
 	}
 	
-	private int[] castProductQuantities(int size, String[] qtds){
-		int count = 0;
-		int[] array = new int[size];
-		for(String n:qtds){
+	private int[] castProductQuantities(int size, String[] quantity){
+		int counter = 0;
+		int[] arrayQuantity = new int[size];
+		for(String idProducts:quantity){
 			try {  
-				int i = Integer.parseInt(n);  
+				int i = Integer.parseInt(idProducts);  
 				if(i>0){
-					array[count] = i;
-					count++;
+					arrayQuantity[counter] = i;
+					counter++;
 				}
 			}catch(NumberFormatException nfe){  }  
 		}
-		return array;
+		return arrayQuantity;
 	}
 
 	@Override
@@ -51,14 +52,14 @@ public class NewOrder implements Command {
 	    this.order.setTotalPrice();
 	}
 	
-	public void setItems(String[] products, String[]qtds){
-		int[] quantities = castProductQuantities(products.length, qtds);
+	public void setItems(String[] products, String[]quantity){
+		int[] quantities = castProductQuantities(products.length, quantity);
 		HashMap<Product,Integer> items = new HashMap<Product,Integer>();
-		int count = 0;
-	    for(String id:products){
-	     	Product p = productDao.getProductById(Integer.parseInt(id));
-	     	items.put(p, quantities[count]);
-	     	count++;
+		int counter = 0;
+	    for(String idProducts:products){
+	     	Product product = productDao.getProductById(Integer.parseInt(idProducts));
+	     	items.put(product, quantities[counter]);
+	     	counter++;
 	    }
 	    this.itemsToOrder = items;
 	}
