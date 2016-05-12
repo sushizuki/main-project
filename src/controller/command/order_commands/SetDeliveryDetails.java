@@ -1,6 +1,7 @@
 /** 
 *    SetDeliveryDetails.java to define SetDeliveryDetails 
-*    {purpose} 
+*    The purpose of this class is to set the delivery details
+*    when the client wants to receive the order by delivery
 */ 
 
 package controller.command.order_commands;
@@ -35,36 +36,34 @@ public class SetDeliveryDetails implements Command {
 		return this.order;
 	}
 	
-	public void setAddress(Address a){
-		this.deliveryAddress = a;
+	public void setAddress(Address address){
+		this.deliveryAddress = address;
 	}
 	
 	public void setAddress(String cep, String address, String complement){
-		System.out.println("SETTING ADDRESS TO DELIVER");
 		this.deliveryAddress = new Address(cep, address, complement);
 	}
 	
-	public void setCollectTime(Calendar c){
-		this.collectTime = c;
+	public void setCollectTime(Calendar date){
+		this.collectTime = date;
 	}
 	
 	public void setCollectTime(String date, String time){
-		Calendar c = Calendar.getInstance();
+		Calendar dateTime = Calendar.getInstance();
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		try {
-			c.setTime(df.parse(date+" "+time));
-		} catch (ParseException e) {
+			dateTime.setTime(df.parse(date+" "+time));
+		} catch (ParseException exception) {
 			System.err.println("ERROR CASTING DELIVERY DATE AND TIME: ");
-			e.printStackTrace();
+			exception.printStackTrace();
 		}
-		this.collectTime = c;
+		this.collectTime = dateTime;
 	}
 
 	@Override
 	public void execute() throws Exception {
 		if(this.collectTime!=null && this.order!=null && this.deliveryAddress!=null){
 			this.order.setReceiving(new Delivery(this.deliveryAddress, this.collectTime));
-			System.out.println("DELIVERY ADDRESS: "+this.order.getReceiving().getAddress().getAddress());
 		} else {
 			throw new Exception("ERROR ASSIGNING DELIVERY DETAILS");
 		}

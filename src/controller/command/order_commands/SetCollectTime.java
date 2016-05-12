@@ -1,6 +1,7 @@
 /** 
 *    SetCollectTime.java to define SetCollectTime 
-*    {purpose} 
+*    The purpose is to set the collect time
+*    when the client wants to collect the order at the administrator place
 */ 
 
 package controller.command.order_commands;
@@ -25,28 +26,28 @@ public class SetCollectTime implements Command {
 		this.pageToRedirect="/confirmation.jsp";
 	}
 	
-	public void setOrder(Order o){
-		this.order = o;
+	public void setOrder(Order order){
+		this.order = order;
 	}
 	
 	public Order getOrder(){
 		return this.order;
 	}
 	
-	public void setCollectTime(Calendar c){
-		this.collectTime = c;
+	public void setCollectTime(Calendar dateTime){
+		this.collectTime = dateTime;
 	}
 	
 	public void setCollectTime(String date, String time){
-		Calendar c = Calendar.getInstance();
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		Calendar dateTime = Calendar.getInstance();
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		try {
-			c.setTime(df.parse(date+" "+time));
+			dateTime.setTime(dateFormat.parse(date+" "+time));
 		} catch (ParseException e) {
 			System.err.println("ERROR CASTING COLLECTING DATE AND TIME: ");
 			e.printStackTrace();
 		}
-		this.collectTime = c;
+		this.collectTime = dateTime;
 	}
 
 	@Override
