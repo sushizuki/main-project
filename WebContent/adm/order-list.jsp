@@ -110,7 +110,7 @@
 												</td>
 												<td class="center" style="width: 100px">
 													<fmt:formatDate type="both" pattern="dd/MM/yyyy HH:mm"
-														value="${order.receiving.time.time}" />
+														value="${order.receiving.dateTime.time}" />
 												</td>
 												<td class="center">
 													<c:out value="${order.status}" />
@@ -174,7 +174,7 @@
 													<br><br> 
 													<strong>Data e Hora: </strong><br>
 													<fmt:formatDate type="both" pattern="dd/MM/yyyy HH:mm"
-														value="${order.receiving.time.time}" />
+														value="${order.receiving.dateTime.time}" />
 												</div>
 											</div>
 										</c:forEach>

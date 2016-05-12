@@ -1,7 +1,7 @@
-/** 
-*    UserCheckFilter.java to define UserCheckFilter 
-*    {purpose} 
-*/ 
+/**
+*    UserCheckFilter.java to define UserCheckFilter
+*    Checks if user authentication is needed in a page
+*/
 
 package controller;
 
@@ -19,26 +19,26 @@ import javax.servlet.http.HttpSession;
 
 import domain.Client;
 import domain.User;
- 
+
 /**
  * Servlet Filter implementation class UserCheckFilter
  */
 public class UserCheckFilter implements Filter {
     private String LOGIN_ACTION_URI;
-     
+
     /**
      * @see Filter#init(FilterConfig)
      */
     public void init(FilterConfig fConfig) throws ServletException {
         LOGIN_ACTION_URI = fConfig.getInitParameter("loginActionURI");
     }
- 
+
     /**
      * @see Filter#destroy()
      */
     public void destroy() {
     }
- 
+
     /**
      * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
      */
@@ -46,7 +46,7 @@ public class UserCheckFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
-         
+
         if ((user == null || user instanceof Client) && !LOGIN_ACTION_URI.equals(req.getRequestURI())){
             /*RequestDispatcher rd = req.getRequestDispatcher("/login.jsp");
             rd.forward(request, response);*/
@@ -54,7 +54,7 @@ public class UserCheckFilter implements Filter {
         	r.sendRedirect("../login.jsp");
             return;
         }
-         
+
         chain.doFilter(request, response);
     }
 }

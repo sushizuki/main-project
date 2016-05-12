@@ -39,6 +39,10 @@
     <url-pattern>/Order</url-pattern>
   </servlet-mapping>  
   <servlet-mapping>
+    <servlet-name>UserController</servlet-name>
+    <url-pattern>/User</url-pattern>
+  </servlet-mapping>  
+  <servlet-mapping>
     <servlet-name>OrderController</servlet-name>
     <url-pattern>/adm/Order</url-pattern>
   </servlet-mapping>

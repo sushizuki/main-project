@@ -1,8 +1,8 @@
 /** 
-*    UserController.java to define UserController 
-*    Manages POST and GET requests about User related operations
-*    and shows exceptions handling.
-*/ 
+ *    UserController.java to define UserController 
+ *    Manages POST and GET requests about User related operations
+ *    and shows exceptions handling.
+ */ 
 
 package controller;
 
@@ -25,61 +25,76 @@ import controller.command.user_commands.DoLogout;
  */
 public class UserController extends HttpServlet {
 
-private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Command factory uses Factory and Command design patterns
 	 */
 	private static CommandFactory commandFactory = CommandFactory.init();
-	
+
 	//Servlet
 	public UserController() {
 		super();
-        }
+	}
+	
+	private Command getCommand(HttpServletRequest request){
+		//Get command from request
+		String action = request.getParameter("action");
+
+		Command command = commandFactory.getCommand(action);
+		
+		return command;
+	}
+	
+	private void prepareCommand(HttpServletRequest request, Command command){
+		
+		HttpSession session = request.getSession(true);
+		
+		if(command instanceof DoLogout){
+			((DoLogout) command).setSession(session);
+		} else {
+			if(command instanceof DoLogin){	
+				
+			}
+		}
+	}
 
 	/**
-	 * Handle GET requests: do logout.
+	 * Handles and redirects GET requests: do logout.
 	 * @param request contains request information for this servlet
 	 * @param response sends response information from this servlet to the client
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		RequestDispatcher view = null;
-		HttpSession session = request.getSession(true);
-		
-		try {
-			//Get command from request
-			String action = request.getParameter("action");
-			
-			Command command = commandFactory.getCommand(action);
-			
-			//Default command: Redirect to login page
-			if(command == null){ //Invalid command passed, go to default command
-				view = request.getRequestDispatcher("login.jsp");
-				view.forward(request, response);
-				return;
-        		} else {
-        				
-				if(command instanceof DoLogout){
-					((DoLogout) command).setSession(session);
-					command.execute();
-				}
-        		}
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
-			//Set redirect page according to the command
-			view = request.getRequestDispatcher(command.getPageToRedirect());			
+		RequestDispatcher view = null;
+
+		try {
 			
-	        } catch(Exception e){
+			Command command = getCommand(request);	
+			
+
+			//Invalid command, go to login page
+			if(command == null){ 
+				view = request.getRequestDispatcher("login.jsp");
+			} else {
+				prepareCommand(request, command);
+				command.execute();
+				
+				//Set redirect page according to the command
+				view = request.getRequestDispatcher(command.getPageToRedirect());	
+			}			
+
+			//Redirects to page 
+			view.forward(request, response);  
+
+		} catch(Exception e){
 			System.err.println("ERROR while processing request: ");
 			e.printStackTrace();
 			request.setAttribute("message", "failure");    
 			view = request.getRequestDispatcher("404.jsp");
-	        }        
-        	
-        	//Redirects to page 
-		view.forward(request, response);  
+		}        
 	}
-	
+
 	/**
 	 * Handle POST requests: creating, updating a user or do login.
 	 * @param request contains request information for this servlet
@@ -89,54 +104,52 @@ private static final long serialVersionUID = 1L;
 
 		RequestDispatcher view = null;
 		HttpSession session = request.getSession(true);
-		
+
 		try {
 			String action = request.getParameter("action");
-			
+
 			//Default action: try to do login
 			if(action == null || action.isEmpty()){
 				action = "doLogin";
-        		} else {
-        			//Do nothing
-        		}
-			
+			} else {
+				//Do nothing
+			}
+
 			Command command = commandFactory.getCommand(action);
-						
+
 			if(command instanceof DoLogin){	
 				((DoLogin) command).setEmail(request.getParameter("email"));
 				((DoLogin) command).setPassword(request.getParameter("password"));
 				command.execute();
 				session.setAttribute("user", ((DoLogin) command).getUser());
 				request.setAttribute("user", ((DoLogin) command).getUser());
-				
+
 				if(command.getPageToRedirect().contains("adm/")){
 					response.sendRedirect("adm/Order?action=getOrderList");
 					return;
 				}
-				
-				if(!request.getParameter("redir").isEmpty() && request.getParameter("redir")!=null){
-					System.out.println("Redirecionando para:"+request.getParameter("redir"));
+
+				if(request.getParameter("redir").isEmpty() || request.getParameter("redir")==null){
+					((DoLogin) command).setPageToRedirect("menu");	
+					System.out.println(request.getParameter("redir"));				
+				} else {
 					((DoLogin) command).setPageToRedirect("/"+request.getParameter("redir"));
 					request.setAttribute("order", session.getAttribute("order"));
-				} else {
-					System.out.println("Não identificou redirecionamento");		
-					System.out.println("Indo para "+command.getPageToRedirect());
-					System.out.println("Devia ir para "+request.getParameter("redir"));
+					System.out.println(request.getParameter("redir"));
 				}
 			}
-			System.out.println("Indo para "+command.getPageToRedirect());
-			
+
 			view = request.getRequestDispatcher(command.getPageToRedirect());
-			
+
 		}catch (Exception e) {
 			System.err.println("ERROR while processing request for User: ");
 			e.printStackTrace();
 			request.setAttribute("message", "failure");   
 			view = request.getRequestDispatcher("/404.jsp");
-        	}
-		
+		}
+
 		//Redirects to page
 		view.forward(request, response);
-		
+
 	}
 }

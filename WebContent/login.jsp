@@ -76,7 +76,7 @@
 						<div class="alert alert-danger alert-dismissable" role="alert"><strong>Erro!</strong> E-mail ou senha inválidos!</div>
 					</c:if>
 					<div class="basic-login">
-						<form role="form" role="form" action="login?<c:out value='redir=${param.redir}'/>" method="post">
+						<form role="form" role="form" action="User?action=doLogin&<c:out value='redir=${param.redir}'/>" method="post">
 							<div class="form-group">
 								<label for="login-username"><i class="icon-user"></i> <b>Email</b></label>
 								<input class="form-control validate" name="email" id="login-username" type="text" placeholder="">
