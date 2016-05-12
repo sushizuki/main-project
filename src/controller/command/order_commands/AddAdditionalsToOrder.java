@@ -67,7 +67,7 @@ public class AddAdditionalsToOrder implements Command {
 					this.order.getAdditionals().add(additionals);
 				
 			}
-		}catch(NullPointerException npe){};
+		}catch(Exception exception){};
 	}
 	
 	public Order getOrder(){
