@@ -31,13 +31,18 @@ public class OrderController extends HttpServlet {
 	/**
 	 * Command factory uses Factory and Command design patterns
 	 */
-	private static CommandFactory cf = CommandFactory.init();
+	private static CommandFactory commandFactory = CommandFactory.init();
 
 	public OrderController() {
 		super();
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	/**
+	 * Handle GET requests: do logout.
+	 * @param request contains request information for this servlet
+	 * @param response sends response information from this servlet to the client
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
 		RequestDispatcher view = null;
 		HttpSession session = request.getSession(true);
@@ -54,13 +59,13 @@ public class OrderController extends HttpServlet {
 				//Nothing to do
 			}
 
-			Command command = cf.getCommand(action);
+			Command command = commandFactory.getCommand(action);
 
 			if(command instanceof GetOrder){
 				((GetOrder) command).setSession(session);
 				command.execute();
 
-				Command command2 = cf.getCommand("getAvailableAdditionals");
+				Command command2 = commandFactory.getCommand("getAvailableAdditionals");
 				command2.execute();
 				request.setAttribute("additionals", ((GetAvailableAdditionals)command2).getAdditionals());
 			}else if(command instanceof GetOrderList){
@@ -80,13 +85,20 @@ public class OrderController extends HttpServlet {
 		}
 
 		//Redirect
-		view.forward(request, response);
-
-
+		try {
+			view.forward(request, response);
+		} catch (ServletException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	//Every POST is a new Order
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	/**
+	 * Handle POST requests: creating, updating a user or do login.
+	 * @param request contains request information for this servlet
+	 * @param response sends response information from this servlet to the client
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
 
 		RequestDispatcher view = null;
 		HttpSession session = request.getSession(true);
@@ -98,13 +110,9 @@ public class OrderController extends HttpServlet {
 			//Default action
 			if(action == null || action.isEmpty()){
 				action = "getOrder";
-				System.out.println("ACTION GET ORDER DEFAULT");
 			}
 
-			Command command = cf.getCommand(action);
-			System.out.println("EXECUTING POST COMMAND: "+action);
-			System.out.println("ORDER IN SESSION: "+session.getAttribute("order"));
-			System.out.println("ORDER IN REQUEST: "+request.getAttribute("order"));
+			Command command = commandFactory.getCommand(action);
 
 			if(command instanceof GetOrder){
 				((GetOrder) command).setSession(session);
@@ -112,7 +120,7 @@ public class OrderController extends HttpServlet {
 				request.setAttribute("order", ((GetOrder) command).getOrder());
 				session.setAttribute("order", ((GetOrder)command).getOrder());
 
-				Command command2 = cf.getCommand("getAvailableAdditionals");
+				Command command2 = commandFactory.getCommand("getAvailableAdditionals");
 				command2.execute();
 				request.setAttribute("additionals", ((GetAvailableAdditionals)command2).getAdditionals());
 			} else if(command instanceof NewOrder){
@@ -121,12 +129,12 @@ public class OrderController extends HttpServlet {
 				request.setAttribute("order", ((NewOrder)command).getOrder());
 				session.setAttribute("order", ((NewOrder)command).getOrder());
 
-				command = cf.getCommand("getAvailableAdditionals");
+				command = commandFactory.getCommand("getAvailableAdditionals");
 				command.execute();
 				request.setAttribute("additionals", ((GetAvailableAdditionals)command).getAdditionals());
 			} if(command instanceof AddAdditionalsToOrder){
 				Command command2;
-				command2 = cf.getCommand("checkUserLogged");
+				command2 = commandFactory.getCommand("checkUserLogged");
 				((CheckUserLogged)command2).setSession(session);
 
 				//IF user was not logged
@@ -136,7 +144,7 @@ public class OrderController extends HttpServlet {
 					return;
 				}
 
-				command2 = cf.getCommand("setClientToOrder");
+				command2 = commandFactory.getCommand("setClientToOrder");
 				((SetClientToOrder)command2).setOrder((Order)session.getAttribute("order"));
 				((SetClientToOrder)command2).setClient((Client)session.getAttribute("user"));
 				command2.execute();
@@ -186,7 +194,11 @@ public class OrderController extends HttpServlet {
 		}
 
 		//Redirect
-		view.forward(request, response);
-
+		try {
+			view.forward(request, response);
+		} catch (ServletException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

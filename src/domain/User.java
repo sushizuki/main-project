@@ -1,3 +1,4 @@
+
 /**
 *    User.java to define User
 *    Abstraction to define any kind of person using Sushizuki
@@ -7,53 +8,53 @@ package domain;
 
 public abstract class User {
 
-	private int id;
-	private String name;
-	private String email;
-	private String password;
-	private String phone;
+	private int idUser;
+	private String nameOfUser;
+	private String emailOfUser;
+	private String passwordUser;
+	private String phoneUser;
 
 	public User(){
 
 	}
 
 	public int getId() {
-		return id;
+		return idUser;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.idUser = id;
 	}
 
 	public String getName() {
-		return name;
+		return nameOfUser;
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.nameOfUser = name;
 	}
 
 	public String getEmail() {
-		return email;
+		return emailOfUser;
 	}
 
 	public void setEmail(String email) {
-		this.email = email;
+		this.emailOfUser = email;
 	}
 
 	public String getPassword() {
-		return password;
+		return passwordUser;
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.passwordUser = password;
 	}
 
 	public String getPhone() {
-		return phone;
+		return phoneUser;
 	}
 
 	public void setPhone(String phone) {
-		this.phone = phone;
+		this.phoneUser = phone;
 	}
 }

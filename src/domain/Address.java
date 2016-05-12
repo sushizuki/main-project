@@ -7,7 +7,7 @@ package domain;
 
 public class Address {
 
-	private Integer id;
+	private Integer idAdress;
 	private String cep;
 	private String address;
 	private String complement;
@@ -26,13 +26,13 @@ public class Address {
 	}
 
 	public Integer getId() {
-		assert this.id > 0 : "Address ID value inconsistent";
-		return this.id;
+		assert this.idAdress > 0 : "Address ID value inconsistent";
+		return this.idAdress;
 	}
 
 	public void setId(Integer id) {
 		assert id > 0 : "Address ID value inconsistent";
-		this.id = id;
+		this.idAdress = id;
 	}
 
 

@@ -12,9 +12,9 @@ import dao.OrderDAO;
 
 public class Payment {
 
-	private int id;
+	private int idPayment;
 	private String paymentType;
-	private String change;
+	private String changeOfPayment;
 
 	public Payment(){
 
@@ -36,23 +36,23 @@ public class Payment {
 	}
 
 	public int getId() {
-		return id;
+		return idPayment;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.idPayment = id;
 	}
 
 	public String getChange() {
-		return change;
+		return changeOfPayment;
 	}
 
 	public void setChange(double value, double total) {
-		this.change = String.valueOf(value - total);
+		this.changeOfPayment = String.valueOf(value - total);
 	}
 
 	public void setChange(String change) {
-		this.change = change;
+		this.changeOfPayment = change;
 	}
 
 

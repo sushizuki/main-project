@@ -8,14 +8,14 @@ package domain;
 
 public class Administrator extends User {
 
-	private int id;
+	private int idAdministrator;
 
 	public int getId() {
-		return id;
+		return idAdministrator;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.idAdministrator = id;
 	}
 
 }

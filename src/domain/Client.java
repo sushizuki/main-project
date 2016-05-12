@@ -1,3 +1,4 @@
+
 /**
 *    Client.java to define Client
 *    Client is a type of User that can view and order Products.
@@ -7,27 +8,27 @@ package domain;
 
 public class Client extends User {
 
-	private int id;
-	private Address address;
+	private int idClient;
+	private Address addressClient;
 
 	public Client(Address address){
 		this.setAddress(address);
 	}
 
 	public int getId() {
-		return id;
+		return idClient;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.idClient = id;
 	}
 
 	public Address getAddress() {
-		return address;
+		return addressClient;
 	}
 
 	public void setAddress(Address a) {
-		this.address = a;
+		this.addressClient = a;
 	}
 
 }
