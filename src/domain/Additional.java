@@ -16,12 +16,14 @@ public class Additional {
 
 	public Additional(int id, String name) {
 		super();
+		assert(id != 0);
 		assert(id>0); 
-		assert(name != null); 
+		assert(name != null);
+		
 		this.idAdditional = id;
 		this.nameAdditional = name;
-		this.id = id;
-		this.name = name;
+		this.idAdditional = id;
+		this.nameAdditional = name;
 	}
 
 	public int getId() {
@@ -29,9 +31,11 @@ public class Additional {
 	}
 
 	public void setId(int id) {
+		assert(id != 0);
 		assert(id>0);
+		
 		this.idAdditional = id;
-		this.id = id;
+		this.idAdditional = id;
 	}
 
 	public String getName() {
@@ -40,6 +44,7 @@ public class Additional {
 
 	public void setName(String name) {
 		assert(name != null);
+		
 		this.nameAdditional = name;
 	}
 }
