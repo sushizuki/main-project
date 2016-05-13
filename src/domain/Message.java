@@ -21,6 +21,7 @@ public class Message {
 
 	public void setId(int id) {
 		assert id > 0 : "Message ID value inconsistent";
+		
 		this.idMessage = id;
 	}
 
@@ -30,6 +31,7 @@ public class Message {
 
 	public void setSender(Client sender) {
 		assert sender != null: "Invalid sender: null value cannot be accepted"; 
+		
 		this.sender = sender;
 	}
 
@@ -39,6 +41,7 @@ public class Message {
 
 	public void setMessage(String message) {
 		assert message != null: "Invalid Message: null value cannot be accepted";
+		
 		this.message = message;
 	}
 
@@ -48,6 +51,7 @@ public class Message {
 
 	public void setDateSent(Calendar dateSent) {
 		assert dateSent != null: "Invalid Calendar: null value cannot be accepted";
+		
 		this.dateSent = dateSent;
 	}
 

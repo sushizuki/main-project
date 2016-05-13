@@ -33,7 +33,8 @@ public class Delivery implements Receiving {
 	}
 
 	public void setDateTime(Calendar dateTime) {
-		assert dateTime != null: "Invalid Calendar: null value cannot be accepted";		
+		assert dateTime != null: "Invalid Calendar: null value cannot be accepted";	
+		
 		this.dateTime = dateTime;
 	}
 

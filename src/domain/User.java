@@ -14,15 +14,15 @@ public abstract class User {
 	private String passwordUser;
 	private String phoneUser;
 
-	public User(){
-
-	}
+	public User(){	}
 
 	public int getId() {
 		return idUser;
 	}
 
 	public void setId(int id) {
+		assert id > 0: "Invalid User ID";
+		
 		this.idUser = id;
 	}
 
@@ -31,6 +31,8 @@ public abstract class User {
 	}
 
 	public void setName(String name) {
+		assert name != null: "Invalid User name: null value cannot be accepted";
+		
 		this.nameOfUser = name;
 	}
 
@@ -39,6 +41,8 @@ public abstract class User {
 	}
 
 	public void setEmail(String email) {
+		assert email != null: "Invalid User email: null value cannot be accepted";
+		
 		this.emailOfUser = email;
 	}
 
@@ -47,6 +51,8 @@ public abstract class User {
 	}
 
 	public void setPassword(String password) {
+		assert password != null: "Invalid User password: null value cannot be accepted";
+		
 		this.passwordUser = password;
 	}
 

@@ -13,6 +13,9 @@ public class Address {
 	private String complement;
 
 	public Address(int id, String cep, String address, String complement) {
+		assert id > 0: "Invalid Adddress ID";
+		assert address != null: "Invalid Adddress: null value cannot be accepted";
+		
 		this.setId(id);
 		this.setCep(cep);
 		this.setComplement(complement);
@@ -20,18 +23,20 @@ public class Address {
 	}
 
 	public Address(String cep, String address, String complement) {
+		assert address != null: "Invalid Adddress: null value cannot be accepted";
+		
 		this.setCep(cep);
 		this.setComplement(complement);
 		this.setAddress(address);
 	}
 
-	public Integer getId() {
-		assert this.idAdress > 0 : "Address ID value inconsistent";
+	public Integer getId() {		
 		return this.idAdress;
 	}
 
 	public void setId(Integer id) {
 		assert id > 0 : "Address ID value inconsistent";
+		
 		this.idAdress = id;
 	}
 

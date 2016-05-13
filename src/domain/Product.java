@@ -22,6 +22,10 @@ public class Product {
 
 	public Product(int id, String name, String description, double price,
 			String imageURL, String category, String extra) {
+		assert id > 0: "Invalid Product ID";
+		assert name != null: "Invalid Product name: null value cannot be accepted";
+		assert price >= 0: "Invalid Product price: negative price is not allowed";
+		
 		this.setId(id);
 		this.setName(name);
 		this.setDescription(description);
@@ -33,6 +37,9 @@ public class Product {
 
 	public Product(String name, String description, double price, String imageURL,
 			String category, String extra) {
+		assert name != null: "Invalid Product name: null value cannot be accepted";
+		assert price >= 0: "Invalid Product price: negative price is not allowed";
+		
 		this.setName(name);
 		this.setDescription(description);
 		this.setPrice(price);
@@ -85,8 +92,10 @@ public class Product {
 		return categoryOfProduct;
 	}
 
-	//Get a number, look into category list from database to assign Name proper to the number
+	//Get a string, look into category list from database to assign Name proper to the number
 	public void setCategory(String category) {
+		assert category != null: "Invalid Product category: null value cannot be accepted";
+
 		ProductDAO daoProduct = new ProductDAO();
 		List<String> listOfCategory = daoProduct.getProductCategoryList();
 		try {
@@ -102,6 +111,7 @@ public class Product {
 
 	//Get a number, look into category list from database to assign Name proper to the number
 	public int getCategoryId(String category) {
+		assert category != null: "Invalid Product category: null value cannot be accepted";
 		
 		ProductDAO daoProduct = new ProductDAO();
 		List<String> listOfCategory = daoProduct.getProductCategoryList();
