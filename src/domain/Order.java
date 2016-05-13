@@ -27,6 +27,7 @@ public class Order {
 	}
 
 	public void setId(int id) {
+		assert id != 0: "Invalid Order ID";
 		assert id > 0: "Invalid Order ID";
 		
 		this.id = id;

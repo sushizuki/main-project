@@ -40,6 +40,8 @@ public class Payment {
 	}
 
 	public void setId(int id) {
+		assert id != 0: "Invalid Payment ID";
+		assert id > 0: "Invalid Payment ID";
 		this.idPayment = id;
 	}
 
@@ -48,10 +50,15 @@ public class Payment {
 	}
 
 	public void setChange(double value, double total) {
+		assert value != 0: "Invalid value: zero value cannot be accepted";
+		assert value < 0: "Invalid value: negative value cannot be accepted";
+		assert total != 0: "Invalid Total: zero value cannot be accepted";
+		assert total < 0: "Invalid Total: negative value cannot be accepted";
 		this.changeOfPayment = String.valueOf(value - total);
 	}
 
 	public void setChange(String change) {
+		assert change != null: "Invalid Change: null value cannot be accepted";
 		this.changeOfPayment = change;
 	}
 
@@ -85,7 +92,9 @@ public class Payment {
 		}
 	}
 
-	public void setPaymentType(int i) {
-		this.paymentType = String.valueOf(i);
+	public void setPaymentType(int payment) {
+		assert payment != 0: "Invalid payment: zero value cannot be accepted";
+		assert payment < 0: "Invalid payment: negative value cannot be accepted";
+		this.paymentType = String.valueOf(payment);
 	}
 }

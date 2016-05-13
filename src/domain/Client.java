@@ -19,6 +19,8 @@ public class Client extends User {
 	}
 
 	public void setId(int id) {
+		assert(id != 0);
+		assert(id>0); 
 		this.idClient = id;
 	}
 
@@ -26,8 +28,9 @@ public class Client extends User {
 		return addressClient;
 	}
 
-	public void setAddress(Address a) {
-		this.addressClient = a;
+	public void setAddress(Address address) {
+		assert address != null: "Invalid Address: null value cannot be accepted";
+		this.addressClient = address;
 	}
 
 }

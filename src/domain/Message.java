@@ -20,6 +20,7 @@ public class Message {
 	}
 
 	public void setId(int id) {
+		assert id != 0 : "Message ID value inconsistent";
 		assert id > 0 : "Message ID value inconsistent";
 		this.idMessage = id;
 	}
