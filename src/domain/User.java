@@ -61,6 +61,7 @@ public abstract class User {
 	}
 
 	public void setPhone(String phone) {
+		assert phone != null: "Invalid user phone: null value cannot be accepted!";
 		this.phoneUser = phone;
 	}
 }

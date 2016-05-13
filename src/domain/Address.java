@@ -42,8 +42,6 @@ public class Address {
 
 
 	public String getCep() {
-		assert (this.cep.length() == 8 || this.cep.length() == 9)
-				: "Address CEP value inconsistent";
 		return this.cep;
 	}
 
@@ -54,12 +52,11 @@ public class Address {
 	}
 
 	public String getAddress() {
-		assert this.address != null: "Invalid Address: null value cannot be accepted";
 		return address;
 	}
 
 	public void setAddress(String address) {
-		assert address != null: "Invalid Address: null value cannot be accepted";;
+		assert address != null: "Invalid Address: null value cannot be accepted";
 		this.address = address;
 	}
 
@@ -68,6 +65,8 @@ public class Address {
 	}
 
 	public void setComplement(String complement) {
+		assert complement != null: "Invalid complement: null value cannot be accepted";
+		
 		this.complement = complement;
 	}
 

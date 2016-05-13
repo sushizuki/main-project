@@ -21,7 +21,6 @@ public class Client extends User {
 
 	public void setId(int id) {
 		assert id > 0: "Invalid Client ID";
-		
 		this.idClient = id;
 	}
 

@@ -43,7 +43,6 @@ public class OrderDAO extends DataAccessObject{
 	 * Converts Calendar date to Timestamp object type
 	 */
 	private Timestamp castCalendarToDateTimeSQL(Calendar calendar){
-
 		assert calendar != null: "Invalid Calendar: null value cannot be accepted";
 
 		Timestamp sqlDate = new Timestamp(calendar.getTime().getTime());
@@ -54,7 +53,6 @@ public class OrderDAO extends DataAccessObject{
 	 * Converts string date to Calendar object type
 	 */
 	private Calendar castStringToCalendar(String date){
-
 		assert date != null: "Invalid Date: null value cannot be accepted";
 
 		Calendar time = Calendar.getInstance();
@@ -72,7 +70,6 @@ public class OrderDAO extends DataAccessObject{
 	 * Retuns the registered Address ID from database, if not in database inserts it
 	 */
 	private int getDeliveryAddressId(Address deliveryAddress) {
-
 		assert deliveryAddress != null: "Invalid Address: null value cannot be accepted";
 
 		AddressDAO addressDao = new AddressDAO();
