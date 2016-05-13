@@ -72,6 +72,9 @@ public class Order {
 		this.totalPrice = totalPrice;
 	}
 
+	/**
+	 * Calculates total price of order according to every item selected and quantity
+	 */
 	public void setTotalPrice() {
 		for (HashMap.Entry<Product, Integer> entry : this.getItems().entrySet()) {
 		    Product p = entry.getKey();
@@ -85,7 +88,7 @@ public class Order {
 	}
 
 	public void setReceiving(Receiving receiving) {
-		assert(receiving != null);
+		assert receiving != null: "Invalid Receiving: null value cannot be accepted";
 		this.receiving = receiving;
 	}
 
@@ -107,6 +110,10 @@ public class Order {
 		this.statusOfOrder = status;
 	}
 	
+	/**
+	 * Sets status of the order according to values that can be accepted
+	 * @param status number from database
+	 */
 	public void setStatus(int status){
 		if(status == NEW_ORDER_STATUS){
 			this.statusOfOrder = "Novo Pedido";

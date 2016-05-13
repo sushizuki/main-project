@@ -8,7 +8,6 @@ package controller.command.user_commands;
 import controller.command.Command;
 import dao.UserDAO;
 import domain.Administrator;
-import domain.Client;
 import domain.User;
 
 public class DoLogin implements Command {

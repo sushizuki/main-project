@@ -15,12 +15,19 @@ public class DataAccessObject {
 		setupConnectionObjects();
 	}
 	
+	/**
+	 * Invalidates PreparedStatements and ResultSet from previous database operations
+	 * and open new Connection
+	 */
 	protected void setupConnectionObjects(){
 		this.statement = null;
 		this.result = null;
 		this.connection = new ConnectionFactory().getConnection();
 	}
 
+	/**
+	 * Close PreparedStatements, ResultSet and database Connection
+	 */
 	protected void closeConnectionObjects(){
 		try {
 			if(this.connection != null) {
