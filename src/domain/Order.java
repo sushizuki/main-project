@@ -59,7 +59,7 @@ public class Order {
 	public void setAdditionals(List<Additional> additionals) {
 		assert additionals != null: "Invalid Additionals: null value cannot be accepted";
 
-		this.additionals = additionals;
+		this.additionalsList = additionals;
 	}
 
 	public double getTotalPrice() {
@@ -94,7 +94,7 @@ public class Order {
 	}
 
 	public void setPayment(Payment payment) {
-		assert payment != null: : "Invalid Payment: null value cannot be accepted";
+		assert payment != null: "Invalid Payment: null value cannot be accepted";
 		
 		this.paymentOfOrder = payment;
 	}
