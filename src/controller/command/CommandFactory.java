@@ -28,13 +28,14 @@ public class CommandFactory {
 		this.commands.put(name, command);
 	}
 	
-	public Command getCommand(String name) {
-		if ( this.commands.containsKey(name) ) {
-			return this.commands.get(name);
+	public Command getCommand(String commandName) {
+		Command command = null;
+		if (this.commands.containsKey(commandName)) {
+			command = this.commands.get(commandName);
 		}else{
 			//Do nothing
 		}
-		return null;
+		return command;
 	}
 
 	public void listCommands() {
