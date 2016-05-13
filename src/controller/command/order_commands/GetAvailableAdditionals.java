@@ -1,3 +1,4 @@
+
 /** 
 *    GetAvailableAdditionals.java to define GetAvailableAdditionals 
 *    The purpose of this class is to get all additional 

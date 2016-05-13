@@ -1,4 +1,3 @@
-
 /** 
 *    SaveOrder.java to define SaveOrder 
 *    The purpose of this class is to save the client’s order
@@ -22,6 +21,8 @@ public class SaveOrder implements Command {
 	}
 	
 	public void setOrder(Order orderOfSession){
+		assert orderOfSession != null: "Invalid Order: null value cannot be accepted";
+		
 		this.orderOfSession = orderOfSession;
 	}
 

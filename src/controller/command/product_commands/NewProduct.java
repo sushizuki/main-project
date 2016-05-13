@@ -1,3 +1,4 @@
+
 /** 
 *    NewProduct.java to define NewProduct 
 *    The purpose of this class is open the form for a new product and 
@@ -37,7 +38,11 @@ public class NewProduct implements Command {
 	
 	@Override
 	public void execute() throws Exception {
-		this.setProductCategories(productDao.getProductCategoryList());
+		try{
+			this.setProductCategories(productDao.getProductCategoryList());
+		}catch(Exception executeException){
+			executeException.printStackTrace();
+		}
 	}
 
 	@Override

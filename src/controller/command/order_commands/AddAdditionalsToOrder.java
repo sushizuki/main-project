@@ -1,6 +1,7 @@
+
 /** 
 *    AddAdditionalsToOrder.java to define AddAdditionalsToOrder 
-*    The purpose of this class is add the additionals selected by the client
+*    The purpose of this class is add the additional selected by the client
 *    into the order
 */ 
 
@@ -63,10 +64,10 @@ public class AddAdditionalsToOrder implements Command {
 		
 	}
 	
-	public void setAdditionalsIds(String[] ids){
-		assert ids != null: "Invalid Ids: null value cannot be accepted";
+	public void setAdditionalsIds(String[] additionalIds){
+		assert additionalIds != null: "Invalid Ids: null value cannot be accepted";
 
-		this.additionalIds = ids;
+		this.additionalIds = additionalIds;
 	}
 	
 	public void setAdditionalsToOrder(){
@@ -77,7 +78,10 @@ public class AddAdditionalsToOrder implements Command {
 					this.order.getAdditionals().add(additionals);
 				
 			}
-		}catch(Exception exception){};
+		}catch(Exception exception){
+			exception.printStackTrace();
+			
+		};
 	}
 	
 	public Order getOrder(){
@@ -101,6 +105,8 @@ public class AddAdditionalsToOrder implements Command {
 		this.setAdditionalsToOrder();
 		if(this.payment!=null){
 			this.order.setPayment(this.payment);
+		}else{
+			// Do nothing
 		}
 	}
 
