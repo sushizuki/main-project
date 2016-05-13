@@ -27,6 +27,8 @@ public class AddressDAO extends DataAccessObject{
 	 * @return int id number generated from database
 	 */
 	public int insert(Address address) {
+	
+		assert address != null: "Invalid address: null value cannot be accepted";
 		
 		this.sqlQuery = "insert into address " +
 						"(cep,address,addressComplement)" +
@@ -70,6 +72,8 @@ public class AddressDAO extends DataAccessObject{
 	 * @return Address object containing full address details
 	 */
 	public Address getAddress(String lookingAddress) {
+		
+		assert lookingAddress != null: "Invalid address: null value cannot be accepted";
 		
 		Address address = null;
 		String cep = null;
@@ -161,6 +165,8 @@ public class AddressDAO extends DataAccessObject{
 	 */
 	public void update(Address address) {
 
+		assert address != null: "Invalid address: null value cannot be accepted";
+		
 		this.sqlQuery = "update address set cep=?, address=?, "
 				+ "addressComplement=? where idAddress=?";
 
@@ -176,6 +182,7 @@ public class AddressDAO extends DataAccessObject{
 			this.statement.setInt(4, address.getId());
 			
 			this.statement.execute();
+			
 		} catch (SQLException exception) {
 			throw new RuntimeException("Error processing SQL - update in AddressDAO: "
 					+exception.getMessage());
@@ -189,6 +196,8 @@ public class AddressDAO extends DataAccessObject{
 	 * @param address object containing full address details
 	 */
 	public void delete(Address address) {		
+		
+		assert address != null: "Invalid address: null value cannot be accepted";
 		
 		this.sqlQuery = "delete from address where idAddress=?";
 

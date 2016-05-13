@@ -26,8 +26,8 @@ public class Payment {
 		this.setPaymentType(paymentType);//the id of payment type
 	}
 
-	public Payment(String p) throws SQLException {
-		this.setPaymentType(p); //the id of payment (1 card, 2 money)
+	public Payment(String payment) throws SQLException {
+		this.setPaymentType(payment); //the id of payment (1 card, 2 money)
 	}
 
 	public Payment(String type, double total, double change) throws SQLException {
@@ -57,15 +57,16 @@ public class Payment {
 
 
 	public int getPaymentId(String payment) throws SQLException {
-		OrderDAO dao = new OrderDAO();
-		List<String> list = dao.getPaymentTypes();
+		OrderDAO orderDao = new OrderDAO();
+		List<String> listPayment = orderDao.getPaymentTypes();
+		int returnValue=0;
 
-		for (int i = 1; i <= list.size(); i++) {
+		for (int i = 1; i <= listPayment.size(); i++) {
 		    if(payment.equalsIgnoreCase(this.getPaymentType())){
-		    	return i;
+		    	returnValue=i;
 		    }
 		}
-		return 0; //if not found 0 = none
+		return returnValue; //if not found 0 = none
 	}
 
 	public String getPaymentType() {
@@ -74,11 +75,12 @@ public class Payment {
 
 	//Get a number, look into category list from database to assign Name proper to the number
 	public void setPaymentType(String i) throws SQLException {
-		OrderDAO dao = new OrderDAO();
-		List<String> list = dao.getPaymentTypes();
+		OrderDAO orderDao = new OrderDAO();
+		List<String> listPayment = orderDao.getPaymentTypes();
+		
 		try {
-			this.paymentType = list.get(Integer.parseInt(i)-1);
-		}catch(RuntimeException e){
+			this.paymentType = listPayment.get(Integer.parseInt(i)-1);
+		}catch(RuntimeException exception){
 			System.out.println("Error assigning payment type");
 		}
 	}
