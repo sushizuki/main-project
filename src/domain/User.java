@@ -23,6 +23,8 @@ public abstract class User {
 	}
 
 	public void setId(int id) {
+		assert id != 0: "Invalid User ID: zero value cannot be accepted!";
+		assert id > 0: "Invalid User ID: negative value cannot be accepted!";
 		this.idUser = id;
 	}
 
@@ -31,6 +33,7 @@ public abstract class User {
 	}
 
 	public void setName(String name) {
+		assert name != null: "Invalid user name: null value cannot be accepted!";
 		this.nameOfUser = name;
 	}
 
@@ -39,6 +42,7 @@ public abstract class User {
 	}
 
 	public void setEmail(String email) {
+		assert email != null: "Invalid user email: null value cannot be accepted!";
 		this.emailOfUser = email;
 	}
 
@@ -47,6 +51,7 @@ public abstract class User {
 	}
 
 	public void setPassword(String password) {
+		assert password != null: "Invalid user password: null value cannot be accepted!";
 		this.passwordUser = password;
 	}
 
@@ -55,6 +60,7 @@ public abstract class User {
 	}
 
 	public void setPhone(String phone) {
+		assert phone != null: "Invalid user phone: null value cannot be accepted!";
 		this.phoneUser = phone;
 	}
 }

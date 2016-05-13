@@ -46,6 +46,8 @@ public class Product {
 	}
 
 	public void setId(int id) {
+		assert id != 0: "Invalid Product ID: zero value cannot be accepted!";
+		assert id > 0: "Invalid Product ID: negative value cannot be accepted!";
 		this.idProduct = id;
 	}
 
@@ -54,6 +56,8 @@ public class Product {
 	}
 
 	public void setPrice(double price) {
+		assert price != 0: "Invalid Product Price: zero value cannot be accepted!";
+		assert price > 0: "Invalid Product Price: negative value cannot be accepted!";
 		this.priceOfProduct = price;
 	}
 
@@ -62,6 +66,7 @@ public class Product {
 	}
 
 	public void setDescription(String description) {
+		assert description != null: "Invalid description: null value cannot be accepted!";
 		this.descriptionOfProduct = description;
 	}
 
@@ -70,6 +75,7 @@ public class Product {
 	}
 
 	public void setName(String name) {
+		assert name != null: "Invalid product name: null value cannot be accepted!";
 		this.nameProduct = name;
 	}
 
@@ -87,6 +93,7 @@ public class Product {
 
 	//Get a number, look into category list from database to assign Name proper to the number
 	public void setCategory(String category) {
+		assert category != null: "Invalid category of product: null value cannot be accepted!";
 		ProductDAO daoProduct = new ProductDAO();
 		List<String> listOfCategory = daoProduct.getProductCategoryList();
 		try {
@@ -97,12 +104,13 @@ public class Product {
 	}
 
 	public void setCategory(int category) {
+		assert category != 0: "Invalid Product category: zero value cannot be accepted!";
+		assert category > 0: "Invalid Product category: negative value cannot be accepted!";
 		this.categoryOfProduct = String.valueOf(category);
 	}
 
 	//Get a number, look into category list from database to assign Name proper to the number
 	public int getCategoryId(String category) {
-		
 		ProductDAO daoProduct = new ProductDAO();
 		List<String> listOfCategory = daoProduct.getProductCategoryList();
 		int returnValue=0;
@@ -159,6 +167,8 @@ public class Product {
 	}
 
 	public void setExtra(int extra) {
+		assert extra != 0: "Invalid Product extra: zero value cannot be accepted!";
+		assert extra > 0: "Invalid Product extra: negative value cannot be accepted!";
 		this.extra = String.valueOf(extra);
 	}
 
