@@ -26,28 +26,22 @@ public class Delivery implements Receiving {
 		setAddress(address);
 	}
 
-	@Override
 	public void setAddress(Address address) {
 		assert address != null: "Invalid Address: null value cannot be accepted";
 
 		this.address = address;
 	}
 
-	@Override
 	public void setDateTime(Calendar dateTime) {
-		assert dateTime != null: "Invalid Calendar: null value cannot be accepted";
-		
+		assert dateTime != null: "Invalid Calendar: null value cannot be accepted";		
 		this.dateTime = dateTime;
 	}
 
-	@Override
 	public Address getAddress() {
 		return this.address;
 	}
 
-	@Override
 	public Calendar getDateTime() {
 		return this.dateTime;
 	}
-
 }

@@ -15,6 +15,8 @@ public class Administrator extends User {
 	}
 
 	public void setId(int id) {
+		assert id > 0: "Invalid Administrator ID";
+		
 		this.idAdministrator = id;
 	}
 

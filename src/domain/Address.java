@@ -1,4 +1,3 @@
-
 /**
 *    Address.java to define Address
 *    Describe a complete User address.
@@ -50,12 +49,12 @@ public class Address {
 	}
 
 	public String getAddress() {
-		assert this.address != null;
+		assert this.address != null: "Invalid Address: null value cannot be accepted";
 		return address;
 	}
 
 	public void setAddress(String address) {
-		assert address != null;
+		assert address != null: "Invalid Address: null value cannot be accepted";;
 		this.address = address;
 	}
 

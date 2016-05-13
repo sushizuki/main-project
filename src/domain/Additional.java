@@ -20,6 +20,8 @@ public class Additional {
 		assert(name != null); 
 		this.idAdditional = id;
 		this.nameAdditional = name;
+		this.id = id;
+		this.name = name;
 	}
 
 	public int getId() {
@@ -29,6 +31,7 @@ public class Additional {
 	public void setId(int id) {
 		assert(id>0);
 		this.idAdditional = id;
+		this.id = id;
 	}
 
 	public String getName() {

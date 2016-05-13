@@ -14,18 +14,22 @@ public class ConnectionFactory implements dao.Connection{
 	
 	private final String host = "jdbc:mysql://127.0.0.1/sushizuki";
 	private final String user = "root";
-	private final String password = "";
+	private final String password = "";	
+	private Connection myConnection = null;	
 	
 	/**
 	 * Establishes a connection with database
 	 * @return SQL Connection object
 	 */
 	public Connection getConnection() {		
-		Connection myConnection = null;		
 		
 		try {
-            Class.forName("com.mysql.jdbc.Driver");  
-			myConnection = MySqlConnection(host, user, password);
+			if(myConnection == null){
+	            Class.forName("com.mysql.jdbc.Driver");  
+				myConnection = MySqlConnection(host, user, password);
+			} else {
+				//do nothing, connection already established
+			}
 		} catch (SQLException | ClassNotFoundException exception) {
 			throw new RuntimeException("Error stablishing connection with MySQL Database"
 					+ " - getConnection in ConnectionFactory: "

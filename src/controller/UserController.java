@@ -37,7 +37,11 @@ public class UserController extends HttpServlet {
 		super();
 	}
 	
+	//Returns proper command according to request to controller
 	private Command getCommand(HttpServletRequest request){
+		
+		assert request != null: "Invalid Request to user controller";
+		
 		//Get command from request
 		String action = request.getParameter("action");
 
@@ -46,6 +50,7 @@ public class UserController extends HttpServlet {
 		return command;
 	}
 	
+	//Configure pre-conditions of a command before it is executed
 	private void prepareCommand(HttpServletRequest request, Command command){
 		
 		HttpSession session = request.getSession(true);
@@ -70,8 +75,7 @@ public class UserController extends HttpServlet {
 
 		try {
 			
-			Command command = getCommand(request);	
-			
+			Command command = getCommand(request);				
 
 			//Invalid command, go to login page
 			if(command == null){ 
@@ -81,15 +85,16 @@ public class UserController extends HttpServlet {
 				command.execute();
 				
 				//Set redirect page according to the command
-				view = request.getRequestDispatcher(command.getPageToRedirect());	
+				view = request.getRequestDispatcher(command.getPageToRedirect());
+				System.out.println("Redirecionando para:"+command.getPageToRedirect());
 			}			
 
 			//Redirects to page 
 			view.forward(request, response);  
 
-		} catch(Exception e){
-			System.err.println("ERROR while processing request: ");
-			e.printStackTrace();
+		} catch(Exception exception){
+			System.err.println("ERROR while processing request in user controller: ");
+			exception.printStackTrace();
 			request.setAttribute("message", "failure");    
 			view = request.getRequestDispatcher("404.jsp");
 		}        
@@ -135,7 +140,7 @@ public class UserController extends HttpServlet {
 				} else {
 					((DoLogin) command).setPageToRedirect("/"+request.getParameter("redir"));
 					request.setAttribute("order", session.getAttribute("order"));
-					System.out.println(request.getParameter("redir"));
+					System.out.println("FALSE");
 				}
 			}
 

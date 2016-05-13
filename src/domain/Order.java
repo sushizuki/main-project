@@ -1,4 +1,3 @@
-
 /**
 *    Order.java to define Order
 *    Order describes a set of Products and other details of a Client's order. 
@@ -28,6 +27,8 @@ public class Order {
 	}
 
 	public void setId(int id) {
+		assert id > 0: "Invalid Order ID";
+		
 		this.id = id;
 	}
 
@@ -36,6 +37,8 @@ public class Order {
 	}
 
 	public void setClient(Client client) {
+		assert client != null: "Invalid Client: null value cannot be accepted";
+		
 		this.client = client;
 	}
 
@@ -44,6 +47,8 @@ public class Order {
 	}
 
 	public void setItems(HashMap<Product, Integer> items) {
+		assert items != null: "Invalid Order items: null value cannot be accepted";
+		
 		this.items = items;
 	}
 
@@ -52,7 +57,9 @@ public class Order {
 	}
 
 	public void setAdditionals(List<Additional> additionals) {
-		this.additionalsList = additionals;
+		assert additionals != null: "Invalid Additionals: null value cannot be accepted";
+
+		this.additionals = additionals;
 	}
 
 	public double getTotalPrice() {
@@ -60,6 +67,8 @@ public class Order {
 	}
 
 	public void setTotalPrice(double totalPrice) {
+		assert totalPrice >= 0: "Invalid Total Price: negative values not accepted";
+		
 		this.totalPrice = totalPrice;
 	}
 
@@ -76,6 +85,7 @@ public class Order {
 	}
 
 	public void setReceiving(Receiving receiving) {
+		assert(receiving != null);
 		this.receiving = receiving;
 	}
 
@@ -84,6 +94,8 @@ public class Order {
 	}
 
 	public void setPayment(Payment payment) {
+		assert payment != null: : "Invalid Payment: null value cannot be accepted";
+		
 		this.paymentOfOrder = payment;
 	}
 

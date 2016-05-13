@@ -8,6 +8,7 @@ package controller.command.user_commands;
 import controller.command.Command;
 import dao.UserDAO;
 import domain.Administrator;
+import domain.Client;
 import domain.User;
 
 public class DoLogin implements Command {
@@ -19,8 +20,9 @@ public class DoLogin implements Command {
 	private String pageToRedirect;
 
 	public DoLogin() {
+		this.user = null;
 		this.userDao = new UserDAO();
-		this.pageToRedirect = "index.jsp"; //default page to redirect
+		this.pageToRedirect = "menu"; //default page to redirect
 	}
 	
 	public User getUser(){
@@ -42,12 +44,13 @@ public class DoLogin implements Command {
 	@Override
 	public void execute() throws Exception {
 		this.user = userDao.login(this.email, this.password);
-		if(this.user instanceof Administrator){
-			this.setPageToRedirect("/adm/Order?action=getOrderList");
+		
+		if(this.user == null){//Fail to log in
+			this.setPageToRedirect("login.jsp?err=1");
 		} else {
-			if(this.user==null){//Fail to log in
-				this.setPageToRedirect("login.jsp?err=1");
-			} else {
+			if(this.user instanceof Administrator){
+				this.setPageToRedirect("/adm/Order?action=getOrderList");
+			} else { //Client
 				this.setPageToRedirect("menu");
 			}
 		}

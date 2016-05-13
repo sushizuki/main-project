@@ -1,4 +1,3 @@
-
 /**
 *    Client.java to define Client
 *    Client is a type of User that can view and order Products.
