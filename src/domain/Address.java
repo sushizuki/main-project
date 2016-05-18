@@ -12,6 +12,10 @@ public class Address {
 	private String address;
 	private String complement;
 
+	public Address(){
+		
+	}
+	
 	public Address(int id, String cep, String address, String complement) {
 		assert id > 0: "Invalid Adddress ID";
 		assert address != null: "Invalid Adddress: null value cannot be accepted";
