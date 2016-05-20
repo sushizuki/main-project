@@ -46,10 +46,8 @@ public class AddAdditionalsToOrder implements Command {
 	
 	public void setPayment(String type, double total, double change) throws SQLException{
 		assert type != null: "Invalid Type: null value cannot be accepted";
-		assert total != 0: "Invalid Total: null value cannot be accepted";
-		assert total < 0: "Invalid Total: negative value cannot be accepted";
-		assert change != 0: "Invalid Change: null value cannot be accepted";
-		assert change < 0: "Invalid Change: negative value cannot be accepted";
+		assert total >= 0: "Invalid Total: null value cannot be accepted";
+		assert change >= 0: "Invalid Change: null value cannot be accepted";
 
 		if(type.equalsIgnoreCase("money")){
 			type = "2";

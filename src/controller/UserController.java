@@ -6,10 +6,7 @@
 
 package controller;
 
-import java.io.IOException;
-
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -86,7 +83,6 @@ public class UserController extends HttpServlet {
 				
 				//Set redirect page according to the command
 				view = request.getRequestDispatcher(command.getPageToRedirect());
-				System.out.println("Redirecionando para:"+command.getPageToRedirect());
 			}			
 
 			//Redirects to page 
@@ -95,7 +91,6 @@ public class UserController extends HttpServlet {
 		} catch(Exception exception){
 			System.err.println("ERROR while processing request in user controller: ");
 			exception.printStackTrace();
-			request.setAttribute("message", "failure");    
 			view = request.getRequestDispatcher("404.jsp");
 		}        
 	}
@@ -105,20 +100,12 @@ public class UserController extends HttpServlet {
 	 * @param request contains request information for this servlet
 	 * @param response sends response information from this servlet to the client
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
 
-		RequestDispatcher view = null;
 		HttpSession session = request.getSession(true);
 
 		try {
 			String action = request.getParameter("action");
-
-			//Default action: try to do login
-			if(action == null || action.isEmpty()){
-				action = "doLogin";
-			} else {
-				//Do nothing
-			}
 
 			Command command = commandFactory.getCommand(action);
 
@@ -129,32 +116,17 @@ public class UserController extends HttpServlet {
 				session.setAttribute("user", ((DoLogin) command).getUser());
 				request.setAttribute("user", ((DoLogin) command).getUser());
 
-				if(command.getPageToRedirect().contains("adm/")){
-					response.sendRedirect("adm/Order?action=getOrderList");
-					return;
-				}
-
-				if(request.getParameter("redir").isEmpty() || request.getParameter("redir")==null){
-					((DoLogin) command).setPageToRedirect("menu");	
-					System.out.println(request.getParameter("redir"));				
-				} else {
+				if(!request.getParameter("redir").isEmpty() && request.getParameter("redir")!=null){
 					((DoLogin) command).setPageToRedirect("/"+request.getParameter("redir"));
 					request.setAttribute("order", session.getAttribute("order"));
-					System.out.println("FALSE");
 				}
-			}
-
-			view = request.getRequestDispatcher(command.getPageToRedirect());
-
+			}	
+			//Redirects to page
+			response.sendRedirect(request.getContextPath()+'/'+command.getPageToRedirect());
+			
 		}catch (Exception e) {
 			System.err.println("ERROR while processing request for User: ");
 			e.printStackTrace();
-			request.setAttribute("message", "failure");   
-			view = request.getRequestDispatcher("/404.jsp");
 		}
-
-		//Redirects to page
-		view.forward(request, response);
-
 	}
 }

@@ -22,7 +22,16 @@ public class DataAccessObject {
 	protected void setupConnectionObjects(){
 		this.statement = null;
 		this.result = null;
-		this.connection = new ConnectionFactory().getConnection();
+		try {
+			if(this.connection == null || this.connection.isClosed()){
+				this.connection = new ConnectionFactory().getConnection();
+			} else {
+				//nothing to do, connection already established
+			}
+		}catch(SQLException exception){
+			throw new RuntimeException("Error processing SQL - setupConnectionObjects in DataAccessObject: "
+					+exception.getMessage());
+		}
 	}
 
 	/**

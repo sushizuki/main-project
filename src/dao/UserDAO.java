@@ -211,10 +211,6 @@ public class UserDAO extends DataAccessObject{
 				
 				if(isUserClient(userId)){  
 					user = getClientById(userId);
-					if(user instanceof Client)
-						System.out.println("É OBJETO CLIENTE");
-					else
-						System.out.println("NÃO É OBJETO CLIENTE");
 				} else {
 					user = getAdministratorById(userId);
 				}

@@ -44,7 +44,7 @@
 				</a>
 					<ul class="dropdown-menu dropdown-user">
 						<li class="divider"></li>
-						<li><a href="../user?action=doLogout"><i
+						<li><a href="../User?action=doLogout"><i
 								class="fa fa-sign-out fa-fw"></i> Sair</a></li>
 					</ul> <!-- /.dropdown-user --></li>
 				<!-- /.dropdown -->

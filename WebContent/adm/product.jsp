@@ -38,7 +38,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
+                        <li><a href="../User?action=doLogout"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
