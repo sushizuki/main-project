@@ -89,7 +89,7 @@
                	 	<div class="row">
                	 		<div class="col-md-2 col-sm-6 col-xs-6">
                	 			<span><strong>Horário:</strong> <br>
-									<fmt:formatDate type="both" pattern="dd/MM/yyyy HH:mm" value="${order.receiving.time.time}" />
+									<fmt:formatDate type="both" pattern="dd/MM/yyyy HH:mm" value="${order.receiving.dateTime.time}" />
 							</span>
                 	 	</div>                	 		
                	 		<div class="col-md-3 col-sm-6 col-xs-6">

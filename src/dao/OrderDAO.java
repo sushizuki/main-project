@@ -466,7 +466,7 @@ public class OrderDAO extends DataAccessObject{
 	 * Returns all saved orders from database
 	 */
 	public List<Order> getList() {
-		this.sqlQuery = "select * from `order`";
+		this.sqlQuery = "select * from `order` order by deliveryTime desc";
 		List<Order> orderList = new ArrayList<Order>();
 
 		setupConnectionObjects();
@@ -476,7 +476,7 @@ public class OrderDAO extends DataAccessObject{
 			this.result = this.statement.executeQuery(this.sqlQuery);
 			UserDAO userDao = new UserDAO();
 
-			while (this.result.next()) {
+			while(this.result.next()) {
 				Order order = new Order();
 
 				order.setId(Integer.parseInt(this.result.getString("idOrder")));

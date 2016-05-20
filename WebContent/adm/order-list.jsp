@@ -134,7 +134,10 @@
 													<strong>Itens:</strong>
 													<ul>
 														<c:forEach items="${order.items}" var="item">
-															<li><c:out value="${item.key.name}" /></li>
+															<li>
+																<c:out value="${item.value}" /> x 
+																<c:out value="${item.key.name}" />
+															</li>
 														</c:forEach>
 													</ul>
 												</div>
@@ -157,7 +160,7 @@
 															type="currency" currencySymbol="R$" />
 													</c:if>
 												</div>
-												<div class="col-lg-4 pull-right" style="padding-bottom: 50px;">
+												<div class="col-lg-4" style="padding-bottom: 50px;">
 													<br>
 													<strong>Recebimento: </strong><br>
 													<c:choose>
