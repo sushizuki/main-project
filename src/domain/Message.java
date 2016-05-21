@@ -54,9 +54,4 @@ public class Message {
 		
 		this.dateSent = dateSent;
 	}
-
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 0663ac4c74f5e72f842595501caffc198ab89dd8
