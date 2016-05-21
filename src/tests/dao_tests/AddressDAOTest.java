@@ -1,4 +1,4 @@
-package daoTest;
+package tests.dao_tests;
 
 import static org.junit.Assert.*;
 
