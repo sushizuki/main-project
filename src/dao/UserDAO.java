@@ -236,9 +236,8 @@ public class UserDAO extends DataAccessObject{
 	/**
 	 * Returns a User from database based on ID
 	 * @param int user id number
-	 * @throws UserExceptions 
 	 */
-	public User getUserById(int userId) throws UserExceptions {	
+	public User getUserById(int userId) {	
 		
 		assert userId > 0: "Invalid User ID";
 		
@@ -267,7 +266,7 @@ public class UserDAO extends DataAccessObject{
 				//do nothing
 			}
 
-		}  catch (SQLException exception) {
+		}  catch (SQLException | UserExceptions exception) {
 			throw new RuntimeException("Error processing SQL - getUserById in UserDAO: "
 					+exception.getMessage());
 		}  finally {
