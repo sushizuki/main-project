@@ -89,7 +89,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form" name="formProduct" action="Product" method="post" enctype="multipart/form-data">
+                                    <form role="form" name="formProduct" action="Product?action=insertProduct" method="post" enctype="multipart/form-data">
                                         <div class="form-group">
                                         	<input type="hidden" name="id" readonly value="<c:out value="${product.id}" />" />
                                             <label>Nome:</label>
@@ -126,7 +126,7 @@
 											</c:forEach>
 											</select>
                                         </div>                                                                      
-                                        <button type="button" class="btn btn-primary" onclick="validation()">Enviar</button>
+                                        <button type="submit" class="btn btn-primary" onclick="validation()">Enviar</button>
                                         <button type="button" class="btn btn-primary" onclick="confirmation()">Limpar</button>                                       
                                     </form>
                                 </div>                                

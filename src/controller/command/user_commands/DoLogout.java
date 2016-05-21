@@ -1,6 +1,6 @@
 /** 
 *    DoLogout.java to define DoLogout 
-*    {purpose} 
+*    Performs user logout invalidating session attributes
 */ 
 
 package controller.command.user_commands;

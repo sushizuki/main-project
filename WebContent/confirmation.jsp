@@ -1,4 +1,4 @@
-<%@page contentType="text/html; charset=UTF-8" %>
+<%@page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
@@ -11,7 +11,7 @@
 		<link rel="stylesheet" href="css/bootstrap.min.css" />
 		<link rel="stylesheet" href="css/open-sans-family.css" />
 		<link rel="stylesheet" href="css/main-red.css" />
-	</head>
+		</head>
 	<body>
 		<!-- Top bar-->
 		<div class="topbar-wrapper">
@@ -20,55 +20,49 @@
 				<div class="menuextras">
 					<div class="extras">
 						<ul>
-							<li class="shopping-cart-items">
-								<i class="glyphicon glyphicon-shopping-cart icon-white"></i>
-								<a href="shopping-cart">
-									<b>
-										<span id="items-in-cart">
+							<li class="shopping-cart-items"><i
+								class="glyphicon glyphicon-shopping-cart icon-white"></i> <a
+								href="shopping-cart"> <b> <span id="items-in-cart">
 											<c:out value="${order.items.size() }"></c:out>
-										</span> itens
-									</b>
-								</a>
-							</li>
+									</span> itens
+								</b>
+							</a></li>
 							<c:choose>
 								<c:when test="${user.name != null}">
-									<li>
-										<c:out value="${user.name}" />
-									</li>
-									<li>
-										<a href="user?action=doLogout"><i class="glyphicon glyphicon-off icon-white"> </i> Sair</a>
-									</li>
+									<li><c:out value="${user.name}" /></li>
+									<li><a href="user?action=doLogout"><i
+											class="glyphicon glyphicon-off icon-white"> </i> Sair</a></li>
 								</c:when>
 								<c:otherwise>
-									<li>
-										<a href="login">Login</a>
-									</li>
+									<li><a href="login">Login</a></li>
 								</c:otherwise>
 							</c:choose>
 						</ul>
 					</div>
-				</div> <!-- End Login and User area -->
+				</div>
+				<!-- End Login and User area -->
 
 				<!--Navigation bar -->
 				<nav id="mainmenu" class="mainmenu">
 					<ul>
 						<!-- Image Logo -->
-						<li class="logo-wrapper">
-							<a href="/sushizuki">
-								<img src="img/sushi/sushizuki-logo.png" alt="Sushizuki">
-							</a>
-						</li>
+						<li class="logo-wrapper"><a href="/sushizuki"> <img
+								src="img/sushi/sushizuki-logo.png" alt="Sushizuki">
+						</a></li>
 						<li><a href="/sushizuki">Home</a></li>
 						<li><a href="menu">Cardápio</a></li>
 						<li><a href="contact.jsp">Contatos</a></li>
 					</ul>
-				</nav> <!-- End Navigation bar -->
-			</div> <!-- End container  -->
-		</div> <!-- End top bar  -->
+				</nav>
+				<!-- End Navigation bar -->
+			</div>
+			<!-- End container  -->
+		</div>
+		<!-- End top bar  -->
 		<!-- Main content -->
-	    <div class="content container">
-	    	<div class="row">
-	           	<h2>Confirmação do Pedido</h2>
+		<div class="content container">
+			<div class="row">
+				<h2>Confirmação do Pedido</h2>
 			</div>
   			<div class="container">
 	  			<p>Confira os detalhes do seu pedido: </p>

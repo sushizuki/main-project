@@ -42,9 +42,6 @@ public class ConnectionFactory implements dao.Connection{
 	//Configuration for a MySQL Connection
 	private Connection MySqlConnection(final String host, final String user, 
 			final String password) throws SQLException{
-		assert host != null: "Invalid host: null value cannot be accepted";
-		assert user != null: "Invalid User: null value cannot be accepted";
-		assert password != null: "Invalid Password: null value cannot be accepted";
 		
 		return DriverManager.getConnection(host, user, password);
 	}
