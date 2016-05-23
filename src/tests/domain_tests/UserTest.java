@@ -6,9 +6,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import domain.User;
-import exceptions.UserExceptions;
 import domain.Address;
 import domain.Client;
+
+import exceptions.EmptyFieldException;
+import exceptions.InvalidFormatException;
+import exceptions.InvalidSizeException;
 
 public class UserTest {
 	
@@ -18,7 +21,7 @@ public class UserTest {
 	String phone; 
 
 	@Before
-	public void setUp() throws UserExceptions {
+	public void setUp() {
 		
 		email ="pereirasallan@gmail.com";
 		password= "password123";
@@ -27,7 +30,7 @@ public class UserTest {
 	}
 
 	@Test
-	public void testValidUserName() throws UserExceptions{
+	public void testValidUserName() throws InvalidFormatException, EmptyFieldException{
 		String validClientName = "Allan Pereira";
 		
 		try {
@@ -36,15 +39,17 @@ public class UserTest {
 				
 			assertEquals(validClientName, client.getName());
 		} 
-		catch (UserExceptions exception){
+		catch (InvalidFormatException exception){
+			fail("Should not throw this exception: "+exception.getMessage());
+		}catch (EmptyFieldException exception){
 			fail("Should not throw this exception: "+exception.getMessage());
 		}
 		
 		
 	}
 
-	@Test(expected = UserExceptions.class)
-	public void testEmptyClientName() throws UserExceptions{
+	@Test(expected = InvalidFormatException.class)
+	public void testEmptyClientName() throws InvalidFormatException, EmptyFieldException{
 		
 		String validClientName = "";
 		
@@ -52,7 +57,7 @@ public class UserTest {
 	}
 	
 	@Test(expected = Exception.class)
-	public void testNullClientName() throws UserExceptions{
+	public void testNullClientName() throws InvalidFormatException, EmptyFieldException{
 		
 		String validClientName = "";
 		
