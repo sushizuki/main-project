@@ -5,7 +5,7 @@
 
 package domain;
 
-import exceptions.UserExceptions;
+import exceptions.EmptyFieldException;
 
 public class Client extends User {
 
@@ -17,7 +17,7 @@ public class Client extends User {
 		this.setAddress(address);
 	}
 	
-	public Client (String nameOfUser, String emailOfUser, String passwordUser, String phoneUser) throws UserExceptions{
+	public Client (String nameOfUser, String emailOfUser, String passwordUser, String phoneUser) throws EmptyFieldException{
 		
 		setName(nameOfUser);
 		setEmail(emailOfUser);

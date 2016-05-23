@@ -13,7 +13,7 @@ import domain.Address;
 import domain.Administrator;
 import domain.Client;
 import domain.User;
-import exceptions.UserExceptions;
+import exceptions.EmptyFieldException;
 
 //Design pattern DAO
 public class UserDAO extends DataAccessObject{
@@ -224,7 +224,7 @@ public class UserDAO extends DataAccessObject{
 				//nothing to do, no user found
 			}
 
-		} catch (SQLException | UserExceptions exception) {
+		} catch (SQLException | EmptyFieldException exception) {
 			throw new RuntimeException("Error processing SQL - login in UserDAO: "
 					+exception.getMessage());
 		}  finally {
@@ -266,7 +266,7 @@ public class UserDAO extends DataAccessObject{
 				//do nothing
 			}
 
-		}  catch (SQLException | UserExceptions exception) {
+		}  catch (SQLException | EmptyFieldException exception) {
 			throw new RuntimeException("Error processing SQL - getUserById in UserDAO: "
 					+exception.getMessage());
 		}  finally {
