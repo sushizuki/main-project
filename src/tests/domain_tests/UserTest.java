@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import domain.User;
-import exceptions.EmptyFieldException;
+import exceptions.UserExceptions;
 import domain.Address;
 import domain.Client;
 
@@ -18,7 +18,7 @@ public class UserTest {
 	String phone; 
 
 	@Before
-	public void setUp() throws EmptyFieldException {
+	public void setUp() throws UserExceptions {
 		
 		email ="pereirasallan@gmail.com";
 		password= "password123";
@@ -27,7 +27,7 @@ public class UserTest {
 	}
 
 	@Test
-	public void testValidUserName() throws EmptyFieldException{
+	public void testValidUserName() throws UserExceptions{
 		String validClientName = "Allan Pereira";
 		
 		try {
@@ -36,15 +36,15 @@ public class UserTest {
 				
 			assertEquals(validClientName, client.getName());
 		} 
-		catch (EmptyFieldException exception){
+		catch (UserExceptions exception){
 			fail("Should not throw this exception: "+exception.getMessage());
 		}
 		
 		
 	}
 
-	@Test(expected = EmptyFieldException.class)
-	public void testEmptyClientName() throws EmptyFieldException{
+	@Test(expected = UserExceptions.class)
+	public void testEmptyClientName() throws UserExceptions{
 		
 		String validClientName = "";
 		
@@ -52,7 +52,7 @@ public class UserTest {
 	}
 	
 	@Test(expected = Exception.class)
-	public void testNullClientName() throws EmptyFieldException{
+	public void testNullClientName() throws UserExceptions{
 		
 		String validClientName = "";
 		
