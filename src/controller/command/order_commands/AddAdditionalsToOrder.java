@@ -88,7 +88,7 @@ public class AddAdditionalsToOrder implements Command {
 	
 	public void setReceiving(int receiving){
 		assert receiving != 0: "Invalid Receiving: null value cannot be accepted";
-		assert receiving < 0: "Invalid Receiving: negative value cannot be accepted";
+		assert receiving > 0: "Invalid Receiving: negative value cannot be accepted";
 
 		this.receiving = receiving;
 	}

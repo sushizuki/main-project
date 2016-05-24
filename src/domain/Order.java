@@ -7,6 +7,10 @@ package domain;
 import java.util.HashMap;
 import java.util.List;
 
+import exceptions.EmptyFieldException;
+import exceptions.InvalidFormatException;
+import exceptions.Validation;
+
 public class Order {
 	public static final int NEW_ORDER_STATUS = 1;
 	public static final int FINISHED_ORDER_STATUS = 2;
@@ -106,8 +110,12 @@ public class Order {
 		return this.statusOfOrder;
 	}
 
-	public void setStatus(String status){		
-		this.statusOfOrder = status;
+	public void setStatus(String status) throws EmptyFieldException{		
+		if(Validation.isNotEmpty(status)){
+			this.statusOfOrder = status;
+		}else {
+			throw new EmptyFieldException("O status nao pode ser nulo.");
+		}
 	}
 	
 	/**

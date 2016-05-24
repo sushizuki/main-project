@@ -64,9 +64,9 @@ public class SetDeliveryDetails implements Command {
 		assert time != null: "Invalid Time: null value cannot be accepted";
 		
 		Calendar dateTime = Calendar.getInstance();
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		try {
-			dateTime.setTime(df.parse(date+" "+time));
+			dateTime.setTime(dateFormat.parse(date+" "+time));
 		} catch (ParseException exception) {
 			System.err.println("ERROR CASTING DELIVERY DATE AND TIME: ");
 			exception.printStackTrace();
