@@ -29,6 +29,7 @@ import domain.Order;
 import domain.Payment;
 import domain.Product;
 import domain.Receiving;
+import exceptions.EmptyFieldException;
 
 //Design pattern DAO
 public class OrderDAO extends DataAccessObject{
@@ -71,7 +72,7 @@ public class OrderDAO extends DataAccessObject{
 	/*
 	 * Retuns the registered Address ID from database, if not in database inserts it
 	 */
-	private int getDeliveryAddressId(Address deliveryAddress) {
+	private int getDeliveryAddressId(Address deliveryAddress) throws EmptyFieldException {
 
 		assert deliveryAddress != null: "Invalid Address: null value cannot be accepted";
 
@@ -94,7 +95,7 @@ public class OrderDAO extends DataAccessObject{
 	 * Returns the Order's receiving method (Collect, Delivery) according to address
 	 * Must open new Statement, Query and Result objects to not interfere on calling methods
 	 */
-	private Receiving getReceivingFromOrder(int addressId) throws SQLException{
+	private Receiving getReceivingFromOrder(int addressId) throws SQLException, EmptyFieldException{
 
 		assert addressId > 0: "Invalid Address ID";
 
@@ -118,8 +119,8 @@ public class OrderDAO extends DataAccessObject{
 				String complement = result.getString("addressComplement");
 
 				Address address = new Address(addressId, cep, addressDescription, complement);
-
-				if(address.getAddress().equals(Collect.SUSHIZUKI_LOCATION.getAddress())){
+				Collect collect = new Collect();
+				if(address.getAddress().equals(collect.getAddress())){
 					receivingMethod = new Collect();
 				} else {
 					receivingMethod = new Delivery(address);
@@ -411,8 +412,9 @@ public class OrderDAO extends DataAccessObject{
 	/**
 	 * Saves order in database
 	 * @param order containing full order details
+	 * @throws EmptyFieldException 
 	 */
-	public void insert(Order order) {
+	public void insert(Order order) throws EmptyFieldException {
 
 		assert order != null: "Invalid Order: null value cannot be accepted";
 
@@ -467,8 +469,9 @@ public class OrderDAO extends DataAccessObject{
 
 	/**
 	 * Returns all saved orders from database
+	 * @throws EmptyFieldException 
 	 */
-	public List<Order> getList() {
+	public List<Order> getList() throws EmptyFieldException {
 		this.sqlQuery = "select * from `order` order by deliveryTime desc";
 		List<Order> orderList = new ArrayList<Order>();
 
@@ -580,8 +583,9 @@ public class OrderDAO extends DataAccessObject{
 	 * Returns order from database according to ID
 	 * @param int id of the order to be searched within database
 	 * @return Order object containing full order details from database
+	 * @throws EmptyFieldException 
 	 */
-	public Order getOrderById(int orderId) throws ParseException {
+	public Order getOrderById(int orderId) throws ParseException, EmptyFieldException {
 
 		assert orderId > 0: "Invalid Order ID";
 

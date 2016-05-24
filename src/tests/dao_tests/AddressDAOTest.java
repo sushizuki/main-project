@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import domain.Address;
+import exceptions.EmptyFieldException;
 import dao.AddressDAO;
 
 
@@ -20,7 +21,12 @@ public class AddressDAOTest {
 		address= new Address();
 		addressDao = new AddressDAO();
 		
-		address.setAddress("QNP 27 Conjunto H, 28");
+		try {
+			address.setAddress("QNP 27 Conjunto H, 28");
+		} catch (EmptyFieldException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		address.setCep("72242165");
 		address.setComplement("Ceilandia Norte");
 		address.setId(1);
@@ -29,12 +35,22 @@ public class AddressDAOTest {
 	@Test
 	public void testGetAddress() {
 		
-		assertEquals(address, addressDao.getAddress(address.getAddress()));
+		try {
+			assertEquals(address, addressDao.getAddress(address.getAddress()));
+		} catch (EmptyFieldException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
 	public void testGetAddressById() {
-		assertEquals(address, addressDao.getAddressById(address.getId()));
+		try {
+			assertEquals(address, addressDao.getAddressById(address.getId()));
+		} catch (EmptyFieldException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

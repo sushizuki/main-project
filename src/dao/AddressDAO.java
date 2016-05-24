@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import com.mysql.jdbc.Statement;
 
 import domain.Address;
+import exceptions.EmptyFieldException;
 
 //Design pattern DAO
 public class AddressDAO extends DataAccessObject{
@@ -70,8 +71,9 @@ public class AddressDAO extends DataAccessObject{
 	 * getAddress searchs for an address into the database
 	 * @param address string description of the address that will be searched
 	 * @return Address object containing full address details
+	 * @throws EmptyFieldException 
 	 */
-	public Address getAddress(String lookingAddress) {
+	public Address getAddress(String lookingAddress) throws EmptyFieldException {
 		
 		assert lookingAddress != null: "Invalid address: null value cannot be accepted";
 		
@@ -116,8 +118,9 @@ public class AddressDAO extends DataAccessObject{
 	 * getAddressById given an int id, searches for and addres into database
 	 * @param addressId int id number to be searched
 	 * @return Address object containing full address details
+	 * @throws EmptyFieldException 
 	 */
-	public Address getAddressById(int addressId) {
+	public Address getAddressById(int addressId) throws EmptyFieldException {
 
 		Address address = null;
 		String cep = null;
