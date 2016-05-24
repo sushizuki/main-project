@@ -9,7 +9,6 @@ import java.util.Calendar;
 
 public interface Receiving {
 
-	public void setAddress(Address address);
 
 	public void setDateTime(Calendar calendar);
 

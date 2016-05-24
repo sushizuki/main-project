@@ -7,7 +7,7 @@ package domain;
 
 import exceptions.EmptyFieldException;
 import exceptions.InvalidFormatException;
-import exceptions.InvalidSizeException;
+import exceptions.Validation;
 
 
 public abstract class User{
@@ -41,7 +41,7 @@ public abstract class User{
 		if(Validation.containsOnlyLetters(name) && Validation.isNotEmpty(name)){
 			this.nameOfUser = name;
 		}else{
-			throw new InvalidFormatException("Nomes devem conter apenas caracteres alfabéticos e não podem estar vazios!");
+			throw new InvalidFormatException("Nomes devem conter apenas caracteres alfabï¿½ticos e nï¿½o podem estar vazios!");
 		}
 	}
 
@@ -64,7 +64,7 @@ public abstract class User{
 		if (Validation.isNotEmpty(password)){
 			this.passwordUser = password;
 		}else{
-			throw new EmptyFieldException("Senha não pode esta vazia!");
+			throw new EmptyFieldException("Senha nï¿½o pode esta vazia!");
 		}
 	}
 
@@ -78,7 +78,7 @@ public abstract class User{
 		if(Validation.containsOnlyNumbers(phone) && Validation.isNotEmpty(phone)){
 			this.phoneUser = phone;
 		}else{
-			throw new InvalidFormatException("Telefone não pode estar vazio e deve conter apenas números!");
+			throw new InvalidFormatException("Telefone nï¿½o pode estar vazio e deve conter apenas nï¿½meros!");
 		}
 	}
 }

@@ -7,35 +7,31 @@ package domain;
 
 import java.util.Calendar;
 
+import exceptions.EmptyFieldException;
+
 public class Collect implements Receiving {
-
 	//Administrator address
-	public static final Address SUSHIZUKI_LOCATION = new Address(0,"72000-000", "SMPW Quadra 26 Conjunto 6 Lote 5 casa D", "Condomínio Recanto da Primavera");
-
-	private Address address;
+	private Address sushizuki_location;
 	private Calendar dateTime;
 
-	public Collect(Calendar dateTime) {
+	public Collect(Calendar dateTime) throws EmptyFieldException {
 		assert dateTime != null: "Invalid Calendar: null value cannot be accepted";
 		
-		setAddress(SUSHIZUKI_LOCATION);
+		setAddress();
 		setDateTime(dateTime);
 	}
 
-	public Collect(){
-		setAddress(SUSHIZUKI_LOCATION);
+	public Collect() throws EmptyFieldException{
+		setAddress();
 	}
 
-	@Override
-	public void setAddress(Address address) {
-		assert address != null: "Invalid address: null value cannot be accepted";
-		
-		this.address = address;
+	public void setAddress() throws EmptyFieldException {
+			this.sushizuki_location = new Address(0,"72000-000", "SMPW Quadra 26 Conjunto 6 Lote 5 casa D",
+												  "Condomínio Recanto da Primavera");
 	}
 
-	@Override
 	public Address getAddress() {
-		return this.address;
+		return this.sushizuki_location;
 	}
 
 	public Calendar getDateTime() {

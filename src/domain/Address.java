@@ -5,6 +5,9 @@
 
 package domain;
 
+import exceptions.EmptyFieldException;
+import exceptions.Validation;
+
 public class Address {
 
 	private Integer idAdress;
@@ -16,7 +19,7 @@ public class Address {
 		
 	}
 	
-	public Address(int id, String cep, String address, String complement) {
+	public Address(int id, String cep, String address, String complement) throws EmptyFieldException {
 		assert id > 0: "Invalid Adddress ID";
 		assert address != null: "Invalid Adddress: null value cannot be accepted";
 		
@@ -26,7 +29,7 @@ public class Address {
 		this.setAddress(address);
 	}
 
-	public Address(String cep, String address, String complement) {
+	public Address(String cep, String address, String complement) throws EmptyFieldException {
 		assert address != null: "Invalid Adddress: null value cannot be accepted";
 		
 		this.setCep(cep);
@@ -62,8 +65,12 @@ public class Address {
 		return address;
 	}
 
-	public void setAddress(String address) {
-		assert address != null: "Invalid Address: null value cannot be accepted";;
+	public void setAddress(String address) throws EmptyFieldException {
+		assert address != null: "Invalid Address: null value cannot be accepted";
+		if(Validation.isNotEmpty(address)) {
+		}else {
+			throw new EmptyFieldException("O campo endereco nao pode ficar em branco.");
+		}
 		this.address = address;
 	}
 
