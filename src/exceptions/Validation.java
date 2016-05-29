@@ -11,8 +11,7 @@ public abstract class Validation {
 		
 		boolean isNotEmpty = false;
 		
-		if(string != null){
-			
+		if(string != null){			
 			isNotEmpty = !string.isEmpty();
 		}else{
 			isNotEmpty = false;
@@ -30,15 +29,9 @@ public abstract class Validation {
 		
 		boolean containsOnlyNumbers = false;
 		
-		if(isNotEmpty(string)){
-			
-			if(string.matches("[0-9]+")){
-				
+		if(isNotEmpty(string) && string.matches("[0-9]+")){
 				containsOnlyNumbers = true;
-			}else{
-				containsOnlyNumbers = false;
-			}
-		}else{
+		} else{
 			containsOnlyNumbers = false;
 		}
 		
@@ -54,16 +47,9 @@ public abstract class Validation {
 		
 		boolean containsOnlyLetters = false;
 		
-		if(isNotEmpty(string)){
-			
-			if(string.matches("[a-zA-Zà-úÀ-Ú]+")){
-				
-				containsOnlyLetters = true;
-			}else{
-				containsOnlyLetters = false;
-			}
-			
-		}else{
+		if(isNotEmpty(string) && string.matches("[a-zA-Zà-úÀ-Ú]+")){			
+			containsOnlyLetters = true;		
+		} else{
 			containsOnlyLetters = false;
 		}
 		
@@ -79,16 +65,9 @@ public abstract class Validation {
 		
 		boolean containsOnlyLetters = false;
 		
-		if(isNotEmpty(string)){
-			
-			if(string.matches("[a-zA-Zà-úÀ-Ú\\s]+")){
-				
-				containsOnlyLetters = true;
-			}else{
-				containsOnlyLetters = false;
-			}
-			
-		}else{
+		if(isNotEmpty(string) && string.matches("[a-zA-Zà-úÀ-Ú\\s]+")){	
+				containsOnlyLetters = true;			
+		} else{
 			containsOnlyLetters = false;
 		}
 		
