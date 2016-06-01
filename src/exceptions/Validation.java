@@ -21,9 +21,27 @@ public abstract class Validation {
 	}
 	
 	/**
-	 * Check if a given string contains only numbers within
+	 * Check if a given string contains only numbers or decimal
 	 * @param string - The string to be checked
 	 * @return TRUE if it contains only numbers, or FALSE if it does not
+	 */
+	public static boolean isNumber(String string){
+		
+		boolean isNumber = false;
+		
+		if(string.matches("-?\\d+(\\.\\d+)?")){
+			isNumber = true;
+		}else{
+			isNumber = false;
+		}
+		
+		return isNumber;
+	}
+	
+	/**
+	 * Check if a given string contains only numbers within
+	 * @param string - The string to be checked
+	 * @return TRUE if it contains only numbers or decimal, or FALSE if it does not
 	 */
 	public static boolean containsOnlyNumbers(String string){
 		
@@ -73,5 +91,22 @@ public abstract class Validation {
 		
 		return containsOnlyLetters;
 	}
-
+	
+	/**
+	 * Check if a given number is positive 
+	 * @param number - The integer to be checked
+	 * @return TRUE if is bigger than 0, or FALSE if it does not
+	 */
+	public static boolean isPositive(double number){
+		
+		boolean isPositive = false;
+		
+		if(number > 0){
+			isPositive = true;
+		}else{
+			isPositive = false;
+		}
+		
+		return isPositive;
+	}
 }
