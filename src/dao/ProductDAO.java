@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import domain.Product;
+import exceptions.EmptyFieldException;
+import exceptions.InvalidValueException;
 
 //Design pattern DAO
 public class ProductDAO extends DataAccessObject{
@@ -160,7 +162,7 @@ public class ProductDAO extends DataAccessObject{
 				productList.add(new Product(id, name, description, price, imageURL, category, extra));
 			}			
 
-		}catch (SQLException exception) {
+		}catch (SQLException | InvalidValueException | EmptyFieldException exception) {
 			throw new RuntimeException("Error processing SQL - getList in ProductDAO: "
 					+exception.getMessage());
 		} finally {
@@ -204,7 +206,7 @@ public class ProductDAO extends DataAccessObject{
 				product = new Product(id, name, description, price, imageURL, category, extra);
             }
             
-        } catch (SQLException exception) {
+        } catch (SQLException | InvalidValueException | EmptyFieldException exception) {
 			throw new RuntimeException("Error processing SQL - getProductById in ProductDAO: "
 					+exception.getMessage());
 		} finally {
