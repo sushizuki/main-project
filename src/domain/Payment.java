@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 import dao.OrderDAO;
+import exceptions.InvalidFormatException;
+import exceptions.Validation;
 
 public class Payment {
 
@@ -20,7 +22,7 @@ public class Payment {
 
 	}
 
-	public Payment(int id, String paymentType, String change) throws SQLException{
+	public Payment(int id, String paymentType, String change) throws SQLException, InvalidFormatException{
 		assert id > 0: "Invalid Payment ID";
 		assert paymentType != null: "Invalid Payment type: null value cannot be accepted";
 		
@@ -57,8 +59,12 @@ public class Payment {
 		this.changeOfPayment = String.valueOf(value - total);
 	}
 
-	public void setChange(String change) {
-		this.changeOfPayment = change;
+	public void setChange(String change) throws InvalidFormatException {
+		if(Validation.isNumber(change)){
+			this.changeOfPayment = change;
+		}else{
+			throw new InvalidFormatException("Troco deve conter apenas numeros!");
+		}
 	}
 
 

@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import exceptions.EmptyFieldException;
-import exceptions.InvalidFormatException;
 import exceptions.Validation;
 
 public class Order {
@@ -123,10 +122,10 @@ public class Order {
 	 * @param status number from database
 	 */
 	public void setStatus(int status){
-		if(status == NEW_ORDER_STATUS){
-			this.statusOfOrder = "Novo Pedido";
-		} else if(status == FINISHED_ORDER_STATUS){
-			this.statusOfOrder = "Entregue";
-		}
+			if(status == NEW_ORDER_STATUS){
+				this.statusOfOrder = "Novo Pedido";
+			} else if(status == FINISHED_ORDER_STATUS){
+				this.statusOfOrder = "Entregue";
+			}
 	}
 }
