@@ -16,6 +16,7 @@ import domain.Address;
 import domain.Delivery;
 import domain.Order;
 import exceptions.EmptyFieldException;
+import exceptions.InvalidFormatException;
 
 public class SetDeliveryDetails implements Command {
 	
@@ -45,7 +46,8 @@ public class SetDeliveryDetails implements Command {
 		this.deliveryAddress = address;
 	}
 	
-	public void setAddress(String cep, String address, String complement) throws EmptyFieldException{
+	public void setAddress(String cep, String address, String complement) 
+			throws EmptyFieldException, InvalidFormatException{
 		assert cep != null: "Invalid CEP: null value cannot be accepted";
 		assert address != null: "Invalid Address: null value cannot be accepted";
 		assert complement != null: "Invalid Complement: null value cannot be accepted";

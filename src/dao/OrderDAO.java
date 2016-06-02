@@ -73,7 +73,7 @@ public class OrderDAO extends DataAccessObject{
 	/*
 	 * Retuns the registered Address ID from database, if not in database inserts it
 	 */
-	private int getDeliveryAddressId(Address deliveryAddress) throws EmptyFieldException {
+	private int getDeliveryAddressId(Address deliveryAddress) throws EmptyFieldException, InvalidFormatException {
 
 		assert deliveryAddress != null: "Invalid Address: null value cannot be accepted";
 
@@ -96,7 +96,7 @@ public class OrderDAO extends DataAccessObject{
 	 * Returns the Order's receiving method (Collect, Delivery) according to address
 	 * Must open new Statement, Query and Result objects to not interfere on calling methods
 	 */
-	private Receiving getReceivingFromOrder(int addressId) throws SQLException, EmptyFieldException{
+	private Receiving getReceivingFromOrder(int addressId) throws SQLException, EmptyFieldException, InvalidFormatException{
 
 		assert addressId > 0: "Invalid Address ID";
 
@@ -340,7 +340,7 @@ public class OrderDAO extends DataAccessObject{
 	 * Process to order the selected additionals
 	 * Must open new Statement, Query and Result objects to not interfere on calling methods
 	 */
-	private List<Additional> assignAdditionalsToOrder(Order order) throws SQLException{
+	private List<Additional> assignAdditionalsToOrder(Order order) throws SQLException, InvalidFormatException{
 
 		assert order != null: "Invalid Order: null value cannot be accepted";
 
@@ -414,8 +414,9 @@ public class OrderDAO extends DataAccessObject{
 	 * Saves order in database
 	 * @param order containing full order details
 	 * @throws EmptyFieldException 
+	 * @throws InvalidFormatException 
 	 */
-	public void insert(Order order) throws EmptyFieldException {
+	public void insert(Order order) throws EmptyFieldException, InvalidFormatException {
 
 		assert order != null: "Invalid Order: null value cannot be accepted";
 
@@ -471,8 +472,9 @@ public class OrderDAO extends DataAccessObject{
 	/**
 	 * Returns all saved orders from database
 	 * @throws EmptyFieldException 
+	 * @throws InvalidFormatException 
 	 */
-	public List<Order> getList() throws EmptyFieldException {
+	public List<Order> getList() throws EmptyFieldException, InvalidFormatException {
 		this.sqlQuery = "select * from `order` order by deliveryTime desc";
 		List<Order> orderList = new ArrayList<Order>();
 
@@ -519,8 +521,9 @@ public class OrderDAO extends DataAccessObject{
 	/**
 	 * Returns all options of additionals to an order from database
 	 * @return List<Additional> List of saved Additionals from database
+	 * @throws InvalidFormatException 
 	 */
-	public List<Additional> getAdditionalsList() {
+	public List<Additional> getAdditionalsList() throws InvalidFormatException {
 		this.sqlQuery = "select * from `additional`";
 		List<Additional> listAdditional = new ArrayList<Additional>();
 
@@ -552,8 +555,9 @@ public class OrderDAO extends DataAccessObject{
 	 * Returns additional from database according to ID
 	 * @param int id number generated from database
 	 * @return Additional object from database
+	 * @throws InvalidFormatException 
 	 */
-	public Additional getAdditionalById(int idAdditional) {
+	public Additional getAdditionalById(int idAdditional) throws InvalidFormatException {
 
 		assert idAdditional > 0: "Invalid Additional ID";
 
@@ -585,8 +589,9 @@ public class OrderDAO extends DataAccessObject{
 	 * @param int id of the order to be searched within database
 	 * @return Order object containing full order details from database
 	 * @throws EmptyFieldException 
+	 * @throws InvalidFormatException 
 	 */
-	public Order getOrderById(int orderId) throws ParseException, EmptyFieldException {
+	public Order getOrderById(int orderId) throws ParseException, EmptyFieldException, InvalidFormatException {
 
 		assert orderId > 0: "Invalid Order ID";
 

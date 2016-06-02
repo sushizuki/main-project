@@ -25,7 +25,7 @@ public class UserDAO extends DataAccessObject{
 	}
 
 	//Must open new Statement and Result objects to not interfere on calling methods
-	private Client getClientById(int clientId) throws SQLException, EmptyFieldException{
+	private Client getClientById(int clientId) throws SQLException, EmptyFieldException, InvalidFormatException{
 		
 		assert clientId > 0: "Invalid Client ID";
 		

@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import domain.Address;
 import exceptions.EmptyFieldException;
+import exceptions.InvalidFormatException;
 import dao.AddressDAO;
 
 
@@ -23,11 +24,14 @@ public class AddressDAOTest {
 		
 		try {
 			address.setAddress("QNP 27 Conjunto H, 28");
+			address.setCep("72242165");
 		} catch (EmptyFieldException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (InvalidFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		address.setCep("72242165");
 		address.setComplement("Ceilandia Norte");
 		address.setId(1);
 	}
@@ -40,6 +44,9 @@ public class AddressDAOTest {
 		} catch (EmptyFieldException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (InvalidFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -48,6 +55,9 @@ public class AddressDAOTest {
 		try {
 			assertEquals(address, addressDao.getAddressById(address.getId()));
 		} catch (EmptyFieldException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
