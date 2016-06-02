@@ -7,6 +7,11 @@ package domain;
 
 import java.util.Calendar;
 
+import exceptions.EmptyFieldException;
+import exceptions.InvalidFormatException;
+import exceptions.Validation;
+
+
 public class Message {
 
 	private int idMessage;
@@ -19,8 +24,8 @@ public class Message {
 		return idMessage;
 	}
 
-	public void setId(int id) {
-		assert id > 0 : "Message ID value inconsistent";
+	public void setId(int id){
+		assert id < 0 : "Message ID value inconsistent";
 		
 		this.idMessage = id;
 	}
@@ -39,10 +44,14 @@ public class Message {
 		return message;
 	}
 
-	public void setMessage(String message) {
+	public void setMessage(String message) throws EmptyFieldException{
 		assert message != null: "Invalid Message: null value cannot be accepted";
 		
+		if(Validation.isNotEmpty(message)){
 		this.message = message;
+		}else{
+			throw new EmptyFieldException("O campo da mensagem não pode estar vazio!");
+		}
 	}
 
 	public Calendar getDateSent() {

@@ -30,6 +30,7 @@ import domain.Payment;
 import domain.Product;
 import domain.Receiving;
 import exceptions.EmptyFieldException;
+import exceptions.InvalidFormatException;
 
 //Design pattern DAO
 public class OrderDAO extends DataAccessObject{
@@ -214,7 +215,7 @@ public class OrderDAO extends DataAccessObject{
 
 				payment = new Payment(idPayment, paymentType, change);
             }
-        } catch (SQLException exception) {
+        } catch (SQLException | InvalidFormatException exception) {
 			throw new RuntimeException("Error processing SQL - getPaymentFromOrder in OrderDAO: "
 					+exception.getMessage());
 		}  finally {

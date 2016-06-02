@@ -2,6 +2,7 @@ package tests.domain_tests;
 
 import static org.junit.Assert.*;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,6 +15,11 @@ import exceptions.InvalidFormatException;
 import exceptions.InvalidSizeException;
 
 public class UserTest {
+	
+	@Test
+	public void test(){	
+		Assert.assertTrue(true);
+	}
 	
 	Client client; 
 	String email;

@@ -9,6 +9,9 @@ package domain;
 import java.util.List;
 
 import dao.ProductDAO;
+import exceptions.EmptyFieldException;
+import exceptions.InvalidValueException;
+import exceptions.Validation;
 
 public class Product {
 
@@ -21,7 +24,7 @@ public class Product {
 	private String extra; //Cream cheese or green onion
 
 	public Product(int id, String name, String description, double price,
-			String imageURL, String category, String extra) {
+			String imageURL, String category, String extra) throws InvalidValueException, EmptyFieldException {
 		assert id > 0: "Invalid Product ID";
 		assert name != null: "Invalid Product name: null value cannot be accepted";
 		assert price >= 0: "Invalid Product price: negative price is not allowed";
@@ -36,7 +39,7 @@ public class Product {
 	}
 
 	public Product(String name, String description, double price, String imageURL,
-			String category, String extra) {
+			String category, String extra) throws InvalidValueException, EmptyFieldException {
 		assert name != null: "Invalid Product name: null value cannot be accepted";
 		assert price >= 0: "Invalid Product price: negative price is not allowed";
 		
@@ -60,32 +63,48 @@ public class Product {
 		return priceOfProduct;
 	}
 
-	public void setPrice(double price) {
-		this.priceOfProduct = price;
+	public void setPrice(double price) throws InvalidValueException {
+		if(Validation.isPositive(price)){
+			this.priceOfProduct = price;
+		}else{
+			throw new InvalidValueException("O preço precisa ser positivo");
+		}
 	}
 
 	public String getDescription() {
 		return descriptionOfProduct;
 	}
 
-	public void setDescription(String description) {
-		this.descriptionOfProduct = description;
+	public void setDescription(String description) throws EmptyFieldException {
+		if (Validation.isNotEmpty(description)){
+			this.descriptionOfProduct = description;
+		}else{
+			throw new EmptyFieldException("Descrição não pode estar vazia!");
+		}
 	}
 
 	public String getName() {
 		return nameProduct;
 	}
 
-	public void setName(String name) {
-		this.nameProduct = name;
+	public void setName(String name) throws EmptyFieldException {
+		if (Validation.isNotEmpty(name)){
+			this.nameProduct = name;
+		}else{
+			throw new EmptyFieldException("Nome não pode estar vazio!");
+		}
 	}
 
 	public String getImageURL() {
 		return imageURL;
 	}
 
-	public void setImageURL(String imageURL) {
-		this.imageURL = imageURL;
+	public void setImageURL(String imageURL) throws EmptyFieldException {
+		if (Validation.isNotEmpty(imageURL)){
+			this.imageURL = imageURL;
+		}else{
+			throw new EmptyFieldException("A URL da imagem não pode estar vazio!");
+		}
 	}
 
 	public String getCategory() {

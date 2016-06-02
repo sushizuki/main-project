@@ -26,8 +26,10 @@ public abstract class User{
 		return idUser;
 	}
 
-	public void setId(int id) {
+	public void setId(int id) throws InvalidFormatException, EmptyFieldException {
 		assert id > 0: "Invalid User ID";
+		
+		
 		this.idUser = id;
 	}
 
@@ -41,7 +43,7 @@ public abstract class User{
 		if(Validation.containsOnlyLettersAndSpaces(name) && Validation.isNotEmpty(name)){
 			this.nameOfUser = name;
 		}else{
-			throw new InvalidFormatException("Nomes devem conter apenas caracteres alfab√©ticos e n√£o podem estar vazios!");
+			throw new InvalidFormatException("Nomes devem conter apenas caracteres alfabÈticos e n„o podem estar vazios!");
 		}
 	}
 
@@ -49,9 +51,14 @@ public abstract class User{
 		return emailOfUser;
 	}
 
-	public void setEmail(String email) {
+	public void setEmail(String email) throws EmptyFieldException{
 		assert email != null: "Invalid User email: null value cannot be accepted";
+		
+		if (Validation.isNotEmpty(email)){
 		this.emailOfUser = email;
+		}else{
+			throw new EmptyFieldException("Email n„o pode esta vazio!");
+		}
 	}
 
 	public String getPassword() {
@@ -64,7 +71,7 @@ public abstract class User{
 		if (Validation.isNotEmpty(password)){
 			this.passwordUser = password;
 		}else{
-			throw new EmptyFieldException("Senha n√£o pode esta vazia!");
+			throw new EmptyFieldException("Senha n„o pode esta vazia!");
 		}
 	}
 
@@ -78,7 +85,7 @@ public abstract class User{
 		if(Validation.containsOnlyNumbers(phone) && Validation.isNotEmpty(phone)){
 			this.phoneUser = phone;
 		}else{
-			throw new InvalidFormatException("Telefone n√£o pode estar vazio e deve conter apenas n√∫meros!");
+			throw new InvalidFormatException("Telefone n„o pode estar vazio e deve conter apenas n√∫meros!");
 		}
 	}
 }

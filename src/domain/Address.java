@@ -6,6 +6,7 @@
 package domain;
 
 import exceptions.EmptyFieldException;
+import exceptions.InvalidFormatException;
 import exceptions.Validation;
 
 public class Address {
@@ -19,7 +20,7 @@ public class Address {
 		
 	}
 	
-	public Address(int id, String cep, String address, String complement) throws EmptyFieldException {
+	public Address(int id, String cep, String address, String complement) throws EmptyFieldException, InvalidFormatException {
 		assert id > 0: "Invalid Adddress ID";
 		assert address != null: "Invalid Adddress: null value cannot be accepted";
 		
@@ -29,7 +30,7 @@ public class Address {
 		this.setAddress(address);
 	}
 
-	public Address(String cep, String address, String complement) throws EmptyFieldException {
+	public Address(String cep, String address, String complement) throws EmptyFieldException, InvalidFormatException {
 		assert address != null: "Invalid Adddress: null value cannot be accepted";
 		
 		this.setCep(cep);
@@ -54,10 +55,16 @@ public class Address {
 		return this.cep;
 	}
 
-	public void setCep(String cep) {
+	public void setCep(String cep) throws InvalidFormatException{
 		assert (cep.length() == 8 || cep.length() == 9)
 				: "Address CEP value inconsistent";
+		assert (cep != null) : "Cep cannot be null.";
+		
+		if(Validation.containsOnlyNumbers(cep) && Validation.isNotEmpty(cep)){
 		this.cep = cep;
+		}else{
+			throw new InvalidFormatException("Cep deve conter apenas caracteres numéricos e não pode estar vazio!");
+		}
 	}
 
 	public String getAddress() {
@@ -67,11 +74,13 @@ public class Address {
 
 	public void setAddress(String address) throws EmptyFieldException {
 		assert address != null: "Invalid Address: null value cannot be accepted";
+		
 		if(Validation.isNotEmpty(address)) {
+			this.address = address;
 		}else {
 			throw new EmptyFieldException("O campo endereco nao pode ficar em branco.");
 		}
-		this.address = address;
+		
 	}
 
 	public String getComplement() {
