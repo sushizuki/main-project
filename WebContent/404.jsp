@@ -70,6 +70,10 @@
 					<span class="glyphicon glyphicon-exclamation-sign"
 						aria-hidden="true"></span> Hmm... Página não encontrada!
 				</h3>
+				<p>
+					Ocorreu um erro ao processar sua requisição:
+				</p>
+				<a href="#" onclick="history.go(-1)">Voltar</a>
 			</div>
 		</div>
 	</div>

@@ -48,7 +48,7 @@ public class DoLogin implements Command {
 		if(this.user instanceof Administrator){
 			this.setPageToRedirect("adm/Order?action=getOrderList");
 		} else if(this.user == null) { //Fail to log in
-			this.setPageToRedirect("login.jsp?err=1");
+			this.setPageToRedirect("login.jsp?error=1");
 		}
 	}
 

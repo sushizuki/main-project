@@ -7,6 +7,7 @@
 package controller;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -99,15 +100,15 @@ public class UserController extends HttpServlet {
 	 * Handle POST requests: creating, updating a user or do login.
 	 * @param request contains request information for this servlet
 	 * @param response sends response information from this servlet to the client
+	 * @throws ServletException 
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 
 		HttpSession session = request.getSession(true);
+		String action = request.getParameter("action");
+		Command command = commandFactory.getCommand(action);
 
 		try {
-			String action = request.getParameter("action");
-
-			Command command = commandFactory.getCommand(action);
 
 			if(command instanceof DoLogin){	
 				((DoLogin) command).setEmail(request.getParameter("email"));
@@ -124,9 +125,10 @@ public class UserController extends HttpServlet {
 			//Redirects to page
 			response.sendRedirect(request.getContextPath()+'/'+command.getPageToRedirect());
 			
-		}catch (Exception e) {
-			System.err.println("ERROR while processing request for User: ");
-			e.printStackTrace();
+		}catch (Exception exception) {
+			String message = "ERROR while processing request for User: "+exception.getMessage();
+			request.setAttribute("error", message);
+			throw new ServletException(message);
 		}
 	}
 }

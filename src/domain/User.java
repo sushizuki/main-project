@@ -38,7 +38,7 @@ public abstract class User{
 	public void setName(String name) throws InvalidFormatException {
 		assert name != null: "Invalid User name: null value cannot be accepted";
 		
-		if(Validation.containsOnlyLetters(name) && Validation.isNotEmpty(name)){
+		if(Validation.containsOnlyLettersAndSpaces(name) && Validation.isNotEmpty(name)){
 			this.nameOfUser = name;
 		}else{
 			throw new InvalidFormatException("Nomes devem conter apenas caracteres alfabéticos e não podem estar vazios!");

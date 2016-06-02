@@ -66,7 +66,7 @@
 		</div>
 		<div class="row">
 			<div class="col-md-4 col-sm-6 col-xs-12">
-				<c:if test="${param.err == 1}">
+				<c:if test="${param.error == 1}">
 					<div class="alert alert-danger alert-dismissable" role="alert">
 						<strong>Erro!</strong> E-mail ou senha inválidos!
 					</div>
