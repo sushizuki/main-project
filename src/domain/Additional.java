@@ -5,6 +5,9 @@
 
 package domain;
 
+import exceptions.InvalidFormatException;
+import exceptions.Validation;
+
 public class Additional {
 
 	private int idAdditional;
@@ -27,8 +30,9 @@ public class Additional {
 		return idAdditional;
 	}
 
-	public void setId(int id) {
+	public void setId(int id){
 		assert id > 0: "Invalid Additional ID"; 
+		
 		
 		this.idAdditional = id;
 	}
@@ -37,9 +41,14 @@ public class Additional {
 		return nameAdditional;
 	}
 
-	public void setName(String name) {
+	public void setName(String name) throws InvalidFormatException {
 		assert name != null: "Invalid Additional name: null value cannot be accepted"; 
 		
-		this.nameAdditional = name;
+		if(Validation.containsOnlyLetters(name) && Validation.isNotEmpty(name)){
+			this.nameAdditional = name;
+		}else{
+			throw new InvalidFormatException("Nomes devem conter apenas caracteres alfabéticos e não podem estar vazios!");
+		}
+
 	}
 }
