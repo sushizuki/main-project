@@ -12,6 +12,7 @@ import com.mysql.jdbc.Statement;
 
 import domain.Address;
 import exceptions.EmptyFieldException;
+import exceptions.InvalidFormatException;
 
 //Design pattern DAO
 public class AddressDAO extends DataAccessObject{
@@ -72,8 +73,9 @@ public class AddressDAO extends DataAccessObject{
 	 * @param address string description of the address that will be searched
 	 * @return Address object containing full address details
 	 * @throws EmptyFieldException 
+	 * @throws InvalidFormatException 
 	 */
-	public Address getAddress(String lookingAddress) throws EmptyFieldException {
+	public Address getAddress(String lookingAddress) throws EmptyFieldException, InvalidFormatException {
 		
 		assert lookingAddress != null: "Invalid address: null value cannot be accepted";
 		
@@ -100,7 +102,12 @@ public class AddressDAO extends DataAccessObject{
 				cep = result.getString("cep");
 				complement = result.getString("addressComplement");
 
-				address = new Address(id, cep, lookingAddress, complement);
+				try {
+					address = new Address(id, cep, lookingAddress, complement);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			} else {
 				//No address found, nothing to do
 			}
@@ -119,8 +126,9 @@ public class AddressDAO extends DataAccessObject{
 	 * @param addressId int id number to be searched
 	 * @return Address object containing full address details
 	 * @throws EmptyFieldException 
+	 * @throws InvalidFormatException 
 	 */
-	public Address getAddressById(int addressId) throws EmptyFieldException {
+	public Address getAddressById(int addressId) throws EmptyFieldException, InvalidFormatException {
 
 		Address address = null;
 		String cep = null;
@@ -147,7 +155,12 @@ public class AddressDAO extends DataAccessObject{
 				addressDescription = this.result.getString("address");
 				complement = this.result.getString("addressComplement");
 
-				address = new Address(id, cep, addressDescription, complement);
+				try {
+					address = new Address(id, cep, addressDescription, complement);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
 			}else {
 				//No address found, nothing to do

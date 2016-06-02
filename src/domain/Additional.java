@@ -30,7 +30,7 @@ public class Additional {
 		return idAdditional;
 	}
 
-	public void setId(int id){
+	public void setId(int id) {
 		assert id > 0: "Invalid Additional ID"; 
 		
 		
