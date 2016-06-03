@@ -1,18 +1,15 @@
 package tests.domain_tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import domain.User;
-import domain.Address;
 import domain.Client;
-
 import exceptions.EmptyFieldException;
 import exceptions.InvalidFormatException;
-import exceptions.InvalidSizeException;
 
 public class UserTest {
 	
