@@ -1,5 +1,7 @@
 package exceptions;
 
+import java.util.regex.Pattern;
+
 public abstract class Validation {
 	
 	/**
@@ -100,6 +102,20 @@ public abstract class Validation {
 	public static boolean isPositive(double number){
 		
 		boolean isPositive = false;
+		
+		if(number > 0){
+			isPositive = true;
+		}else{
+			isPositive = false;
+		}
+		
+		return isPositive;
+	}
+	
+	public static boolean isEmail(String email){
+		
+		boolean isEmail = false;
+		Pattern emailPatern = Pattern.compile(".+@.+\.[a-z]+");
 		
 		if(number > 0){
 			isPositive = true;
