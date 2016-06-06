@@ -19,7 +19,13 @@ public class Message {
 	private String message;
 	private Calendar dateSent;
 
-
+	public Message(Client sender, String message, Calendar dateSent) throws EmptyFieldException {
+		
+		setSender(sender);
+		setMessage(message);
+		setDateSent(dateSent);
+	}
+	
 	public int getId() {
 		return idMessage;
 	}
