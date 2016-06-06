@@ -2,7 +2,6 @@
 *    User.java to define User
 *    Abstraction to define any kind of person using Sushizuki
 */
-
 package domain;
 
 import exceptions.EmptyFieldException;
@@ -79,13 +78,17 @@ public abstract class User{
 		return phoneUser;
 	}
 
-	public void setPhone(String phone) throws  InvalidFormatException{
+	public void setPhone(String phone) throws  InvalidFormatException, EmptyFieldException{
 		assert phone != null: "Invalid User phone: null value cannot be accepted";
 		
-		if(Validation.containsOnlyNumbers(phone) && Validation.isNotEmpty(phone)){
-			this.phoneUser = phone;
+		if(Validation.isNotEmpty(phone)){
+			if( Validation.containsOnlyNumbers(phone)){
+				this.phoneUser = phone;
+			}else{
+				throw new InvalidFormatException("Telefone deve conter apenas números!");
+			}
 		}else{
-			throw new InvalidFormatException("Telefone não pode estar vazio e deve conter apenas nÃºmeros!");
+			throw new EmptyFieldException("Telefone não pode estar vazio!");
 		}
 	}
 }
