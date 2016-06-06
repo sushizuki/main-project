@@ -15,7 +15,7 @@ import exceptions.InvalidFormatException;
 
 public class MessageTest {
 	
-	
+	Message message;
 	private Client sender;
 	private String messageString;
 	private Calendar dateSent;
@@ -33,7 +33,7 @@ public class MessageTest {
 		try{
 			
 			Client validClient = new Client("Pedro","pedro@gmail.com", "pass1234", "99999999");
-			Message message = new Message (validClient, messageString, dateSent);	
+			message = new Message (validClient, messageString, dateSent);	
 			
 			assertEquals(validClient, message.getSender());
 			
@@ -43,5 +43,24 @@ public class MessageTest {
 			fail("Should not throw this exception: "+exception.getMessage());
 		}
 	}
+	
+	
+	@Test(expected = EmptyFieldException.class)
+	public void testEmptyMessage() throws EmptyFieldException{
+		
+		String invalidMessage = "";
+		
+		message = new Message (sender, invalidMessage, dateSent);
+	}
+	
+	@Test(expected = EmptyFieldException.class)
+	public void testNullMessage() throws EmptyFieldException{
+		
+		String invalidMessage = null;
+		
+		message = new Message (sender, invalidMessage, dateSent);
+	}
+	
+	
 
 }
