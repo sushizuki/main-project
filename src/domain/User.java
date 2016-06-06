@@ -2,7 +2,6 @@
 *    User.java to define User
 *    Abstraction to define any kind of person using Sushizuki
 */
-
 package domain;
 
 import exceptions.EmptyFieldException;
@@ -37,13 +36,17 @@ public abstract class User{
 		return nameOfUser;
 	}
 
-	public void setName(String name) throws InvalidFormatException {
+	public void setName(String name) throws InvalidFormatException, EmptyFieldException  {
 		assert name != null: "Invalid User name: null value cannot be accepted";
 		
-		if(Validation.containsOnlyLettersAndSpaces(name) && Validation.isNotEmpty(name)){
-			this.nameOfUser = name;
+		if(Validation.isNotEmpty(name)){
+			if(Validation.containsOnlyLettersAndSpaces(name)){
+				this.nameOfUser = name;
+			}else{
+				throw new InvalidFormatException("Nomes devem conter apenas caracteres alfabéticos!");
+			}
 		}else{
-			throw new InvalidFormatException("Nomes devem conter apenas caracteres alfabéticos e não podem estar vazios!");
+				throw new EmptyFieldException("Nome não pode estar vazio!");
 		}
 	}
 
@@ -51,13 +54,17 @@ public abstract class User{
 		return emailOfUser;
 	}
 
-	public void setEmail(String email) throws EmptyFieldException{
+	public void setEmail(String email) throws EmptyFieldException, InvalidFormatException{
 		assert email != null: "Invalid User email: null value cannot be accepted";
 		
 		if (Validation.isNotEmpty(email)){
-		this.emailOfUser = email;
+			if(Validation.isValidEmail(email)){
+				this.emailOfUser = email;
+			}else{
+				throw new InvalidFormatException("Formato de e-mail inválido!");
+			}
 		}else{
-			throw new EmptyFieldException("Email não pode esta vazio!");
+				throw new EmptyFieldException("Email não pode esta vazio!");
 		}
 	}
 
@@ -79,13 +86,17 @@ public abstract class User{
 		return phoneUser;
 	}
 
-	public void setPhone(String phone) throws  InvalidFormatException{
+	public void setPhone(String phone) throws  InvalidFormatException, EmptyFieldException{
 		assert phone != null: "Invalid User phone: null value cannot be accepted";
 		
-		if(Validation.containsOnlyNumbers(phone) && Validation.isNotEmpty(phone)){
-			this.phoneUser = phone;
+		if(Validation.isNotEmpty(phone)){
+			if( Validation.containsOnlyNumbers(phone)){
+				this.phoneUser = phone;
+			}else{
+				throw new InvalidFormatException("Telefone deve conter apenas números!");
+			}
 		}else{
-			throw new InvalidFormatException("Telefone não pode estar vazio e deve conter apenas nÃºmeros!");
+			throw new EmptyFieldException("Telefone não pode estar vazio!");
 		}
 	}
 }

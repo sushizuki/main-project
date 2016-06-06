@@ -19,7 +19,13 @@ public class Message {
 	private String message;
 	private Calendar dateSent;
 
-
+	public Message(Client sender, String message, Calendar dateSent) throws EmptyFieldException {
+		
+		setSender(sender);
+		setMessage(message);
+		setDateSent(dateSent);
+	}
+	
 	public int getId() {
 		return idMessage;
 	}
@@ -36,7 +42,7 @@ public class Message {
 
 	public void setSender(Client sender) {
 		assert sender != null: "Invalid sender: null value cannot be accepted"; 
-		
+
 		this.sender = sender;
 	}
 
@@ -48,7 +54,7 @@ public class Message {
 		assert message != null: "Invalid Message: null value cannot be accepted";
 		
 		if(Validation.isNotEmpty(message)){
-		this.message = message;
+			this.message = message;
 		}else{
 			throw new EmptyFieldException("O campo da mensagem não pode estar vazio!");
 		}

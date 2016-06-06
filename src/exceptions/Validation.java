@@ -1,5 +1,6 @@
 package exceptions;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public abstract class Validation {
@@ -67,7 +68,7 @@ public abstract class Validation {
 		
 		boolean containsOnlyLetters = false;
 		
-		if(isNotEmpty(string) && string.matches("[a-zA-Zà-úÀ-Ú]+")){			
+		if(isNotEmpty(string) && string.matches("[a-zA-Z�-��-�]+")){			
 			containsOnlyLetters = true;		
 		} else{
 			containsOnlyLetters = false;
@@ -85,7 +86,7 @@ public abstract class Validation {
 		
 		boolean containsOnlyLetters = false;
 		
-		if(isNotEmpty(string) && string.matches("[a-zA-Zà-úÀ-Ú\\s]+")){	
+		if(isNotEmpty(string) && string.matches("[a-zA-Z�-��-�\\s]+")){	
 				containsOnlyLetters = true;			
 		} else{
 			containsOnlyLetters = false;
@@ -112,17 +113,15 @@ public abstract class Validation {
 		return isPositive;
 	}
 	
-	public static boolean isEmail(String email){
+	public static boolean isValidEmail(String email){
 		
-		boolean isEmail = false;
-		Pattern emailPatern = Pattern.compile(".+@.+\.[a-z]+");
+		 Pattern emailPattern = Pattern.compile(".+@.+\\.[a-z]+");
+		 Matcher emailMatcher = emailPattern.matcher(email);
 		
-		if(number > 0){
-			isPositive = true;
-		}else{
-			isPositive = false;
-		}
-		
-		return isPositive;
+		 boolean isValidEmail = emailMatcher.matches();
+		 
+		 return isValidEmail;
+		 
 	}
+	
 }
