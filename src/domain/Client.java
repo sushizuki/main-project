@@ -24,8 +24,6 @@ public class Client extends User {
 		setEmail(emailOfUser);
 		setPassword(passwordUser);
 		setPhone(phoneUser);
-		
-		
 	}
 
 	public int getId() {

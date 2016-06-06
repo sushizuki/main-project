@@ -178,8 +178,21 @@ public class UserTest{
 		client = new Client(name,validEmail, password, phone);
 	}
 	
+	@Test(expected = EmptyFieldException.class)
+	public void  testEmptyClientEmail() throws  InvalidFormatException, EmptyFieldException{
+		
+		String validEmail = "";
+		
+		client = new Client(name,validEmail, password, phone);
+	}
 	
-	
+	@Test(expected = EmptyFieldException.class)
+	public void  testNullClientEmail() throws  InvalidFormatException, EmptyFieldException{
+		
+		String validEmail = null;
+		
+		client = new Client(name,validEmail, password, phone);
+	}
 	
 }
 
