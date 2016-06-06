@@ -36,13 +36,17 @@ public abstract class User{
 		return nameOfUser;
 	}
 
-	public void setName(String name) throws InvalidFormatException  {
+	public void setName(String name) throws InvalidFormatException, EmptyFieldException  {
 		assert name != null: "Invalid User name: null value cannot be accepted";
 		
-		if(Validation.containsOnlyLettersAndSpaces(name) && Validation.isNotEmpty(name)){
-			this.nameOfUser = name;
+		if(Validation.isNotEmpty(name)){
+			if(Validation.containsOnlyLettersAndSpaces(name)){
+				this.nameOfUser = name;
+			}else{
+				throw new InvalidFormatException("Nomes devem conter apenas caracteres alfabéticos!");
+			}
 		}else{
-			throw new InvalidFormatException("Nomes devem conter apenas caracteres alfabéticos e não podem estar vazios!");
+				throw new EmptyFieldException("Nome não pode estar vazio!");
 		}
 	}
 
@@ -50,13 +54,17 @@ public abstract class User{
 		return emailOfUser;
 	}
 
-	public void setEmail(String email) throws EmptyFieldException{
+	public void setEmail(String email) throws EmptyFieldException, InvalidFormatException{
 		assert email != null: "Invalid User email: null value cannot be accepted";
 		
 		if (Validation.isNotEmpty(email)){
-		this.emailOfUser = email;
+			if(Validation.isValidEmail(email)){
+				this.emailOfUser = email;
+			}else{
+				throw new InvalidFormatException("Formato de e-mail inválido!");
+			}
 		}else{
-			throw new EmptyFieldException("Email não pode esta vazio!");
+				throw new EmptyFieldException("Email não pode esta vazio!");
 		}
 	}
 

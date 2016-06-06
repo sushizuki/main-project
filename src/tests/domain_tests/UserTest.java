@@ -56,7 +56,7 @@ public class UserTest{
 		
 	}
 
-	@Test(expected = InvalidFormatException.class)
+	@Test(expected = EmptyFieldException.class)
 	public void testEmptyClientName() throws InvalidFormatException, EmptyFieldException{
 		
 		String validClientName = "";
@@ -64,7 +64,7 @@ public class UserTest{
 		client = new Client(validClientName,email, password, phone);
 	}
 	
-	@Test(expected = Exception.class)
+	@Test(expected = EmptyFieldException.class)
 	public void testNullClientName() throws InvalidFormatException, EmptyFieldException{
 		
 		String validClientName = null;
@@ -150,6 +150,32 @@ public class UserTest{
 		String validPhone = null;
 		
 		client = new Client(name,email, password, validPhone);
+	}
+	
+	
+	@Test
+	public void testValidClientEmail() throws EmptyFieldException, InvalidFormatException{
+		
+		String validEmail = "dandaraaranha@gmail.com";
+		
+		try{
+		
+			client = new Client(name,validEmail, password, phone);
+		
+		}catch (InvalidFormatException exception){
+			fail("Should not throw this exception: "+exception.getMessage());
+		}catch (EmptyFieldException exception){
+			fail("Should not throw this exception: "+exception.getMessage());
+		}
+	
+	}
+	
+	@Test(expected = InvalidFormatException.class)
+	public void  testInvalidClientEmail() throws  InvalidFormatException, EmptyFieldException{
+		
+		String validEmail = "dandaraaranha";
+		
+		client = new Client(name,validEmail, password, phone);
 	}
 	
 	
