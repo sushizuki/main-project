@@ -65,7 +65,7 @@ public abstract class Validation {
 		
 		boolean containsOnlyLetters = false;
 		
-		if(isNotEmpty(string) && string.matches("[a-zA-ZÃ -ÃºÃ€-Ãš]+")){			
+		if(isNotEmpty(string) && string.matches("[a-zA-Zà-úÀ-Ú]+")){			
 			containsOnlyLetters = true;		
 		} else{
 			containsOnlyLetters = false;
@@ -83,7 +83,7 @@ public abstract class Validation {
 		
 		boolean containsOnlyLetters = false;
 		
-		if(isNotEmpty(string) && string.matches("[a-zA-ZÃ -ÃºÃ€-Ãš\\s]+")){	
+		if(isNotEmpty(string) && string.matches("[a-zA-Zà-úÀ-Ú\\s]+")){	
 				containsOnlyLetters = true;			
 		} else{
 			containsOnlyLetters = false;

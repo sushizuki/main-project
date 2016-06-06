@@ -28,25 +28,27 @@ public class UserTest {
 		
 		email ="pereirasallan@gmail.com";
 		password= "password123";
-		phone="+55 61 86689364";
+		phone="556186689364";
 		
 	}
 
 	@Test
 	public void testValidUserName() throws InvalidFormatException, EmptyFieldException{
+		
 		String validClientName = "Allan Pereira";
 		
-		try {
+		try{
 			
 			client = new Client(validClientName,email, password, phone);
 				
 			assertEquals(validClientName, client.getName());
-		} 
-		catch (InvalidFormatException exception){
+			
+		}catch (InvalidFormatException exception){
 			fail("Should not throw this exception: "+exception.getMessage());
 		}catch (EmptyFieldException exception){
 			fail("Should not throw this exception: "+exception.getMessage());
-		}
+	}
+		
 		
 		
 	}
@@ -62,9 +64,19 @@ public class UserTest {
 	@Test(expected = Exception.class)
 	public void testNullClientName() throws InvalidFormatException, EmptyFieldException{
 		
-		String validClientName = "";
+		String validClientName = null;
 		
 		client = new Client(validClientName,email, password, phone);
 	}
+	
+	@Test(expected = InvalidFormatException.class)
+	public void testNonLettersClientName() throws  InvalidFormatException, EmptyFieldException{
+		
+		String validClientName = "Allan 123";
+		
+		client = new Client(validClientName,email, password, phone);
+	}
+	
+	
 	
 }

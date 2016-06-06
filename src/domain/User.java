@@ -37,7 +37,7 @@ public abstract class User{
 		return nameOfUser;
 	}
 
-	public void setName(String name) throws InvalidFormatException {
+	public void setName(String name) throws InvalidFormatException  {
 		assert name != null: "Invalid User name: null value cannot be accepted";
 		
 		if(Validation.containsOnlyLettersAndSpaces(name) && Validation.isNotEmpty(name)){
