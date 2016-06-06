@@ -11,14 +11,15 @@ import domain.Client;
 import exceptions.EmptyFieldException;
 import exceptions.InvalidFormatException;
 
-public class UserTest {
+public class UserTest{
 	
 	@Test
 	public void test(){	
 		Assert.assertTrue(true);
 	}
 	
-	Client client; 
+	Client client;
+	String name; 
 	String email;
 	String password; 
 	String phone; 
@@ -26,6 +27,7 @@ public class UserTest {
 	@Before
 	public void setUp() {
 		
+		name = "Allan";
 		email ="pereirasallan@gmail.com";
 		password= "password123";
 		phone="556186689364";
@@ -77,6 +79,39 @@ public class UserTest {
 		client = new Client(validClientName,email, password, phone);
 	}
 	
+	@Test
+	public void testValidClientPassword() throws EmptyFieldException, InvalidFormatException{
+		
+		String validPassword = "pass1234";
+		
+		try{
+		client = new Client(name,email, validPassword, phone);
+		
+		}catch (InvalidFormatException exception){
+			fail("Should not throw this exception: "+exception.getMessage());
+		}catch (EmptyFieldException exception){
+			fail("Should not throw this exception: "+exception.getMessage());
+		}
+	
+	}
+	
+	@Test(expected = EmptyFieldException.class)
+	public void  testEmptyClientPassword() throws  InvalidFormatException, EmptyFieldException{
+		
+		String validPassword = "";
+		
+		client = new Client(name,email, validPassword, phone);
+	}
+	
+	@Test(expected = EmptyFieldException.class)
+	public void  testNullClientPassword() throws  InvalidFormatException, EmptyFieldException{
+		
+		String validPassword = null;
+		
+		client = new Client(name,email, validPassword, phone);
+	}
 	
 	
 }
+
+
