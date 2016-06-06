@@ -1,5 +1,8 @@
 package exceptions;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public abstract class Validation {
 	
 	/**
@@ -109,4 +112,17 @@ public abstract class Validation {
 		
 		return isPositive;
 	}
+	
+	
+	public static boolean isValidEmail(String email){
+		
+		 Pattern emailPattern = Pattern.compile(".+@.+\\.[a-z]+");
+		 Matcher emailMatcher = emailPattern.matcher(email);
+		
+		 boolean isValidEmail = emailMatcher.matches();
+		 
+		 return isValidEmail;
+		 
+	}
+	
 }
