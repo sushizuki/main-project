@@ -63,7 +63,7 @@ public class Address {
 		if(Validation.containsOnlyNumbers(cep) && Validation.isNotEmpty(cep)){
 		this.cep = cep;
 		}else{
-			throw new InvalidFormatException("Cep deve conter apenas caracteres numÈricos e n„o pode estar vazio!");
+			throw new InvalidFormatException("Cep deve conter apenas caracteres num√©ricos e n√£o pode estar vazio!");
 		}
 	}
 

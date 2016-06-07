@@ -44,7 +44,7 @@ public class Additional {
 	public void setName(String name) throws InvalidFormatException {
 		assert name != null: "Invalid Additional name: null value cannot be accepted"; 
 		
-		if(Validation.containsOnlyLetters(name) && Validation.isNotEmpty(name)){
+		if(Validation.containsOnlyLettersAndSpaces(name) && Validation.isNotEmpty(name)){
 			this.nameAdditional = name;
 		}else{
 			throw new InvalidFormatException("Nomes devem conter apenas caracteres alfabeticos e nao podem estar vazios!");

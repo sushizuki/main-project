@@ -105,9 +105,9 @@
 				</div>
 				<div class="col-md-6 col-sm-6 col-xs-12">
 					<div class="pull-right">
-						<iframe
-							src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3836.769922896627!2d-47.96928648485721!3d-15.921114130326632!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935a292f4880cdc1%3A0x856e76e030fa3e75!2sSmpw+Trecho+1+Q+26+Conjunto+6+7%2C+7+-+N%C3%BAcleo+Bandeirante%2C+Bras%C3%ADlia+-+DF!5e0!3m2!1sen!2sbr!4v1445826478412"
-							style="min-width: 100%; border: 0;"></iframe>
+						<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15347.079770327175!2d-47.967098!3d-15.921119!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935a292f462aca7d%3A0x876f37ab266fe746!2sSmpw+Trecho+1+Q+26+Conjunto+6+7+-+SMPW+Q+26+-+N%C3%BAcleo+Bandeirante%2C+Bras%C3%ADlia+-+DF%2C+Brazil!5e0!3m2!1sen!2sbr!4v1465310032690" 
+							width="600" height="450" frameborder="0" style="border:0" allowfullscreen>
+						</iframe>
 					</div>
 				</div>
 		</div>

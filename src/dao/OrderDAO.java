@@ -534,12 +534,18 @@ public class OrderDAO extends DataAccessObject{
 			this.result = this.statement.executeQuery(this.sqlQuery);
 
 			while (this.result.next()) {
-				Additional additional = new Additional();
-
-				additional.setId(Integer.parseInt(this.result.getString("idadditional")));
-				additional.setName(this.result.getString("name"));
-
-				listAdditional.add(additional);
+				if(!this.result.getString("idadditional").isEmpty() 
+						&& this.result.getString("idadditional") !=null){
+					Additional additional = new Additional();
+					
+					additional.setId(Integer.parseInt(this.result.getString("idadditional")));
+					
+					additional.setName(this.result.getString("name"));		
+					
+					listAdditional.add(additional);
+				} else {
+					// Nothing to do
+				}				
 			}
 		}catch (SQLException exception) {
 			throw new RuntimeException("Error processing SQL - getAdditionalsList in OrderDAO: "
