@@ -12,7 +12,7 @@ import exceptions.InvalidFormatException;
 
 public class Collect implements Receiving {
 	//Administrator address
-	private Address sushizuki_location;
+	private Address sushizukiLocation;
 	private Calendar dateTime;
 
 	public Collect(Calendar dateTime) throws EmptyFieldException, InvalidFormatException {
@@ -27,16 +27,15 @@ public class Collect implements Receiving {
 	}
 
 	public void setAddress() throws EmptyFieldException, InvalidFormatException {
-			try {
-				this.sushizuki_location = new Address(0,"71745000", "SMPW", "Park Way");
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		try {
+			this.sushizukiLocation = new Address(0,"71745000", "SMPW", "Park Way");
+		} catch (Exception addressParametersException) {
+			addressParametersException.printStackTrace();
+		}
 	}
 
 	public Address getAddress() {
-		return this.sushizuki_location;
+		return this.sushizukiLocation;
 	}
 
 	public Calendar getDateTime() {
