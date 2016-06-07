@@ -19,7 +19,7 @@ public class Payment {
 	private String changeOfPayment;
 
 	public Payment(){
-
+		//Nothing to do
 	}
 
 	public Payment(int id, String paymentType, String change) throws SQLException, InvalidFormatException{

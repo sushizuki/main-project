@@ -14,7 +14,7 @@ public class Order {
 	public static final int NEW_ORDER_STATUS = 1;
 	public static final int FINISHED_ORDER_STATUS = 2;
 
-	private int id;
+	private int idOrder;
 	private Client client;
 	private HashMap<Product, Integer> items;
 	private List<Additional> additionalsList;
@@ -23,16 +23,18 @@ public class Order {
 	private Payment paymentOfOrder;
 	private String statusOfOrder;
 
-	public Order(){	}
-
-	public int getId() {
-		return id;
+	public Order(){
+		//Nothing to do
 	}
 
-	public void setId(int id) {
-		assert id > 0: "Invalid Order ID";
+	public int getId() {
+		return idOrder;
+	}
+
+	public void setId(int idOrder) {
+		assert idOrder > 0: "Invalid Order ID";
 		
-		this.id = id;
+		this.idOrder = idOrder;
 	}
 
 	public Client getClient() {
