@@ -43,10 +43,10 @@ public abstract class User{
 			if(Validation.containsOnlyLettersAndSpaces(name)){
 				this.nameOfUser = name;
 			}else{
-				throw new InvalidFormatException("Nomes devem conter apenas caracteres alfabéticos!");
+				throw new InvalidFormatException("Nomes devem conter apenas caracteres alfabeticos!");
 			}
 		}else{
-				throw new EmptyFieldException("Nome não pode estar vazio!");
+				throw new EmptyFieldException("Nome nao pode estar vazio!");
 		}
 	}
 
@@ -61,10 +61,10 @@ public abstract class User{
 			if(Validation.isValidEmail(email)){
 				this.emailOfUser = email;
 			}else{
-				throw new InvalidFormatException("Formato de e-mail inválido!");
+				throw new InvalidFormatException("Formato de e-mail invalido!");
 			}
 		}else{
-				throw new EmptyFieldException("Email não pode esta vazio!");
+				throw new EmptyFieldException("Email nao pode esta vazio!");
 		}
 	}
 
@@ -78,7 +78,7 @@ public abstract class User{
 		if (Validation.isNotEmpty(password)){
 			this.passwordUser = password;
 		}else{
-			throw new EmptyFieldException("Senha não pode esta vazia!");
+			throw new EmptyFieldException("Senha nao pode esta vazia!");
 		}
 	}
 
@@ -93,10 +93,10 @@ public abstract class User{
 			if( Validation.containsOnlyNumbers(phone)){
 				this.phoneUser = phone;
 			}else{
-				throw new InvalidFormatException("Telefone deve conter apenas números!");
+				throw new InvalidFormatException("Telefone deve conter apenas numeros!");
 			}
 		}else{
-			throw new EmptyFieldException("Telefone não pode estar vazio!");
+			throw new EmptyFieldException("Telefone nao pode estar vazio!");
 		}
 	}
 }

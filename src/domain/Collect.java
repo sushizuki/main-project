@@ -28,8 +28,7 @@ public class Collect implements Receiving {
 
 	public void setAddress() throws EmptyFieldException, InvalidFormatException {
 			try {
-				this.sushizuki_location = new Address(0,"72000-000", "SMPW Quadra 26 Conjunto 6 Lote 5 casa D",
-													  "Condomínio Recanto da Primavera");
+				this.sushizuki_location = new Address(0,"71745000", "SMPW", "Park Way");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
