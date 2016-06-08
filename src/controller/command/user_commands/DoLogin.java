@@ -8,7 +8,6 @@ package controller.command.user_commands;
 import controller.command.Command;
 import dao.UserDAO;
 import domain.Administrator;
-import domain.Client;
 import domain.User;
 
 public class DoLogin implements Command {
@@ -29,12 +28,12 @@ public class DoLogin implements Command {
 		return this.user;
 	}	
 	
-	public void setPageToRedirect(String p){
-		this.pageToRedirect = p;
+	public void setPageToRedirect(String page){
+		this.pageToRedirect = page;
 	}
 	
-	public void setEmail(String e){
-		this.email = e;
+	public void setEmail(String email){
+		this.email = email;
 	}
 	
 	public void setPassword(String password) {
@@ -49,6 +48,8 @@ public class DoLogin implements Command {
 			this.setPageToRedirect("adm/Order?action=getOrderList");
 		} else if(this.user == null) { //Fail to log in
 			this.setPageToRedirect("login.jsp?error=1");
+		} else {
+			this.setPageToRedirect("menu");
 		}
 	}
 

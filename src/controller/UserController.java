@@ -57,7 +57,8 @@ public class UserController extends HttpServlet {
 			((DoLogout) command).setSession(session);
 		} else {
 			if(command instanceof DoLogin){	
-				
+				((DoLogin) command).setEmail(request.getParameter("email"));
+				((DoLogin) command).setPassword(request.getParameter("password"));				
 			}
 		}
 	}
@@ -105,21 +106,19 @@ public class UserController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 
 		HttpSession session = request.getSession(true);
-		String action = request.getParameter("action");
-		Command command = commandFactory.getCommand(action);
+		Command command = getCommand(request);
 
 		try {
 
 			if(command instanceof DoLogin){	
-				((DoLogin) command).setEmail(request.getParameter("email"));
-				((DoLogin) command).setPassword(request.getParameter("password"));
+				prepareCommand(request, command);
 				command.execute();
 				session.setAttribute("user", ((DoLogin) command).getUser());
 				request.setAttribute("user", ((DoLogin) command).getUser());
+				request.setAttribute("order", session.getAttribute("order"));
 
 				if(!request.getParameter("redir").isEmpty() && request.getParameter("redir")!=null){
-					((DoLogin) command).setPageToRedirect("/"+request.getParameter("redir"));
-					request.setAttribute("order", session.getAttribute("order"));
+					((DoLogin) command).setPageToRedirect(request.getParameter("redir"));
 				}
 			}	
 			//Redirects to page
