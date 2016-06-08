@@ -27,21 +27,15 @@ public class MessageTest {
 		messageString = "Meu produto não chegou!";	
 	}
 	
+	
 	@Test
-	public void testValidClient() throws InvalidFormatException, EmptyFieldException{
+	public void testValidMessage() throws EmptyFieldException{
 		
-		try{
-			
-			Client validClient = new Client("Pedro","pedro@gmail.com", "pass1234", "99999999");
-			message = new Message (validClient, messageString, dateSent);	
-			
-			assertEquals(validClient, message.getSender());
-			
-		}catch (InvalidFormatException exception){
-			fail("Should not throw this exception: "+exception.getMessage());
-		}catch (EmptyFieldException exception){
-			fail("Should not throw this exception: "+exception.getMessage());
-		}
+		String validMessage = "Oi! Gostaria de Cancelar o pedido.";
+		
+		message = new Message (sender, validMessage, dateSent);
+		
+		assertEquals(validMessage, message.getMessage());
 	}
 	
 	
@@ -59,6 +53,23 @@ public class MessageTest {
 		String invalidMessage = null;
 		
 		message = new Message (sender, invalidMessage, dateSent);
+	}
+	
+	@Test
+	public void testValidClient() throws InvalidFormatException, EmptyFieldException{
+		
+		try{
+			
+			Client validClient = new Client("Pedro","pedro@gmail.com", "pass1234", "99999999");
+			message = new Message (validClient, messageString, dateSent);	
+			
+			assertEquals(validClient, message.getSender());
+			
+		}catch (InvalidFormatException exception){
+			fail("Should not throw this exception: "+exception.getMessage());
+		}catch (EmptyFieldException exception){
+			fail("Should not throw this exception: "+exception.getMessage());
+		}
 	}
 	
 	
