@@ -9,11 +9,11 @@ import exceptions.EmptyFieldException;
 import exceptions.InvalidFormatException;
 import exceptions.Validation;
 
-public class Address {
+public class Address{
 
 	private Integer idAdress;
 	private String cep;
-	private String address;
+	private String addressToDelivery;
 	private String complement;
 
 	public Address(){
@@ -55,28 +55,34 @@ public class Address {
 		return this.cep;
 	}
 
-	public void setCep(String cep) throws InvalidFormatException{
+	public void setCep(String cep) throws InvalidFormatException, EmptyFieldException{
 		assert (cep.length() == 8 || cep.length() == 9)
 				: "Address CEP value inconsistent";
 		assert (cep != null) : "Cep cannot be null.";
 		
-		if(Validation.containsOnlyNumbers(cep) && Validation.isNotEmpty(cep)){
-		this.cep = cep;
+		if(Validation.isNotEmpty(cep)){
+			if(Validation.containsOnlyNumbers(cep)){
+				this.cep = cep;
+			}else{
+				throw new InvalidFormatException("Cep deve conter apenas caracteres númericos!");
+			}
 		}else{
-			throw new InvalidFormatException("Cep deve conter apenas caracteres numÃ©ricos e nÃ£o pode estar vazio!");
+			throw new EmptyFieldException("Cep não pode estar vazio!");
 		}
+		
 	}
 
 	public String getAddress() {
-		assert this.address != null: "Invalid Address: null value cannot be accepted";
-		return address;
+		assert this.addressToDelivery != null: "Invalid Address: null value cannot be accepted";
+		
+		return addressToDelivery;
 	}
 
 	public void setAddress(String address) throws EmptyFieldException {
 		assert address != null: "Invalid Address: null value cannot be accepted";
 		
 		if(Validation.isNotEmpty(address)) {
-			this.address = address;
+			this.addressToDelivery = address;
 		}else {
 			throw new EmptyFieldException("O campo endereco nao pode ficar em branco.");
 		}
@@ -92,6 +98,6 @@ public class Address {
 	}
 
 	public String toString(){
-		return this.address+" "+". Complemento: "+this.complement+". CEP: "+this.cep;
+		return this.addressToDelivery+" "+". Complemento: "+this.complement+". CEP: "+this.cep;
 	}
 }
