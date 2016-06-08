@@ -1,10 +1,8 @@
 package tests.domain_tests;
 
 import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import domain.Administrator;
 import exceptions.EmptyFieldException;
 import exceptions.InvalidFormatException;
