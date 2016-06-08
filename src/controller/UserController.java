@@ -62,6 +62,22 @@ public class UserController extends HttpServlet {
 			}
 		}
 	}
+	
+	//Set pos-conditions of a command after it is executed
+	private void setPosCommandAttributes(HttpServletRequest request, Command command){
+		
+		HttpSession session = request.getSession(true);
+		
+		if(command instanceof DoLogin){	
+			session.setAttribute("user", ((DoLogin) command).getUser());
+			request.setAttribute("user", ((DoLogin) command).getUser());
+			request.setAttribute("order", session.getAttribute("order"));
+
+			if(!request.getParameter("redir").isEmpty() && request.getParameter("redir")!=null){
+				((DoLogin) command).setPageToRedirect(request.getParameter("redir"));
+			}				
+		}
+	}
 
 	/**
 	 * Handles and redirects GET requests: do logout.
@@ -105,7 +121,6 @@ public class UserController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 
-		HttpSession session = request.getSession(true);
 		Command command = getCommand(request);
 
 		try {
@@ -113,13 +128,7 @@ public class UserController extends HttpServlet {
 			if(command instanceof DoLogin){	
 				prepareCommand(request, command);
 				command.execute();
-				session.setAttribute("user", ((DoLogin) command).getUser());
-				request.setAttribute("user", ((DoLogin) command).getUser());
-				request.setAttribute("order", session.getAttribute("order"));
-
-				if(!request.getParameter("redir").isEmpty() && request.getParameter("redir")!=null){
-					((DoLogin) command).setPageToRedirect(request.getParameter("redir"));
-				}
+				setPosCommandAttributes(request, command);
 			}	
 			//Redirects to page
 			response.sendRedirect(request.getContextPath()+'/'+command.getPageToRedirect());
