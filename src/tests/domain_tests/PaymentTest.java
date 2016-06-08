@@ -19,10 +19,9 @@ public class PaymentTest {
 		Assert.assertTrue(true);
 	}
 	
-	Payment payment;
 	private String paymentType;
 	private String changeOfPayment;
-
+	
 	@Before
 	public void setUp() throws EmptyFieldException, InvalidFormatException {
 		paymentType = null;
@@ -30,44 +29,16 @@ public class PaymentTest {
 	}
 	
 	@Test
-	public void testGetPayment() throws EmptyFieldException, InvalidFormatException{
-		payment = new Payment();
-		assertEquals(this.paymentType, payment.getPaymentType());
-		assertEquals(this.changeOfPayment, payment.getChange());
+	public void testGetPayment() throws EmptyFieldException, InvalidFormatException, SQLException{
+		Payment payment = new Payment();
+		assertEquals(paymentType, payment.getPaymentType());
+		assertEquals(changeOfPayment, payment.getChange());
 	}
 	
 	@Test(expected = InvalidFormatException.class)
 	public void testOnlyNumbersChange() throws  InvalidFormatException, SQLException{
-		
+		Payment payment;
 		String invalidChange = "Jessica";
 		payment = new Payment(0, paymentType, invalidChange);
 	}
-	
-	/*
-	@Test //é pra testar dessa forma o tipo de pagamento?
-	public void testValidPaymentType() throws SQLException, InvalidFormatException{
-		
-		String validPaymentType = "2";
-		
-		payment = new Payment(0, validPaymentType, this.changeOfPayment);
-		assertEquals(validPaymentType, payment.getPaymentType());
-	}
-	
-	@Test(expected = EmptyFieldException.class)
-	public void testEmptyPaymentType() throws InvalidFormatException, EmptyFieldException, SQLException{
-		
-		String validPaymentType = "";
-		
-		payment = new Payment(0, validPaymentType, this.changeOfPayment);
-	}
-	
-	@Test
-	public void testValidChangeOfPayment() throws SQLException, InvalidFormatException{
-		
-		String validChangeOfPayment = "2.0";
-		
-		payment = new Payment(0, "1", validChangeOfPayment);
-		assertEquals(validChangeOfPayment, payment.getChange());
-	}
-	*/
 }
