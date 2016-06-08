@@ -93,8 +93,13 @@ public class Address{
 		return complement;
 	}
 
-	public void setComplement(String complement) {
-		this.complement = complement;
+	public void setComplement(String complement) throws EmptyFieldException {
+		
+		if(Validation.isNotEmpty(complement)) {
+			this.complement = complement;
+		}else {
+			throw new EmptyFieldException("O campo endereco nao pode ficar em branco.");
+		}
 	}
 
 	public String toString(){
