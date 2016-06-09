@@ -5,6 +5,7 @@
 
 package domain;
 
+import exceptions.EmptyFieldException;
 import exceptions.InvalidFormatException;
 import exceptions.Validation;
 
@@ -41,14 +42,18 @@ public class Additional {
 		return nameAdditional;
 	}
 
-	public void setName(String name) throws InvalidFormatException {
+	public void setName(String name) throws InvalidFormatException, EmptyFieldException {
 		assert name != null: "Invalid Additional name: null value cannot be accepted"; 
 		
-		if(Validation.containsOnlyLettersAndSpaces(name) && Validation.isNotEmpty(name)){
-			this.nameAdditional = name;
-		}else{
-			throw new InvalidFormatException("Nomes devem conter apenas caracteres alfabeticos e nao podem estar vazios!");
+		
+		if(Validation.isNotEmpty(name)){
+			if(Validation.containsOnlyLettersAndSpaces(name)){
+				this.nameAdditional = name;
+			}else{
+				throw new InvalidFormatException("Nomes devem conter apenas caracteres alfabeticos!");
+			}
+		}else {
+			throw new EmptyFieldException("Nomes não podem estar vazios!");
 		}
-
 	}
 }

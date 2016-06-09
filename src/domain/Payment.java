@@ -22,7 +22,7 @@ public class Payment {
 		//Nothing to do
 	}
 
-	public Payment(int id, String paymentType, String change) throws SQLException, InvalidFormatException{
+	public Payment(int id, String paymentType, String change) throws InvalidFormatException{
 		assert id > 0: "Invalid Payment ID";
 		assert paymentType != null: "Invalid Payment type: null value cannot be accepted";
 		
@@ -31,11 +31,11 @@ public class Payment {
 		this.setPaymentType(paymentType);//the id of payment type
 	}
 
-	public Payment(String payment) throws SQLException {
+	public Payment(String payment){
 		this.setPaymentType(payment); //the id of payment (1 card, 2 money)
 	}
 
-	public Payment(String type, double total, double change) throws SQLException {
+	public Payment(String type, double total, double change){
 		assert paymentType != null: "Invalid Payment type: null value cannot be accepted";
 		assert total >= 0: "Invalid Payment: negative total cannot be accepted";
 		
@@ -88,14 +88,13 @@ public class Payment {
 	}
 
 	//Get a number, look into category list from database to assign Name proper to the number
-	public void setPaymentType(String paymentTypeNumber) throws SQLException {
-		OrderDAO orderDao = new OrderDAO();
-		List<String> listPayment = orderDao.getPaymentTypes();
-		
+	public void setPaymentType(String paymentTypeNumber){
 		try {
+			OrderDAO orderDao = new OrderDAO();
+			List<String> listPayment = orderDao.getPaymentTypes();
 			this.paymentType = listPayment.get(Integer.parseInt(paymentTypeNumber)-1);
 		}catch(RuntimeException exception){
-			System.out.println("Error assigning payment type");
+			System.out.println("Error assigning payment type: "+exception.getMessage());
 		}
 	}
 

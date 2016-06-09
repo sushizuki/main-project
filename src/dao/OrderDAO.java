@@ -340,7 +340,7 @@ public class OrderDAO extends DataAccessObject{
 	 * Process to order the selected additionals
 	 * Must open new Statement, Query and Result objects to not interfere on calling methods
 	 */
-	private List<Additional> assignAdditionalsToOrder(Order order) throws SQLException, InvalidFormatException{
+	private List<Additional> assignAdditionalsToOrder(Order order) throws SQLException, InvalidFormatException, EmptyFieldException{
 
 		assert order != null: "Invalid Order: null value cannot be accepted";
 
@@ -356,12 +356,27 @@ public class OrderDAO extends DataAccessObject{
 			statement = this.connection.prepareStatement(sqlQuery);
 			statement.setInt(1, order.getId());
 			result = statement.executeQuery();
-			while (result.next()) {
-				Additional additional = new Additional();
-				additional.setId(result.getInt("additional_idadditional"));
-				additional.setName(result.getString("name"));
-				listAdditional.add(additional);
-			}
+			while (result.next())
+				try {
+					{
+						
+
+						Additional additional = new Additional();
+						additional.setId(result.getInt("additional_idadditional"));
+						try {
+							additional.setName(result.getString("name"));
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+						listAdditional.add(additional);
+
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		}catch (SQLException exception) {
 			throw new RuntimeException("Error processing SQL - assignAditionalsToOrder in OrderDAO: "
 					+exception.getMessage());
@@ -522,8 +537,9 @@ public class OrderDAO extends DataAccessObject{
 	 * Returns all options of additionals to an order from database
 	 * @return List<Additional> List of saved Additionals from database
 	 * @throws InvalidFormatException 
+	 * @throws EmptyFieldException 
 	 */
-	public List<Additional> getAdditionalsList() throws InvalidFormatException {
+	public List<Additional> getAdditionalsList() throws InvalidFormatException, EmptyFieldException {
 		this.sqlQuery = "select * from `additional`";
 		List<Additional> listAdditional = new ArrayList<Additional>();
 
@@ -540,7 +556,12 @@ public class OrderDAO extends DataAccessObject{
 					
 					additional.setId(Integer.parseInt(this.result.getString("idadditional")));
 					
-					additional.setName(this.result.getString("name"));		
+					try {
+						additional.setName(this.result.getString("name"));
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					
 					listAdditional.add(additional);
 				} else {
@@ -562,8 +583,9 @@ public class OrderDAO extends DataAccessObject{
 	 * @param int id number generated from database
 	 * @return Additional object from database
 	 * @throws InvalidFormatException 
+	 * @throws EmptyFieldException 
 	 */
-	public Additional getAdditionalById(int idAdditional) throws InvalidFormatException {
+	public Additional getAdditionalById(int idAdditional) throws InvalidFormatException, EmptyFieldException, Exception {
 
 		assert idAdditional > 0: "Invalid Additional ID";
 
@@ -579,7 +601,14 @@ public class OrderDAO extends DataAccessObject{
 
             if (this.result.next()) {
             	additional.setId(Integer.parseInt(this.result.getString("idadditional")));
-				additional.setName(this.result.getString("name"));
+				try {
+					additional.setName(this.result.getString("name"));
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+            }else{
+            	//Do nothing
             }
         } catch (SQLException exception) {
 			throw new RuntimeException("Error processing SQL - getAdditionalsList in OrderDAO: "

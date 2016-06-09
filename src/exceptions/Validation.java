@@ -28,15 +28,13 @@ public abstract class Validation {
 	 * @param string - The string to be checked
 	 * @return TRUE if it contains only numbers, or FALSE if it does not
 	 */
-	public static boolean isNumber(String string){
+	public static boolean isNumber(String number){
 		
-		boolean isNumber = false;
+		Pattern numberPattern = Pattern.compile("\\d+(\\.\\d+)?");
+		Matcher numberMatcher = numberPattern.matcher(number);
 		
-		if(string.matches("-?\\d+(\\.\\d+)?")){
-			isNumber = true;
-		}else{
-			isNumber = false;
-		}
+		boolean isNumber = numberMatcher.matches();
+		
 		
 		return isNumber;
 	}
@@ -68,7 +66,7 @@ public abstract class Validation {
 		
 		boolean containsOnlyLetters = false;
 		
-		if(isNotEmpty(string) && string.matches("[A-zÃ€-Ãº]+")){			
+		if(isNotEmpty(string) && string.matches("[a-zA-Zà-úÀ-Ú]+")){			
 			containsOnlyLetters = true;		
 		} else{
 			containsOnlyLetters = false;
@@ -86,7 +84,7 @@ public abstract class Validation {
 		
 		boolean containsOnlyLetters = false;
 		
-		if(isNotEmpty(string) && string.matches("[A-zÃ€-Ãº ]+")){	
+		if(isNotEmpty(string) && string.matches("[a-zA-Zà-úÀ-Ú\\s]+")){	
 				containsOnlyLetters = true;			
 		} else{
 			containsOnlyLetters = false;

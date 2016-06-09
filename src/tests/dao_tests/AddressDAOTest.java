@@ -18,13 +18,14 @@ public class AddressDAOTest {
 	
 	
 	@Before
-	public void setUp(){
+	public void setUp() throws EmptyFieldException{
 		address= new Address();
 		addressDao = new AddressDAO();
 		
 		try {
 			address.setAddress("QNP 27 Conjunto H, 28");
 			address.setCep("72242165");
+			address.setComplement("Ceilandia Norte");
 		} catch (EmptyFieldException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -32,7 +33,7 @@ public class AddressDAOTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		address.setComplement("Ceilandia Norte");
+		
 		address.setId(1);
 	}
 
