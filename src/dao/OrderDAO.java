@@ -194,7 +194,7 @@ public class OrderDAO extends DataAccessObject{
 	 * Returns the saved Payment of an order based on ID
 	 * Must open new Statement, Query and Result objects to not interfere on calling methods
 	 */
-	private Payment getPaymentFromOrder(int idPayment) throws SQLException {
+	private Payment getPaymentFromOrder(int idPayment) throws SQLException, EmptyFieldException {
 
 		assert idPayment > 0: "Invalid Payment ID";
 

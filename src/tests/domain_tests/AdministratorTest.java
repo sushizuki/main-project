@@ -8,14 +8,23 @@ import exceptions.EmptyFieldException;
 import exceptions.InvalidFormatException;
 
 public class AdministratorTest {
+	
+	Administrator administrator; 
 
 	@Before
 	public void setUp() throws Exception {
+		
+		administrator = new Administrator();
 	}
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void testGetAdministratorId() {
+		
+		int validId = 001; 
+		
+		administrator.setId(validId);
+		assertEquals(validId, administrator.getId());
+		
 	}
 
 }

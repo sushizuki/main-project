@@ -2,6 +2,7 @@
 *    User.java to define User
 *    Abstraction to define any kind of person using Sushizuki
 */
+
 package domain;
 
 import exceptions.EmptyFieldException;
@@ -27,7 +28,6 @@ public abstract class User{
 
 	public void setId(int id) throws InvalidFormatException, EmptyFieldException {
 		assert id > 0: "Invalid User ID";
-		
 		
 		this.idUser = id;
 	}
