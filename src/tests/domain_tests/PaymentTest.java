@@ -19,26 +19,79 @@ public class PaymentTest {
 		Assert.assertTrue(true);
 	}
 	
-	private String paymentType;
-	private String changeOfPayment;
+	Payment payment; 
+	String paymentType;
+	String changeOfPayment;
+	double total;
+	double value; 
+	
 	
 	@Before
 	public void setUp() throws EmptyFieldException, InvalidFormatException {
+		payment = new Payment();
 		paymentType = null;
 		changeOfPayment = null;
+		total = 100.0; 
+		value = 120.0; 
 	}
 	
 	@Test
 	public void testGetPayment() throws EmptyFieldException, InvalidFormatException, SQLException{
-		Payment payment = new Payment();
+	
 		assertEquals(paymentType, payment.getPaymentType());
 		assertEquals(changeOfPayment, payment.getChange());
 	}
 	
 	@Test(expected = InvalidFormatException.class)
-	public void testOnlyNumbersChange() throws  InvalidFormatException, SQLException{
-		Payment payment;
+	public void testOnlyNumbersChange() throws  InvalidFormatException, SQLException, EmptyFieldException{
+		
 		String invalidChange = "Jessica";
 		payment = new Payment(0, paymentType, invalidChange);
 	}
+	
+	@Test
+	public void testValidPaymentChange() {
+		
+		String changeResult = "20.0"; 
+		
+		payment.setChange(value, total);
+		assertEquals(changeResult, payment.getChange());
+	}
+	
+	@Test(expected = InvalidFormatException.class)
+	public void testInvalidPaymentChange() throws InvalidFormatException {
+		
+		String invalidChange = "abc"; 
+		
+		payment.setChange(invalidChange);
+		
+	}
+	
+	
+	@Test
+	public void testValidPaymentType() throws InvalidFormatException {
+		
+		int validPaymentType = 1; 
+		String paymentType = "1"; 
+		
+		payment.setPaymentType(validPaymentType);
+		
+		System.out.println(payment.getPaymentType());
+		
+		assertEquals(paymentType, payment.getPaymentType());
+		
+	}
+	
+	@Test(expected = InvalidFormatException.class)
+	public void testInvalidPaymentType() throws InvalidFormatException {
+		
+		int invalidPaymentType = 6; 
+		
+		payment.setPaymentType(invalidPaymentType);
+		
+	}
+	
+	
+	
+	
 }

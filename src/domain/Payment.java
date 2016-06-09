@@ -98,7 +98,12 @@ public class Payment {
 		}
 	}
 
-	public void setPaymentType(int i) {
-		this.paymentType = String.valueOf(i);
+	public void setPaymentType(int paymentTypeNumber) throws InvalidFormatException {
+		
+		if(paymentTypeNumber == 1 || paymentTypeNumber == 2 ){
+			this.paymentType = String.valueOf(paymentTypeNumber);
+		}else{
+			throw new InvalidFormatException("Pagamento Type deve ser do tipo 1 ou do tipo 2");
+		}
 	}
 }
