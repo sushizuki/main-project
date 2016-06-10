@@ -8,7 +8,7 @@ public abstract class Validation {
 	/**
 	 * Check if a given string is not null or empty
 	 * @param string - The string to be checked
-	 * @return TRUE if the string is NOT empty, or FALSE if it does
+	 * @return TRUE if the string is NOT empty, or FALSE if it is
 	 */
 	public static boolean isNotEmpty(final String string){
 		
@@ -28,7 +28,7 @@ public abstract class Validation {
 	 * @param string - The string to be checked
 	 * @return TRUE if it contains only numbers, or FALSE if it does not
 	 */
-	public static boolean isNumber(String number){
+	public static boolean isNumber(final String number){
 		
 		Pattern numberPattern = Pattern.compile("\\d+(\\.\\d+)?");
 		Matcher numberMatcher = numberPattern.matcher(number);
@@ -44,7 +44,7 @@ public abstract class Validation {
 	 * @param string - The string to be checked
 	 * @return TRUE if it contains only numbers or decimal, or FALSE if it does not
 	 */
-	public static boolean containsOnlyNumbers(String string){
+	public static boolean containsOnlyNumbers(final String string){
 		
 		boolean containsOnlyNumbers = false;
 		
@@ -66,7 +66,7 @@ public abstract class Validation {
 		
 		boolean containsOnlyLetters = false;
 		
-		if(isNotEmpty(string) && string.matches("[a-zA-Zà-úÀ-Ú]+")){			
+		if(isNotEmpty(string) && string.matches("[a-zA-ZÃ -ÃºÃ€-Ãš]+")){			
 			containsOnlyLetters = true;		
 		} else{
 			containsOnlyLetters = false;
@@ -84,7 +84,7 @@ public abstract class Validation {
 		
 		boolean containsOnlyLetters = false;
 		
-		if(isNotEmpty(string) && string.matches("[a-zA-Zà-úÀ-Ú\\s]+")){	
+		if(isNotEmpty(string) && string.matches("[a-zA-ZÃ -ÃºÃ€-Ãš\\s]+")){	
 				containsOnlyLetters = true;			
 		} else{
 			containsOnlyLetters = false;
@@ -98,7 +98,7 @@ public abstract class Validation {
 	 * @param number - The integer to be checked
 	 * @return TRUE if is bigger than 0, or FALSE if it does not
 	 */
-	public static boolean isPositive(double number){
+	public static boolean isPositive(final double number){
 		
 		boolean isPositive = false;
 		
@@ -111,7 +111,7 @@ public abstract class Validation {
 		return isPositive;
 	}
 	
-	public static boolean isValidEmail(String email){
+	public static boolean isValidEmail(final String email){
 		
 		 Pattern emailPattern = Pattern.compile(".+@.+\\.[a-z]+");
 		 Matcher emailMatcher = emailPattern.matcher(email);
