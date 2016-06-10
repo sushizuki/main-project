@@ -1,15 +1,17 @@
 package tests.dao_tests;
 
 import static org.junit.Assert.*;
-
 import org.junit.After;
+
 import org.junit.Before;
 import org.junit.Test;
 
 public class UserDAOTest {
-
+	
+	
 	@Before
 	public void setUp() throws Exception {
+		
 	}
 
 	@After

@@ -7,6 +7,8 @@ import org.junit.Test;
 import domain.Product;
 import exceptions.EmptyFieldException;
 import exceptions.InvalidFormatException;
+import exceptions.InvalidValueException;
+import junit.framework.Assert;
 
 
 public class ProductTest {
@@ -16,6 +18,7 @@ public class ProductTest {
 	private String imageURL;
 	private String categoryOfProduct;
 	private String extra;
+	private Product product;
 
 	@Before
 	public void setUp() throws Exception {
@@ -29,63 +32,46 @@ public class ProductTest {
 
 	
 	@Test
-	public void testValidPrice() {
-		fail("Not yet implemented");
+	public void testValidFields() throws InvalidValueException, EmptyFieldException {
+		this.product = new Product(this.nameProduct, this.descriptionOfProduct, this.priceOfProduct,
+				this.imageURL, this.categoryOfProduct, this.extra);
+		Assert.assertEquals(this.nameProduct, this.product.getName());
+		Assert.assertEquals(this.descriptionOfProduct, this.product.getDescription());
+		Assert.assertEquals(this.priceOfProduct, this.product.getPrice());
+		Assert.assertEquals(this.extra, this.product.getExtra());
+		Assert.assertEquals(this.categoryOfProduct, this.product.getCategory());
+		Assert.assertEquals(this.imageURL, this.product.getImageURL());
 	}
 	
-	@Test
-	public void testInvalidPrice() {
-		fail("Not yet implemented");
+	@Test(expected = InvalidValueException.class)
+	public void testInvalidPrice() throws InvalidValueException, EmptyFieldException {
+		double price = -1;
+		this.product = new Product(this.nameProduct, this.descriptionOfProduct, price,
+				this.imageURL, this.categoryOfProduct, this.extra);
 	}
 
-	@Test
-	public void testValidDescription() {
-		fail("Not yet implemented");
+		
+	@Test(expected = EmptyFieldException.class)
+	public void testEmptyDescription() throws InvalidValueException, EmptyFieldException {
+		String description = "";
+		this.product = new Product(this.nameProduct, description, this.priceOfProduct,
+				this.imageURL, this.categoryOfProduct, this.extra);
+	}
+
+	
+	@Test(expected = EmptyFieldException.class)
+	public void testEmptyName() throws InvalidValueException, EmptyFieldException {
+		String name = "";
+		this.product = new Product(name, this.descriptionOfProduct, this.priceOfProduct,
+				this.imageURL, this.categoryOfProduct, this.extra);
+	}
+
+	
+	@Test (expected = EmptyFieldException.class)
+	public void testEmptyImageURL() throws InvalidValueException, EmptyFieldException {
+		String url = "";
+		this.product = new Product(this.nameProduct, this.descriptionOfProduct, this.priceOfProduct,
+									url, this.categoryOfProduct, this.extra);
 	}
 	
-	@Test
-	public void testEmptyDescription() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testValidName() {
-		fail("Not yet implemented");
-	}
-	
-	@Test
-	public void testEmptyName() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testValidImageURL() {
-		fail("Not yet implemented");
-	}
-	
-	@Test
-	public void testEmptyImageURL() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testValidCategoryString() {
-		fail("Not yet implemented");
-	}
-	
-	@Test
-	public void testInvalidCategoryString() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testValidCategoryId() {
-		fail("Not yet implemented");
-	}
-	
-	@Test
-	public void testInvalidCategoryId() {
-		fail("Not yet implemented");
-	}
-
 }
