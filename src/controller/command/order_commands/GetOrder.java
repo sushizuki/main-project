@@ -21,12 +21,12 @@ public class GetOrder implements Command {
 		this.pageToRedirec = "/shopping-cart.jsp"; //Default page to redirect
 	}
 	
-	public void setSession(HttpSession s){
-		this.session = s;
+	public void setSession(HttpSession session){
+		this.session = session;
 	}
 	
-	public void setPageToRedirect(String p){
-		this.pageToRedirec = p;
+	public void setPageToRedirect(String page){
+		this.pageToRedirec = page;
 	}
 	
 	public Order getOrder(){

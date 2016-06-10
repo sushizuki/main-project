@@ -1,3 +1,4 @@
+
 package tests.domain_tests;
 
 import static org.junit.Assert.assertEquals;
@@ -49,10 +50,17 @@ public class UserTest{
 			fail("Should not throw this exception: "+exception.getMessage());
 		}catch (EmptyFieldException exception){
 			fail("Should not throw this exception: "+exception.getMessage());
+		}	
+		
 	}
+	
+
+	@Test(expected = InvalidFormatException.class)
+	public void testNonLettersClientName() throws  InvalidFormatException, EmptyFieldException{
 		
+		String validClientName = "Allan 123";
 		
-		
+		client = new Client(validClientName,email, password, phone);
 	}
 
 	@Test(expected = EmptyFieldException.class)
@@ -67,14 +75,6 @@ public class UserTest{
 	public void testNullClientName() throws InvalidFormatException, EmptyFieldException{
 		
 		String validClientName = null;
-		
-		client = new Client(validClientName,email, password, phone);
-	}
-	
-	@Test(expected = InvalidFormatException.class)
-	public void testNonLettersClientName() throws  InvalidFormatException, EmptyFieldException{
-		
-		String validClientName = "Allan 123";
 		
 		client = new Client(validClientName,email, password, phone);
 	}

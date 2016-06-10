@@ -59,6 +59,8 @@ public class UserController extends HttpServlet {
 			if(command instanceof DoLogin){	
 				((DoLogin) command).setEmail(request.getParameter("email"));
 				((DoLogin) command).setPassword(request.getParameter("password"));				
+			}else{
+				// Do nothing
 			}
 		}
 	}
@@ -75,7 +77,11 @@ public class UserController extends HttpServlet {
 
 			if(!request.getParameter("redir").isEmpty() && request.getParameter("redir")!=null){
 				((DoLogin) command).setPageToRedirect(request.getParameter("redir"));
-			}				
+			}else{
+				// Do nothing
+			}
+		}else{
+			// Do nothing
 		}
 	}
 

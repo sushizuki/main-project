@@ -1,3 +1,4 @@
+
 package tests.domain_tests;
 
 import static org.junit.Assert.assertEquals;
