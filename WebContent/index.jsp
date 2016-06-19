@@ -1,6 +1,10 @@
 
 <%@page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<c:if test="${not empty param.language}">
+  <fmt:setLocale value="${param.language}" scope="session"/>
+</c:if>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -39,6 +43,15 @@
 								<li><a href="login">Login</a></li>
 							</c:otherwise>
 						</c:choose>
+						<li>
+					        <form>
+					            <select id="language" name="language" onchange="submit()">
+					                <option value=""><fmt:message key="mainMenu.language"/></option>
+					                <option value="pt-BR" ${language == 'pt-BR' ? 'selected' : ''}>Portugês BR</option>
+					                <option value="en" ${language == 'en' ? 'selected' : ''}>English</option>
+					            </select>
+					        </form>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -51,9 +64,9 @@
 					<li class="logo-wrapper"><a href="/sushizuki"> <img
 							src="img/sushi/sushizuki-logo.png" alt="Sushizuki">
 					</a></li>
-					<li class="active"><a href="/sushizuki">Home</a></li>
-					<li><a href="menu">Cardápio</a></li>
-					<li><a href="contact.jsp">Contatos</a></li>
+					<li class="active"><a href="/sushizuki"><fmt:message key="mainMenu.home"/></a></li>
+					<li><a href="menu"><fmt:message key="mainMenu.menu"/></a></li>
+					<li><a href="contact.jsp"><fmt:message key="mainMenu.contacts"/></a></li>
 				</ul>
 			</nav>
 			<!-- End Navigation bar -->
@@ -73,25 +86,25 @@
 					<!-- Slide 1 -->
 					<li class="bg1">
 						<h2 class="title">Sushi</h2>
-						<h3 class="subtitle">De Salmão, Kani e muito mais!</h3>
+						<h3 class="subtitle"><fmt:message key="sushi.flavors"/>De Salmão, Kani e muito mais!</h3>
 					</li>
 					<!-- End Slide 1 -->
 					<!-- Slide 2 -->
 					<li class="bg2">
 						<h2 class="title">Sashimi</h2>
-						<h3 class="subtitle">De Salmão</h3>
+						<h3 class="subtitle"><fmt:message key="sashimi.flavors"/>De Salmão</h3>
 					</li>
 					<!-- End Slide 2 -->
 					<!-- Slide 3 -->
 					<li class="bg3">
 						<h2 class="title">Temaki</h2>
-						<h3 class="subtitle">De Salmão e Kani</h3>
+						<h3 class="subtitle"><fmt:message key="temaki.flavors"/>De Salmão e Kani</h3>
 					</li>
 					<!-- End Slide 3 -->
 					<!-- Slide 4 -->
 					<li class="bg4">
 						<h2 class="title">Niguiri</h2>
-						<h3 class="subtitle">De Salmão e Skin</h3>
+						<h3 class="subtitle"><fmt:message key="niguiri.flavors"/>De Salmão e Skin</h3>
 					</li>
 					<!-- End Slide 4 -->
 				</ul>
@@ -113,8 +126,8 @@
 		<div class="container" style="height: 150px">
 			<div class="row">
 				<div class="calltoaction-wrapper">
-					<h3>Faça seu pedido agora!</h3>
-					<a href="menu" class="btn btn-orange">aqui!</a>
+					<h3><fmt:message key="banner.makeYourOrder"/></h3>
+					<a href="menu" class="btn btn-orange"><fmt:message key="button.here"/></a>
 				</div>
 			</div>
 		</div>
@@ -128,24 +141,24 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-footer col-md-4 col-sm-4 col-xs-12">
-					<h3>Navegação</h3>
+					<h3><fmt:message key="footer.navigation"/></h3>
 					<ul class="no-list-style footer-navigate-section">
-						<li><a href="index.jsp">Home</a></li>
-						<li><a href="menu">Cardápio</a></li>
-						<li><a href="contact.jsp">Contato</a></li>
+						<li><a href="index.jsp"><fmt:message key="mainMenu.home"/></a></li>
+						<li><a href="menu"><fmt:message key="mainMenu.menu"/></a></li>
+						<li><a href="contact.jsp"><fmt:message key="mainMenu.contacts"/></a></li>
 					</ul>
 				</div>
 
 				<div class="col-footer col-md-4 col-sm-4 col-xs-12">
-					<h3>Contato</h3>
+					<h3><fmt:message key="footer.contact"/></h3>
 					<p class="contact-us-details">
-						<b>Telefone:</b> (61) 8636 8825<br /> <b>Email:</b> <a
+						<b><fmt:message key="footer.phone"/>:</b> (61) 8636 8825<br /> <b>Email:</b> <a
 							href="mailto:">sushizukiii@gmail.com</a>
 					</p>
 				</div>
 
 				<div class="col-footer col-md-4 col-sm-4 col-xs-12">
-					<h3>Social</h3>
+					<h3><fmt:message key="footer.social"/></h3>
 					<ul class="footer-stay-connected no-list-style">
 						<li><a
 							href="https://www.facebook.com/SushiZuki-165405287145692/?fref=ts"
@@ -157,7 +170,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="footer-copyright">&copy; 2016 Sushizuki.
-						Brasília/DF.</div>
+						<fmt:message key="footer.city"/></div>
 				</div>
 			</div>
 		</div>
@@ -167,6 +180,8 @@
 	<!-- Javascripts -->
 	<script src="js/jquery-1.9.1.min.js"></script>
 	<script src="js/jquery.sequence-min.js"></script>
-	<!-- Slider -->
+	<script src="js/jquery.bxslider.js"></script>
+	<script src="js/main-menu.js"></script>
+	<script src="js/template.js"></script>
 </body>
 </html>
