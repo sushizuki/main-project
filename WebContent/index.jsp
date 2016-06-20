@@ -30,17 +30,17 @@
 								test="${order.items.size() > 0}">
 								<b><a href="shopping-cart"> <span id="items-in-cart">
 											<c:out value="${order.items.size() }"></c:out>
-									</span> itens
+									</span> <fmt:message key="mainMenu.itemsMessage"/>
 								</a></b>
 							</c:if></li>
 						<c:choose>
 							<c:when test="${user.name != null}">
 								<li><c:out value="${user.name}" /></li>
 								<li><a href="user?action=doLogout"><i
-										class="glyphicon glyphicon-off icon-white"> </i> Sair</a></li>
+										class="glyphicon glyphicon-off icon-white"> </i> <fmt:message key="mainMenu.logout"/></a></li>
 							</c:when>
 							<c:otherwise>
-								<li><a href="login">Login</a></li>
+								<li><a href="login"><fmt:message key="mainMenu.login"/></a></li>
 							</c:otherwise>
 						</c:choose>
 						<li>
@@ -86,25 +86,25 @@
 					<!-- Slide 1 -->
 					<li class="bg1">
 						<h2 class="title">Sushi</h2>
-						<h3 class="subtitle"><fmt:message key="sushi.flavors"/>De Salmão, Kani e muito mais!</h3>
+						<h3 class="subtitle"><fmt:message key="sushi.flavors"/></h3>
 					</li>
 					<!-- End Slide 1 -->
 					<!-- Slide 2 -->
 					<li class="bg2">
 						<h2 class="title">Sashimi</h2>
-						<h3 class="subtitle"><fmt:message key="sashimi.flavors"/>De Salmão</h3>
+						<h3 class="subtitle"><fmt:message key="sashimi.flavors"/></h3>
 					</li>
 					<!-- End Slide 2 -->
 					<!-- Slide 3 -->
 					<li class="bg3">
 						<h2 class="title">Temaki</h2>
-						<h3 class="subtitle"><fmt:message key="temaki.flavors"/>De Salmão e Kani</h3>
+						<h3 class="subtitle"><fmt:message key="temaki.flavors"/></h3>
 					</li>
 					<!-- End Slide 3 -->
 					<!-- Slide 4 -->
 					<li class="bg4">
 						<h2 class="title">Niguiri</h2>
-						<h3 class="subtitle"><fmt:message key="niguiri.flavors"/>De Salmão e Skin</h3>
+						<h3 class="subtitle"><fmt:message key="niguiri.flavors"/></h3>
 					</li>
 					<!-- End Slide 4 -->
 				</ul>
