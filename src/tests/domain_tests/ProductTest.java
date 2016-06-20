@@ -31,6 +31,7 @@ public class ProductTest {
 	}
 
 	
+<<<<<<< HEAD
 //	@Test
 //	public void testValidFields() throws InvalidValueException, EmptyFieldException {
 //		this.product = new Product(this.nameProduct, this.descriptionOfProduct, this.priceOfProduct,
