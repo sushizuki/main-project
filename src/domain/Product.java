@@ -40,6 +40,7 @@ public class Product {
 
 	public Product(String name, String description, double price, String imageURL,
 			String category, String extra) throws InvalidValueException, EmptyFieldException {
+		System.out.println("Name no construtor:"+name);
 		assert name != null: "Invalid Product name: null value cannot be accepted";
 		assert price >= 0: "Invalid Product price: negative price is not allowed";
 		
@@ -67,7 +68,7 @@ public class Product {
 		if(Validation.isPositive(price)){
 			this.priceOfProduct = price;
 		}else{
-			throw new InvalidValueException("O preço precisa ser positivo");
+			throw new InvalidValueException("O preço do produto precisa ser positivo");
 		}
 	}
 
@@ -91,7 +92,7 @@ public class Product {
 		if (Validation.isNotEmpty(name)){
 			this.nameProduct = name;
 		}else{
-			throw new EmptyFieldException("Nome não pode estar vazio!");
+			throw new EmptyFieldException("Nome do Produto não pode estar vazio!");
 		}
 	}
 
@@ -103,7 +104,7 @@ public class Product {
 		if (Validation.isNotEmpty(imageURL)){
 			this.imageURL = imageURL;
 		}else{
-			throw new EmptyFieldException("A URL da imagem não pode estar vazio!");
+			throw new EmptyFieldException("A URL da imagem do Produto não pode estar vazia!");
 		}
 	}
 
@@ -181,7 +182,7 @@ public class Product {
 			try {
 				this.extra = listOfExtra.get(Integer.parseInt(extra)-1);
 			}catch(RuntimeException e){
-				System.out.println("Error assigning extra");
+				System.out.println("Error assigning product extra");
 			}
         } else {
         	//do nothing

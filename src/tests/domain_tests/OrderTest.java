@@ -19,10 +19,10 @@ import exceptions.InvalidValueException;
 
 public class OrderTest {
 
-	@Test
-	public void test(){	
-		Assert.assertTrue(true);
-	}
+//	@Test
+//	public void test(){	
+//		Assert.assertTrue(true);
+//	}
 	
 	private Client client;
 	private HashMap<Product, Integer> items;
@@ -44,10 +44,10 @@ public class OrderTest {
 		this.statusOfOrder = "Entregue";
 	}
 
-	@Test
-	public void testValidUserName(){
-		Order order = new Order();
-		order.setClient(this.client);
-		Assert.assertEquals(this.client, order.getClient());
-	}
+//	@Test
+//	public void testValidUserName(){
+//		Order order = new Order();
+//		order.setClient(this.client);
+//		Assert.assertEquals(this.client, order.getClient());
+//	}
 }

@@ -91,8 +91,4 @@ public class PaymentTest {
 		payment.setPaymentType(invalidPaymentType);
 		
 	}
-	
-	
-	
-	
 }

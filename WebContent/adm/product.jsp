@@ -113,6 +113,7 @@
                                             <label>Imagem:</label>
 			            				 	<c:if test="${not empty product.imageURL}">
 			                                    <div class="well well-sm" style="width: 120px">
+			                                    	<input type="hidden" name="imageURL" value="<c:out value="${product.imageURL}" />">
 							                        <img src="../${product.imageURL}" data-lightbox="image-1" data-title="${product.name}" style="width:100px;" />
 							                    </div>
 		                                    </c:if>
@@ -121,8 +122,8 @@
                                          <div class="form-group">
                                         	<label>Categoria:</label>
                                         	<select name="category" class="form-control">
-                                        	<c:forEach items="${categories}" var="category" varStatus="theCount"> 
-												<option <c:if test="${product.category == category}">selected</c:if> value="${theCount.count}"><c:out value="${category}" /></option>
+                                        	<c:forEach items="${categories}" var="category"> 
+												<option <c:if test="${product.category == category}">selected</c:if> value="${category}"><c:out value="${category}" /></option>
 											</c:forEach>
 											</select>
                                         </div>                                                                      
