@@ -105,7 +105,7 @@
 							</div>
 						</div>
 					</div>
-					<div>
+					<div><br><br>
 						<p><fmt:message key="message.address"/><br>
 							<br> <b>SMPW Quadra 26 Conjunto 6 Lote 5 casa D, <br>Condomínio
 								Recanto da Primavera.
