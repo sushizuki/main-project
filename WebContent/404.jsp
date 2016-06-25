@@ -1,5 +1,9 @@
 <%@page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<c:if test="${not empty param.language}">
+  <fmt:setLocale value="${param.language}" scope="session"/>
+</c:if>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -30,12 +34,21 @@
 							<c:when test="${user.name != null}">
 								<li><c:out value="${user.name}" /></li>
 								<li><a href="user?action=doLogout"><i
-										class="glyphicon glyphicon-off icon-white"> </i> Sair</a></li>
+										class="glyphicon glyphicon-off icon-white"> </i> <fmt:message key="mainMenu.logout"/></a></li>
 							</c:when>
 							<c:otherwise>
 								<li><a href="login">Login</a></li>
 							</c:otherwise>
 						</c:choose>
+						<li>
+					        <form>
+					            <select id="language" name="language" onchange="submit()">
+					                <option value=""><fmt:message key="mainMenu.language"/></option>
+					                <option value="pt-BR" ${language == 'pt-BR' ? 'selected' : ''}>Portugês BR</option>
+					                <option value="en" ${language == 'en' ? 'selected' : ''}>English</option>
+					            </select>
+					        </form>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -48,9 +61,9 @@
 					<li class="logo-wrapper"><a href="/sushizuki"> <img
 							src="img/sushi/sushizuki-logo.png" alt="Sushizuki">
 					</a></li>
-					<li><a href="/sushizuki">Home</a></li>
-					<li><a href="menu">Cardápio</a></li>
-					<li><a href="contact.jsp">Contatos</a></li>
+					<li><a href="/sushizuki"><fmt:message key="mainMenu.home"/></a></li>
+					<li><a href="menu"><fmt:message key="mainMenu.menu"/></a></li>
+					<li><a href="contact.jsp"><fmt:message key="mainMenu.contacts"/></a></li>
 				</ul>
 			</nav>
 			<!-- End Navigation bar -->
@@ -62,18 +75,18 @@
 	<!-- Main Content  -->
 	<div class="content container">
 		<div class="row">
-			<h2>Erro!</h2>
+			<h2><fmt:message key="message.error"/></h2>
 		</div>
 		<div class="col-md-12 col-sm-12 col-xs-12">
 			<div class="alert alert-warning" role="alert" style="padding: 50px">
 				<h3>
 					<span class="glyphicon glyphicon-exclamation-sign"
-						aria-hidden="true"></span> Hmm... Página não encontrada!
+						aria-hidden="true"></span><fmt:message key="message.test"/>
 				</h3>
 				<p>
-					Ocorreu um erro ao processar sua requisição:
+					<fmt:message key="message.processError"/>
 				</p>
-				<a href="#" onclick="history.go(-1)">Voltar</a>
+				<a href="#" onclick="history.go(-1)"><fmt:message key="button.back"/></a>
 			</div>
 		</div>
 	</div>
@@ -83,24 +96,24 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-footer col-md-4 col-sm-4 col-xs-12">
-					<h3>Navegação</h3>
+					<h3><fmt:message key="footer.navigation"/></h3>
 					<ul class="no-list-style footer-navigate-section">
-						<li><a href="index.jsp">Home</a></li>
-						<li><a href="menu">Cardápio</a></li>
-						<li><a href="contact.jsp">Contato</a></li>
+						<li><a href="index.jsp"><fmt:message key="mainMenu.home"/></a></li>
+						<li><a href="menu"><fmt:message key="mainMenu.menu"/></a></li>
+						<li><a href="contact.jsp"><fmt:message key="mainMenu.contacts"/></a></li>
 					</ul>
 				</div>
 
 				<div class="col-footer col-md-4 col-sm-4 col-xs-12">
-					<h3>Contato</h3>
+					<h3><fmt:message key="footer.contact"/></h3>
 					<p class="contact-us-details">
-						<b>Telefone:</b> (61) 8636 8825<br /> <b>Email:</b> <a
+						<b><fmt:message key="footer.phone"/></b> (61) 8636 8825<br /> <b>Email:</b> <a
 							href="mailto:">sushizukiii@gmail.com</a>
 					</p>
 				</div>
 
 				<div class="col-footer col-md-4 col-sm-4 col-xs-12">
-					<h3>Social</h3>
+					<h3><fmt:message key="footer.social"/></h3>
 					<ul class="footer-stay-connected no-list-style">
 						<li><a
 							href="https://www.facebook.com/SushiZuki-165405287145692/?fref=ts"
@@ -112,7 +125,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="footer-copyright">&copy; 2016 Sushizuki.
-						Brasília/DF.</div>
+						<fmt:message key="footer.city"/></div>
 				</div>
 			</div>
 		</div>
