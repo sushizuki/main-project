@@ -1,6 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<c:if test="${not empty param.language}">
+  <fmt:setLocale value="${param.language}" scope="session"/>
+</c:if>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -42,10 +45,17 @@
 					data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
 						<c:out value="${user.name} " /><i class="fa fa-caret-down"></i>
 				</a>
+				<form>
+					 <select id="language" name="language" onchange="submit()">
+					        <option value=""><fmt:message key="mainMenu.language"/></option>
+					        <option value="pt-BR" ${language == 'pt-BR' ? 'selected' : ''}>Português BR</option>
+					        <option value="en" ${language == 'en' ? 'selected' : ''}>English</option>
+					 </select>
+				</form>
 					<ul class="dropdown-menu dropdown-user">
 						<li class="divider"></li>
 						<li><a href="../User?action=doLogout"><i
-								class="fa fa-sign-out fa-fw"></i> Sair</a></li>
+								class="fa fa-sign-out fa-fw"></i><fmt:message key="mainMenu.logout"/></a></li>
 					</ul> <!-- /.dropdown-user --></li>
 				<!-- /.dropdown -->
 			</ul>
@@ -55,9 +65,8 @@
 				<div class="sidebar-nav navbar-collapse">
 					<ul class="nav" id="side-menu">
 						<li><a href="Order?action=getOrderList"><i
-								class="fa fa-shopping-cart fa-fw"></i> Pedidos</a></li>
-						<li><a href="Product"><i class="fa fa-cutlery fa-fw"></i>
-								Produtos</a></li>
+								class="fa fa-shopping-cart fa-fw"></i><fmt:message key="menu.orders"/></a></li>
+						<li><a href="Product"><i class="fa fa-cutlery fa-fw"></i><fmt:message key="menu.products"/></a></li>
 					</ul>
 				</div>
 				<!-- /.sidebar-collapse -->
@@ -67,32 +76,31 @@
 
 		<div id="page-wrapper">
 			<div class="row">
-				<h1 class="page-header">Produtos</h1>
+				<h1 class="page-header"><fmt:message key="menu.products"/></h1>
 				<div class="message" id="message">
 					<c:if test="${message == 'sucess'}">
 						<div class="alert alert-success alert-dismissable fade">
 							<button type="button" class="close" data-dismiss="alert"
 								aria-hidden="true">&times;</button>
-							Realizado com sucesso!
+							<fmt:message key="message.confirmation"/>
 						</div>
 					</c:if>
 					<c:if test="${message == 'failure'}">
 						<div class="alert alert-danger alert-dismissable fade">
 							<button type="button" class="close" data-dismiss="alert"
 								aria-hidden="true">&times;</button>
-							Algum erro ocorreu.
+							<fmt:message key="message.error"/>
 						</div>
 					</c:if>
 				</div>
 				<div class="form-group">
-					<a class="btn btn-primary" href="Product?action=newProduct">Cadastrar
-						novo produto</a>
+					<a class="btn btn-primary" href="Product?action=newProduct"><fmt:message key="product.new"/></a>
 				</div>
 			</div>
 			<!-- /.row -->
 			<div class="row">
 				<div class="panel panel-default">
-					<div class="panel-heading">Lista de produtos cadastrados</div>
+					<div class="panel-heading"><fmt:message key="list.products"/></div>
 					<!-- /.panel-heading -->
 					<div class="panel-body">
 						<div class="dataTable_wrapper">
@@ -100,13 +108,13 @@
 								id="dataTables-example">
 								<thead>
 									<tr>
-										<th style="display: none">ID</th>
-										<th style="width: 150px;">Nome</th>
-										<th style="width: 350px;">Descrição</th>
-										<th class="center" style="width: 100px;">Preço</th>
-										<th class="center" style="width: 150px;">Categoria</th>
-										<th class="center">Imagem</th>
-										<th class="center" style="width: 150px;">Ações</th>
+										<th style="display: none"><fmt:message key="product.id"/></th>
+										<th style="width: 150px;"><fmt:message key="product.name"/></th>
+										<th style="width: 350px;"><fmt:message key="product.description"/></th>
+										<th class="center" style="width: 100px;"><fmt:message key="product.price"/></th>
+										<th class="center" style="width: 150px;"><fmt:message key="product.category"/></th>
+										<th class="center"><fmt:message key="product.image"/></th>
+										<th class="center" style="width: 150px;"><fmt:message key="product.action"/></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -123,14 +131,15 @@
 													test="${product.imageURL != null}">
 													<a href="../${product.imageURL}" data-lightbox="image-1"
 														data-title="${product.name}"
-														class="btn btn-outline btn-primary btn-xs"> Ver </a>
+														class="btn btn-outline btn-primary btn-xs"><fmt:message key="action.see"/></a>
 												</c:if></td>
 											<td class="center"><a
 												class="btn btn-outline btn-primary btn-xs"
-												href="Product?action=getProduct&id=<c:out value="${product.id}"/>">Editar</a>
+												href="Product?action=getProduct&id=<c:out value="${product.id}"/>">
+												<fmt:message key="action.edit"/></a>
 												<a class="btn btn-outline btn-primary btn-xs"
 												href="Product?action=deleteProduct&id=<c:out value="${product.id}"/>"
-												data-confirm="Tem certeza que deseja excluir?">Excluir</a></td>
+												data-confirm="Tem certeza que deseja excluir?"><fmt:message key="action.delete"/></a></td>
 										</tr>
 									</c:forEach>
 								</tbody>

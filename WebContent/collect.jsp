@@ -46,7 +46,7 @@
 					        <form>
 					            <select id="language" name="language" onchange="submit()">
 					                <option value=""><fmt:message key="mainMenu.language"/></option>
-					                <option value="pt-BR" ${language == 'pt-BR' ? 'selected' : ''}>Portugês BR</option>
+					                <option value="pt-BR" ${language == 'pt-BR' ? 'selected' : ''}>Português BR</option>
 					                <option value="en" ${language == 'en' ? 'selected' : ''}>English</option>
 					            </select>
 					        </form>
