@@ -34,7 +34,7 @@
 								<c:when test="${user.name != null}">
 									<li><c:out value="${user.name}" /></li>
 									<li><a href="user?action=doLogout"><i
-											class="glyphicon glyphicon-off icon-white"> </i> Sair</a></li>
+											class="glyphicon glyphicon-off icon-white"> </i><fmt:message key="mainMenu.logout"/></a></li>
 								</c:when>
 								<c:otherwise>
 									<li><a href="login">Login</a></li>

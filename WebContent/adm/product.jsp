@@ -1,5 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<c:if test="${not empty param.language}">
+  <fmt:setLocale value="${param.language}" scope="session"/>
+</c:if>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,14 +35,21 @@
                 <a class="navbar-brand" href="dashboard.jsp"><img src="../img/sushi/sushizuki-logo.png" style="width:100px;" alt="Sushizuki" /></a>
             </div>
             <!-- /.navbar-header -->           
-            <ul class="nav navbar-top-links navbar-right">                
+            <ul class="nav navbar-top-links navbar-right">
+            	<form>
+					 <select id="language" name="language" onchange="submit()">
+					        <option value=""><fmt:message key="mainMenu.language"/></option>
+					        <option value="pt-BR" ${language == 'pt-BR' ? 'selected' : ''}>Português BR</option>
+					        <option value="en" ${language == 'en' ? 'selected' : ''}>English</option>
+					 </select>
+				</form>              
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i> <c:out value="${user.name} " /> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li class="divider"></li>
-                        <li><a href="../User?action=doLogout"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
+                        <li><a href="../User?action=doLogout"><i class="fa fa-sign-out fa-fw"></i><fmt:message key="mainMenu.logout"/></a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -50,10 +61,10 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="Order?action=getOrderList"><i class="fa fa-shopping-cart fa-fw"></i> Pedidos</a>
+                            <a href="Order?action=getOrderList"><i class="fa fa-shopping-cart fa-fw"></i><fmt:message key="menu.orders"/></a>
                         </li>
                         <li>
-                            <a href="Product"><i class="fa fa-cutlery fa-fw"></i> Produtos</a>
+                            <a href="Product"><i class="fa fa-cutlery fa-fw"></i><fmt:message key="menu.products"/></a>
                         </li>
                     </ul>
                 </div>
@@ -68,17 +79,17 @@
 		            		 <c:if test="${message == 'sucess'}">
 					        	<div class="alert alert-success alert-dismissable">
 					                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					                Realizado com sucesso!
+					                <fmt:message key="message.confirmation"/>
 					            </div>
 				            </c:if>
 				        	<c:if test="${message == 'failure'}">            
 					            <div class="alert alert-danger alert-dismissable">
 					                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-					                Algum erro ocorreu.
+					                <fmt:message key="message.error"/>
 					            </div>
 				            </c:if>
 		            	</div>
-                    <h1 class="page-header">Produto</h1>
+                    <h1 class="page-header"><fmt:message key="menu.products"/></h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -138,7 +149,7 @@
                     </div>
                     <!-- /.panel -->
                     <p>
-                    	<a class="btn btn-outline btn-primary" href="Product">Voltar</a>
+                    	<a class="btn btn-outline btn-primary" href="Product"><fmt:message key="action.goBack"/></a>
                     </p>
                 </div>
                 <!-- /.col-lg-12 -->
