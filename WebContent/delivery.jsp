@@ -75,93 +75,93 @@
 		</div>
 		<!-- End top bar  -->
 		<!-- Main content -->
-	<div class="content container">
-		<div class="row">
-			<h2>Entrega em domicílio</h2>
-		</div>
-		<form role="form" name="formDelivery"
-			action="Order?action=setDeliveryDetails" method="post">
+		<div class="content container">
 			<div class="row">
-				<div class="col-md-6">
-					<p>Informe o endereço para entrega do seu pedido.</p>
-					<br />
+				<h2><fmt:message key="title.delivery"/></h2>
+			</div>
+			<form role="form" name="formDelivery"
+				action="Order?action=setDeliveryDetails" method="post">
+				<div class="row">
+					<div class="col-md-6">
+						<p><fmt:message key="title.formAddress"/></p>
+						<br />
+						<div class="col-md-6">
+							<div class="input-group">
+								<label><input type="radio" checked="checked"
+									id="client-addr" name="address" value="client"> <i
+									class="glyphicon glyphicon-home"></i> <fmt:message key="address.registered"/> </label>
+								<div class="input-group">
+									<input type="hidden" name="clientAddrId"
+										value="1${user.address.id}" class="validate">
+									<div>
+										<p>${user.address}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-12 col-xs-12 pull-left">
+							<div class="input-group">
+								<label><input type="radio" id="new-addr" name="address"
+									value="new"> <i class="glyphicon glyphicon-home"></i> 
+									<fmt:message key="address.other"/> </label>
+								<div class="">
+									<label><fmt:message key="address.cep"/> <input type="text" data-mask="00000-000"
+										readonly="readonly" value="" id="cep" name="newCep" size="9"
+										class="form-control new-addrInput cep validateNewAddr">
+									</label><br /> <label><fmt:message key="address.address"/> <input type="text"
+										readonly="readonly" value="" name="newAddress"
+										class="form-control new-addrInput validateNewAddr">
+									</label><br /> <label><fmt:message key="address.complement"/> <input type="text"
+										readonly="readonly" value="" name="newComplement"
+										class="form-control new-addrInput">
+									</label>
+								</div>
+							</div>
+							<br>
+							<p id="info-addr" class="alert-warning"
+								style="padding: 10px; display: none;">
+								<i class="glyphicon glyphicon-alert icon-dark"></i> 
+								<fmt:message key="description.address"/>
+							</p>
+						</div>
+					</div>
 					<div class="col-md-6">
 						<div class="input-group">
-							<label><input type="radio" checked="checked"
-								id="client-addr" name="address" value="client"> <i
-								class="glyphicon glyphicon-home"></i> No endereço cadastrado. </label>
+							<p><fmt:message key="title.formdate"/>.</p>
+							<br />
+							<p class="alert-warning" style="padding: 10px;">
+								<i class="glyphicon glyphicon-alert icon-dark"></i> 
+								<fmt:message key="description.date"/>
+							</p>
+							<br>
 							<div class="input-group">
-								<input type="hidden" name="clientAddrId"
-									value="1${user.address.id}" class="validate">
-								<div>
-									<p>${user.address}</p>
+								<div class="input-group bootstrap-timepicker timepicker">
+									<span class="input-group-addon"> <label for="datepicker"><i
+											class="glyphicon glyphicon-calendar"></i></label>
+									</span> <input id="datepicker" type="text"
+										class="form-control validate" readonly="readonly"
+										style="background: white; cursor: text;" name="date">
+								</div>
+								<div class="input-group bootstrap-timepicker timepicker">
+									<span class="input-group-addon"><i
+										class="glyphicon glyphicon-time"></i></span> <input id="timepicker"
+										type="text" class="form-control input-small validate"
+										name="time">
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col-md-6 col-sm-12 col-xs-12 pull-left">
-						<div class="input-group">
-							<label><input type="radio" id="new-addr" name="address"
-								value="new"> <i class="glyphicon glyphicon-home"></i> Em
-								outro endereço. </label>
-							<div class="">
-								<label>CEP: <input type="text" data-mask="00000-000"
-									readonly="readonly" value="" id="cep" name="newCep" size="9"
-									class="form-control new-addrInput cep validateNewAddr">
-								</label><br /> <label>Endereço: <input type="text"
-									readonly="readonly" value="" name="newAddress"
-									class="form-control new-addrInput validateNewAddr">
-								</label><br /> <label>Complemento: <input type="text"
-									readonly="readonly" value="" name="newComplement"
-									class="form-control new-addrInput">
-								</label>
-							</div>
-						</div>
-						<br>
-						<p id="info-addr" class="alert-warning"
-							style="padding: 10px; display: none;">
-							<i class="glyphicon glyphicon-alert icon-dark"></i> Somente
-							Quadras 26, 27, 28 e 29 do Park Way!
-						</p>
-					</div>
 				</div>
-				<div class="col-md-6">
-					<div class="input-group">
-						<p>Informe a data e horário para a entrega do seu pedido.</p>
-						<br />
-						<p class="alert-warning" style="padding: 10px;">
-							<i class="glyphicon glyphicon-alert icon-dark"></i> Somente dias
-							de Sexta-feira, Sábado ou Domingo!
-						</p>
-						<br>
-						<div class="input-group">
-							<div class="input-group bootstrap-timepicker timepicker">
-								<span class="input-group-addon"> <label for="datepicker"><i
-										class="glyphicon glyphicon-calendar"></i></label>
-								</span> <input id="datepicker" type="text"
-									class="form-control validate" readonly="readonly"
-									style="background: white; cursor: text;" name="date">
-							</div>
-							<div class="input-group bootstrap-timepicker timepicker">
-								<span class="input-group-addon"><i
-									class="glyphicon glyphicon-time"></i></span> <input id="timepicker"
-									type="text" class="form-control input-small validate"
-									name="time">
-							</div>
-						</div>
-					</div>
+				<hr />
+				<!-- Action Buttons -->
+				<div class="row" style="text-align: right" style="background:red;">
+					<button type="button" class="btn btn-primary"
+						onclick="history.go(-1)"><fmt:message key="action.goBack"/></button>
+					<button type="submit" class="btn btn-primary" disabled="disabled"><fmt:message key="action.confirm"/></button>
 				</div>
-			</div>
-			<hr />
-			<!-- Action Buttons -->
-			<div class="row" style="text-align: right" style="background:red;">
-				<button type="button" class="btn btn-primary"
-					onclick="history.go(-1)">Voltar</button>
-				<button type="submit" class="btn btn-primary" disabled="disabled">Continuar</button>
-			</div>
-		</form>
-	</div>
-	<!-- /.container -->
+			</form>
+		</div>
+		<!-- /.container -->
 
 			<!-- Footer -->
 		<div class="footer">
