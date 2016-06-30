@@ -1,6 +1,10 @@
+
 <%@page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<c:if test="${not empty param.language}">
+  <fmt:setLocale value="${param.language}" scope="session"/>
+</c:if>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -37,7 +41,7 @@
 						<ul class="dropdown-menu dropdown-user">
 							<li class="divider"></li>
 							<li><a href="../User?action=doLogout"><i
-									class="fa fa-sign-out fa-fw"></i> Sair</a></li>
+									class="fa fa-sign-out fa-fw"></i> <fmt:message key="mainMenu.logout"/></a></li>
 						</ul></li>
 					<!-- /.dropdown user actions -->
 				</ul>
@@ -48,9 +52,9 @@
 					<div class="sidebar-nav navbar-collapse">
 						<ul class="nav" id="side-menu">
 							<li><a href="Order?action=getOrderList"><i
-									class="fa fa-shopping-cart fa-fw"></i> Pedidos</a></li>
+									class="fa fa-shopping-cart fa-fw"></i> <fmt:message key="menu.orders"/></a></li>
 							<li><a href="Product"><i class="fa fa-cutlery fa-fw"></i>
-									Produtos</a></li>
+									<fmt:message key="menu.products"/></a></li>
 						</ul>
 					</div>
 				</div>
@@ -63,12 +67,12 @@
 				<div class="row">
 					<h1 class="page-header">404 :/</h1>
 				</div>
-				<!-- /.row Message -->
+				<!-- /.row Message -->button.back
 	
 				<!-- Content row -->
 				<div class="row">					
-					<p>Algum erro ocorreu ao processar sua solicitação.</p>
-					<a href="#" onclick="history.go(-1)">Voltar</a>
+					<p><fmt:message key="message.erroAdmi"/></p>
+					<a href="#" onclick="history.go(-1)"><fmt:message key="button.back"/></a>
 				</div>
 				<!-- /. Content row -->
 	

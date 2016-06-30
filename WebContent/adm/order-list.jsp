@@ -1,6 +1,9 @@
 <%@page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<c:if test="${not empty param.language}">
+  <fmt:setLocale value="${param.language}" scope="session"/>
+</c:if>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -37,7 +40,7 @@
 						<ul class="dropdown-menu dropdown-user">
 							<li class="divider"></li>
 							<li><a href="../User?action=doLogout"><i
-									class="fa fa-sign-out fa-fw"></i> Sair</a></li>
+									class="fa fa-sign-out fa-fw"></i> <fmt:message key="mainMenu.logout"/></a></li>
 						</ul></li>
 					<!-- /.dropdown user actions -->
 				</ul>

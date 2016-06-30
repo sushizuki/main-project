@@ -81,7 +81,7 @@
 			<div class="alert alert-warning" role="alert" style="padding: 50px">
 				<h3>
 					<span class="glyphicon glyphicon-exclamation-sign"
-						aria-hidden="true"></span><fmt:message key="message.test"/>
+						aria-hidden="true"></span><fmt:message key="message.pageNotFound"/>
 				</h3>
 				<p>
 					<fmt:message key="message.processError"/>
