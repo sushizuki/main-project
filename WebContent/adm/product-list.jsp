@@ -40,18 +40,19 @@
 
 
 			<ul class="nav navbar-top-links navbar-right">
-
+				<li>
+				<form>
+					 <select id="language" name="language" onchange="submit()">
+					        <option value=""><fmt:message key="mainMenu.language"/></option>
+					        <option value="pt-BR" ${language == 'pt-BR' ? 'selected' : ''}>PortuguÃªs BR</option>
+					        <option value="en" ${language == 'en' ? 'selected' : ''}>English</option>
+					 </select>
+				</form>
+				</li>
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
 						<c:out value="${user.name} " /><i class="fa fa-caret-down"></i>
 				</a>
-				<form>
-					 <select id="language" name="language" onchange="submit()">
-					        <option value=""><fmt:message key="mainMenu.language"/></option>
-					        <option value="pt-BR" ${language == 'pt-BR' ? 'selected' : ''}>Português BR</option>
-					        <option value="en" ${language == 'en' ? 'selected' : ''}>English</option>
-					 </select>
-				</form>
 					<ul class="dropdown-menu dropdown-user">
 						<li class="divider"></li>
 						<li><a href="../User?action=doLogout"><i
