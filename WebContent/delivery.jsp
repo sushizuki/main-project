@@ -1,5 +1,9 @@
 <%@page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<c:if test="${not empty param.language}">
+  <fmt:setLocale value="${param.language}" scope="session"/>
+</c:if>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -15,52 +19,62 @@
 </head>
 <body>
 	<!-- Top bar-->
-	<div class="topbar-wrapper">
-		<div class="container">
-			<!-- Login and User area -->
-			<div class="menuextras">
-				<div class="extras">
-					<ul>
-						<li class="shopping-cart-items"><i
-							class="glyphicon glyphicon-shopping-cart icon-white"></i> <a
-							href="shopping-cart"> <b> <span id="items-in-cart">
-										<c:out value="${order.items.size() }"></c:out>
-								</span> itens
-							</b>
-						</a></li>
-						<c:choose>
-							<c:when test="${user.name != null}">
-								<li><c:out value="${user.name}" /></li>
-								<li><a href="user?action=doLogout"><i
-										class="glyphicon glyphicon-off icon-white"> </i> Sair</a></li>
-							</c:when>
-							<c:otherwise>
-								<li><a href="login">Login</a></li>
-							</c:otherwise>
-						</c:choose>
-					</ul>
+		<div class="topbar-wrapper">
+			<div class="container">
+				<!-- Login and User area -->
+				<div class="menuextras">
+					<div class="extras">
+						<ul>
+							<li class="shopping-cart-items"><i
+								class="glyphicon glyphicon-shopping-cart icon-white"></i> <a
+								href="shopping-cart"> <b> <span id="items-in-cart">
+											<c:out value="${order.items.size() }"></c:out>
+									</span> itens
+								</b>
+							</a></li>
+							<c:choose>
+								<c:when test="${user.name != null}">
+									<li><c:out value="${user.name}" /></li>
+									<li><a href="user?action=doLogout"><i
+											class="glyphicon glyphicon-off icon-white"> </i> Sair</a></li>
+								</c:when>
+								<c:otherwise>
+									<li><a href="login">Login</a></li>
+								</c:otherwise>
+							</c:choose>
+							<li>
+						        <form>
+						            <select id="language" name="language" onchange="submit()">
+						                <option value=""><fmt:message key="mainMenu.language"/></option>
+						                <option value="pt-BR" ${language == 'pt-BR' ? 'selected' : ''}>Português BR</option>
+						                <option value="en" ${language == 'en' ? 'selected' : ''}>English</option>
+						            </select>
+						        </form>
+							</li>
+						</ul>
+					</div>
 				</div>
-			</div>
-			<!-- End Login and User area -->
+				<!-- End Login and User area -->
 
-			<!--Navigation bar -->
-			<nav id="mainmenu" class="mainmenu">
-				<ul>
-					<!-- Image Logo -->
-					<li class="logo-wrapper"><a href="/sushizuki"> <img
-							src="img/sushi/sushizuki-logo.png" alt="Sushizuki">
-					</a></li>
-					<li><a href="/sushizuki">Home</a></li>
-					<li><a href="menu">Cardápio</a></li>
-					<li><a href="contact.jsp">Contatos</a></li>
-				</ul>
-			</nav>
-			<!-- End Navigation bar -->
+				<!--Navigation bar -->
+				<nav id="mainmenu" class="mainmenu">
+					<ul>
+						<!-- Image Logo -->
+						<li class="logo-wrapper"><a href="/sushizuki"> <img
+								src="img/sushi/sushizuki-logo.png" alt="Sushizuki">
+						</a></li>
+						<li><a href="/sushizuki"><fmt:message key="mainMenu.home"/></a></li>
+						<li class="active"><a href="menu"><fmt:message key="mainMenu.menu"/></a></li>
+						<li><a href="contact.jsp"><fmt:message key="mainMenu.contacts"/></a></li>
+
+					</ul>
+				</nav>
+				<!-- End Navigation bar -->
+			</div>
+			<!-- End container  -->
 		</div>
-		<!-- End container  -->
-	</div>
-	<!-- End top bar  -->
-	<!-- Main content -->
+		<!-- End top bar  -->
+		<!-- Main content -->
 	<div class="content container">
 		<div class="row">
 			<h2>Entrega em domicílio</h2>
@@ -149,45 +163,46 @@
 	</div>
 	<!-- /.container -->
 
-	<!-- Footer -->
-	<div class="footer">
-		<div class="container">
-			<div class="row">
-				<div class="col-footer col-md-4 col-sm-4 col-xs-12">
-					<h3>Navegação</h3>
-					<ul class="no-list-style footer-navigate-section">
-						<li><a href="index.jsp">Home</a></li>
-						<li><a href="menu">Cardápio</a></li>
-						<li><a href="contact.jsp">Contato</a></li>
-					</ul>
+			<!-- Footer -->
+		<div class="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-footer col-md-4 col-sm-4 col-xs-12">
+						<h3><fmt:message key="footer.navigation"/></h3>
+						<ul class="no-list-style footer-navigate-section">
+							<li><a href="index.jsp"><fmt:message key="mainMenu.home"/></a></li>
+							<li><a href="menu"><fmt:message key="mainMenu.menu"/></a></li>
+							<li><a href="contact.jsp"><fmt:message key="mainMenu.contacts"/></a></li>
+						</ul>
+					</div>
+	
+					<div class="col-footer col-md-4 col-sm-4 col-xs-12">
+						<h3><fmt:message key="footer.contact"/></h3>
+						<p class="contact-us-details">
+							<b><fmt:message key="footer.phone"/>:</b> (61) 8636 8825<br /> <b>Email:</b> <a
+								href="mailto:">sushizukiii@gmail.com</a>
+						</p>
+					</div>
+	
+					<div class="col-footer col-md-4 col-sm-4 col-xs-12">
+						<h3><fmt:message key="footer.social"/></h3>
+						<ul class="footer-stay-connected no-list-style">
+							<li><a
+								href="https://www.facebook.com/SushiZuki-165405287145692/?fref=ts"
+								class="facebook"></a></li>
+						</ul>
+					</div>
+	
 				</div>
-
-				<div class="col-footer col-md-4 col-sm-4 col-xs-12">
-					<h3>Contato</h3>
-					<p class="contact-us-details">
-						<b>Telefone:</b> (61) 8636 8825<br /> <b>Email:</b> <a
-							href="mailto:">sushizukiii@gmail.com</a>
-					</p>
-				</div>
-
-				<div class="col-footer col-md-4 col-sm-4 col-xs-12">
-					<h3>Social</h3>
-					<ul class="footer-stay-connected no-list-style">
-						<li><a
-							href="https://www.facebook.com/SushiZuki-165405287145692/?fref=ts"
-							class="facebook"></a></li>
-					</ul>
-				</div>
-
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<div class="footer-copyright">&copy; 2016 Sushizuki.
-						Brasília/DF.</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="footer-copyright">&copy; 2016 Sushizuki.
+							<fmt:message key="footer.city"/></div>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+		<!-- End footer --> 
 	<!-- End footer -->
 
 	<!-- Javascripts -->
