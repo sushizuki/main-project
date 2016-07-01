@@ -41,7 +41,7 @@
 					        <option value="en" ${language == 'en' ? 'selected' : ''}>English</option>
 					 </select>
 				</form>
-				</li>   
+				</li>
 					<li class="dropdown"><a class="dropdown-toggle"
 						data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
 							<c:out value="${user.name} " /> <i class="fa fa-caret-down"></i>

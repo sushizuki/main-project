@@ -209,7 +209,7 @@
 							<div class="col-md-3 col-sm-3 col-xs-12">
 								<div class="cart-promo-code">
 									<h4>
-										<i class="glyphicon glyphicon-tag"></i> <fmt:message key="order.payment"/>:
+										<i class="glyphicon glyphicon-tag"></i> <fmt:message key="order.payment"/>
 									</h4>
 									<div class="input-group">
 										<div class="input-group">
@@ -223,7 +223,7 @@
 												value="money">&nbsp; <i
 												class="glyphicon glyphicon-usd"></i> <fmt:message key="option.money"/> </label>
 											<div class="input-group" style="margin-top: 15px;">
-												<label for="change"><fmt:message key="order.change"/>: <br>
+												<label for="change"><fmt:message key="order.change"/> <br>
 												</label>
 												<div class="input-group">
 													<span class="input-group-addon"><fmt:message key="symbol.money"/></span> <input

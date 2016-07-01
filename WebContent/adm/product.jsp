@@ -107,7 +107,7 @@
                                         	<input type="hidden" name="id" readonly value="<c:out value="${product.id}" />" />
                                             <label><fmt:message key="product.name"/>:</label>
                                             <input class="form-control" name="name" placeholder="Nome do produto" 
-                                            	value="<c:out value="${product.name}" />
+                                            	value="<c:out value="${product.name}"/>" />
                                         </div>
                                         <div class="form-group">
                                             <label><fmt:message key="product.description"/>:</label>
