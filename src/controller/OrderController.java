@@ -54,7 +54,7 @@ public class OrderController extends HttpServlet {
 
 			//Default action: List Products
 			if(action == null || action.isEmpty()){
-				action = "getOrderList";
+				action = "getOrder";
 			}else{
 				//Nothing to do
 			}
