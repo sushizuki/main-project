@@ -36,13 +36,15 @@
             </div>
             <!-- /.navbar-header -->           
             <ul class="nav navbar-top-links navbar-right">
+            	<li>
             	<form>
 					 <select id="language" name="language" onchange="submit()">
 					        <option value=""><fmt:message key="mainMenu.language"/></option>
 					        <option value="pt-BR" ${language == 'pt-BR' ? 'selected' : ''}>Português BR</option>
 					        <option value="en" ${language == 'en' ? 'selected' : ''}>English</option>
 					 </select>
-				</form>              
+				</form>
+				</li>              
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i> <c:out value="${user.name} " /> <i class="fa fa-caret-down"></i>
@@ -103,9 +105,9 @@
                                     <form role="form" name="formProduct" action="Product?action=insertProduct" method="post" enctype="multipart/form-data">
                                         <div class="form-group">
                                         	<input type="hidden" name="id" readonly value="<c:out value="${product.id}" />" />
-                                            <label><fmt:message key="product.name"/>: </label>
+                                            <label><fmt:message key="product.name"/>:</label>
                                             <input class="form-control" name="name" placeholder="Nome do produto" 
-                                            	value="<c:out value="${product.name}: />" />
+                                            	value="<c:out value="${product.name}" />
                                         </div>
                                         <div class="form-group">
                                             <label><fmt:message key="product.description"/>:</label>
@@ -113,7 +115,7 @@
                                             placeholder="Breve descrição para o produto"><c:out value="${product.description}" /></textarea>
                                         </div>
                                         <div class="form-group">
-                                            <label><fmt:message key="product.price"/>:</label>
+                                            <label><fmt:message key="product.price"/></label>
 	                                        <div class="input-group">
 	                                            <span class="input-group-addon">R$</span>
 	                                            <input type="text" name="price" id="price" class="form-control" style="width:80px;" maxlength="6"
@@ -121,7 +123,7 @@
 	                                        </div>
 	                                    </div>
                                         <div class="form-group">
-                                            <label><fmt:message key="product.image"/>:</label>
+                                            <label><fmt:message key="product.image"/></label>
 			            				 	<c:if test="${not empty product.imageURL}">
 			                                    <div class="well well-sm" style="width: 120px">
 			                                    	<input type="hidden" name="imageURL" value="<c:out value="${product.imageURL}" />">
@@ -131,7 +133,7 @@
                                             <input type="file" class="btn btn-default" name="img" accept="image/jpeg; image/png">
                                         </div>
                                          <div class="form-group">
-                                        	<label><fmt:message key="product.category"/>:</label>
+                                        	<label><fmt:message key="product.category"/></label>
                                         	<select name="category" class="form-control">
                                         	<c:forEach items="${categories}" var="category"> 
 												<option <c:if test="${product.category == category}">selected</c:if> value="${category}"><c:out value="${category}" /></option>
