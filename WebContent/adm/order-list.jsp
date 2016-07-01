@@ -51,9 +51,9 @@
 					<div class="sidebar-nav navbar-collapse">
 						<ul class="nav" id="side-menu">
 							<li><a href="Order?action=getOrderList"><i
-									class="fa fa-shopping-cart fa-fw"></i> Pedidos</a></li>
+									class="fa fa-shopping-cart fa-fw"></i><fmt:message key="menu.orders"/></a></li>
 							<li><a href="Product"><i class="fa fa-cutlery fa-fw"></i>
-									Produtos</a></li>
+									<fmt:message key="menu.products"/></a></li>
 						</ul>
 					</div>
 				</div>
@@ -64,20 +64,20 @@
 	
 				<!-- /.row Message -->
 				<div class="row">
-					<h1 class="page-header">Pedidos</h1>
+					<h1 class="page-header"><fmt:message key="menu.orders"/></h1>
 					<div class="message" id="message">
 						<c:if test="${message == 'sucess'}">
 							<div class="alert alert-success alert-dismissable fade">
 								<button type="button" class="close" data-dismiss="alert"
 									aria-hidden="true">&times;</button>
-								Realizado com sucesso!
+								<fmt:message key="message.confirmation"/>
 							</div>
 						</c:if>
 						<c:if test="${message == 'failure'}">
 							<div class="alert alert-danger alert-dismissable fade">
 								<button type="button" class="close" data-dismiss="alert"
 									aria-hidden="true">&times;</button>
-								Algum erro ocorreu.
+								<fmt:message key="message.error"/>
 							</div>
 						</c:if>
 					</div>
@@ -87,7 +87,7 @@
 				<!-- Content row -->
 				<div class="row">
 					<div class="panel panel-default">
-						<div class="panel-heading">Lista de pedidos.</div>
+						<div class="panel-heading"><fmt:message key="list.orders"/></div>
 						<!-- /.panel-heading -->
 						<div class="panel-body">
 							<div class="dataTable_wrapper">
@@ -95,11 +95,11 @@
 									id="dataTables-example">
 									<thead>
 										<tr>
-											<th>Pedido</th>
-											<th>Cliente</th>
-											<th class="center">Horário</th>
+											<th><fmt:message key="menu.orders"/></th>
+											<th><fmt:message key="client.name"/></th>
+											<th class="center"><fmt:message key="receiving.time"/></th>
 											<th class="center">Status</th>
-											<th class="center">Ação</th>
+											<th class="center"><fmt:message key="infor.action"/></th>
 										</tr>
 									</thead>
 									<tbody>
@@ -121,20 +121,20 @@
 												<td> 
 													<a class="btn btn-primary btn-outline btn-xs show-item"
 														href="#" id="${order.id }" style="width: 100%">
-														Ver detalhes </a>
+														<fmt:message key="info.details"/> </a>
 												</td>
 											</tr>
 											<div style="display: none;" class="orderDetail"
 												id="orderDetail-${order.id }">
 												<div class="col-lg-12">
-													<strong>Pedido: </strong>#
+													<strong><fmt:message key="info.order"/> </strong># 
 													<c:out value="${order.id}" />
 													<br>
-													<strong>Cliente: </strong>
+													<strong><fmt:message key="client.name"/> </strong>
 													<c:out value="${order.client.name}" />
 												</div>
 												<div class="col-lg-4" style="padding-bottom: 50px;">
-													<strong>Itens:</strong>
+													<strong><fmt:message key="info.item"/></strong>
 													<ul>
 														<c:forEach items="${order.items}" var="item">
 															<li>
@@ -145,7 +145,7 @@
 													</ul>
 												</div>
 												<div class="col-lg-4">
-													<strong>Adicionais:</strong>
+													<strong><fmt:message key="additional.confirmation"/></strong>
 													<ul>
 														<c:forEach items="${order.additionals}" var="additional">
 															<li><c:out value="${additional.name}" /></li>
@@ -153,11 +153,11 @@
 													</ul>
 												</div>
 												<div class="col-lg-4">
-													<strong>Pagamento:</strong>
+													<strong><fmt:message key="order.payment"/></strong>
 													<c:out value="${order.payment.paymentType}" />
 													<c:if test="${order.payment.change > 0.0}">
 														<br>
-														<strong>Troco para: </strong>
+														<strong><fmt:message key="order.change"/> </strong>
 														<fmt:formatNumber
 															value="${order.payment.change+order.totalPrice}"
 															type="currency" currencySymbol="R$" />
@@ -165,20 +165,20 @@
 												</div>
 												<div class="col-lg-4" style="padding-bottom: 50px;">
 													<br>
-													<strong>Recebimento: </strong><br>
+													<strong><fmt:message key="order.receipt"/></strong><br>
 													<c:choose>
 														<c:when
 															test="${order.receiving.getClass().name =='domain.Collect'}">
-	                                            			Coleta
+	                                            			<fmt:message key="order.collect"/>
 	                                            		</c:when>
 														<c:when
 															test="${order.receiving.getClass().name =='domain.Delivery'}">
-		                                            		Entrega - ${order.receiving.address.address }
+		                                            		<fmt:message key="order.delivery"/> - ${order.receiving.address.address }
 		                                          		</c:when>
 														<c:otherwise>${order.receiving.getClass().name}</c:otherwise>
 													</c:choose>
 													<br><br> 
-													<strong>Data e Hora: </strong><br>
+													<strong><fmt:message key="order.dateTime"/> </strong><br>
 													<fmt:formatDate type="both" pattern="dd/MM/yyyy HH:mm"
 														value="${order.receiving.dateTime.time}" />
 												</div>
